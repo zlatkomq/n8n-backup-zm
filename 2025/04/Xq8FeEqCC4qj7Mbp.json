@@ -1,0 +1,715 @@
+{
+  "active": false,
+  "connections": {
+    "mistral7b": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Question and Answer Chain1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Elastic Search Workflow Retriever": {
+      "ai_retriever": [
+        [
+          {
+            "node": "Question and Answer Chain1",
+            "type": "ai_retriever",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Request": {
+      "main": [
+        [
+          {
+            "node": "Is Valid Request?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        []
+      ]
+    },
+    "Is Valid Request?": {
+      "main": [
+        [
+          {
+            "node": "Is Challenge?",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Invalid Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Challenge?": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Is Direct Message?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Direct Message?": {
+      "main": [
+        [
+          {
+            "node": "Direct",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Mention",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mention": {
+      "main": [
+        [
+          {
+            "node": "Invalid Request1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Direct": {
+      "main": [
+        [
+          {
+            "node": "Check if its gibberish?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If not a bot": {
+      "main": [
+        [
+          {
+            "node": "Format Request",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "No Operation, do nothing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Question and Answer Chain1": {
+      "main": [
+        [
+          {
+            "node": "Postprocessing - Slack Format",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check if its gibberish?": {
+      "main": [
+        [
+          {
+            "node": "Is not gibberish?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is not gibberish?": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Random response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postprocessing - Slack Format": {
+      "main": [
+        [
+          {
+            "node": "Send Slack Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Random response": {
+      "main": [
+        [
+          {
+            "node": "Send Slack Response - Gibberish",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Question and Answer Chain1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-04-03T14:10:44.821Z",
+  "id": "Xq8FeEqCC4qj7Mbp",
+  "isArchived": false,
+  "meta": null,
+  "name": "knowladge_base_zlatko",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -600,
+        400
+      ],
+      "id": "86833fda-a9cc-4649-a6a0-5652a7c8da66",
+      "name": "When chat message received",
+      "webhookId": "932a5343-be1e-4687-af4b-e5a8e496613f"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.chatInput }}",
+        "options": {
+          "systemPromptTemplate": "=<s>[INST]\n<<SYS>>\nYou are Geppetto, an advanced language model assisting humans at Q Agency. Your responses must be based solely on the provided context. Summarize your answers into concise paragraphs, avoiding oversaturation. Always reference content by inserting links directly into your replies.\n\nSLACK FORMAT RULES (VERY IMPORTANT):\n- Bold: *asterisks* (NOT double)\n- Italic: _underscores_\n- Code: `backticks`\n- Quote: > at line start\n- Lists: * for bullets, 1. for numbers\n- Links: <URL|text> format\n\nFORMAT EXAMPLE:\n*Welcome* :wave:\nHow to get help:\n* <mailto:support@q.agency|Email support>\n* Check <https://kb.q.agency|Knowledge Base>\n> Important note here\n\nGUIDELINES:\n- Use ONLY context information\n- If info missing: \"This information isn't in our knowledge base. Please contact <mailto:support@q.agency|support@q.agency>.\"\n- Keep terms exact (\"quman\", \"proj\")\n- Include correct contact emails\n- Be clear and brief\n- Add helpful emoticons (:bulb:, :book:)\n- If gibberish input (\"adkfjsdkfj\"), do not respond at all\n\nGIBBERISH HANDLING:\n- If user input appears to be random characters, nonsensical text, or keyboard mashing (e.g., \"asdfkjhg\", \"sdfjksdlkfjs\", \"123asd435\"), do not attempt to respond.\n- For gibberish input, provide NO response at all - remain completely silent.\n- Only respond to queries that appear to be legitimate questions, commands, or statements in a recognizable language.\n- If unsure whether input is gibberish or just poorly formatted, err on the side of not responding.\n- Examples of gibberish to ignore: \"asdfjkl\", \"qwertyuiop\", \"zxcvbnm\", random character strings.\n\nRemember: *asterisks* for bold, _underscores_ for italic, <URL|text> for links.\n<</SYS>>\n\n{context}\n[User's question]\n[/INST]"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainRetrievalQa",
+      "typeVersion": 1.4,
+      "position": [
+        -60,
+        460
+      ],
+      "id": "c52e2458-67a3-46ed-8e63-fccba7c0d433",
+      "name": "Question and Answer Chain1"
+    },
+    {
+      "parameters": {
+        "model": "mistral:7b",
+        "options": {
+          "temperature": 0.4
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
+      "typeVersion": 1,
+      "position": [
+        -40,
+        680
+      ],
+      "id": "e42c79e0-6f84-4cb5-bea9-3ae1366ef696",
+      "name": "mistral7b",
+      "credentials": {
+        "ollamaApi": {
+          "id": "fv9DllLzKNe1SabK",
+          "name": "Ollama account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "gMhdTiMLYQRy3PKW",
+          "mode": "list",
+          "cachedResultName": "Elastic Search Workflow Retriever"
+        },
+        "fields": {
+          "values": [
+            {
+              "name": "query_text",
+              "stringValue": "={{ $('Direct').item.json.query }}"
+            }
+          ]
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.retrieverWorkflow",
+      "typeVersion": 1.1,
+      "position": [
+        100,
+        680
+      ],
+      "id": "4addb1ce-760a-42b4-b2ff-a933ecaae4f0",
+      "name": "Elastic Search Workflow Retriever"
+    },
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "requestData",
+              "value": "={{ $json.chatInput }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Format Request",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        -1600,
+        820
+      ],
+      "id": "f15a547a-d8d4-4dc7-a66b-5746abdd32cc"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "knowledge",
+        "options": {
+          "ignoreBots": false
+        }
+      },
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        -2160,
+        760
+      ],
+      "id": "1403ed42-47c3-4e6f-9783-74b2727ba16e",
+      "webhookId": "9c2c018b-0c4e-47aa-a3b3-d969f38c78a4"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{$json.requestData !== undefined}}",
+              "value2": true
+            }
+          ]
+        }
+      },
+      "name": "Is Valid Request?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        -1380,
+        820
+      ],
+      "id": "1869dd70-892f-4f95-bd2e-b564538c93e7"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.requestData.type }}",
+              "value2": "url_verification"
+            }
+          ]
+        }
+      },
+      "name": "Is Challenge?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        -1160,
+        720
+      ],
+      "id": "e3d098cb-a422-4191-baf2-8cd28ba6757b"
+    },
+    {
+      "parameters": {
+        "channel": "={{ $('Format Request').item.json.requestData.event.channel }}",
+        "text": "={{ $json.fixedResponse }}",
+        "otherOptions": {
+          "mrkdwn": true
+        },
+        "attachments": []
+      },
+      "name": "Send Slack Response",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 1,
+      "position": [
+        540,
+        560
+      ],
+      "id": "c70c73a4-e87e-4179-b31d-755d6ea7fde9"
+    },
+    {
+      "parameters": {},
+      "name": "Invalid Request",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        -1160,
+        920
+      ],
+      "id": "83d6686d-a1ec-4993-a409-45854ab37d59"
+    },
+    {
+      "parameters": {
+        "options": {
+          "responseCode": 200,
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-type",
+                "value": "text/plain"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        -720,
+        520
+      ],
+      "id": "5e3e47f3-e00d-49ce-8661-7998faad1666",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "56a4d752-3cc1-4c26-98a3-eff8247aaae0",
+              "name": "",
+              "value": "={{ $json.requestData.challenge }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -940,
+        520
+      ],
+      "id": "790d217b-2dc6-494c-8120-f8cbb0eecf4e",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.requestData.event.type }}",
+              "value2": "message"
+            }
+          ]
+        }
+      },
+      "name": "Is Direct Message?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        -940,
+        820
+      ],
+      "id": "75c98105-a986-4dff-804b-226e2d670986"
+    },
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "query",
+              "value": "={{ $json.requestData.event.blocks[0].elements[0].elements[1].text }}"
+            },
+            {
+              "name": "user_id",
+              "value": "={{ $json.requestData.event.blocks[0].elements[0].elements[0].user_id }}"
+            },
+            {
+              "name": "session_id",
+              "value": "={{ $json.requestData.event_id }}"
+            }
+          ],
+          "boolean": [
+            {
+              "name": "stream"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Mention",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        -720,
+        920
+      ],
+      "id": "e0ecef9f-628e-4659-aae7-6f3114357035"
+    },
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "query",
+              "value": "={{ $json.requestData.event.blocks[0].elements[0].elements[0].text }}"
+            },
+            {
+              "name": "user_id",
+              "value": "={{ $json.requestData.event.user }}"
+            },
+            {
+              "name": "session_id",
+              "value": "={{ $json.requestData.event_id }}"
+            },
+            {
+              "name": "channel_id"
+            }
+          ],
+          "boolean": [
+            {
+              "name": "stream"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Direct",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        -720,
+        720
+      ],
+      "id": "1e20e40b-77e7-4ebd-98b6-0b3c694826c6"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "b7457277-ce5a-444d-a04c-b43adb27b812",
+              "leftValue": "={{ $json.body.event.bot_id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notExists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -1820,
+        920
+      ],
+      "id": "1cad141c-cc7e-4584-8977-2f7ce789375e",
+      "name": "If not a bot"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        -1600,
+        1020
+      ],
+      "id": "ed3f6b42-c827-477c-b6af-e7826042562c",
+      "name": "No Operation, do nothing"
+    },
+    {
+      "parameters": {
+        "jsCode": "/**\n * Enhanced gibberish detection function\n * @param {string} input - The user input to check\n * @returns {boolean} - True if input is likely gibberish, false otherwise\n */\n/**\n * Improved gibberish detection with reduced false positives\n * @param {string} input - The user input to check\n * @returns {boolean} - True if input is likely gibberish, false otherwise\n */\nfunction isGibberish(input) {\n  // Normalize input\n  const text = input.trim().toLowerCase();\n  \n  // Skip very short inputs and questions\n  if (text.length <= 2) return false;\n  if (text.includes('?') || text.includes('!')) return false;\n  \n  // If contains multiple English words, it's not gibberish\n  const words = text.split(/\\s+/);\n  const commonWords = [\n    'a', 'an', 'the', 'this', 'that', 'these', 'those', 'it', 'is', 'are', 'am', 'was', 'were',\n    'be', 'been', 'being', 'have', 'has', 'had', 'do', 'does', 'did', 'will', 'would', 'shall',\n    'should', 'may', 'might', 'must', 'can', 'could', 'i', 'you', 'he', 'she', 'we', 'they',\n    'me', 'him', 'her', 'us', 'them', 'my', 'your', 'his', 'our', 'their', 'mine', 'yours',\n    'hers', 'ours', 'theirs', 'what', 'which', 'who', 'whom', 'whose', 'when', 'where', 'why',\n    'how', 'and', 'but', 'or', 'if', 'then', 'else', 'for', 'so', 'not', 'to', 'of', 'in',\n    'on', 'at', 'by', 'with', 'about', 'against', 'before', 'after', 'above', 'below', 'up',\n    'down', 'out', 'off', 'over', 'under', 'again', 'further', 'then', 'once', 'here', 'there',\n    'all', 'any', 'both', 'each', 'few', 'more', 'most', 'other', 'some', 'such', 'only', 'own',\n    'same', 'too', 'very', 'just', 'now', 'also', 'like', 'even', 'back', 'still', 'well',\n    'quite', 'rather', 'best', 'ever', 'yet', 'way', 'days', 'time', 'person', 'year', 'thing',\n    'want', 'need', 'use', 'make', 'look', 'try', 'tell', 'ask', 'work', 'seem', 'feel', 'try',\n    'leave', 'call', 'good', 'bad', 'new', 'first', 'last', 'long', 'great', 'little', 'get',\n    'go', 'come', 'know', 'take', 'see', 'say', 'think', 'find', 'give', 'help', 'certificates',\n    'we', 'have', 'do', 'what'\n  ];\n  \n  // Count recognized words\n  let recognizedCount = 0;\n  for (const word of words) {\n    if (word.length > 0 && commonWords.includes(word)) {\n      recognizedCount++;\n    }\n  }\n  \n  // If multiple known words are found, it's not gibberish\n  if (words.length >= 3 && recognizedCount >= 2) return false;\n  if (recognizedCount / words.length > 0.25) return false;\n  \n  // Now check for gibberish patterns\n  \n  // Check for repeated patterns like \"erterert\"\n  let hasRepeatedPatterns = false;\n  \n  // Check for 2-3 character repeated sequences\n  for (let i = 2; i <= 3; i++) {\n    if (text.length < i * 2) continue;\n    \n    for (let j = 0; j <= text.length - i * 2; j++) {\n      const pattern = text.substring(j, j + i);\n      // Look for the pattern repeating at least twice consecutively\n      const repeatedPattern = pattern.repeat(2);\n      if (text.substring(j, j + i * 2) === repeatedPattern) {\n        // Make sure it's a significant part of the text (avoid catching small repeats in normal text)\n        if (i * 2 > text.length / 3) {\n          hasRepeatedPatterns = true;\n          break;\n        }\n      }\n    }\n    if (hasRepeatedPatterns) break;\n  }\n  \n  // Check for keyboard patterns/rolls\n  const keyboardPatterns = [\n    'qwert', 'asdfg', 'zxcvb', 'yuiop', 'hjkl', 'bnm',\n    'qazwsx', 'wsxedc', 'edcrfv'\n  ];\n  \n  const containsKeyboardPattern = keyboardPatterns.some(pattern => \n    text.includes(pattern)\n  );\n  \n  // Check for unusual character repetition\n  const hasExcessiveRepetition = /(.)\\1{3,}/.test(text); // 4+ of same character\n  \n  // Check for unusual consonant sequences (4+ consonants in a row)\n  const hasLongConsonantGroups = /[bcdfghjklmnpqrstvwxyz]{4,}/i.test(text);\n  \n  // Combine checks - require multiple strong indicators\n  // Only flag as gibberish if multiple indicators are present or a single very strong one\n  \n  let gibberishScore = 0;\n  \n  if (hasRepeatedPatterns) gibberishScore += 3;\n  if (containsKeyboardPattern) gibberishScore += 3;\n  if (hasExcessiveRepetition) gibberishScore += 2;\n  if (hasLongConsonantGroups) gibberishScore += 2;\n  \n  // Short strings with no recognizable words\n  if (text.length < 10 && recognizedCount === 0) gibberishScore += 2;\n  \n  // Final decision - higher threshold to reduce false positives\n  return gibberishScore >= 3;\n}\n\n/**\n * Enhanced profanity detection with comprehensive wordlist\n * @param {string} input - The user input to check\n * @returns {boolean} - True if profanity detected, false otherwise\n */\nfunction containsProfanity(input) {\n  // Normalize text for checking\n  const text = input.toLowerCase().trim();\n  \n  // Comprehensive profanity list (abbreviated in this example)\n  const profanityList = [\n    // Common English profanities\n    'anal', 'anus', 'arse', 'ass', 'ballsack', 'balls', 'bastard', 'bitch', 'biatch', \n    'bloody', 'blowjob', 'bollock', 'bollok', 'boner', 'boob', 'bugger', 'bum', \n    'butt', 'buttplug', 'clitoris', 'cock', 'coon', 'crap', 'cunt', 'damn', 'dick',\n    'dildo', 'dyke', 'fag', 'feck', 'fellate', 'fellatio', 'felching', 'fuck',\n    'fudgepacker', 'flange', 'goddamn', 'hell', 'homo', 'jerk', 'jizz', 'knobend',\n    'labia', 'lmao', 'lmfao', 'muff', 'nigger', 'nigga', 'omg', 'penis', 'piss',\n    'poop', 'prick', 'pube', 'pussy', 'queer', 'scrotum', 'sex', 'shit', 'sh1t',\n    'slut', 'smegma', 'spunk', 'tit', 'tosser', 'turd', 'twat', 'vagina', 'wank',\n    'whore', 'wtf',\n    \n    // Additional variations and common obfuscations\n    \n    // Non-English profanities (examples)\n    'puta', 'cabron', 'mierda', 'cazzo', 'scheisse',\n    \n    // Add more as needed or import from external source\n  ];\n  \n  // Check for exact matches\n  for (const word of profanityList) {\n    const wordPattern = new RegExp(`\\\\b${word}\\\\b`, 'i');\n    if (wordPattern.test(text)) return true;\n  }\n  \n  // Check for common obfuscations with various separators\n  for (const word of profanityList.filter(w => w.length > 3)) {\n    const letters = word.split('');\n    // Create pattern that allows for separators between letters\n    const obfuscatedPattern = new RegExp(\n      '\\\\b' + letters.join('[\\\\*\\\\-\\\\_\\\\+\\\\.\\\\ \\\\@\\\\$\\\\#\\\\!\\\\?\\\\|\\\\d]*') + '\\\\b', 'i'\n    );\n    if (obfuscatedPattern.test(text)) return true;\n  }\n  \n  // Additional check for leet speak (e.g., \"f4ck\", \"sh17\")\n  const leetMap = { 'a': '4', 'e': '3', 'i': '1', 'o': '0', 's': '5', 't': '7' };\n  \n  for (const word of profanityList.filter(w => w.length > 3)) {\n    let leetPatterns = [word];\n    \n    // Generate leet speak variations\n    for (const [letter, num] of Object.entries(leetMap)) {\n      const newPatterns = [];\n      for (const pattern of leetPatterns) {\n        if (pattern.includes(letter)) {\n          newPatterns.push(pattern.replace(new RegExp(letter, 'g'), num));\n        }\n      }\n      leetPatterns = [...leetPatterns, ...newPatterns];\n    }\n    \n    // Check each leet pattern\n    for (const pattern of leetPatterns) {\n      if (pattern !== word) { // Skip the original word\n        const leetPattern = new RegExp(`\\\\b${pattern}\\\\b`, 'i');\n        if (leetPattern.test(text)) return true;\n      }\n    }\n  }\n  \n  return false;\n}\n\n// For n8n, process the input\nconst userInput = $input.first().json.query || '';\n\n// Run both checks\nconst isInputGibberish = isGibberish(userInput);\nconst isInputProfane = containsProfanity(userInput);\n\n// Log for debugging (can be removed in production)\nconsole.log(`Input: ${userInput}`);\nconsole.log(`Gibberish check: ${isInputGibberish}`);\nconsole.log(`Profanity check: ${isInputProfane}`);\n\n// Return the result\nif (isInputGibberish) {\n  return {\n    json: {\n      shouldProcessWithAI: false,\n      reason: 'Input appears to be gibberish',\n      originalInput: userInput\n    }\n  };\n} else if (isInputProfane) {\n  return {\n    json: {\n      shouldProcessWithAI: false,\n      reason: 'Input contains inappropriate language',\n      originalInput: userInput\n    }\n  };\n} else {\n  return {\n    json: {\n      shouldProcessWithAI: true,\n      originalInput: userInput\n    }\n  };\n}\n\n\n\n/**\n * Enhanced profanity detection with comprehensive wordlist\n * @param {string} input - The user input to check\n * @returns {boolean} - True if profanity detected, false otherwise\n */\nfunction containsProfanity(input) {\n  // Normalize text for checking\n  const text = input.toLowerCase().trim();\n  \n  // Comprehensive profanity list (abbreviated in this example)\n  const profanityList = [\n    // Common English profanities\n    'anal', 'anus', 'arse', 'ass', 'ballsack', 'balls', 'bastard', 'bitch', 'biatch', \n    'bloody', 'blowjob', 'bollock', 'bollok', 'boner', 'boob', 'bugger', 'bum', \n    'butt', 'buttplug', 'clitoris', 'cock', 'coon', 'crap', 'cunt', 'damn', 'dick',\n    'dildo', 'dyke', 'fag', 'feck', 'fellate', 'fellatio', 'felching', 'fuck',\n    'fudgepacker', 'flange', 'goddamn', 'hell', 'homo', 'jerk', 'jizz', 'knobend',\n    'labia', 'lmao', 'lmfao', 'muff', 'nigger', 'nigga', 'omg', 'penis', 'piss',\n    'poop', 'prick', 'pube', 'pussy', 'queer', 'scrotum', 'sex', 'shit', 'sh1t',\n    'slut', 'smegma', 'spunk', 'tit', 'tosser', 'turd', 'twat', 'vagina', 'wank',\n    'whore', 'wtf',\n    \n    // Plain text versions only (no special characters)\n    'fck', 'fcuk', 'fuk', 'fuc', 'btch', 'dck', 'pssy', 'sht',\n    \n    // Non-English profanities (examples)\n    'puta', 'cabron', 'mierda', 'cazzo', 'scheisse'\n    \n    // Add more as needed or import from external source\n  ];\n  \n  // Check for exact matches with proper regex escaping\n  for (const word of profanityList) {\n    try {\n      // Escape special regex characters in the word\n      const escapedWord = word.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\\\$&');\n      const wordPattern = new RegExp(`\\\\b${escapedWord}\\\\b`, 'i');\n      if (wordPattern.test(text)) return true;\n    } catch (error) {\n      console.log(`Error with word pattern: ${word}`);\n      // Continue checking other words even if one fails\n      continue;\n    }\n  }\n  \n  // Check for leetspeak and obfuscated versions separately\n  // Create a safe subset of the list (words without special characters)\n  const safeList = profanityList.filter(word => /^[a-z0-9]+$/i.test(word));\n  \n  // Check for obfuscations with separators\n  for (const word of safeList.filter(w => w.length > 3)) {\n    try {\n      const letters = word.split('');\n      // Create pattern that allows for separators between letters\n      const obfuscatedPattern = new RegExp(\n        '\\\\b' + letters.join('[\\\\*\\\\-\\\\_\\\\+\\\\.\\\\ \\\\@\\\\$\\\\#\\\\!\\\\?\\\\|\\\\d]*') + '\\\\b', 'i'\n      );\n      if (obfuscatedPattern.test(text)) return true;\n    } catch (error) {\n      // Skip if pattern creation fails\n      continue;\n    }\n  }\n  \n  // Check for leet speak variations separately using the safe list\n  const leetMap = { 'a': '4', 'e': '3', 'i': '1', 'o': '0', 's': '5', 't': '7' };\n  \n  for (const word of safeList.filter(w => w.length > 3)) {\n    // Start with direct substitutions rather than combinations\n    for (const [letter, num] of Object.entries(leetMap)) {\n      if (word.includes(letter)) {\n        try {\n          const leetVariation = word.replace(new RegExp(letter, 'g'), num);\n          const leetPattern = new RegExp(`\\\\b${leetVariation}\\\\b`, 'i');\n          if (leetPattern.test(text)) return true;\n        } catch (error) {\n          // Skip if pattern creation fails\n          continue;\n        }\n      }\n    }\n  }\n  \n  // Also check for these specific patterns that might not be caught above\n  const specialPatterns = [\n    /f+[\\W_]*u+[\\W_]*c+[\\W_]*k+/i,   // f*u*c*k and variations\n    /s+[\\W_]*h+[\\W_]*[i1]+[\\W_]*t+/i, // s*h*i*t and variations\n    /b+[\\W_]*[i1]+[\\W_]*t+[\\W_]*c+[\\W_]*h+/i, // b*i*t*c*h and variations\n    /a+[\\W_]*s+[\\W_]*s+/i,  // a*s*s and variations\n    /d+[\\W_]*[i1]+[\\W_]*c+[\\W_]*k+/i, // d*i*c*k and variations\n    /p+[\\W_]*[o0]+[\\W_]*r+[\\W_]*n+/i  // p*o*r*n and variations\n  ];\n  \n  for (const pattern of specialPatterns) {\n    if (pattern.test(text)) return true;\n  }\n  \n  return false;\n}"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -500,
+        720
+      ],
+      "id": "87c1a396-d967-459d-b5d5-f13586cefd4e",
+      "name": "Check if its gibberish?"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "f9ef2811-15b5-4dba-9b41-5e3b7c99c597",
+              "leftValue": "={{ $json.shouldProcessWithAI }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -280,
+        720
+      ],
+      "id": "d869b808-5376-4bb2-a9e6-0c8656716067",
+      "name": "Is not gibberish?"
+    },
+    {
+      "parameters": {
+        "channel": "={{ $('Format Request').item.json.requestData.event.channel }}",
+        "text": "=Qman, {{ $json.response }}",
+        "otherOptions": {
+          "mrkdwn": true
+        },
+        "attachments": []
+      },
+      "name": "Send Slack Response - Gibberish",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 1,
+      "position": [
+        320,
+        860
+      ],
+      "id": "6e5afaaf-d934-4249-881d-c8cac83269f3"
+    },
+    {
+      "parameters": {
+        "jsCode": "const aiResponse = items[0].json.response.text;\n\n// Fix bold formatting - convert **text** to *text*\nlet fixedResponse = aiResponse.replace(/\\*\\*(.*?)\\*\\*/g, '*$1*');\n\n// Fix italic formatting - convert both \"word\" and _word_ to _word_\nfixedResponse = fixedResponse.replace(/\"([^\"\\n]+?)\"/g, '_$1_');\nfixedResponse = fixedResponse.replace(/\"([^'\\n]+?)'/g, '_$1_');\nfixedResponse = fixedResponse.replace(/\\*([^*\\n]+?)\\*/g, '*$1*'); // Fix any regular markdown italics\n\n// Fix links - convert different link formats to Slack's <url|text>\n// Handle markdown style links [text](url)\nfixedResponse = fixedResponse.replace(/\\[(.*?)\\]\\((.*?)\\)/g, '<$2|$1>');\n\n// Handle plain URLs that should be linkified\n// This regex looks for URLs not already in Slack format\nconst urlRegex = /(?<!<)(https?:\\/\\/[^\\s<]+)(?![\\w\\s]*[|>])/g;\nfixedResponse = fixedResponse.replace(urlRegex, '<$1>');\n\n// Fix mailto links specifically\nfixedResponse = fixedResponse.replace(/\\[([^[\\]]+)\\]\\(mailto:([^()]+)\\)/g, '<mailto:$2|$1>');\nfixedResponse = fixedResponse.replace(/(?<!<)mailto:([^\\s<]+)(?![\\w\\s]*[|>])/g, '<mailto:$1>');\n\n// Ensure proper spacing for blockquotes (should be > at beginning of line)\nfixedResponse = fixedResponse.replace(/^>\\s*/gm, '> ');\n\n// Handle code blocks - convert triple backticks to single backticks for inline code\n// First save multi-line code blocks to replace them later\nconst codeBlocks = [];\nfixedResponse = fixedResponse.replace(/```(?:\\w+)?\\n([\\s\\S]*?)\\n```/g, (match, code) => {\n  const index = codeBlocks.length;\n  codeBlocks.push(code);\n  return `__CODE_BLOCK_${index}__`;\n});\n\n// For each code block, format it properly for Slack\n// Slack uses ``` for multi-line code blocks similar to markdown\nfor (let i = 0; i < codeBlocks.length; i++) {\n  // For multi-line code blocks, maintain the ``` format but ensure proper spacing\n  fixedResponse = fixedResponse.replace(`__CODE_BLOCK_${i}__`, \n    '```\\n' + codeBlocks[i].trim() + '\\n```');\n}\n\n// List indentation handling\n// Slack lists don't handle multiple levels of indentation well, so we'll normalize them\nlet lines = fixedResponse.split('\\n');\nlet inList = false;\nlet listIndentLevel = 0;\n\nfor (let i = 0; i < lines.length; i++) {\n  // Check for list items\n  const listMatch = lines[i].match(/^(\\s*)([*+-]|\\d+\\.)\\s/);\n  \n  if (listMatch) {\n    // This is a list item\n    inList = true;\n    const indent = listMatch[1].length;\n    \n    // Determine indentation level (0 for top level, 1+ for nested)\n    const currentLevel = Math.floor(indent / 2);\n    \n    if (currentLevel > 0) {\n      // For indented list items in Slack, we'll use spaces for indentation\n      // Slack typically uses 2 spaces per level\n      const slackIndent = '  '.repeat(currentLevel);\n      lines[i] = slackIndent + lines[i].trim();\n    } else {\n      // Top-level list items should be at the margin\n      lines[i] = lines[i].trim();\n    }\n    \n    listIndentLevel = currentLevel;\n  } else if (inList && lines[i].trim().length > 0 && lines[i].match(/^\\s+/)) {\n    // This is likely a continuation of a list item\n    // Preserve the current indentation level plus one more\n    const slackIndent = '  '.repeat(listIndentLevel + 1);\n    lines[i] = slackIndent + lines[i].trim();\n  } else {\n    inList = false;\n    listIndentLevel = 0;\n  }\n}\n\nfixedResponse = lines.join('\\n');\n\n// Check if any markdown links were missed\nif (fixedResponse.includes('[') && fixedResponse.includes('](')) {\n  // Add a warning to the output\n  console.log(\"Warning: Some markdown links may not have been properly converted\");\n}\n\n// Return both the original and fixed responses\nreturn {\n  json: {\n    originalResponse: aiResponse,\n    fixedResponse: fixedResponse,\n    formattingFixed: aiResponse !== fixedResponse\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        320,
+        560
+      ],
+      "id": "ce783126-6a9f-42b5-b8c9-35c47a51adc8",
+      "name": "Postprocessing - Slack Format"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Array of 20 humorous responses for nonsensical input\nconst funnyResponses = [\n  \"I'm fluent in gibberish too!\",\n  \"is that you, Shakespeare?\",\n  \"I think my circuits just did a somersault.\",\n  \"even my cat didn't understand that.\",\n  \"are we speaking in code now?\",\n  \"I love a good riddle, but I'm stumped!\",\n  \"you've discovered the secret language of the universe!\",\n  \"if I had a nickel for every time I heard that...\",\n  \"is this an elaborate prank?\",\n  \"I feel like we're on different wavelengths.\",\n  \"my brain just did a backflip.\",\n  \"are we playing charades?\",\n  \"I need a decoder ring for that one.\",\n  \"that's a new one for me!\",\n  \"I'm picking up what you're laying down... I think.\",\n  \"is this the latest trend in communication?\",\n  \"I might need a translator for that.\",\n  \"you're keeping me on my toes!\",\n  \"I appreciate your creativity!\",\n  \"let's try that again in a language I know.\"\n];\n\n// Select a random response from the array\nconst randomResponse = funnyResponses[Math.floor(Math.random() * funnyResponses.length)];\n\n// Return the selected response as the output of the node\nreturn [{ json: { response: randomResponse } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        20,
+        860
+      ],
+      "id": "1aca4d6e-6504-42d6-bdfc-bc2957afc5fa",
+      "name": "Random response"
+    },
+    {
+      "parameters": {},
+      "name": "Invalid Request1",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        -500,
+        920
+      ],
+      "id": "5e7fe3a3-f253-4e62-9091-c9f2c3a81c73"
+    }
+  ],
+  "pinData": {},
+  "repo_name": "n8n-backup-zm",
+  "repo_owner": "zlatkomq",
+  "repo_path": "",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-03-28T12:51:57.041Z",
+      "updatedAt": "2025-03-28T12:51:57.041Z",
+      "id": "zAqBHJiX4svNrPVZ",
+      "name": "Knowledge Base"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-04-03T14:30:55.959Z",
+  "versionId": "7be17793-cc93-45f1-ba87-269d7d9a53bc"
+}
