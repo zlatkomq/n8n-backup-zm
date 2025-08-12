@@ -1,0 +1,404 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "Set Page",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Ganttic Tasks": {
+      "main": [
+        [
+          {
+            "node": "Process Tasks",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Increment Page",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Process Tasks": {
+      "main": [
+        [
+          {
+            "node": "Insert Tasks",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Page": {
+      "main": [
+        [
+          {
+            "node": "Fetch Ganttic Tasks",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Increment Page": {
+      "main": [
+        [
+          {
+            "node": "Set Page",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "More Pages?": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Insert Tasks": {
+      "main": [
+        [
+          {
+            "node": "More Pages?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-03-25T14:08:16.216Z",
+  "id": "mX0or6yK6wLmj4Lh",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "PAGGINATE_TASKS_older_then4months",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1020,
+        -260
+      ],
+      "id": "ad8a562d-b86d-45ad-833a-4198d9b09e19",
+      "name": "When clicking ‘Test workflow’"
+    },
+    {
+      "parameters": {
+        "url": "https://planner.ganttic.com/api/v1/tasks",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "token",
+              "value": "9062f2555255d4e42a69eb2c54bbbcf61a61e03d2881f4480ea3a5e0e842b8f8"
+            },
+            {
+              "name": "includeEmptyDataFields",
+              "value": "0"
+            },
+            {
+              "name": "timeMin",
+              "value": "={{$now.minus(2, 'months').format('yyyy-MM-dd')}}"
+            },
+            {
+              "name": "timeMax",
+              "value": "={{$now.format('yyyy-MM-dd')}}"
+            },
+            {
+              "name": "page",
+              "value": "={{$json[\"page\"] || 1}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "c020c5b5-962d-4c33-a408-ad0fc41f98a1",
+      "name": "Fetch Ganttic Tasks",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        -140,
+        -260
+      ]
+    },
+    {
+      "parameters": {
+        "amount": 0.3
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        20,
+        0
+      ],
+      "id": "bc9d8863-21b7-4182-bc08-9a5197f72efa",
+      "name": "Wait",
+      "webhookId": "34f21572-31a2-4c5b-a08a-d4be2e33651d"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Process tasks\nconst item = items[0];\nconst pros = item.json.items || [];\n\nreturn pros.map(pro => {\n\n  return {\n      json: {\n          id: pro.id,\n          name: pro.name,\n          project_id: pro.projectId??'',\n          assigned_resources: pro.resources??[],\n          start_date: pro.created??'',\n          end_date: pro.updated??'',\n          status: pro.status??'',\n          utilizationPercent: pro.utilizationPercent??0\n      }\n  };\n});\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        180,
+        -260
+      ],
+      "id": "d4514b3b-326a-488c-85c6-a247469ede7e",
+      "name": "Process Tasks"
+    },
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "number": [
+            {
+              "name": "page",
+              "value": "={{$json[\"next_page\"] || 1}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Set Page",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        -460,
+        -260
+      ],
+      "typeVersion": 1,
+      "id": "60204d6f-4005-4020-80a1-2624229813b5"
+    },
+    {
+      "parameters": {
+        "values": {
+          "number": [
+            {
+              "name": "next_page",
+              "value": "={{ $('Set Page').item.json.page+1 }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Increment Page",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        -300,
+        60
+      ],
+      "id": "760abf23-83d1-4c84-a548-839a7e316aa0"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "number": [
+            {
+              "value1": "={{ $('Set Page').first().json.page }}",
+              "value2": "={{ $('Fetch Ganttic Tasks').first().json.pageCount }}"
+            }
+          ]
+        }
+      },
+      "name": "More Pages?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        380,
+        80
+      ],
+      "id": "ca60fd03-40dc-43ba-894f-440ce1515cd9"
+    },
+    {
+      "parameters": {
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "ganttic_api_tasks",
+          "mode": "list",
+          "cachedResultName": "ganttic_api_tasks"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "id": "={{ $json.id }}",
+            "name": "={{ $json.name }}",
+            "utilizationPercent": "={{ $json.utilizationPercent }}",
+            "project_id": "={{ $json.project_id }}",
+            "assigned_resources": "={{ $json.assigned_resources }}",
+            "start_date": "={{ $json.start_date }}",
+            "end_date": "={{ $json.end_date }}",
+            "status": "={{ $json.status }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": true,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "name",
+              "displayName": "name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "utilizationPercent",
+              "displayName": "utilizationPercent",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "project_id",
+              "displayName": "project_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "assigned_resources",
+              "displayName": "assigned_resources",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "array",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "start_date",
+              "displayName": "start_date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "end_date",
+              "displayName": "end_date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        400,
+        -260
+      ],
+      "id": "d6544342-9474-414a-87eb-98ad43b787c2",
+      "name": "Insert Tasks",
+      "credentials": {
+        "postgres": {
+          "id": "wK2pSCG9jTniRU28",
+          "name": "Postgres account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "return {\n  \"json\": {\n    \"success\": true\n  }\n}"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        660,
+        -20
+      ],
+      "id": "1fe5c42d-a4e9-456e-89dd-63a46061d977",
+      "name": "Code"
+    }
+  ],
+  "pinData": {},
+  "repo_name": "n8n-backup-zm",
+  "repo_owner": "zlatkomq",
+  "repo_path": "",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-03-31T12:45:21.811Z",
+      "updatedAt": "2025-03-31T12:45:21.811Z",
+      "id": "mUYuMooITov17Xfj",
+      "name": "Ganttic"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-04-28T06:21:26.389Z",
+  "versionId": "bdf7379d-43b8-44f1-abdc-ef98046b47b8"
+}
