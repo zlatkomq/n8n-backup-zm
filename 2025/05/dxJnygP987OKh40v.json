@@ -1,0 +1,148 @@
+{
+  "active": false,
+  "connections": {
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Supabase Vector Store2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supabase Vector Store2": {
+      "main": [
+        [
+          {
+            "node": "Merge as one document",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings Ollama2": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Supabase Vector Store2",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-05-21T09:15:30.038Z",
+  "id": "dxJnygP987OKh40v",
+  "isArchived": false,
+  "meta": null,
+  "name": "Agent_old_1024",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Agent Tools for RAG",
+        "height": 469,
+        "width": 603,
+        "color": 4
+      },
+      "id": "675bd7eb-4a36-4b53-b046-ad2bc6ba3ea3",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -260,
+        -240
+      ]
+    },
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -160,
+        -160
+      ],
+      "id": "78772462-a1ed-4b40-a70f-afc3403853b1",
+      "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {
+        "mode": "load",
+        "tableName": {
+          "__rl": true,
+          "value": "ganttic_documents_1024",
+          "mode": "list",
+          "cachedResultName": "ganttic_documents_1024"
+        },
+        "prompt": "={{ $json.query }}",
+        "topK": 24,
+        "options": {
+          "queryName": "match_documents_full_ganttic"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
+      "typeVersion": 1,
+      "position": [
+        0,
+        -160
+      ],
+      "id": "e47d7eed-45c5-4bb0-91f9-e02a574049dd",
+      "name": "Supabase Vector Store2",
+      "credentials": {
+        "supabaseApi": {
+          "id": "Vbtfas1bVCzZ2Wde",
+          "name": "Supabase account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "mxbai-embed-large:latest"
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOllama",
+      "typeVersion": 1,
+      "position": [
+        -200,
+        60
+      ],
+      "id": "ea879bc9-acd1-4bb2-9c1b-de361a77db77",
+      "name": "Embeddings Ollama2",
+      "credentials": {
+        "ollamaApi": {
+          "id": "fv9DllLzKNe1SabK",
+          "name": "Ollama account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nlet out = '';\nfor (const item of $input.all()) {\n  out += item.json.document.pageContent + \"\\n####\\n\"\n}\n\nreturn {out}\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        60,
+        60
+      ],
+      "id": "cf114f7a-35c2-4d00-a5c1-b9ddcf2091a3",
+      "name": "Merge as one document"
+    }
+  ],
+  "pinData": {},
+  "repo_name": "n8n-backup-zm",
+  "repo_owner": "zlatkomq",
+  "repo_path": "",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-06-04T15:19:45.552Z",
+  "versionId": "b178d811-db2e-40d5-9395-84ff0402260f"
+}
