@@ -1,0 +1,333 @@
+{
+  "active": false,
+  "connections": {
+    "Select Empty2": {
+      "main": [
+        [
+          {
+            "node": "Generate Facts Vectors3",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge Facts & Vectors3",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Total Empty2": {
+      "main": [
+        [
+          {
+            "node": "If2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If2": {
+      "main": [
+        [
+          {
+            "node": "Select Empty2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Facts Vectors3": {
+      "main": [
+        [
+          {
+            "node": "Merge Facts & Vectors3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge Facts & Vectors3": {
+      "main": [
+        [
+          {
+            "node": "Resources - INSERT3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Resources - INSERT3": {
+      "main": [
+        [
+          {
+            "node": "Total Empty2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "Total Empty2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-04-25T10:30:19.158Z",
+  "id": "TaCAn5wEzO8EqOrJ",
+  "isArchived": false,
+  "meta": null,
+  "name": "Gen Res Facts2",
+  "nodes": [
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "=select fact_id, fact_statement from resource_facts where fact_embedding ISNULL limit 25;",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        540,
+        240
+      ],
+      "id": "cc681083-e789-46a9-964f-ce2832e5ac0f",
+      "name": "Select Empty2",
+      "alwaysOutputData": false,
+      "credentials": {
+        "postgres": {
+          "id": "wK2pSCG9jTniRU28",
+          "name": "Postgres account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "=select count(fact_id) from resource_facts where fact_embedding ISNULL;",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        -20,
+        240
+      ],
+      "id": "c53150f4-74a9-4fce-92e9-a5645e79a0f5",
+      "name": "Total Empty2",
+      "alwaysOutputData": false,
+      "executeOnce": true,
+      "credentials": {
+        "postgres": {
+          "id": "wK2pSCG9jTniRU28",
+          "name": "Postgres account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "fa300318-c8cb-4aef-9536-931bf769c339",
+              "leftValue": "={{ $json.count }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        240,
+        180
+      ],
+      "id": "56c4fa6d-5054-495a-a26f-87eada9169b6",
+      "name": "If2"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://192.168.20.70:11434/api/embeddings",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "model",
+              "value": "mxbai-embed-large"
+            },
+            {
+              "name": "prompt",
+              "value": "={{ $json.fact_statement }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "d4310ea1-a4d9-4f0d-8e82-d46f32fc90e9",
+      "name": "Generate Facts Vectors3",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        900,
+        220
+      ],
+      "retryOnFail": false,
+      "maxTries": 5,
+      "waitBetweenTries": 2000,
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combinationMode": "mergeByPosition",
+        "options": {}
+      },
+      "id": "7fe514a4-65af-4449-878c-f6fb07a4cd98",
+      "name": "Merge Facts & Vectors3",
+      "type": "n8n-nodes-base.merge",
+      "position": [
+        1080,
+        440
+      ],
+      "typeVersion": 2
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "tableId": "resource_facts",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "fact_id",
+              "condition": "eq",
+              "keyValue": "={{ $json.fact_id }}"
+            }
+          ]
+        },
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "fact_embedding",
+              "fieldValue": "={{ $json.embedding }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        1320,
+        560
+      ],
+      "id": "0321d22f-92d7-40e5-804d-93be167dcc5a",
+      "name": "Resources - INSERT3",
+      "alwaysOutputData": false,
+      "credentials": {
+        "supabaseApi": {
+          "id": "Vbtfas1bVCzZ2Wde",
+          "name": "Supabase account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "# UPDATE skipped ollama vectors 3",
+        "height": 840,
+        "width": 1760,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -200,
+        0
+      ],
+      "id": "97ff48a0-a1f9-4dcf-a278-6e5e5309a1de",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -580,
+        180
+      ],
+      "id": "e6aa75e4-5cca-474c-918a-309163ab5c26",
+      "name": "When clicking ‘Test workflow’"
+    },
+    {
+      "parameters": {
+        "jsCode": "return {\n  \"json\": {\n    \"success\": true\n  }\n}"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        220,
+        580
+      ],
+      "id": "97c0ed22-e123-429b-bee4-d19aeff799e9",
+      "name": "Code"
+    }
+  ],
+  "pinData": {},
+  "repo_name": "n8n-backup-zm",
+  "repo_owner": "zlatkomq",
+  "repo_path": "",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-03-31T12:45:21.811Z",
+      "updatedAt": "2025-03-31T12:45:21.811Z",
+      "id": "mUYuMooITov17Xfj",
+      "name": "Ganttic"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-04-29T10:48:41.267Z",
+  "versionId": "03b34696-44a5-4bba-b445-b9635b422c07"
+}
