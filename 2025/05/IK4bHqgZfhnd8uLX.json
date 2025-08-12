@@ -1,0 +1,121 @@
+{
+  "active": false,
+  "connections": {
+    "Google Calendar Trigger": {
+      "main": [
+        [
+          {
+            "node": "Project Mapping",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Project Mapping": {
+      "main": [
+        [
+          {
+            "node": "Teamwork API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-05-24T21:47:44.800Z",
+  "id": "IK4bHqgZfhnd8uLX",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "ESS meetings time logging",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "calendarId": {
+          "__rl": true,
+          "value": "anka@q.agency",
+          "mode": "id"
+        },
+        "triggerOn": "eventEnded",
+        "options": {
+          "matchTerm": ""
+        }
+      },
+      "type": "n8n-nodes-base.googleCalendarTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "744c1668-22b2-4798-819d-92fa5d6c0ce4",
+      "name": "Google Calendar Trigger",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "G3pdNAEdNtZPwgYF",
+          "name": "Google Calendar account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "// Define your project and task mappings here\nconst projectMappings = {\n  // Example mappings - replace with your actual mappings\n  'Project Client Support': {\n    projectId: 262203,\n    taskId: 14114655\n  },\n  'Project ConfToCode': {\n    projectId: 471140,\n    taskId: 15929830\n  },\n  \n  // Add more mappings as needed\n};\n\nconst start = new Date($json.start.dateTime || $json.start.date);\nconst end   = new Date($json.end.dateTime   || $json.end.date);\n\n// NEW — force Zagreb tz\nconst minutes  = Math.round((end - start) / 60000);\n\nconst tz       = 'Europe/Zagreb';\nconst dateStr  = start.toLocaleDateString('en-CA', { timeZone: tz });            // 2025-05-24\nconst timeStr  = start.toLocaleTimeString('en-GB', { timeZone: tz, hour12:false }); // 18:00:00\n\n$input.item.json = {\n  ...$json,\n  duration : minutes,\n  date     : dateStr,\n  time     : timeStr      // Teamwork node reads this\n};\n\n\n\n// Get meeting title\nconst meetingTitle = $input.item.json.summary;\n\n// ─── keywords that should map to the \"Client support\" project ─────\nconst clientSupportTitles = [\n  'Client Support sync',\n  'RC - Support sync',\n  'ESS - sync',\n  'Kudos & Bonus za Support developere',\n  'Preventive maintenance sync',\n  'ESS - sync',\n  // add more phrases here, lowercase please\n];\n\n// meeting title (already lower-cased earlier in your code)\nconst isClientSupport = clientSupportTitles.some(k =>\n  meetingTitle.includes(k)\n);\n\nif (isClientSupport) {\n  return {\n    json: {\n      ...$input.item.json,\n      projectId: 262203,   // Client support project\n      taskId   : 14114655, // Internal General task\n      hasTask  : true\n    }\n  };\n}\n\n// ─── keywords that should map to the \"ConfToCode\" project ─────\nconst confToCodeTitles = [\n  'ConfToCode weekly team meet',\n  'ConfToCode - weekly',\n  // add more phrases here, lowercase please\n];\n\n// meeting title (already lower-cased earlier in your code)\nconst isConfToCode = confToCodeTitles.some(k =>\n  meetingTitle.includes(k)\n);\n\nif (isConfToCode) {\n  return {\n    json: {\n      ...$input.item.json,\n      projectId: 471140,   // Client support project\n      taskId   : 15929830, // Internal General task\n      hasTask  : true\n    }\n  };\n}\n\n\n// Find matching project for other meetings\nlet selectedProject = null;\nfor (const [key, value] of Object.entries(projectMappings)) {\n  if (meetingTitle.includes(key)) {\n    selectedProject = value;\n    break;\n  }\n}\n\n// If no match found, use default project\nif (!selectedProject) {\n  selectedProject = {\n    projectId: 317287,\n    hasTask: false\n  };\n}\n\n// Add project and task IDs to the output\nreturn {\n  json: {\n    ...$input.item.json,\n    projectId: selectedProject.projectId,\n    taskId: selectedProject.taskId\n  }\n};"
+      },
+      "name": "Project Mapping",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [
+        460,
+        0
+      ],
+      "id": "71b7baa7-7142-45e6-ad1f-80ca1aa0694e"
+    },
+    {
+      "parameters": {
+        "authentication": "basicAuth",
+        "requestMethod": "POST",
+        "url": "={{ $json.hasTask\n     ? `https://teamwork.q.agency/projects/api/v3/tasks/${$json.taskId}/time.json`\n     : `https://teamwork.q.agency/projects/api/v3/projects/${$json.projectId}/time.json`\n}}\n",
+        "jsonParameters": true,
+        "options": {},
+        "sendBinaryData": "={{ false }}",
+        "bodyParametersJson": "={\n  \"timelog\": {\n    \"description\": \"{{ $json.summary }}\",\n    \"date\": \"{{ $json.date }}\",\n    \"time\": \"{{ $json.time }}\",         \n    \"hours\": {{ Math.floor($json.duration / 60) }},\n    \"minutes\": {{ $json.duration % 60 }},\n    \"isBillable\": false{{ $json.hasTask ? ',\\n       \"taskId\": ' + $json.taskId : '' }}\n  }\n}"
+      },
+      "name": "Teamwork API",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        660,
+        0
+      ],
+      "id": "58473916-beca-4d54-97bf-68da26f080c3",
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "Mo7KyBs7WU7COTqo",
+          "name": "Teamwork credential"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "repo_name": "n8n-backup-zm",
+  "repo_owner": "zlatkomq",
+  "repo_path": "",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-05-24T21:56:38.880Z",
+  "versionId": "0c320d26-5653-4635-81e9-fdc4d64808ac"
+}
