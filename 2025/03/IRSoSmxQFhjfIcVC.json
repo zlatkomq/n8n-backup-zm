@@ -1,0 +1,584 @@
+{
+  "active": true,
+  "connections": {
+    "Fetch Ganttic Projects": {
+      "main": [
+        [
+          {
+            "node": "Process Projects",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Projects - INSERT": {
+      "main": [
+        [
+          {
+            "node": "Trunkate * Resources",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Process Projects": {
+      "main": [
+        [
+          {
+            "node": "Projects - INSERT",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Truncate Projects": {
+      "main": [
+        [
+          {
+            "node": "Fetch Ganttic Projects",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Trunkate * Tasks": {
+      "main": [
+        [
+          {
+            "node": "Paginate Tasks old - subflow",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Output1": {
+      "main": [
+        [
+          {
+            "node": "Trunkate * Tasks",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Paginate Resources": {
+      "main": [
+        [
+          {
+            "node": "Output1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Trunkate * Resources": {
+      "main": [
+        [
+          {
+            "node": "Paginate Resources",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Paginate Tasks new - subflow": {
+      "main": [
+        [
+          {
+            "node": "Gen Res Facts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Paginate Tasks old - subflow": {
+      "main": [
+        [
+          {
+            "node": "Paginate Tasks new - subflow",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Truncate Projects",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "Truncate Projects",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gen Res Facts": {
+      "main": [
+        [
+          {
+            "node": "Gen Res Facts2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-03-28T10:58:34.802Z",
+  "id": "IRSoSmxQFhjfIcVC",
+  "isArchived": false,
+  "meta": null,
+  "name": "Ganttic_db_refresh",
+  "nodes": [
+    {
+      "parameters": {
+        "url": "https://planner.ganttic.com/api/v1/projects",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "token",
+              "value": "9062f2555255d4e42a69eb2c54bbbcf61a61e03d2881f4480ea3a5e0e842b8f8"
+            },
+            {
+              "name": "includeEmptyDataFields",
+              "value": "0"
+            },
+            {
+              "name": "timeMin",
+              "value": "={{$now.minus(6, 'months').format('yyyy-MM-dd')}}"
+            },
+            {
+              "name": "timeMax",
+              "value": "={{$now.plus(6, 'months').format('yyyy-MM-dd')}}"
+            },
+            {
+              "name": "page",
+              "value": "-1"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "321c6668-958d-440b-84b5-89b52e2b1bb8",
+      "name": "Fetch Ganttic Projects",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        580,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "tableId": "ganttic_api_projects",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "id",
+              "fieldValue": "={{ $json.id }}"
+            },
+            {
+              "fieldId": "name",
+              "fieldValue": "={{ $json.name }}"
+            },
+            {
+              "fieldId": "description",
+              "fieldValue": "={{ $json.description }}"
+            },
+            {
+              "fieldId": "project_id",
+              "fieldValue": "={{ $json.project_id }}"
+            },
+            {
+              "fieldId": "assigned_resources",
+              "fieldValue": "={{ $json.assigned_resources }}"
+            },
+            {
+              "fieldId": "start_date",
+              "fieldValue": "={{ $json.start_date }}"
+            },
+            {
+              "fieldId": "end_date",
+              "fieldValue": "={{ $json.end_date }}"
+            },
+            {
+              "fieldId": "status",
+              "fieldValue": "={{ $json.status }}"
+            },
+            {
+              "fieldId": "tags",
+              "fieldValue": "={{ $json.tags }}"
+            },
+            {
+              "fieldId": "embedding",
+              "fieldValue": "={{ $json.embedding }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        1100,
+        280
+      ],
+      "id": "5e3269dd-6f2e-4205-9573-3df4b1f370fd",
+      "name": "Projects - INSERT",
+      "credentials": {
+        "supabaseApi": {
+          "id": "Vbtfas1bVCzZ2Wde",
+          "name": "Supabase account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Process tasks\nconst item = items[0];\nconst pros = item.json.items || [];\n\nreturn pros.map(pro => {\n  return {\n      json: {\n          id: pro.id,\n          name: pro.name,\n          start_date: pro.created??'',\n          end_date: pro.updated??'',\n          status: pro.status,\n      }\n  };\n});\n\n"
+      },
+      "id": "104e4747-61a9-4fd3-b42c-3a0198fdf554",
+      "name": "Process Projects",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        840,
+        80
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "=TRUNCATE TABLE project_task_facts, \n  public.ganttic_api_projects;",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        320,
+        80
+      ],
+      "id": "90a8104d-7844-4fa1-88b8-89710b187292",
+      "name": "Truncate Projects",
+      "credentials": {
+        "postgres": {
+          "id": "wK2pSCG9jTniRU28",
+          "name": "Postgres account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "=TRUNCATE TABLE \n  public.project_task_facts,\n  public.ganttic_api_tasks;",
+        "options": {}
+      },
+      "id": "0d96f07d-2c0a-44ad-82e4-9fdbe2708144",
+      "name": "Trunkate * Tasks",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.1,
+      "position": [
+        100,
+        1100
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "wK2pSCG9jTniRU28",
+          "name": "Postgres account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Tasks Subflow",
+        "height": 400,
+        "width": 1020,
+        "color": 4
+      },
+      "name": "Note2",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        0,
+        1020
+      ],
+      "typeVersion": 1,
+      "id": "42572b09-d07a-4e76-9399-d426a32def58"
+    },
+    {
+      "parameters": {
+        "content": "## Resources Subflow",
+        "height": 420,
+        "width": 1000
+      },
+      "name": "Note3",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        0,
+        560
+      ],
+      "typeVersion": 1,
+      "id": "bbc88b86-6465-4951-ac81-978c886c1c6f"
+    },
+    {
+      "parameters": {
+        "content": "## Projects clean + fresh insert",
+        "height": 520,
+        "width": 1280,
+        "color": 5
+      },
+      "name": "Note4",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        0,
+        0
+      ],
+      "typeVersion": 1,
+      "id": "5f04f61a-c05e-4e59-8b11-d199824e5b0f"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nconsole.log( $input );\nfor (const item of $input.all()) {\n  item.json.myNewField = 1;\n}\n\nreturn $input.all();"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        780,
+        780
+      ],
+      "id": "71164b47-2bc7-43d4-880a-cd8a84bde861",
+      "name": "Output1"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "AJ7uWBwYrUxp7CUA",
+          "mode": "list",
+          "cachedResultName": "PAGGINATE_RESOURCES"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        460,
+        600
+      ],
+      "id": "472ad2f0-d6aa-4636-9d5a-ab9aa5fae626",
+      "name": "Paginate Resources",
+      "executeOnce": true
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "=TRUNCATE TABLE \n  public.resource_facts,\n  public.ganttic_api_resources\n;",
+        "options": {}
+      },
+      "id": "87301fd3-13ee-42e2-8987-2c208096de80",
+      "name": "Trunkate * Resources",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.1,
+      "position": [
+        140,
+        740
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "wK2pSCG9jTniRU28",
+          "name": "Postgres account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "21WI43svwF8WBQea",
+          "mode": "list",
+          "cachedResultName": "PAGGINATE_TASKS_new"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        600,
+        1080
+      ],
+      "id": "f6384be4-0037-47e9-b680-7bf64a4c1f05",
+      "name": "Paginate Tasks new - subflow",
+      "executeOnce": true
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "mX0or6yK6wLmj4Lh",
+          "mode": "list",
+          "cachedResultName": "PAGGINATE_TASKS_old"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        360,
+        1240
+      ],
+      "id": "8f566a68-8a4e-4f2c-92e2-88f62ee177a9",
+      "name": "Paginate Tasks old - subflow",
+      "executeOnce": true
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "gcpUlYOlEBlinQ0h",
+          "mode": "list",
+          "cachedResultName": "res_facts_embed"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        840,
+        1240
+      ],
+      "id": "889967a6-11ac-466c-9783-b12092ef4520",
+      "name": "Gen Res Facts"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 1
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -340,
+        160
+      ],
+      "id": "d5ac6a81-3677-4481-955d-07e2c11b20f2",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        60,
+        220
+      ],
+      "id": "6eaf21eb-89ff-4e12-8f52-dfc2f70b8928",
+      "name": "When clicking ‘Test workflow’"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "TaCAn5wEzO8EqOrJ",
+          "mode": "list",
+          "cachedResultName": "Gen Res Facts2"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        1120,
+        1240
+      ],
+      "id": "08f9756a-dc0f-4fbc-9150-514f384d2641",
+      "name": "Gen Res Facts2"
+    }
+  ],
+  "pinData": {},
+  "repo_name": "n8n-backup-zm",
+  "repo_owner": "zlatkomq",
+  "repo_path": "",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": []
+    }
+  },
+  "tags": [
+    {
+      "createdAt": "2025-03-31T12:45:21.811Z",
+      "updatedAt": "2025-03-31T12:45:21.811Z",
+      "id": "mUYuMooITov17Xfj",
+      "name": "Ganttic"
+    }
+  ],
+  "triggerCount": 1,
+  "updatedAt": "2025-04-25T13:22:54.408Z",
+  "versionId": "94f461b5-a4de-4f20-9565-0d07600eb63d"
+}
