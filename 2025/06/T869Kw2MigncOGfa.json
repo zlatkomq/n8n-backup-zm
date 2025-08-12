@@ -1,0 +1,208 @@
+{
+  "active": false,
+  "connections": {
+    "self flow": {
+      "main": [
+        [
+          {
+            "node": "Json",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Json": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "skills",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "level",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-06-13T09:29:36.178Z",
+  "id": "T869Kw2MigncOGfa",
+  "isArchived": false,
+  "meta": null,
+  "name": "sql_tool_agent",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "8d60013d-4b22-4962-bc07-011af5bc267c",
+      "name": "self flow",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "position": [
+        -520,
+        -200
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nlet inpt = $input.first().json.query;\nlet out = {};\ntry{\n  out = JSON.parse(inpt)\n} catch{}\nif( out.action && out.term ){\n  return {out};\n} else{\n  return {};\n}\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -480,
+        40
+      ],
+      "id": "42d6ef64-4b38-4a09-aa88-896a402e1c49",
+      "name": "Json"
+    },
+    {
+      "parameters": {
+        "content": "## SQL ops\n",
+        "height": 480,
+        "width": 780,
+        "color": 6
+      },
+      "name": "Note2",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -560,
+        -280
+      ],
+      "typeVersion": 1,
+      "id": "7153d2cd-da65-41bb-b712-39ce7161cc32"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.out.action }}",
+                    "rightValue": "get_skills",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "a542a8cc-a11b-41c7-a288-fc0948d002d3"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "6b5fa3fd-e4c2-4e01-bffd-f2ea364dc6a5",
+                    "leftValue": "={{ $json.out.action }}",
+                    "rightValue": "get_level",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -280,
+        -60
+      ],
+      "id": "a7dc2995-5915-4969-abaa-f9e8d7c2119d",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "= select id, name, skills_senior, skills_medium, skills_junior, industry, description from ganttic_api_resources WHERE unaccent(skills_senior) ILIKE unaccent('%{{   $json.out.term }}%')",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -60,
+        -180
+      ],
+      "id": "f2242f0a-070f-45a1-80fc-31142cd7ac86",
+      "name": "skills",
+      "credentials": {
+        "postgres": {
+          "id": "wK2pSCG9jTniRU28",
+          "name": "Postgres account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "= select id, name, skills_senior, skills_medium, skills_junior, industry, description from ganttic_api_resources WHERE unaccent(seniority) ILIKE unaccent('%{{   $json.out.term }}%')",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        0,
+        -20
+      ],
+      "id": "fdccf8b2-f88f-4695-aaee-9c16789bb591",
+      "name": "level",
+      "credentials": {
+        "postgres": {
+          "id": "wK2pSCG9jTniRU28",
+          "name": "Postgres account 2"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "repo_name": "n8n-backup-zm",
+  "repo_owner": "zlatkomq",
+  "repo_path": "",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-06-13T09:50:00.046Z",
+  "versionId": "079941b6-c62f-4c99-a17a-c32315acc54c"
+}
