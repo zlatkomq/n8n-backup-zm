@@ -1,0 +1,1067 @@
+{
+  "active": true,
+  "connections": {
+    "Ollama Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Reason bot",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mistral model for cat": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Cat bot",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get chat embedding": {
+      "main": [
+        [
+          {
+            "node": "Set Ratio",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GET User IDs": {
+      "main": [
+        [
+          {
+            "node": "Summarize",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Vectors results": {
+      "main": [
+        [
+          {
+            "node": "GET User IDs",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Clean data \\n separated",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get details from users": {
+      "main": [
+        [
+          {
+            "node": "Reason bot",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Vectors tasks - projects",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Summarize": {
+      "main": [
+        [
+          {
+            "node": "Get details from users",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Vectors ALL": {
+      "main": [
+        [
+          {
+            "node": "Check result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Decrement ratio",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Summarize1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Ratio": {
+      "main": [
+        [
+          {
+            "node": "Vectors ALL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check result": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Decrement ratio": {
+      "main": [
+        [
+          {
+            "node": "Set Ratio",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres Chat Memory": {
+      "ai_memory": [
+        []
+      ]
+    },
+    "Cat bot": {
+      "main": [
+        [
+          {
+            "node": "JSON ✅",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get rows": {
+      "main": [
+        [
+          {
+            "node": "Cat it",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "chat": {
+      "main": [
+        [
+          {
+            "node": "SingleQ",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is EMPTY": {
+      "main": [
+        [
+          {
+            "node": "Get chat embedding",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Reason bot",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cat it": {
+      "main": [
+        [
+          {
+            "node": "Is EMPTY",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Summarize1": {
+      "main": [
+        [
+          {
+            "node": "Reason bot",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "SingleQ",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reason bot": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SingleQ": {
+      "main": [
+        [
+          {
+            "node": "Cat bot",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "JSON, ILIKE and patches": {
+      "main": [
+        [
+          {
+            "node": "Get rows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        []
+      ]
+    },
+    "JSON ✅": {
+      "main": [
+        [
+          {
+            "node": "Agent loop",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Agent loop": {
+      "main": [
+        [
+          {
+            "node": "JSON, ILIKE and patches",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Cat bot",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-04-30T11:04:51.715Z",
+  "id": "X07uIY4CpwhmdMIt",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "ganttic-v1.3",
+  "nodes": [
+    {
+      "parameters": {
+        "model": "llama3.2:latest",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
+      "typeVersion": 1,
+      "position": [
+        2340,
+        420
+      ],
+      "id": "0d7eb13f-9b2a-416e-9e19-b35385920d9b",
+      "name": "Ollama Chat Model",
+      "credentials": {
+        "ollamaApi": {
+          "id": "fv9DllLzKNe1SabK",
+          "name": "Ollama account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=<prompt>\n    <description>Generate tags from prompt: \"{{ $json.query }}\"</description>\n    \n    <generation_rules>\n        <rule>determine keywords, tags like for given question</rule>\n        <rule>you output only object array in form of key-value pairs</rule>\n        <rule>Keys are verbs - values are nouns</rule>\n        <rule>Verbs are like category where question fits</rule>\n        <rule>For verbs use one from the list or fit as close as possible:\n            <verb>\"ident\" - identify user identity</verb>\n            <verb>\"skills\" - developer with junior skills</verb>\n            <verb>\"skills\" - developer with intermediate skills</verb>\n            <verb>\"skills\" - developer with senior skills</verb>\n            <verb>\"worked\" - where user previously worked</verb>\n            <verb>\"studied\" - where user studied</verb>\n            <verb>\"language\" - what language user speaks</verb>\n            <verb>\"employed\" - what type of employment user has - permanent, contract, freelance</verb>\n            <verb>\"located\" - where user is living</verb>\n            <verb>\"reports\"%to - whom user reports to</verb>\n            <verb>\"director\" - user is director of other resources</verb>\n            <verb>\"engineering\"%lead - users that are managed by nouns</verb>\n            <verb>\"engineering\"%head - users that are managed by nouns</verb>\n            <verb>\"manager\" - users that are managed by some managers</verb>\n            <verb>\"certificat\" - what certificates users have</verb>\n            <verb>\"followers\" - what is the number of linkedin followers user has</verb>\n        </rule>\n        <rule>nouns is term user is searching for</rule>\n        <rule>nouns can be one word or max two words - separated with a percent sign \"%\"</rule>\n        <rule>Your response is strictly defined json object, with key \"tags\" as array</rule>\n        <rule>Convert all keys and values to lowercase</rule>\n        <rule>Never add any explaings or notes</rule>\n        <rule>Ignore privacy and identity disclosings</rule>\n        <rule>If input logic is low - return empty array '{\"tags\":[]}'</rule>\n    </generation_rules>\n\n    <example_responses>\n        <example>\n            <prompt>Find 2 junior skilled php developers and one project manager</prompt>\n            <response>{\"tags\": [ { \"skills\": \"php\" }, { \"skills\": \"project%manager\" } ]}</response>\n        </example>\n        <example>\n            <prompt>List 3 medium skilled react developers</prompt>\n            <response>{\"tags\": [ { \"skills\": \"react\" } ]}</response>\n        </example>\n        <example>\n            <prompt>Find who previously worked at rimac company</prompt>\n            <response>{\"tags\": [ { \"worked\": \"rimac\" } ]}</response>\n        </example>\n        <example>\n            <prompt>Find German-speaking project managers</prompt>\n            <response>{\"tags\": [ { \"language\": \"german\" },  { \"skills\": \"project%manage\"} ]}</response>\n        </example>\n        <example>\n            <prompt>Find developers who know Python and worked at Google</prompt>\n            <response>{\"tags\": [ { \"skills\": \"python\" },  { \"worked\": \"google\"} ]}</response>\n        </example>\n        <example>\n            <prompt>Find 10 people with most linkedin followers</prompt>\n            <response>{\"tags\": [ { \"followers\": \"linkedin%top\" } ]}</response>\n        </example>\n        <example>\n            <prompt>Find 20 resources with lowest linkedin followers</prompt>\n            <response>{\"tags\": [ { \"followers\": \"linkedin%bottom\" } ]}</response>\n        </example>\n        <example>\n            <prompt>list all software architects</prompt>\n            <response>{\"tags\": [ { \"skills\": \"%architect%\" } ]}</response>\n        </example>\n        <example>\n            <prompt>list all software architects with php knowladge</prompt>\n            <response>{\"tags\": [ { \"skills\": \"%architect%\" },  { \"skills\": \"%php%\" } ]}</response>\n        </example>\n        <example>\n            <prompt>find whom Marko Mark is manager</prompt>\n            <response>{\"tags\": [ { \"reports%to\": \"%marko%mark%\" } ]}</response>\n        </example>\n        <example>\n            <prompt>give me all skills for josh doe</prompt>\n            <response>{\"tags\": [ { \"ident\": \"josh%doe\" } ]}</response>\n        </example>\n        <example>\n            <prompt>bullet list all details for: josh doe and lisa minelly</prompt>\n            <response>{\"tags\": [ { \"ident\": \"josh%doe\" },  { \"ident\": \"lisa%minelly\" } ]}</response>\n        </example>\n        <example>\n            <prompt>give me all details about Krešimir Pendić and list top 3 project managers</prompt>\n            <response>{\"tags\": [ { \"ident\": \"kresimir%pendic\" },  { \"skill\": \"project%manager\" } ]}</response>\n        </example>\n        <example>\n            <prompt>who has experince in data science</prompt>\n            <response>{\"tags\": [ { \"skills\": \"data%science\" } ]}</response>\n        </example>\n        <example>\n            <prompt>who are devs with lisp programming background</prompt>\n            <response>{\"tags\": [ { \"skills\": \"lisp\" } ]}</response>\n        </example>\n        <example>\n            <prompt>compile list of devs with amazon cert</prompt>\n            <response>{\"tags\": [ { \"cert\": \"aws\" } ]}</response>\n        </example>\n    </example_responses>\n</prompt>",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.8,
+      "position": [
+        -2000,
+        380
+      ],
+      "id": "68f3aaef-ac35-4cfe-882a-0dcf72598e8b",
+      "name": "Cat bot",
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "model": "mistral-nemo:latest",
+        "options": {
+          "temperature": 0.5
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
+      "typeVersion": 1,
+      "position": [
+        -2240,
+        640
+      ],
+      "id": "2fd28df2-4ff6-4d4e-a44a-2c9a14b184bb",
+      "name": "Mistral model for cat",
+      "credentials": {
+        "ollamaApi": {
+          "id": "fv9DllLzKNe1SabK",
+          "name": "Ollama account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://192.168.20.70:11434/api/embeddings",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "model",
+              "value": "mxbai-embed-large"
+            },
+            {
+              "name": "prompt",
+              "value": "={{ $('SingleQ').item.json.query }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "c610137c-6d62-4d86-bbfd-383628ec9378",
+      "name": "Get chat embedding",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        140,
+        560
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const inputData = $input.all();\n\nconst extractedItems = inputData.map(item => {\n  const csvString = item.json.match_documents_resources_facts;\n  const parts = csvString.split(',').map(part => part.trim()); // Split & trim whitespace\n  return parts[3]; // Get index 3 (4th item)\n}).filter(Boolean); // Remove empty entries\n\nconst formattedOutput = extractedItems.join('\\n');\n\nreturn [{ json: { extracted_data: formattedOutput } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        840,
+        1580
+      ],
+      "id": "1f1030d5-7f4a-42b3-a44e-57b5d95c24a5",
+      "name": "Clean data \\n separated"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=<prompt>\n    <role>You are helpful HR resources, tasks and projects chat bot</role>\n    \n    <instructions>\n        <instruction>You are a chat assistant that answers questions about projects, tasks, resources, employees</instruction>\n        <instruction>Source of truth content is in <resources> section</instruction>\n        <instruction>Normalize extended Latin characters (e.g., č|ć → c, ñ → n, ü → u, ž → z, đ → d ) to ensure better matching.</instruction>\n        <instruction>If relevant information is found, explain the reasoning behind your answer in a simple way - if doable.</instruction>\n        <instruction>If no relevant information is available, reply briefly and politely (e.g., \"Sorry, I couldn't find any matching information.\").</instruction>\n        <instruction>Avoid adding assumptions or external information.</instruction>\n        <instruction>Keep the answer clear and concise</instruction>\n    </instructions>\n\n    <user_question>\n        {{ $('SingleQ').last().json.query }}\n    </user_question>\n\n    <resources>\n        <resource>- {{ $json.appended_results }}</resource>\n        <resource>- {{ $json.item1 }}</resource>\n        <resource>- {{ $json.fact_statement }}</resource>\n    </resources>\n</prompt>",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.8,
+      "position": [
+        2440,
+        220
+      ],
+      "id": "c5129dbd-4ed2-4b1b-aae6-0b658cb572c5",
+      "name": "Reason bot"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "let imts = $json.match_documents_resources_facts;\nlet arr = '';\ntry{\n  arr = imts.split(',')[1].replace('(', '');\n}catch{};\nreturn{\n    json: {\n      id: arr\n    }\n  }\n;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        540,
+        1540
+      ],
+      "id": "5ec44225-5172-442e-b6d2-6a52bf222d17",
+      "name": "GET User IDs"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "= SELECT match_documents_resources_facts( '[{{ $('Get chat embedding').item.json.embedding }}]', 20, '{{ JSON.stringify($json.filter) }}' , 0.68 );",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        180,
+        1820
+      ],
+      "id": "a5331253-baef-4560-8d99-b1252cdd2409",
+      "name": "Vectors results",
+      "credentials": {
+        "postgres": {
+          "id": "wK2pSCG9jTniRU28",
+          "name": "Postgres account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "= select string_agg( embedding_facts_text, '\\n') as embedding_facts_text from ganttic_api_resources where id IN (\n  {{ $json.appended_id.map(item => \"'\"+item+\"'\" ) }}\n);",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        820,
+        1740
+      ],
+      "id": "8c7226cb-b9e6-4f5e-ae3a-3215e4615b7e",
+      "name": "Get details from users",
+      "credentials": {
+        "postgres": {
+          "id": "wK2pSCG9jTniRU28",
+          "name": "Postgres account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "= SELECT match_documents_combined_facts( '[{{ $('Get chat embedding').item.json.embedding }}]', 20, '{{ JSON.stringify($json.filter) }}' , 0.5 );",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        420,
+        2060
+      ],
+      "id": "7edfd76d-968d-490c-a326-a42978736f85",
+      "name": "Vectors tasks - projects",
+      "credentials": {
+        "postgres": {
+          "id": "wK2pSCG9jTniRU28",
+          "name": "Postgres account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "0e75313d-b352-414f-bc5b-ddaaa5cd6bfd",
+              "leftValue": "={{ $json.filter.fact_type }}",
+              "rightValue": "project",
+              "operator": {
+                "type": "array",
+                "operation": "contains",
+                "rightType": "any"
+              }
+            },
+            {
+              "id": "f312d0c5-78a5-4bba-8196-e463f1ddb08d",
+              "leftValue": "={{ $json.filter.fact_type }}",
+              "rightValue": "task",
+              "operator": {
+                "type": "array",
+                "operation": "contains",
+                "rightType": "any"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        120,
+        2120
+      ],
+      "id": "a15dfd72-7067-46c1-b373-fd6204b670a1",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "fieldsToSummarize": {
+          "values": [
+            {
+              "aggregation": "append",
+              "field": "id"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.summarize",
+      "typeVersion": 1.1,
+      "position": [
+        620,
+        1940
+      ],
+      "id": "48e05fa1-865f-450a-ae67-b9e63a5e2d09",
+      "name": "Summarize"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "= SELECT match_documents_resources_facts( '[{{ $('Get chat embedding').item.json.embedding }}]', 150, '{\"fact_type\": [\"skills_senior\",\"skills_medium\",\"skills_junior\",\"organization\",\"management\",\"certifications\",\"industry\",\"employment\",\"notes\", \"linkedin\"]}' , {{ $json.ratio }} );",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        920,
+        220
+      ],
+      "id": "3618833c-5477-4bb9-af4d-5721cebe6204",
+      "name": "Vectors ALL",
+      "alwaysOutputData": true,
+      "credentials": {
+        "postgres": {
+          "id": "wK2pSCG9jTniRU28",
+          "name": "Postgres account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Resource chat\n\n- keep init 0.75 precision\n- if no results found - lower by 0.3\n\n#### fine grain should be doable by sub category vectoring - but that's another story :)\n\nSome chat examples (note that `vector ratio` could impact them significantly):\n- give me a list of resources who worked in lisp \n- compile list of frontend resources with amazon cert\n- who worked at PLIVA in the past\n- who studied at FER\n- list 10 people with most linkedin followers\n- list 10 people with most linkedin followers and sort them\n- find 3 android and 3 ios developers plus one project manager for my new project",
+        "height": 940,
+        "width": 1560,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -220,
+        -180
+      ],
+      "id": "adc2f8a0-87af-4baa-98d0-847d5775aacc",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "ebd19441-1db2-4bba-9efb-86a38a13854c",
+              "leftValue": "={{ $('Check result').item.json.results }}",
+              "rightValue": "=0",
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "088ccd54-6b9a-4dfb-9cd7-29b79ef191f2",
+              "leftValue": "={{ parseFloat( $('Set Ratio').item.json.ratio ) }}",
+              "rightValue": 0.7,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1480,
+        280
+      ],
+      "id": "f9974024-119e-4cc4-a222-c0c9c921659b",
+      "name": "If1",
+      "executeOnce": false,
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "values": {
+          "number": [
+            {
+              "name": "ratio",
+              "value": "={{ $json[\"ratio\"] || 0.85 }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Set Ratio",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        540,
+        260
+      ],
+      "typeVersion": 1,
+      "id": "1c97db16-d8d4-44bf-a0a4-7cb30683c599"
+    },
+    {
+      "parameters": {
+        "values": {
+          "number": [
+            {
+              "name": "results",
+              "value": "={{ $json.match_documents_resources_facts || 0}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Check result",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        1220,
+        80
+      ],
+      "typeVersion": 1,
+      "id": "f136aee9-0966-4567-9b94-7533426130b8"
+    },
+    {
+      "parameters": {
+        "values": {
+          "number": [
+            {
+              "name": "ratio",
+              "value": "={{ $('Set Ratio').item.json.ratio-0.032 }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Decrement ratio",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        1020,
+        520
+      ],
+      "id": "74b93e77-a0c2-4f8f-808b-e6581f618813"
+    },
+    {
+      "parameters": {
+        "content": "## Getting verbs / nouns\n\n- fast exec\n- JSON check\n- loop, loop & loop :)",
+        "height": 580,
+        "width": 760,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -2320,
+        260
+      ],
+      "id": "36201df1-2621-4cc5-bc3a-9f5b683358a1",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "## Sub cat vectoring category filter\n",
+        "height": 820,
+        "width": 960,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        60,
+        1460
+      ],
+      "id": "2216f7fe-f56d-4de0-8fbf-248a78a4fd62",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('chat').item.json.sessionId }}",
+        "tableName": "langchain_chat_histories",
+        "contextWindowLength": 10
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+      "typeVersion": 1.3,
+      "position": [
+        2720,
+        520
+      ],
+      "id": "318f35cd-f513-4e14-b83a-6f48206ea810",
+      "name": "Postgres Chat Memory",
+      "credentials": {
+        "postgres": {
+          "id": "wK2pSCG9jTniRU28",
+          "name": "Postgres account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "= {{ $json.sqlQuery }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        -1040,
+        460
+      ],
+      "id": "542b8cd4-089a-42a8-9606-62add83a5672",
+      "name": "Get rows",
+      "alwaysOutputData": true,
+      "credentials": {
+        "postgres": {
+          "id": "wK2pSCG9jTniRU28",
+          "name": "Postgres account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -2720,
+        380
+      ],
+      "id": "569b95ec-cde1-4c46-a508-4379795dc85c",
+      "name": "chat",
+      "webhookId": "be3cf2c0-6401-409c-b13f-d9d4eae481c5"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "090dae52-b23e-42b4-b78b-bc2e78da4e35",
+              "leftValue": "={{ $json.item1 }}",
+              "rightValue": "undefined",
+              "operator": {
+                "type": "string",
+                "operation": "empty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -280,
+        180
+      ],
+      "id": "2d562aeb-2ec7-49f5-8dde-dcbb654695fd",
+      "name": "Is EMPTY"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nlet out = '';\nlet ix = 0;\nfor (const item of $input.all()) {\n  if (ix > 99) break;\n  if( item.json.fact_statement ){\n    out += item.json.fact_statement+\"\\n\\n\";\n  }\n  ix++;\n}\n\nreturn [{ item1: out }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -700,
+        460
+      ],
+      "id": "2dd452b4-cc5e-4a8d-82b9-21e1974cc8fa",
+      "name": "Cat it"
+    },
+    {
+      "parameters": {
+        "fieldsToSummarize": {
+          "values": [
+            {
+              "aggregation": "append",
+              "field": "results"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.summarize",
+      "typeVersion": 1.1,
+      "position": [
+        2080,
+        -100
+      ],
+      "id": "bbe77f2f-20ed-436c-8c74-201422aa49a8",
+      "name": "Summarize1"
+    },
+    {
+      "parameters": {
+        "path": "ganttic",
+        "authentication": "basicAuth",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "*",
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Access-Control-Allow-Origin",
+                "value": "*"
+              },
+              {
+                "name": "Access-Control-Allow-Headers",
+                "value": "Content-Type, Authorization"
+              },
+              {
+                "name": "Access-Control-Allow-Methods",
+                "value": "GET, POST, OPTIONS"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -2700,
+        680
+      ],
+      "id": "85c3a7b1-04a0-4301-ae4f-04085464b8ea",
+      "name": "Webhook",
+      "webhookId": "c72896db-c426-406b-a9b4-a818c8133222",
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "jwl7t6hrOm0ajNXt",
+          "name": "basic_login"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Access-Control-Allow-Origin",
+                "value": "*"
+              },
+              {
+                "name": "Access-Control-Allow-Headers",
+                "value": "Content-Type, Authorization"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        3220,
+        220
+      ],
+      "id": "bc9175dd-6e21-440e-ac86-88995fd86f70",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nlet oneq = $input.last().json?.chatInput ?$input.last().json?.chatInput : \n$input.last().json?.query?.query ? $input.last().json?.query?.query : \"\";\n\nreturn [\n  { json: \n    { \n      query: oneq\n    } \n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -2420,
+        480
+      ],
+      "id": "409e5995-c261-476b-8c36-476db34d6f9a",
+      "name": "SingleQ"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get the input JSON from previous node\nconst obj = $('Cat bot').first().json.output;\nlet input = {};\ntry {\n  input = JSON.parse( obj );\n} catch (error) { };\n// Process the tags\nif( input && input?.tags && input.tags.length ){\n  let SORT = \"ASC\" ;\n  let conditions = input.tags.flatMap(tagObj => \n    Object.entries(tagObj).map(([key, value]) => {\n      if( \"ident\" ==  key ) return `unaccent(fact_statement) ILIKE unaccent('%${value}%')`;\n      if( \"followers\" ==  key ){ \n        SORT = value.includes('top') ? \"DESC\" : \"ASC\";\n        return `unaccent(fact_statement) ILIKE unaccent('%followers%linkedin%')`;\n      }\n      return `unaccent(fact_statement) ILIKE unaccent('%${key}%${value}%')`;\n    })).join(' OR ');\n  // linkedin followers\n  if( conditions.includes('followers') ){\n    conditions += \" ORDER BY CAST(SUBSTRING(fact_statement FROM '([0-9]+) followers') AS INTEGER) \";\n    conditions += SORT;\n  }\n  \n  // Construct the SQL query\n  const sqlQuery = `select fact_statement from resource_facts WHERE ${conditions} limit 166`;\n  return [{ json: { sqlQuery } }];\n\n} else { // no tags return empty select\n  return [{ json: { sqlQuery: \"select ;\"} }];\n}\n\n\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1380,
+        520
+      ],
+      "id": "0ffab9d3-3a98-4d4c-ad28-b4125e7687d1",
+      "name": "JSON, ILIKE and patches"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "={{ $('chat').item.json.sessionId }}",
+        "sessionKey": ""
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        2480,
+        600
+      ],
+      "id": "dffff5b6-62f6-435c-8b50-a1ad4d1a6efc",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "jsCode": "let fl = false;\nlet ii = $input.first().json.output;\ntry{ JSON.parse( ii ); fl = true } catch{};\n\nreturn {check: fl};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1900,
+        680
+      ],
+      "id": "2c881a75-d2d3-41c4-8064-d3356b39cdbf",
+      "name": "JSON ✅"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "e9094e41-598f-46e1-a154-9d17f579703a",
+              "leftValue": "={{ $json.check }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -1680,
+        680
+      ],
+      "id": "7126f8cd-15e1-466f-9194-73c9aca148d2",
+      "name": "Agent loop"
+    }
+  ],
+  "pinData": {},
+  "repo_name": "n8n-backup-zm",
+  "repo_owner": "zlatkomq",
+  "repo_path": "",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-03-31T12:45:21.811Z",
+      "updatedAt": "2025-03-31T12:45:21.811Z",
+      "id": "mUYuMooITov17Xfj",
+      "name": "Ganttic"
+    }
+  ],
+  "triggerCount": 2,
+  "updatedAt": "2025-05-21T08:43:48.174Z",
+  "versionId": "4ca97bb0-b2d6-45b1-bc52-0b42bec73dee"
+}
