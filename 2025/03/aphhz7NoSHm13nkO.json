@@ -1,0 +1,1222 @@
+{
+  "active": true,
+  "connections": {
+    "Mentors": {
+      "main": [
+        [
+          {
+            "node": "Add mentors",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Mentors": {
+      "main": [
+        [
+          {
+            "node": "Get Mentors1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Questions": {
+      "main": [
+        [
+          {
+            "node": "Supabase",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supabase": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Slack - New Question": {
+      "main": [
+        [
+          {
+            "node": "If not a bot",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Mentor": {
+      "main": [
+        [
+          {
+            "node": "Summarize Question",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Mentors1": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Add Question": {
+      "main": [
+        [
+          {
+            "node": "Notify Zlatko",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Summarize Question": {
+      "main": [
+        [
+          {
+            "node": "Normalize",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Notify Mentor": {
+      "main": [
+        []
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Insert Answer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Question Answered!": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Insert Answer": {
+      "main": [
+        [
+          {
+            "node": "Answer on Slack Channel",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If Question Valid": {
+      "main": [
+        [
+          {
+            "node": "Add Question",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond to User - Not Valid Q",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Basic LLM Chain": {
+      "main": [
+        [
+          {
+            "node": "Respond to User2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ollama Chat Model": {
+      "ai_languageModel": [
+        []
+      ]
+    },
+    "Normalize": {
+      "main": [
+        [
+          {
+            "node": "If Question Valid",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respond to User": {
+      "main": [
+        []
+      ]
+    },
+    "If not a bot": {
+      "main": [
+        [
+          {
+            "node": "Get Mentor",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "No Operation, do nothing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "Answer on Slack Channel1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Slack - Interact": {
+      "main": [
+        []
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Summarize Question",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Notify Zlatko": {
+      "main": [
+        [
+          {
+            "node": "Respond to User",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-03-17T20:13:11.442Z",
+  "id": "aphhz7NoSHm13nkO",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Mentorship",
+  "nodes": [
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1OXv9NYjOqp87j-uYdk5D-Vqjz07OQskmk9O_HSMwtMk",
+          "mode": "list",
+          "cachedResultName": "AI Chatbot Q&A",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1OXv9NYjOqp87j-uYdk5D-Vqjz07OQskmk9O_HSMwtMk/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1869359288,
+          "mode": "list",
+          "cachedResultName": "Mentors",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1OXv9NYjOqp87j-uYdk5D-Vqjz07OQskmk9O_HSMwtMk/edit#gid=1869359288"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        -1980,
+        1100
+      ],
+      "id": "683d52cf-7265-4f4e-bf0f-d121ab5c1045",
+      "name": "Mentors",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "FtlTep04mtONOydH",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "upsert",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "mentors",
+          "mode": "list",
+          "cachedResultName": "mentors"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "email": "={{ $json.Email }}",
+            "name": "={{ $json.Name }}",
+            "slack_id": "={{ $json[\"Slack Id\"] }}"
+          },
+          "matchingColumns": [
+            "email"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "name",
+              "displayName": "name",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "slack_id",
+              "displayName": "slack_id",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        -1760,
+        1100
+      ],
+      "id": "00150f68-6c62-40a1-bb5a-86654e40caff",
+      "name": "Add mentors",
+      "credentials": {
+        "postgres": {
+          "id": "lbgmnBBfYUC6SE6L",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "path": "mentors",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -1980,
+        20
+      ],
+      "id": "ef381a90-3746-470d-bfcb-3b79582fbe2b",
+      "name": "Get Mentors",
+      "webhookId": "d2e78dda-73eb-4f28-a3af-d25f7b96de9b"
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        -1540,
+        20
+      ],
+      "id": "448c44e4-a7dd-415d-8c7d-6c8d7467c2b0",
+      "name": "Respond to Webhook1"
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        -1540,
+        280
+      ],
+      "id": "5fe800f8-f57d-430e-b759-24f70f91a910",
+      "name": "Respond to Webhook2"
+    },
+    {
+      "parameters": {
+        "path": "questions",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "*"
+        }
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -1980,
+        280
+      ],
+      "id": "04af58ee-10af-41d1-8147-a8cb01597f5a",
+      "name": "Get Questions",
+      "webhookId": "d2e78dda-73eb-4f28-a3af-d25f7b96de9b"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "rpc/get_questions_with_mentors"
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        -1760,
+        280
+      ],
+      "id": "dc077b6f-0647-4fad-872d-75fefa05d153",
+      "name": "Supabase",
+      "credentials": {
+        "supabaseApi": {
+          "id": "t2OfRpG0kminaH5V",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "slack-events",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -1980,
+        740
+      ],
+      "id": "7a6e26e6-7090-46b7-aa67-b5af442044e3",
+      "name": "Slack - New Question",
+      "webhookId": "c2f891ba-ace4-4f74-9085-d6249a25b93f"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "mentor_question_load",
+        "limit": 1
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        -1540,
+        640
+      ],
+      "id": "cffb8d4a-42ee-4bb2-b7f5-2a794ca21942",
+      "name": "Get Mentor",
+      "credentials": {
+        "supabaseApi": {
+          "id": "t2OfRpG0kminaH5V",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "tableId": "questions",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "question",
+              "fieldValue": "={{ $('Slack - New Question').item.json.body.event.text }}"
+            },
+            {
+              "fieldId": "is_answered",
+              "fieldValue": "false"
+            },
+            {
+              "fieldId": "mentor_id",
+              "fieldValue": "={{ $('Get Mentor').item.json.id }}"
+            },
+            {
+              "fieldId": "question_title",
+              "fieldValue": "={{ $json.text }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        -460,
+        540
+      ],
+      "id": "42be68c0-9bb8-4cc1-97e8-cd6b616c04c7",
+      "name": "Add Question",
+      "credentials": {
+        "supabaseApi": {
+          "id": "t2OfRpG0kminaH5V",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "mentors"
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        -1760,
+        20
+      ],
+      "id": "69e2929c-6969-4204-8041-20d269f2c1ca",
+      "name": "Get Mentors1",
+      "credentials": {
+        "supabaseApi": {
+          "id": "t2OfRpG0kminaH5V",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "select": "user",
+        "user": {
+          "__rl": true,
+          "value": "={{ $('Slack - New Question').item.json.body.event.user }}",
+          "mode": "id"
+        },
+        "text": "=*Thanks for your AI question!* 🚀  \n\nYour question has been assigned to *{{ $('Get Mentor').item.json.name }}* 🧠. They’ll respond in the *#q-ai-hub* channel as soon as possible.",
+        "otherOptions": {
+          "includeLinkToWorkflow": false,
+          "mrkdwn": true
+        }
+      },
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.3,
+      "position": [
+        20,
+        540
+      ],
+      "id": "6ca3643d-99ca-47a3-8f76-084d4f155fa9",
+      "name": "Respond to User",
+      "webhookId": "fac58e19-23d6-44da-bf4c-61ca9005dd6e",
+      "credentials": {
+        "slackApi": {
+          "id": "ZmOgvDTEw8iOSljK",
+          "name": "Slack AIHub"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $('Slack - New Question').item.json.body.event.text }}",
+        "messages": {
+          "messageValues": [
+            {
+              "message": "You are an AI assistant. For each text input provided: 1. Determine if the input is a valid question or a statement. 2. If it is a valid question or a statement, generate a concise title summarizing the question or a statement in no more than seven words. 3. If it is not a valid question or a statement, respond with an empty string (\"\"). Your response should strictly adhere to these guidelines without additional explanations or text."
+            }
+          ]
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.5,
+      "position": [
+        -1320,
+        640
+      ],
+      "id": "1747ba5f-dfd4-432d-a672-061cb7991975",
+      "name": "Summarize Question"
+    },
+    {
+      "parameters": {
+        "select": "user",
+        "user": {
+          "__rl": true,
+          "value": "={{ $('Get Mentor').item.json.slack_id }}",
+          "mode": "id"
+        },
+        "text": "=You've been assigned a new AI question: *{{ $json.question_title }}*",
+        "otherOptions": {
+          "includeLinkToWorkflow": false,
+          "mrkdwn": true
+        }
+      },
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.3,
+      "position": [
+        240,
+        220
+      ],
+      "id": "39a53f69-3be3-4892-a103-7df290bb2e57",
+      "name": "Notify Mentor",
+      "webhookId": "fac58e19-23d6-44da-bf4c-61ca9005dd6e",
+      "credentials": {
+        "slackApi": {
+          "id": "ZmOgvDTEw8iOSljK",
+          "name": "Slack AIHub"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c3ce1aa2-4471-4295-a973-9daf3acdf96d",
+              "name": "body.question_id",
+              "value": "={{ $json.body.question_id }}",
+              "type": "string"
+            },
+            {
+              "id": "56178e89-8eb4-4f83-a9a8-9873d6a759f4",
+              "name": "body.answer",
+              "value": "={{ $json.body.answer }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1760,
+        1360
+      ],
+      "id": "97519b36-f9a7-4d4d-acf6-dd3973f5d4c4",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "answer",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -1980,
+        1360
+      ],
+      "id": "d78ccbb1-d86f-424f-9ddb-ab73ae0fd336",
+      "name": "Question Answered!",
+      "webhookId": "c1c44d46-8219-4503-8a6d-ba6a759d5229"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "tableId": "questions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "id",
+              "condition": "eq",
+              "keyValue": "={{ $json.body.question_id }}"
+            }
+          ]
+        },
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "answer",
+              "fieldValue": "={{ $json.body.answer }}"
+            },
+            {
+              "fieldId": "is_answered",
+              "fieldValue": "true"
+            },
+            {
+              "fieldId": "answered_at",
+              "fieldValue": "={{$now}}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        -1540,
+        1360
+      ],
+      "id": "965a38a4-58a8-41c0-bf5a-ac13e17ad6fc",
+      "name": "Insert Answer",
+      "credentials": {
+        "supabaseApi": {
+          "id": "Vbtfas1bVCzZ2Wde",
+          "name": "Supabase account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "4eff7096-d1f5-49e3-97e8-ba0653bf8dfa",
+              "leftValue": "={{ $json.text }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "f1ef5a8d-872b-4390-85d5-33e5d4d21f6e",
+              "leftValue": "={{ $json.text }}",
+              "rightValue": "\"\"",
+              "operator": {
+                "type": "string",
+                "operation": "notEquals"
+              }
+            },
+            {
+              "id": "def78070-e95e-44fd-87d2-91beec002a3e",
+              "leftValue": "={{ $json.text }}",
+              "rightValue": "\"\"\"\"",
+              "operator": {
+                "type": "string",
+                "operation": "notEquals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -680,
+        640
+      ],
+      "id": "1f7e9f29-2af7-43c9-89b7-4d3cff86d909",
+      "name": "If Question Valid"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $('Add Question').item.json.question }}",
+        "messages": {
+          "messageValues": [
+            {
+              "message": "Here is a well-structured system prompt for your OpenAI Assistant API that ensures the LLM provides concise, to-the-point answers with relevant web references:  System Prompt for OpenAI Assistant API  📌 Objective: You are an AI-powered assistant that takes a user’s question, searches for the most relevant and accurate information, and returns a concise and direct answer with web references for verification.  Instructions for the LLM: \t1.\tUnderstand the Question: \t•\tIdentify the core intent of the user’s query. \t•\tDetermine if the question requires factual data, a step-by-step process, or an explanation. \t2.\tRetrieve the Best Answer: \t•\tSearch for authoritative and up-to-date sources that provide a clear and reliable answer. \t•\tSummarize the most relevant information into one or two short paragraphs. \t•\tEnsure that the response is accurate, neutral, and actionable. \t3.\tProvide Web References: \t•\tAlways include at least one credible source for verification. \t•\tFormat references as a clickable link at the end of the response. \t4.\tFormatting & Response Style: \t•\tKeep responses brief and informative (preferably under 100 words). \t•\tAvoid unnecessary details or lengthy explanations. \t•\tWhen applicable, use bullet points or numbered steps for clarity.  Example Response Format:  📌 User Question: What are the benefits of using AI in healthcare?  ✅ Response: AI in healthcare improves diagnostics, treatment personalization, and operational efficiency. It enhances early disease detection, reduces human errors, and accelerates drug discovery. AI-driven medical imaging and predictive analytics significantly improve patient outcomes.  🔗 Source: World Health Organization  This prompt ensures short, precise, and well-referenced responses, optimizing the LLM’s accuracy and reliability for users. 🚀\n\nEnsure Slack-Friendly Formatting:\nUse Markdown-compatible text that renders correctly in Slack.\nAvoid bold (**bold**), as it is not supported in Slack Markdown. Instead, use italic (*italic*) for emphasis.\nUse bullet points (- or •) to structure information concisely.\nKeep responses brief and readable, using line breaks for clarity.\nInclude engaging emojis where appropriate to improve readability and tone (e.g., 🎯, ✅, 📌, 🚀)."
+            }
+          ]
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.5,
+      "position": [
+        -1980,
+        -440
+      ],
+      "id": "0980de71-b639-4d1d-b792-7a7b4dcb9906",
+      "name": "Basic LLM Chain"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -1892,
+        -220
+      ],
+      "id": "7e8b1ede-355d-4be5-95ec-cc082124ffa3",
+      "name": "OpenAI Chat Model1",
+      "credentials": {
+        "openAiApi": {
+          "id": "M8xqWvEC6mH6LNuk",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "phi4:latest",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
+      "typeVersion": 1,
+      "position": [
+        -1300,
+        960
+      ],
+      "id": "360a006f-4e37-4743-a09e-d9ff0cf7815f",
+      "name": "Ollama Chat Model",
+      "credentials": {
+        "ollamaApi": {
+          "id": "fv9DllLzKNe1SabK",
+          "name": "Ollama account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "select": "user",
+        "user": {
+          "__rl": true,
+          "value": "={{ $('Slack - New Question').item.json.body.event.user }}",
+          "mode": "id"
+        },
+        "text": "=🎉 *Thanks for your AI question!* 🚀  \n\nYour question has been assigned to *{{ $('Get Mentor').item.json.name }}* 🧠💡. They’ll respond as soon as they’re available.  \n\n⏳ In the meantime, here’s something that might help:  \n👉 _{{ $json.text }}_  \n\nStay curious & keep exploring AI! ⚡🤖  ",
+        "otherOptions": {}
+      },
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.3,
+      "position": [
+        -1604,
+        -340
+      ],
+      "id": "233d9976-f229-4152-8247-9d08872ac121",
+      "name": "Respond to User2",
+      "webhookId": "fac58e19-23d6-44da-bf4c-61ca9005dd6e",
+      "credentials": {
+        "slackApi": {
+          "id": "ZmOgvDTEw8iOSljK",
+          "name": "Slack AIHub"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Function to normalize text\nfunction normalizeText(text) {\n  // Remove accented characters by normalizing to NFD and removing diacritical marks\n  let normalized = text.normalize('NFD').replace(/[\\u0300-\\u036f]/g, '');\n\n  // Remove special characters except letters, numbers, spaces, commas, periods, colons, and question marks\n  normalized = normalized.replace(/[^a-zA-Z0-9\\s,.:?]/g, '');\n\n  // Replace multiple spaces with a single space and trim leading/trailing spaces\n  normalized = normalized.replace(/\\s+/g, ' ').trim();\n\n  return normalized;\n}\n\n// Iterate over each input item\nreturn items.map(item => {\n  // Extract the text from the input\n  const text = item.json.text;\n\n  // Normalize the text\n  item.json.text = normalizeText(text);\n\n  return item;\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -920,
+        640
+      ],
+      "id": "c93ccf2e-bb75-469c-bcf5-b742720b3aa3",
+      "name": "Normalize"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "b7457277-ce5a-444d-a04c-b43adb27b812",
+              "leftValue": "={{ $json.body.event.bot_id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notExists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -1760,
+        740
+      ],
+      "id": "06005153-b992-4ace-acb4-974ef0ce2c3f",
+      "name": "If not a bot"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        -1540,
+        840
+      ],
+      "id": "16929e1d-0903-4577-ba74-9cc6ceff1de0",
+      "name": "No Operation, do nothing"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1980,
+        1620
+      ],
+      "id": "ac4d4397-5bc5-4bb5-9f66-207630cda339",
+      "name": "When clicking ‘Test workflow’",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "C031JHLHEKW",
+          "mode": "id"
+        },
+        "messageType": "block",
+        "blocksUi": "{\n\t\"blocks\": [\n\t\t{\n\t\t\t\"type\": \"section\",\n\t\t\t\"block_id\": \"vote_section\",\n\t\t\t\"text\": {\n\t\t\t\t\"type\": \"mrkdwn\",\n\t\t\t\t\"text\": \"*Which feature should we prioritize next?*\"\n\t\t\t},\n\t\t\t\"accessory\": {\n\t\t\t\t\"type\": \"radio_buttons\",\n\t\t\t\t\"action_id\": \"vote_selection\",\n\t\t\t\t\"options\": [\n\t\t\t\t\t{\n\t\t\t\t\t\t\"text\": {\n\t\t\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\t\t\"text\": \"Feature A\"\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"value\": \"feature_a\"\n\t\t\t\t\t},\n\t\t\t\t\t{\n\t\t\t\t\t\t\"text\": {\n\t\t\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\t\t\"text\": \"Feature B\"\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"value\": \"feature_b\"\n\t\t\t\t\t},\n\t\t\t\t\t{\n\t\t\t\t\t\t\"text\": {\n\t\t\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\t\t\"text\": \"Feature C\"\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"value\": \"feature_c\"\n\t\t\t\t\t}\n\t\t\t\t]\n\t\t\t}\n\t\t},\n\t\t{\n\t\t\t\"type\": \"input\",\n\t\t\t\"block_id\": \"suggestion_input\",\n\t\t\t\"element\": {\n\t\t\t\t\"type\": \"plain_text_input\",\n\t\t\t\t\"action_id\": \"additional_suggestion\",\n\t\t\t\t\"placeholder\": {\n\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\"text\": \"Your suggestion\"\n\t\t\t\t}\n\t\t\t},\n\t\t\t\"label\": {\n\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\"text\": \"Other suggestions\"\n\t\t\t},\n\t\t\t\"optional\": true\n\t\t},\n\t\t{\n\t\t\t\"type\": \"actions\",\n\t\t\t\"block_id\": \"submit_action\",\n\t\t\t\"elements\": [\n\t\t\t\t{\n\t\t\t\t\t\"type\": \"button\",\n\t\t\t\t\t\"text\": {\n\t\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\t\"text\": \"Submit Vote\"\n\t\t\t\t\t},\n\t\t\t\t\t\"style\": \"primary\",\n\t\t\t\t\t\"value\": \"submit_vote\",\n\t\t\t\t\t\"action_id\": \"submit_vote\"\n\t\t\t\t}\n\t\t\t]\n\t\t}\n\t]\n}",
+        "text": "=",
+        "otherOptions": {
+          "includeLinkToWorkflow": false
+        }
+      },
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.3,
+      "position": [
+        -1760,
+        1620
+      ],
+      "id": "d0044de6-5a78-47a7-b521-6340c053abc4",
+      "name": "Answer on Slack Channel1",
+      "webhookId": "fac58e19-23d6-44da-bf4c-61ca9005dd6e",
+      "credentials": {
+        "slackApi": {
+          "id": "ZmOgvDTEw8iOSljK",
+          "name": "Slack AIHub"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "interact",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -1980,
+        1880
+      ],
+      "id": "58bd3b50-52af-4002-9870-54436d8a7dae",
+      "name": "Slack - Interact",
+      "webhookId": "c2f891ba-ace4-4f74-9085-d6249a25b93f",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1760,
+        2440
+      ],
+      "id": "bf9947a4-c081-4fb6-9969-4c94a16ea70a",
+      "name": "Mapping"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -1160,
+        960
+      ],
+      "id": "11de755c-5998-4c0d-a522-c7eaf5d2320a",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "M8xqWvEC6mH6LNuk",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "select": "user",
+        "user": {
+          "__rl": true,
+          "value": "=U9S2GLSPL",
+          "mode": "id"
+        },
+        "text": "=You've been assigned a new AI question: *<https://main.d3ls6uvr1biztt.amplifyapp.com/|{{ $json.question_title }}>*",
+        "otherOptions": {
+          "includeLinkToWorkflow": false,
+          "mrkdwn": true,
+          "unfurl_media": false
+        }
+      },
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.3,
+      "position": [
+        -200,
+        540
+      ],
+      "id": "1a7d680f-126c-47c8-a729-cab31ff727b7",
+      "name": "Notify Zlatko",
+      "webhookId": "fac58e19-23d6-44da-bf4c-61ca9005dd6e",
+      "credentials": {
+        "slackApi": {
+          "id": "ZmOgvDTEw8iOSljK",
+          "name": "Slack AIHub"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "select": "user",
+        "user": {
+          "__rl": true,
+          "value": "={{ $('Slack - New Question').item.json.body.event.user }}",
+          "mode": "id"
+        },
+        "text": "=Please ask a valid question.",
+        "otherOptions": {
+          "includeLinkToWorkflow": false
+        }
+      },
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.3,
+      "position": [
+        -460,
+        740
+      ],
+      "id": "91ee4195-d9e6-450e-995b-5e0021c6b755",
+      "name": "Respond to User - Not Valid Q",
+      "webhookId": "fac58e19-23d6-44da-bf4c-61ca9005dd6e",
+      "credentials": {
+        "slackApi": {
+          "id": "ZmOgvDTEw8iOSljK",
+          "name": "Slack AIHub"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "C08J73XB6A1",
+          "mode": "id"
+        },
+        "text": "=Hej ekipa! 👋\nOve godine predajemo na Debug konferenciji 🎤\nPomozite nam odabrati najbolji naslov za talk – bacite glas ovdje:\n👉 https://web.polly.ai/qmmydf\n\nHvala! 🙌",
+        "otherOptions": {
+          "includeLinkToWorkflow": false
+        }
+      },
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.3,
+      "position": [
+        -1680,
+        1880
+      ],
+      "id": "12f140e5-f515-43de-9ddd-d2092caaaf51",
+      "name": "Javna objava",
+      "webhookId": "fac58e19-23d6-44da-bf4c-61ca9005dd6e",
+      "credentials": {
+        "slackApi": {
+          "id": "ZmOgvDTEw8iOSljK",
+          "name": "Slack AIHub"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "C031JHLHEKW",
+          "mode": "id"
+        },
+        "text": "=*❓ Question:*\n\n{{ $json.question }}\n\n*💬 Answer:*\n\n{{ $json.answer }}",
+        "otherOptions": {
+          "includeLinkToWorkflow": false
+        }
+      },
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.3,
+      "position": [
+        -1340,
+        1520
+      ],
+      "id": "acb56f87-e8d5-4108-ac57-e17eec7b9c49",
+      "name": "Answer on Slack Channel -test",
+      "webhookId": "fac58e19-23d6-44da-bf4c-61ca9005dd6e",
+      "credentials": {
+        "slackApi": {
+          "id": "ZmOgvDTEw8iOSljK",
+          "name": "Slack AIHub"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "C08J73XB6A1",
+          "mode": "id"
+        },
+        "text": "=*❓ Question:*\n\n{{ $json.question }}\n\n*💬 Answer:*\n\n{{ $json.answer }}",
+        "otherOptions": {
+          "includeLinkToWorkflow": false
+        }
+      },
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.3,
+      "position": [
+        -1340,
+        1360
+      ],
+      "id": "718cf1ff-930b-41dd-ba22-2e67c0faca25",
+      "name": "Answer on Slack Channel",
+      "webhookId": "fac58e19-23d6-44da-bf4c-61ca9005dd6e",
+      "credentials": {
+        "slackApi": {
+          "id": "ZmOgvDTEw8iOSljK",
+          "name": "Slack AIHub"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "C031JHLHEKW",
+          "mode": "id"
+        },
+        "text": "=Hej ekipa! 👋\nOve godine predajemo na Debug konferenciji 🎤\nPomozite nam odabrati najbolji naslov za talk – bacite glas ovdje:\n👉 https://web.polly.ai/qmmydf\n\nHvala! 🙌",
+        "otherOptions": {
+          "includeLinkToWorkflow": false
+        }
+      },
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.3,
+      "position": [
+        -1320,
+        2160
+      ],
+      "id": "4ddec15f-0f1b-4c60-9804-ccd6d0f30030",
+      "name": "Answer on Slack Channel -test1",
+      "webhookId": "fac58e19-23d6-44da-bf4c-61ca9005dd6e",
+      "credentials": {
+        "slackApi": {
+          "id": "ZmOgvDTEw8iOSljK",
+          "name": "Slack AIHub"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "repo_name": "n8n-backup-zm",
+  "repo_owner": "zlatkomq",
+  "repo_path": "",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 4,
+  "updatedAt": "2025-04-14T08:58:29.651Z",
+  "versionId": "d4890ba6-40d1-4341-972c-1635c6d7af05"
+}
