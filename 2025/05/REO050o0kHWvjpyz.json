@@ -1,0 +1,467 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "Google Docs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Docs": {
+      "main": [
+        [
+          {
+            "node": "Supabase Vector Store1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings Ollama1": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Supabase Vector Store1",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Default Data Loader": {
+      "ai_document": [
+        [
+          {
+            "node": "Supabase Vector Store1",
+            "type": "ai_document",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Token Splitter": {
+      "ai_textSplitter": [
+        [
+          {
+            "node": "Default Data Loader",
+            "type": "ai_textSplitter",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres Chat Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "RAG AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "RAG AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RAG AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ollama Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "RAG AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "get 1024 embed": {
+      "ai_tool": [
+        [
+          {
+            "node": "RAG AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-05-15T07:45:15.050Z",
+  "id": "REO050o0kHWvjpyz",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Resources_1024_vectors",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        864,
+        -1536
+      ],
+      "id": "7ce490ab-09aa-4409-aea6-8336f220b775",
+      "name": "When clicking ‘Test workflow’"
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "operation": "get",
+        "documentURL": "1s7McwTQLvb-1dsmehGD6-bYbTpr19WL9xUDjoYMMX30"
+      },
+      "type": "n8n-nodes-base.googleDocs",
+      "typeVersion": 2,
+      "position": [
+        1024,
+        -1536
+      ],
+      "id": "da9bb442-7ac7-4b6d-ac04-37d85599515d",
+      "name": "Google Docs",
+      "credentials": {
+        "googleApi": {
+          "id": "ENHwRft8kYjJGkH6",
+          "name": "Google Drive account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "insert",
+        "tableName": {
+          "__rl": true,
+          "value": "documents",
+          "mode": "list",
+          "cachedResultName": "documents"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
+      "typeVersion": 1.1,
+      "position": [
+        1200,
+        -1536
+      ],
+      "id": "891b8eec-967a-4cc5-84bf-f8d1b2d63169",
+      "name": "Supabase Vector Store1",
+      "credentials": {
+        "supabaseApi": {
+          "id": "Vbtfas1bVCzZ2Wde",
+          "name": "Supabase account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "mxbai-embed-large:latest"
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOllama",
+      "typeVersion": 1,
+      "position": [
+        1040,
+        -1328
+      ],
+      "id": "682656d7-89e5-4b00-85a0-25f280e9742b",
+      "name": "Embeddings Ollama1",
+      "credentials": {
+        "ollamaApi": {
+          "id": "fv9DllLzKNe1SabK",
+          "name": "Ollama account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsonMode": "expressionData",
+        "jsonData": "={{ $('Google Docs').item.json.content }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+      "typeVersion": 1,
+      "position": [
+        1280,
+        -1360
+      ],
+      "id": "29a7db23-517c-4ba1-9cf3-d5013bc95dc3",
+      "name": "Default Data Loader"
+    },
+    {
+      "parameters": {
+        "chunkSize": 300
+      },
+      "type": "@n8n/n8n-nodes-langchain.textSplitterTokenSplitter",
+      "typeVersion": 1,
+      "position": [
+        1184,
+        -1216
+      ],
+      "id": "f693af36-9a01-4374-a8c4-a4cfd70d13d0",
+      "name": "Token Splitter"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        848,
+        -2080
+      ],
+      "id": "08d412a3-a05b-44de-8f76-ddcfc49378ab",
+      "name": "When chat message received",
+      "webhookId": "241eabd3-30ec-40fa-bb3a-268cbe308a7c"
+    },
+    {
+      "parameters": {
+        "content": "## Insert embedings",
+        "height": 545,
+        "width": 796,
+        "color": 5
+      },
+      "id": "f19ad53e-8f5f-4958-92f6-0d6ab17c3d71",
+      "name": "INSERT",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        800,
+        -1616
+      ]
+    },
+    {
+      "parameters": {
+        "tableName": "langchain_chat_histories"
+      },
+      "id": "ac293ea5-7dac-4b12-967d-d850a6043700",
+      "name": "Postgres Chat Memory",
+      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+      "typeVersion": 1,
+      "position": [
+        1248,
+        -1856
+      ],
+      "notesInFlow": false,
+      "credentials": {
+        "postgres": {
+          "id": "wK2pSCG9jTniRU28",
+          "name": "Postgres account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## RAG AI Agent - 1024 embeddings",
+        "height": 464.8027193303974,
+        "width": 1035.6381264595484
+      },
+      "id": "b6adb28b-aea0-482c-8003-02dae5d26a0b",
+      "name": "Sticky Note2",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        800,
+        -2160
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "3c52cca6-390c-4163-bd14-5782e48cddc8",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1664,
+        -2080
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "9a9a245e-f1a1-4282-bb02-a81ffe629f0f",
+              "name": "chatInput",
+              "value": "={{ $json?.chatInput || $json.body.chatInput }}",
+              "type": "string"
+            },
+            {
+              "id": "b80831d8-c653-4203-8706-adedfdb98f77",
+              "name": "sessionId",
+              "value": "={{ $json?.sessionId || $json.body.sessionId}}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "d37b71c5-ac9c-4bd5-9333-0898294208e4",
+      "name": "Edit Fields",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1104,
+        -2080
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "d7a8892b-8d2b-4cac-b8b8-8c56bffc4f54",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "*.greenplace.uk"
+        }
+      },
+      "id": "34d381c5-b03c-4850-8066-f353946cba28",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        848,
+        -1888
+      ],
+      "webhookId": "d7a8892b-8d2b-4cac-b8b8-8c56bffc4f54"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.chatInput }}",
+        "options": {
+          "systemMessage": "You are a personal assistant who helps answer questions from a corpus of documents. The documents are text based\n\nYou are given tool \"call_subflow\" to perform RAG look up for available sources in your knowledge base and that is the only source of truth.\n\nAlways tell the user if you didn't find the answer. Don't make something up just to please them.\n\nYour tone should be helpful and friendly and in text format always."
+        }
+      },
+      "id": "45a4cbf5-c5f8-424e-a75d-fcc8c764c11f",
+      "name": "RAG AI Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.6,
+      "position": [
+        1328,
+        -2080
+      ]
+    },
+    {
+      "parameters": {
+        "model": "llama3.2:latest",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
+      "typeVersion": 1,
+      "position": [
+        1104,
+        -1856
+      ],
+      "id": "1ae654a0-9c30-4442-9c06-4d81e254c2ca",
+      "name": "Ollama Chat Model",
+      "credentials": {
+        "ollamaApi": {
+          "id": "fv9DllLzKNe1SabK",
+          "name": "Ollama account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "name": "call_subflow",
+        "description": "Call this tool to get a series of documents",
+        "workflowId": {
+          "__rl": true,
+          "value": "dxJnygP987OKh40v",
+          "mode": "list",
+          "cachedResultName": "Agent_old_way"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2,
+      "position": [
+        1488,
+        -1856
+      ],
+      "id": "5b2a60ae-e039-47c7-8353-749248552e82",
+      "name": "get 1024 embed"
+    }
+  ],
+  "pinData": {},
+  "repo_name": "n8n-backup-zm",
+  "repo_owner": "zlatkomq",
+  "repo_path": "",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-05-15T13:56:31.077Z",
+      "updatedAt": "2025-05-15T13:56:31.077Z",
+      "id": "2ifm12YsbnG1xH9C",
+      "name": "Testing"
+    },
+    {
+      "createdAt": "2025-03-31T12:45:21.811Z",
+      "updatedAt": "2025-03-31T12:45:21.811Z",
+      "id": "mUYuMooITov17Xfj",
+      "name": "Ganttic"
+    }
+  ],
+  "triggerCount": 2,
+  "updatedAt": "2025-07-09T09:59:27.275Z",
+  "versionId": "58fdee3e-39af-460c-8911-bf6568e37d34"
+}
