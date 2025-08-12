@@ -1,0 +1,181 @@
+{
+  "active": false,
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ollama Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ttt_tool": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres Chat Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-05-22T10:40:57.136Z",
+  "id": "P3L6f0rMhtXbSxKA",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Agent T2S",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "=You are assistant for our company resources - people.\n\nYou have ttt_tool that is your only source for getting our data.\nOnly return answers based on ttt_tool tool.\n\nWhen calling ttt_tool user can ask various subjects about resources.\n\nWhen calling the ttt_tool tool always pass: \n- action\n- term\n\nIf user asks for skills or experties area resources have, pass:\n- action: 'get_skills'\nIf user asks for resources seniority level pass:\n- action: 'get_level'\nIf user asks for departmenet section resource is located in, pass:\n- action: 'get_section'\nIf user asks for industry of a resource, pass:\n- action: 'get_industry'\nIf user asks for resources team, pass:\n- action: 'get_team'\nIf user asks for resource deparement, pass:\n- action: 'get_department'\nIf user asks for resource vertical, pass:\n- action: 'get_vertical'\nIf user asks for resource center of excelence manager - or ceo manager, pass:\n- action: 'get_coe_manager'\nIf user asks for resource Engineering Lead, pass:\n- action: 'get_el'\nIf user asks for resource Engineering Head, pass:\n- action: 'get_eh'\nIf user asks for resource director, pass:\n- action: 'get_director'\nIf user asks for resource type of employment (e.g., contractor, full-time), pass:\n- action: 'get_et'\nIf user asks for resource certificates, pass:\n- action: 'get_certs'\nIf user asks for resource notes or description, pass:\n- action: 'get_notes'\n\n\nFor term pass the fact user is searching for, and for action pass subject or category that query falls into. Here are couple examples:\n\nUser asks: \"list two senior php developers\"\ncall tool with json query: \n{\n  action: \"get_skills\",\n  term: \"php\"\n}\n\nUser asks: \"who are resources that Josip Barisic manages\"\ncall tool with json query: \n{\n  action: \"get_director\",\n  term: \"Josip Barisic\"\n}\n\n",
+          "maxIterations": 6
+        }
+      },
+      "id": "2980992b-8551-4255-be9d-7b4cad462439",
+      "name": "AI Agent1",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        -1180,
+        -300
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "7b5a4565-2852-4a3f-adaf-410b9871b966",
+      "name": "When chat message received",
+      "type": "@n8n/n8n-nodes-langchain.manualChatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -1360,
+        -300
+      ]
+    },
+    {
+      "parameters": {
+        "model": "llama3.2:latest",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
+      "typeVersion": 1,
+      "position": [
+        -1300,
+        -100
+      ],
+      "id": "5daa8829-75a0-4840-a741-156e2d9be69b",
+      "name": "Ollama Chat Model",
+      "credentials": {
+        "ollamaApi": {
+          "id": "fv9DllLzKNe1SabK",
+          "name": "Ollama account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Chat step\n",
+        "height": 440,
+        "width": 560,
+        "color": 3
+      },
+      "name": "Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1400,
+        -380
+      ],
+      "typeVersion": 1,
+      "id": "f8cf89d1-43d6-46b0-8683-23c226f72598"
+    },
+    {
+      "parameters": {
+        "name": "ttt_tool",
+        "description": "can this tool to get any developers, resources, people or staff info",
+        "workflowId": {
+          "__rl": true,
+          "value": "T869Kw2MigncOGfa",
+          "mode": "list",
+          "cachedResultName": "sql_tool_agent"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.1,
+      "position": [
+        -980,
+        -100
+      ],
+      "id": "572be19e-b176-4a5d-ac74-d6b61f995ac8",
+      "name": "ttt_tool"
+    },
+    {
+      "parameters": {
+        "tableName": "langchain_chat_histories",
+        "contextWindowLength": 6
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+      "typeVersion": 1.3,
+      "position": [
+        -1120,
+        -80
+      ],
+      "id": "599ffcfb-7d1c-4ce4-984f-68e1cc2b2fd0",
+      "name": "Postgres Chat Memory",
+      "credentials": {
+        "postgres": {
+          "id": "wK2pSCG9jTniRU28",
+          "name": "Postgres account 2"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "repo_name": "n8n-backup-zm",
+  "repo_owner": "zlatkomq",
+  "repo_path": "",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 2,
+  "updatedAt": "2025-06-13T09:58:53.498Z",
+  "versionId": "bcfbcd6b-234e-4f6a-b5db-def216634dc2"
+}
