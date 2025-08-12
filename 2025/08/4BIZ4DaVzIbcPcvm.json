@@ -1,0 +1,516 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "Google Docs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Docs": {
+      "main": [
+        [
+          {
+            "node": "Supabase Vector Store",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings Ollama1": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Supabase Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Default Data Loader": {
+      "ai_document": [
+        [
+          {
+            "node": "Supabase Vector Store",
+            "type": "ai_document",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Token Splitter": {
+      "ai_textSplitter": [
+        [
+          {
+            "node": "Default Data Loader",
+            "type": "ai_textSplitter",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres Chat Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "RAG AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "RAG AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RAG AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ollama Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "RAG AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "get 384 embeds": {
+      "ai_tool": [
+        [
+          {
+            "node": "RAG AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        []
+      ]
+    },
+    "Anthropic Chat Model": {
+      "ai_languageModel": [
+        []
+      ]
+    }
+  },
+  "createdAt": "2025-08-01T12:29:48.867Z",
+  "id": "4BIZ4DaVzIbcPcvm",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Resources_384_vectors_DBeli",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -576,
+        384
+      ],
+      "id": "b0b6ef9c-cc8d-4da9-bd36-c2e3be963f86",
+      "name": "When clicking ‘Test workflow’"
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "operation": "get",
+        "documentURL": "1s7McwTQLvb-1dsmehGD6-bYbTpr19WL9xUDjoYMMX30"
+      },
+      "type": "n8n-nodes-base.googleDocs",
+      "typeVersion": 2,
+      "position": [
+        -416,
+        384
+      ],
+      "id": "4e5641da-8e15-472b-bfc2-3287bcdc8ec0",
+      "name": "Google Docs",
+      "credentials": {
+        "googleApi": {
+          "id": "ENHwRft8kYjJGkH6",
+          "name": "Google Q account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "chroma/all-minilm-l6-v2-f32:latest"
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOllama",
+      "typeVersion": 1,
+      "position": [
+        -400,
+        608
+      ],
+      "id": "35eaacda-4abf-4fd0-aaf0-0c072056e95d",
+      "name": "Embeddings Ollama1",
+      "credentials": {
+        "ollamaApi": {
+          "id": "fv9DllLzKNe1SabK",
+          "name": "Ollama account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsonMode": "expressionData",
+        "jsonData": "={{ $('Google Docs').item.json.content }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+      "typeVersion": 1,
+      "position": [
+        -160,
+        560
+      ],
+      "id": "70a3d58a-d703-49d2-aaad-91a8dfb684d9",
+      "name": "Default Data Loader"
+    },
+    {
+      "parameters": {
+        "chunkSize": 128
+      },
+      "type": "@n8n/n8n-nodes-langchain.textSplitterTokenSplitter",
+      "typeVersion": 1,
+      "position": [
+        -256,
+        704
+      ],
+      "id": "762060c7-82e9-48f8-9908-8418affc63d9",
+      "name": "Token Splitter"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -608,
+        -160
+      ],
+      "id": "70d869df-19e3-4d2b-a58c-19fdb3d0db9b",
+      "name": "When chat message received",
+      "webhookId": "6f8ba77f-d9af-459f-8924-1d120607c529"
+    },
+    {
+      "parameters": {
+        "content": "## Insert embedings",
+        "height": 545,
+        "width": 796,
+        "color": 5
+      },
+      "id": "807b8646-a29d-4f2b-9802-561f5384641a",
+      "name": "INSERT",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -640,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "tableName": "langchain_chat_histories"
+      },
+      "id": "c05ec2e4-3af5-414c-91bc-d75db49fbf10",
+      "name": "Postgres Chat Memory",
+      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+      "typeVersion": 1,
+      "position": [
+        -112,
+        64
+      ],
+      "notesInFlow": false,
+      "credentials": {
+        "postgres": {
+          "id": "wK2pSCG9jTniRU28",
+          "name": "Postgres account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## RAG AI Agent - 384 embeddings",
+        "height": 464.8027193303974,
+        "width": 1035.6381264595484
+      },
+      "id": "23fc1641-cc9d-494a-8c82-9a0be483ffb7",
+      "name": "Sticky Note2",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -640,
+        -240
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "8572a58c-6f00-404f-bd53-4085fa7f9fa3",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        224,
+        -160
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "9a9a245e-f1a1-4282-bb02-a81ffe629f0f",
+              "name": "chatInput",
+              "value": "={{ $json?.chatInput || $json.body.chatInput }}",
+              "type": "string"
+            },
+            {
+              "id": "b80831d8-c653-4203-8706-adedfdb98f77",
+              "name": "sessionId",
+              "value": "={{ $json?.sessionId || $json.body.sessionId}}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "6d004e39-9b0e-463d-90fb-d36bf97a4744",
+      "name": "Edit Fields",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -336,
+        -160
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "e8363b5b-1126-4a74-a600-43ac4bd4ae5e",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "*.greenplace.uk"
+        }
+      },
+      "id": "d05693e5-179c-46ec-b540-15e071f48875",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -608,
+        48
+      ],
+      "webhookId": "e8363b5b-1126-4a74-a600-43ac4bd4ae5e"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.chatInput }}",
+        "options": {
+          "systemMessage": "You are a personal assistant who helps answer questions from a corpus of documents. The documents are text based\n\nYou are given tool AAABBBCCC to perform RAG look up for available sources in your knowledge base and that is the only source of truth.\n\nAlways tell the user if you didn't find the answer. Don't make something up just to please them.\n\nYour tone should be helpful and friendly."
+        }
+      },
+      "id": "137a5df6-d60a-4b96-9c36-0839455a0baf",
+      "name": "RAG AI Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.6,
+      "position": [
+        -128,
+        -160
+      ]
+    },
+    {
+      "parameters": {
+        "model": "llama3.2:latest",
+        "options": {
+          "numBatch": 1024
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
+      "typeVersion": 1,
+      "position": [
+        -352,
+        96
+      ],
+      "id": "68071ca8-c889-460d-a876-6aa3db69a3d2",
+      "name": "Ollama Chat Model",
+      "credentials": {
+        "ollamaApi": {
+          "id": "fv9DllLzKNe1SabK",
+          "name": "Ollama account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "name": "AAABBBCCC",
+        "description": "tool to get our knowladge base documents",
+        "workflowId": {
+          "__rl": true,
+          "value": "JP0ytaw6djQB1UM9",
+          "mode": "list",
+          "cachedResultName": "Agent_old_384"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2,
+      "position": [
+        48,
+        64
+      ],
+      "id": "9a1d73c5-d5dc-43be-bb19-36e95dcb373a",
+      "name": "get 384 embeds"
+    },
+    {
+      "parameters": {
+        "mode": "insert",
+        "tableName": {
+          "__rl": true,
+          "value": "ganttic_documents_384",
+          "mode": "list",
+          "cachedResultName": "ganttic_documents_384"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
+      "typeVersion": 1.1,
+      "position": [
+        -224,
+        384
+      ],
+      "id": "b44559b0-d73a-40bc-91d9-331246188743",
+      "name": "Supabase Vector Store",
+      "credentials": {
+        "supabaseApi": {
+          "id": "Vbtfas1bVCzZ2Wde",
+          "name": "Supabase account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "/models/llama4_scout",
+          "mode": "list",
+          "cachedResultName": "/models/llama4_scout"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -224,
+        96
+      ],
+      "id": "911ac2df-2be8-4f8a-ba1a-248f75341e78",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "8CvuVJ8cItZcxDOX",
+          "name": "OpenAi account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "claude-sonnet-4-20250514",
+          "cachedResultName": "Claude 4 Sonnet"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [
+        208,
+        96
+      ],
+      "id": "93d843d0-be6a-461f-b5e6-9a71fef0c94e",
+      "name": "Anthropic Chat Model",
+      "credentials": {
+        "anthropicApi": {
+          "id": "BVejEoXr4J9auxgo",
+          "name": "Anthropic account 2"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "repo_name": "n8n-backup-zm",
+  "repo_owner": "zlatkomq",
+  "repo_path": "",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-08-07T12:31:30.316Z",
+  "versionId": "80f35356-afdd-4533-8d9c-b00df5e5a59e"
+}
