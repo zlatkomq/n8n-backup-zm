@@ -1,0 +1,311 @@
+{
+  "active": false,
+  "connections": {
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Search for question in faq1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embed question - ollama": {
+      "main": [
+        []
+      ]
+    },
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Embed question - ollama1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embed question - ollama1": {
+      "main": [
+        [
+          {
+            "node": "Elasticsearch1 old",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Elasticsearch1 old": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-04-24T10:59:54.501Z",
+  "id": "jOYqxQSCpohVyLuy",
+  "isArchived": false,
+  "meta": null,
+  "name": "Elastic Search Workflow Retriever - Est Tool",
+  "nodes": [
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "query_text"
+            },
+            {
+              "name": "index_id"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        60,
+        280
+      ],
+      "id": "d21ff433-212f-4cb9-a873-6454378f0dbf",
+      "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "ee903657-2fab-4237-907f-03de83954d8b",
+              "name": "embedding",
+              "value": "={{ $json.embeddings }}",
+              "type": "array"
+            },
+            {
+              "id": "2bf2cdb5-0495-47a7-b85d-b781f864b22b",
+              "name": "query",
+              "value": "={{ $('When chat message received').item.json.chatInput }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        560,
+        40
+      ],
+      "id": "7f800d85-8ced-4c12-be01-ea2235c11287",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://192.168.20.70:11434/api/embed",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"nomic-embed-text:latest\",\n  \"input\": [\"{{ $json.query_text }}\"]\n}",
+        "options": {}
+      },
+      "id": "3d3e8bf1-985f-4469-b332-d44c5c5a1935",
+      "name": "Embed question - ollama",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        320,
+        40
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://192.168.20.70:9204/dev-vs-2_nomic_embed_text_latest/_search",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "elasticsearchApi",
+        "sendHeaders": true,
+        "specifyHeaders": "json",
+        "jsonHeaders": "={\n  \"Content-Type\": \"application/json\"\n}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"size\": 5,\n  \"query\": {\n    \"bool\": {\n      \"should\": [\n        {\n          \"match\": {\n            \"text\": \"{{ $json.query }}\"\n          }\n        }\n      ],\n      \"minimum_should_match\": 1\n    }\n  },\n  \"knn\": {\n    \"field\": \"vector\",\n    \"query_vector\": [{{ $('Embed question - ollama').item.json.embeddings }}],\n    \"k\": 5,\n    \"num_candidates\": 100\n  }\n}",
+        "options": {
+          "allowUnauthorizedCerts": false
+        }
+      },
+      "id": "46f8cffc-f508-48ee-ba00-16d412185166",
+      "name": "Search for question in faq1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        840,
+        40
+      ],
+      "credentials": {
+        "elasticsearchApi": {
+          "id": "wwaILZtoajWrVXwt",
+          "name": "Elasticsearch account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5a6b9304-12d0-44a2-abfa-4827baa20589",
+              "name": "",
+              "value": "={{ $json.text }}",
+              "type": "string"
+            },
+            {
+              "id": "7b1823bb-af92-4b84-96d1-85d61bd702f5",
+              "name": "metadata.section_title",
+              "value": "={{ $json.section_title }}",
+              "type": "string"
+            },
+            {
+              "id": "383bed98-065c-4cff-8d21-cd8883584130",
+              "name": "metadata.chunk_id",
+              "value": "={{ $json.chunk_id }}",
+              "type": "string"
+            },
+            {
+              "id": "7e92c152-dc24-47bc-a7be-5a1ac6d8af8b",
+              "name": "metadata",
+              "value": "={{ $json.metadata }}",
+              "type": "object"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        980,
+        280
+      ],
+      "id": "e0d5ceb2-0341-448b-892f-db56da7d04a3",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://192.168.20.70:11434/api/embed",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"nomic-embed-text:latest\",\n  \"input\": [\"{{ $json.query_text }}\"]\n}",
+        "options": {}
+      },
+      "id": "2a2717f6-c3b5-47b8-b1e0-2394d97af495",
+      "name": "Embed question - ollama1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        480,
+        280
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "indexId": "=est_tool_rfp",
+        "limit": 4,
+        "options": {
+          "query": "={\n  \"knn\": {\n    \"field\": \"embedding\",\n    \"query_vector\": [{{ $json.embeddings }}],\n    \"k\": 5,\n    \"num_candidates\": 10\n  },\n  \"_source\": {\n    \"includes\": [\"text\", \"section_title\", \"chunk_id\", \"metadata.*\"]\n  },\n  \"query\": {\n    \"bool\": {\n      \"should\": [\n        {\n          \"multi_match\": {\n            \"query\": \"platforms platform web mobile backend frontend interface system technology technologies app application software\",\n            \"fields\": [\"text^3\", \"section_title^5\"],\n            \"type\": \"best_fields\",\n            \"operator\": \"OR\",\n            \"minimum_should_match\": \"30%\"\n          }\n        },\n        {\n          \"multi_match\": {\n            \"query\": \"technical requirements architecture system specifications\",\n            \"fields\": [\"text^2\", \"section_title^4\"],\n            \"type\": \"best_fields\",\n            \"operator\": \"OR\"\n          }\n        }\n      ],\n      \"filter\": [\n        {\n          \"exists\": {\n            \"field\": \"text\"\n          }\n        }\n      ]\n    }\n  },\n  \"size\": 6,\n  \"highlight\": {\n    \"fields\": {\n      \"text\": {\n        \"pre_tags\": [\"<strong>\"],\n        \"post_tags\": [\"</strong>\"],\n        \"fragment_size\": 200,\n        \"number_of_fragments\": 3\n      },\n      \"section_title\": {\n        \"pre_tags\": [\"<strong>\"],\n        \"post_tags\": [\"</strong>\"]\n      }\n    }\n  }\n}"
+        }
+      },
+      "type": "n8n-nodes-base.elasticsearch",
+      "typeVersion": 1,
+      "position": [
+        740,
+        280
+      ],
+      "id": "1f420675-9c38-476f-8490-47ff6d7387d6",
+      "name": "Elasticsearch1 old",
+      "credentials": {
+        "elasticsearchApi": {
+          "id": "wwaILZtoajWrVXwt",
+          "name": "Elasticsearch account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "indexId": "={{ $('When Executed by Another Workflow').item.json.index_id }}",
+        "limit": 4,
+        "options": {
+          "query": "={\n  \"knn\": {\n    \"field\": \"embedding\",\n    \"query_vector\": [{{ $json.embeddings }}],\n    \"k\": 4,\n    \"num_candidates\": 4\n  },\n  \"fields\": [\"text\", \"metadata\"],\n  \"_source\": true,\n  \"query\": {\n    \"bool\": {\n      \"filter\": [\n        {\n          \"exists\": {\n            \"field\": \"text\"\n          }\n        }\n      ]\n    }\n  },\n  \"size\": 4\n}"
+        }
+      },
+      "type": "n8n-nodes-base.elasticsearch",
+      "typeVersion": 1,
+      "position": [
+        760,
+        -160
+      ],
+      "id": "4bfdd010-9eea-4626-a5b6-1be3e6ef9a33",
+      "name": "Elasticsearch1 old1",
+      "credentials": {
+        "elasticsearchApi": {
+          "id": "wwaILZtoajWrVXwt",
+          "name": "Elasticsearch account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "indexId": "={{ $('When Executed by Another Workflow').item.json.index_id }}",
+        "limit": 4,
+        "options": {
+          "query": "={\n  \"knn\": {\n    \"field\": \"embedding\",\n    \"query_vector\": [{{ $json.embeddings }}],\n    \"k\": 5,\n    \"num_candidates\": 10\n  },\n  \"_source\": {\n    \"includes\": [\"text\", \"section_title\", \"chunk_id\", \"metadata.*\"]\n  },\n  \"query\": {\n    \"bool\": {\n      \"should\": [\n        {\n          \"multi_match\": {\n            \"query\": \"platforms platform web mobile backend frontend interface system technology technologies app application software\",\n            \"fields\": [\"text^3\", \"section_title^5\"],\n            \"type\": \"best_fields\",\n            \"operator\": \"OR\",\n            \"minimum_should_match\": \"30%\"\n          }\n        },\n        {\n          \"multi_match\": {\n            \"query\": \"technical requirements architecture system specifications\",\n            \"fields\": [\"text^2\", \"section_title^4\"],\n            \"type\": \"best_fields\",\n            \"operator\": \"OR\"\n          }\n        }\n      ],\n      \"filter\": [\n        {\n          \"exists\": {\n            \"field\": \"text\"\n          }\n        }\n      ]\n    }\n  },\n  \"size\": 6,\n  \"highlight\": {\n    \"fields\": {\n      \"text\": {\n        \"pre_tags\": [\"<strong>\"],\n        \"post_tags\": [\"</strong>\"],\n        \"fragment_size\": 200,\n        \"number_of_fragments\": 3\n      },\n      \"section_title\": {\n        \"pre_tags\": [\"<strong>\"],\n        \"post_tags\": [\"</strong>\"]\n      }\n    }\n  }\n}"
+        }
+      },
+      "type": "n8n-nodes-base.elasticsearch",
+      "typeVersion": 1,
+      "position": [
+        780,
+        500
+      ],
+      "id": "db342f38-6643-48aa-8a8d-6d6dc7651dc7",
+      "name": "Elasticsearch1 old2",
+      "credentials": {
+        "elasticsearchApi": {
+          "id": "wwaILZtoajWrVXwt",
+          "name": "Elasticsearch account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "repo_name": "n8n-backup-zm",
+  "repo_owner": "zlatkomq",
+  "repo_path": "",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-04-24T10:59:44.979Z",
+      "updatedAt": "2025-04-24T10:59:44.979Z",
+      "id": "qEREEA2JvunvA9Nv",
+      "name": "Estimation Tool"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-07-10T20:10:59.820Z",
+  "versionId": "ac3a7b51-8f7e-435f-b0ac-75d1e93351c3"
+}
