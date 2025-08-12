@@ -1,0 +1,154 @@
+{
+  "active": true,
+  "connections": {
+    "Ollama Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Basic LLM Chain": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-04-17T11:03:48.262Z",
+  "id": "A5La4i0nIfKK9aW2",
+  "isArchived": false,
+  "meta": null,
+  "name": "Arabian Chatbot",
+  "nodes": [
+    {
+      "parameters": {
+        "model": "jwnder/jais-adaptive:7b",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
+      "typeVersion": 1,
+      "position": [
+        40,
+        60
+      ],
+      "id": "3fa99fb2-c4b3-477a-8a23-6fabd3f3c21d",
+      "name": "Ollama Chat Model",
+      "credentials": {
+        "ollamaApi": {
+          "id": "fv9DllLzKNe1SabK",
+          "name": "Ollama account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.body.message }}",
+        "hasOutputParser": true,
+        "messages": {
+          "messageValues": [
+            {
+              "message": "You are a chat bot. When responding to the arabic query, also add the english translation in ()."
+            }
+          ]
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.5,
+      "position": [
+        40,
+        -200
+      ],
+      "id": "6c6f972e-17d8-41a2-bb9f-bc8f33fa73fb",
+      "name": "Basic LLM Chain"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -260,
+        -200
+      ],
+      "id": "977a5b13-705c-4a07-9858-4f4ba289745c",
+      "name": "When chat message received",
+      "webhookId": "814781fa-8ac1-4d07-b403-06533c60549f"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "arabic_chatbot",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -260,
+        20
+      ],
+      "id": "49117e77-4638-49d1-8663-fb4048d736af",
+      "name": "Webhook",
+      "webhookId": "3b7115a5-bdb6-43d1-bb69-75c601bdb954"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        420,
+        -200
+      ],
+      "id": "cc832fc6-6b1d-4fde-8984-90f5fb629188",
+      "name": "Respond to Webhook"
+    }
+  ],
+  "pinData": {},
+  "repo_name": "n8n-backup-zm",
+  "repo_owner": "zlatkomq",
+  "repo_path": "",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 2,
+  "updatedAt": "2025-04-17T11:47:58.501Z",
+  "versionId": "74c17b74-d524-4894-bce8-3061b4ee4167"
+}
