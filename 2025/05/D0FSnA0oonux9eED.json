@@ -1,0 +1,718 @@
+{
+  "active": false,
+  "connections": {
+    "RFP Upload": {
+      "main": [
+        [
+          {
+            "node": "Chunker Full",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Delete Index": {
+      "main": [
+        [
+          {
+            "node": "Create index - Elastic Search",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embed Chunks": {
+      "main": [
+        [
+          {
+            "node": "Embedding Isolated",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Remove TOC": {
+      "main": [
+        [
+          {
+            "node": "Filter Empty & Duplicate Chunks",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Final Escaping": {
+      "main": [
+        [
+          {
+            "node": "Embed Chunks",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter Empty & Duplicate Chunks": {
+      "main": [
+        [
+          {
+            "node": "Split Chunks",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Chunks": {
+      "main": [
+        [
+          {
+            "node": "Final Escaping",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Add To Index",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embedding Isolated": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Chunker Full": {
+      "main": [
+        [
+          {
+            "node": "Format Output",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Dockling Markdown": {
+      "main": [
+        []
+      ]
+    },
+    "Format Output": {
+      "main": [
+        [
+          {
+            "node": "Remove TOC",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "Delete Index",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-05-11T23:43:24.499Z",
+  "id": "D0FSnA0oonux9eED",
+  "isArchived": false,
+  "meta": null,
+  "name": "RFP Ingestion Docling",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "RFP",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "file",
+              "fieldType": "file",
+              "multipleFiles": false,
+              "acceptFileTypes": ".pdf"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "position": [
+        -420,
+        980
+      ],
+      "id": "d53b192a-a8b8-4b47-b71c-08cbc9fd94e7",
+      "name": "RFP Upload",
+      "webhookId": "c13ee4fc-516b-4741-ad7c-121c51c3f594"
+    },
+    {
+      "parameters": {
+        "method": "PUT",
+        "url": "http://192.168.20.70:9204/est_tool_rfp",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "elasticsearchApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"mappings\": {\n    \"dynamic\": \"strict\",\n    \"properties\": {\n      \"chunk_id\": {\n        \"type\": \"keyword\"\n      },\n      \"section_title\": {\n        \"type\": \"text\",\n        \"fields\": {\n          \"keyword\": { \"type\": \"keyword\" }\n        }\n      },\n      \"text\": {\n        \"type\": \"text\",\n        \"analyzer\": \"standard\"\n      },\n      \"metadata\": {\n        \"type\": \"object\",\n        \"dynamic\": \"strict\",\n        \"properties\": {\n          \"content_type\": { \"type\": \"keyword\" },\n          \"pages\":        { \"type\": \"integer\" },\n          \"chunk_index\":  { \"type\": \"integer\" }\n        }\n      },\n      \"embeddings\": {\n        \"type\":       \"dense_vector\",\n        \"dims\":       768,\n        \"index\":      true,\n        \"similarity\": \"cosine\"\n      }\n    }\n  }\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -540,
+        640
+      ],
+      "id": "2648a3b4-dca8-4b2c-9a9a-040826284e23",
+      "name": "Create index - Elastic Search",
+      "credentials": {
+        "elasticsearchApi": {
+          "id": "wwaILZtoajWrVXwt",
+          "name": "Elasticsearch account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "index",
+        "operation": "delete",
+        "indexId": "est_tool_rfp"
+      },
+      "type": "n8n-nodes-base.elasticsearch",
+      "typeVersion": 1,
+      "position": [
+        -760,
+        640
+      ],
+      "id": "e2bebb1e-4f67-4318-8296-f159272bbc6d",
+      "name": "Delete Index",
+      "credentials": {
+        "elasticsearchApi": {
+          "id": "wwaILZtoajWrVXwt",
+          "name": "Elasticsearch account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://192.168.20.70:11434/api/embed",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"nomic-embed-text:latest\",\n  \"input\": [\"{{ $input.item.json.text}}\"]\n}",
+        "options": {}
+      },
+      "id": "551721af-3481-4665-90cc-b784d32d77b9",
+      "name": "Embed Chunks",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        660,
+        680
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.all().map(item => item.json);\n\n// Normalize and test against known patterns\nfunction isTOC(title) {\n  if (!title || typeof title !== 'string') return false;\n\n  const normalized = title\n    .toLowerCase()\n    .replace(/[^a-z0-9]/g, ' ') // replace punctuation with space\n    .replace(/\\s+/g, ' ')       // collapse spaces\n    .trim();\n\n  const tocKeywords = [\n    'table of contents',\n    'table of content',\n    'contents',\n    'toc'\n  ];\n\n  return tocKeywords.some(keyword => normalized.includes(keyword));\n}\n\n// Filter out chunks where the title suggests it's TOC\nconst filtered = input.filter(chunk => {\n  const title = chunk.section_title || chunk.text || '';\n  return !isTOC(title);\n});\n\nreturn filtered.map(chunk => ({ json: chunk }));\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        220,
+        540
+      ],
+      "id": "875a222c-175c-438d-aedc-f3cf7bc98f89",
+      "name": "Remove TOC"
+    },
+    {
+      "parameters": {
+        "jsCode": "/**\n * Sanitizes chunk text to ensure compatibility with Nomic embedding API\n * This function deals with \"smart\" characters, quotes, and other problematic elements\n * Preserves existing chunk_index values\n * \n * @returns {Array} - The processed items\n */\nfunction sanitizeChunksForEmbedding() {\n  // Get input data\n  const items = $input.all();\n  const outputItems = [];\n  \n  // Process each item\n  for (const item of items) {\n    // Handle different possible input formats\n    let chunks;\n    \n    if (Array.isArray(item.json)) {\n      // If item.json is already an array of chunks\n      chunks = item.json;\n    } else if (item.json.chunks && Array.isArray(item.json.chunks)) {\n      // If chunks are in a property called 'chunks'\n      chunks = item.json.chunks;\n    } else {\n      // If the item itself is a single chunk\n      chunks = [item.json];\n    }\n    \n    // Track chunk indices per section for chunks without existing chunk_index\n    const sectionIndices = {};\n    \n    // Sanitize each chunk\n    const sanitizedChunks = chunks.map(chunk => {\n      // Create a new object to avoid modifying the original\n      const sanitizedChunk = { ...chunk };\n      \n      // Sanitize the main text field if it exists\n      if (sanitizedChunk.text) {\n        sanitizedChunk.text = sanitizeText(sanitizedChunk.text);\n      }\n      \n      // Sanitize the embedding text field if it exists\n      if (sanitizedChunk.text_to_embed) {\n        sanitizedChunk.text_to_embed = sanitizeText(sanitizedChunk.text_to_embed);\n      }\n      \n      // Sanitize section title if it exists\n      if (sanitizedChunk.section_title) {\n        sanitizedChunk.section_title = sanitizeText(sanitizedChunk.section_title);\n      }\n      \n      // Ensure vector_metadata exists\n      if (!sanitizedChunk.vector_metadata) {\n        sanitizedChunk.vector_metadata = {};\n      }\n      \n      // IMPORTANT CHANGE: Only set chunk_index if it doesn't already exist\n      if (sanitizedChunk.vector_metadata.chunk_index === undefined) {\n        // Initialize or get the current section's index tracker\n        const sectionKey = sanitizedChunk.section_title || 'default';\n        if (sectionIndices[sectionKey] === undefined) {\n          sectionIndices[sectionKey] = 0;\n        }\n        \n        // Populate chunk_index in vector_metadata\n        sanitizedChunk.vector_metadata.chunk_index = sectionIndices[sectionKey];\n        \n        // If this is a split chunk and already has part_index, don't increment the section index\n        // Otherwise, increment for the next chunk with the same section\n        if (!sanitizedChunk.vector_metadata.is_split || \n            (sanitizedChunk.vector_metadata.is_split && sanitizedChunk.vector_metadata.part_index === 0)) {\n          sectionIndices[sectionKey]++;\n        }\n      }\n      \n      return sanitizedChunk;\n    });\n    \n    // Return in the same format as received\n    if (Array.isArray(item.json)) {\n      outputItems.push({ json: sanitizedChunks });\n    } else if (item.json.chunks && Array.isArray(item.json.chunks)) {\n      outputItems.push({\n        json: {\n          ...item.json,\n          chunks: sanitizedChunks\n        }\n      });\n    } else {\n      // Return processed single chunk\n      outputItems.push({ json: sanitizedChunks[0] });\n    }\n  }\n  \n  return outputItems;\n}\n\n/**\n * Sanitizes text by replacing special characters and ensuring JSON compatibility\n * @param {string} text - Text to sanitize\n * @returns {string} - Sanitized text\n */\nfunction sanitizeText(text) {\n  if (!text) return '';\n  \n  // Remove wrapping quotes if present\n  let sanitized = text;\n  if ((text.startsWith('\"') && text.endsWith('\"')) || \n      (text.startsWith('\"') && text.endsWith('\"'))) {\n    sanitized = text.substring(1, text.length - 1);\n  }\n  \n // Replace smart/curly quotes with straight quotes\n  sanitized = sanitized\n    .replace(/[\\u2018\\u2019]/g, \"'\") // Replace single smart quotes\n    .replace(/[\\u201C\\u201D]/g, '\"') // Replace double smart quotes\n    \n    // Remove invisible control characters\n    .replace(/[\\u0000-\\u001F\\u007F-\\u009F\\u2000-\\u200F\\u2028-\\u202F]/g, ' ')\n    \n    // Replace other problematic characters\n    .replace(/[\\u2013\\u2014]/g, '-') // Replace em dash and en dash\n    .replace(/\\u2026/g, '...') // Replace ellipsis\n    .replace(/\\u00A0/g, ' ') // Replace non-breaking space\n    \n    // Special handling for bullet points and other list markers\n    .replace(/[\\u2022\\u2023\\u25E6\\u2043\\u2219]/g, '*') // Convert bullets to asterisks\n    \n    // Normalize whitespace (remove multiple spaces, tabs, etc.)\n    .replace(/\\s+/g, ' ')\n    // Trim leading and trailing whitespace\n    .replace(/\"/g, '\\\\\"')\n    // Handle other special characters that might cause issues in JSON\n    //.replace(/\\\\/g, '\\\\\\\\')\n    .replace(/\\f/g, '\\\\f')\n    .replace(/\\n/g, '\\\\n')\n    .replace(/\\r/g, '\\\\r')\n    .replace(/\\t/g, '\\\\t')\n    .trim();\n  \n  return sanitized;\n}\n\n// Execute the function and return the result\nreturn sanitizeChunksForEmbedding();"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        220,
+        700
+      ],
+      "id": "93fa7c23-b27c-49ec-85b7-c2e52e5f6109",
+      "name": "Final Escaping"
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "indexId": "est_tool_rfp",
+        "dataToSend": "autoMapInputData",
+        "additionalFields": {},
+        "options": {}
+      },
+      "type": "n8n-nodes-base.elasticsearch",
+      "typeVersion": 1,
+      "position": [
+        1180,
+        680
+      ],
+      "id": "0e9faec5-f4b5-4f95-b63a-56da0d4440ae",
+      "name": "Add To Index",
+      "credentials": {
+        "elasticsearchApi": {
+          "id": "wwaILZtoajWrVXwt",
+          "name": "Elasticsearch account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## JSON Cleanup & Splitting",
+        "height": 380,
+        "width": 620
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -20,
+        460
+      ],
+      "id": "87540f4e-0a56-4a92-9d54-af442e1f80d6",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "## Generating JSON with chunks from raw PDF\n\n### Using Chunker on docker.",
+        "height": 380,
+        "width": 300,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -320,
+        460
+      ],
+      "id": "7ee76770-9b79-4c42-b6e4-72a3504fdfdf",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "## Embedding Chunks and Saving it to Elastic search\nUsing Ollama and **nomic-embed-text:latest**",
+        "height": 380,
+        "width": 840,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        600,
+        460
+      ],
+      "id": "1d9c68f7-78cb-4a84-a938-ff2f0cde2c94",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "content": "## Remove and recreate the index\n",
+        "height": 380,
+        "width": 540,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -860,
+        460
+      ],
+      "id": "ab204163-92ba-44dc-abeb-389dda6d119a",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "jsCode": "// n8n Function node\n// Filters out empty / duplicate chunks and adds an incremental `index` starting at 0.\n\nfunction filterEmptyAndDuplicateChunks() {\n  const inputItems   = $input.all();\n  const seenContent  = new Set();\n  const validChunks  = [];\n\n  for (const item of inputItems) {\n    const chunk = item.json;\n\n    /* 1 ── skip empty rows */\n    if (!chunk || !chunk.text || chunk.text.trim() === \"\") continue;\n\n    const titleText   = (chunk.section_title || \"\").trim();\n    const contentText = chunk.text.trim();\n\n    /* 2 ── drop title-only rows */\n    if (contentText === titleText) continue;\n\n    /* 3 ── duplicate detection (normalise whitespace + leading numbers) */\n    const normalized = contentText\n      .replace(/^\\d+(\\.\\d+)*\\s+/gm, \"\")  // remove numbered prefixes\n      .replace(/\\s+/g, \" \")              // collapse whitespace\n      .trim();\n\n    if (seenContent.has(normalized)) continue;\n    seenContent.add(normalized);\n\n    validChunks.push(chunk);\n  }\n\n  /* 4 ── return with incremental index */\n  return validChunks.map((chunk, idx) => ({\n    json: {\n      ...chunk\n    }\n  }));\n}\n\nreturn filterEmptyAndDuplicateChunks();\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        400,
+        540
+      ],
+      "id": "8fad26e2-f21f-4999-9d17-b8f5f75a16e2",
+      "name": "Filter Empty & Duplicate Chunks"
+    },
+    {
+      "parameters": {
+        "jsCode": "/**\n * N8n Function node to split document chunks for optimized Elasticsearch vector search\n * Takes chunks like those extracted from PDF documents and splits them if they exceed token limits\n * while preserving context and section structure\n * \n * @param {Object} items - The input items coming from n8n workflow\n * @returns {Object} - The processed items with optimized chunks for vector search\n */\n\n// Main processing function for n8n Function node\nfunction processDocumentChunks() {\n  // Get input data\n  const items = $input.all();\n  \n  // Configuration (could be made into node parameters in a custom n8n node)\n  const maxTokens = 7000;        // Maximum tokens per chunk\n  const overlapTokens = 50;     // Tokens to overlap between chunks\n  const embeddingField = 'text_to_embed'; // Field for the text to be embedded\n  \n  let outputItems = [];\n  let globalChunkIndex = 0;  // Global counter for chunk indexing\n  \n  // Process each item\n  for (const item of items) {\n    let inputChunks;\n    \n    // Determine input format\n    if (Array.isArray(item.json)) {\n      // If input is already an array of chunks\n      inputChunks = item.json;\n    } else if (item.json.chunks && Array.isArray(item.json.chunks)) {\n      // If chunks are in a property called 'chunks'\n      inputChunks = item.json.chunks;\n    } else {\n      // If the item itself is a single chunk\n      inputChunks = [item.json];\n    }\n    \n    // Process the chunks\n    const processedChunks = splitChunks(inputChunks, maxTokens, overlapTokens, embeddingField, globalChunkIndex);\n    \n    // Update the counter\n    globalChunkIndex += inputChunks.length;\n    \n    // Return in the same format as received\n    if (Array.isArray(item.json)) {\n      outputItems.push({ json: processedChunks });\n    } else if (item.json.chunks) {\n      outputItems.push({\n        json: {\n          ...item.json,\n          chunks: processedChunks\n        }\n      });\n    } else {\n      // Return processed chunks as separate items\n      processedChunks.forEach(chunk => {\n        outputItems.push({ json: chunk });\n      });\n    }\n  }\n  \n  return outputItems;\n}\n\n/**\n * Split chunks if they exceed the token limit\n * @param {Array} chunks - Array of document chunks\n * @param {number} maxTokens - Maximum tokens per chunk\n * @param {number} overlapTokens - Tokens to overlap between chunks\n * @param {string} embeddingField - Field name for embeddings\n * @param {number} startIndex - Starting index for global chunk indexing\n * @returns {Array} - Processed chunks\n */\nfunction splitChunks(chunks, maxTokens, overlapTokens, embeddingField, startIndex = 0) {\n  const result = [];\n  \n  // Process each chunk\n  chunks.forEach((chunk, index) => {\n    const tokenCount = estimateTokens(chunk.text);\n    const actualIndex = startIndex + index;\n    \n    // If chunk is within token limit, add vector fields and keep it as is\n    if (tokenCount <= maxTokens) {\n      result.push({\n        ...chunk,\n        //[embeddingField]: chunk.text, // Add embedding field\n        // vector_metadata: {\n        //   token_count: tokenCount,\n        //   is_split: false,\n        // }\n      });\n      return;\n    }\n    \n    // Need to split the chunk - first try by paragraphs\n    const paragraphs = splitIntoParagraphs(chunk.text);\n    let chunkParts = [];\n    \n    if (paragraphs.length > 1) {\n      // If we have multiple paragraphs, try to group them into chunks\n      chunkParts = groupContentUnits(paragraphs, maxTokens, chunk.section_title);\n    } else {\n      // Otherwise split by sentences\n      const sentences = splitIntoSentences(chunk.text);\n      chunkParts = groupContentUnits(sentences, maxTokens, chunk.section_title);\n    }\n    \n    // Create chunk objects for each part\n    chunkParts.forEach((part, partIndex) => {\n      // Add section title to beginning of parts after the first one\n      const textWithContext = partIndex === 0 \n        ? part\n        : `${chunk.section_title || ''} (continued) ${part}`;\n      \n      result.push({\n        chunk_id: `${chunk.chunk_id}_part${partIndex + 1}`,\n        section_title: chunk.section_title,\n        text: textWithContext,\n        //[embeddingField]: textWithContext, // Field for embedding\n        metadata: {\n          ...chunk.metadata,\n          parent_chunk_id: chunk.chunk_id,\n          is_split_chunk: true,\n          split_part: partIndex + 1,\n          total_parts: chunkParts.length\n        },\n        //vector_metadata: {\n         // token_count: estimateTokens(textWithContext),\n         // is_split: true,\n         // part_index: partIndex\n       // }\n      });\n    });\n  });\n  \n  return result;\n}\n\n/**\n * Group content units (paragraphs or sentences) into chunks of appropriate size\n * @param {Array} units - Content units to group\n * @param {number} maxTokens - Maximum tokens per chunk\n * @param {string} sectionTitle - Section title for context\n * @returns {Array} - Grouped content as chunks\n */\nfunction groupContentUnits(units, maxTokens, sectionTitle) {\n  const chunks = [];\n  let currentChunk = '';\n  let currentTokens = 0;\n  const contextPrefix = sectionTitle ? sectionTitle + ' ' : '';\n  const contextTokens = estimateTokens(contextPrefix);\n  \n  // Account for context in parts after the first\n  const effectiveMaxTokens = maxTokens - contextTokens;\n  \n  units.forEach((unit, index) => {\n    const unitTokens = estimateTokens(unit);\n    \n    // If this unit alone exceeds limits, split it further by words\n    if (unitTokens > effectiveMaxTokens) {\n      if (currentChunk) {\n        chunks.push(currentChunk);\n        currentChunk = '';\n        currentTokens = 0;\n      }\n      \n      // Split large unit by words\n      const words = unit.split(/\\s+/);\n      let tempChunk = '';\n      \n      words.forEach(word => {\n        const wordTokens = estimateTokens(word + ' ');\n        \n        if (currentTokens + wordTokens > effectiveMaxTokens) {\n          if (tempChunk) {\n            chunks.push(tempChunk);\n            tempChunk = word;\n            currentTokens = wordTokens;\n          } else {\n            // Word itself is too big, have to include it anyway\n            tempChunk = word;\n            currentTokens = wordTokens;\n          }\n        } else {\n          tempChunk += (tempChunk ? ' ' : '') + word;\n          currentTokens += wordTokens;\n        }\n      });\n      \n      if (tempChunk) {\n        chunks.push(tempChunk);\n      }\n    }\n    // If adding this unit would exceed max tokens, start a new chunk\n    else if (currentTokens + unitTokens > effectiveMaxTokens) {\n      if (currentChunk) {\n        chunks.push(currentChunk);\n      }\n      currentChunk = unit;\n      currentTokens = unitTokens;\n    } \n    // Add to current chunk\n    else {\n      currentChunk += (currentChunk ? ' ' : '') + unit;\n      currentTokens += unitTokens;\n    }\n  });\n  \n  // Add any remaining content\n  if (currentChunk) {\n    chunks.push(currentChunk);\n  }\n  \n  return chunks;\n}\n\n/**\n * Split text into paragraphs\n * @param {string} text - Input text\n * @returns {Array} - Array of paragraphs\n */\nfunction splitIntoParagraphs(text) {\n  // Split on double newlines or equivalent\n  return text.split(/\\n\\s*\\n|\\r\\n\\s*\\r\\n/).filter(p => p.trim());\n}\n\n/**\n * Split text into sentences\n * @param {string} text - Input text\n * @returns {Array} - Array of sentences\n */\nfunction splitIntoSentences(text) {\n  // Split on sentence-ending punctuation followed by space or end of string\n  return text.split(/(?<=[.!?])\\s+|(?<=[.!?])$/).filter(s => s.trim());\n}\n\n/**\n * Estimate token count for a text string\n * @param {string} text - Text to estimate tokens for\n * @returns {number} - Estimated token count\n */\nfunction estimateTokens(text) {\n  if (!text) return 0;\n  \n  // Simple estimation: roughly 4 characters per token for English\n  // For production, replace with a proper tokenizer matching your embedding model\n  return Math.ceil(text.length / 4);\n}\n\n// Execute the function and return results\nreturn processDocumentChunks();"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        60,
+        700
+      ],
+      "id": "63959bba-1d1f-41fb-b2fa-5e8e8baa3b36",
+      "name": "Split Chunks"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "ab2bedcf-f824-47dd-9e51-00888ee470fa",
+              "name": "chunk_id",
+              "value": "={{ $('Final Escaping').item.json.chunk_id }}",
+              "type": "string"
+            },
+            {
+              "id": "3ad9ad67-06cb-4490-b5c0-d87362a48128",
+              "name": "section_title",
+              "value": "={{ $('Final Escaping').item.json.section_title }}",
+              "type": "string"
+            },
+            {
+              "id": "16c251d1-42c5-45a4-978e-ce91f0e295bb",
+              "name": "text",
+              "value": "={{ $('Final Escaping').item.json.text }}",
+              "type": "string"
+            },
+            {
+              "id": "53121648-9acf-46fb-9027-7898e85865d5",
+              "name": "metadata",
+              "value": "={{ $('Final Escaping').item.json.metadata }}",
+              "type": "object"
+            },
+            {
+              "id": "4f420c43-5c17-474f-b524-9f7a98f9873a",
+              "name": "embeddings",
+              "value": "={{ $json.embedding }}",
+              "type": "array"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1020,
+        680
+      ],
+      "id": "3b2059ac-0349-4fd7-ac87-158f31e6ba1c",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "const input = $json;\nreturn {\n  json: {\n    embedding: input.embeddings[0]\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        840,
+        680
+      ],
+      "id": "0d607f5d-0169-4164-b49e-7e46d86bc9c6",
+      "name": "Embedding Isolated"
+    },
+    {
+      "parameters": {
+        "jsCode": "/**\n * n8n Function – Docling tables → RAG chunks with real titles\n * -----------------------------------------------------------\n * • Works on the Docling JSON in item.json.data.json_output\n * • Each table becomes one output item:\n *     {\n *       chunk_id,            // e.g. intro_table_0\n *       section_title,       // header the table lives under\n *       text,                // pipe-delimited rows\n *       metadata: { page_no, filename, table_index, chunked_at }\n *     }\n *\n *   Perfect for embeddings / RAG.\n */\n\nconst JSON_PATH = ['data', 'json_output'];   // change if your field differs\nconst slug   = s => s.toLowerCase().replace(/[^a-z0-9]+/g,'_').slice(0,50);\nconst nowISO = () => new Date().toISOString();\n\n/* ---------- helpers -------------------------------------------------- */\n\nfunction at(obj, pathArr) {\n  return pathArr.reduce((o,k)=>o?.[k], obj);\n}\n\n// Build lookup { \"#/texts/17\": <object>, … }\nfunction indexBySelfRef(doc) {\n  const idx = {};\n  ['texts','tables','groups','pictures','key_value_items','form_items']\n    .forEach(k => (doc[k]||[]).forEach(o=>{ idx[o.self_ref] = o; }));\n  return idx;\n}\n\nfunction gridToRows(grid){\n  return grid.map(r => r.map(c => (c.text||'').trim()).join(' | '));\n}\n\nfunction cellsToRows(tbl){\n  const { table_cells: cells=[], num_rows:R=0, num_cols:C=0 } = tbl;\n  const mtx = Array.from({length:R}, ()=>Array(C).fill(''));\n  cells.forEach(c=>{\n     const r=c.start_row_offset_idx, cidx=c.start_col_offset_idx;\n     if(r!=null && cidx!=null) mtx[r][cidx]=(c.text||'').trim();\n  });\n  return mtx.map(r => r.join(' | '));\n}\n\n// Recursively walk children keeping order\nfunction processChildren(childrenArr, lookup, state, out, filename){\n  for(const child of childrenArr){\n    const ref = child.$ref;\n    const node = lookup[ref];\n    if(!node) continue;\n\n    // If it's a section header – update current section context\n    if(node.label === 'section_header'){\n      state.currentHeader = (node.text || '').trim() || 'Untitled';\n    }\n\n    // If it's a table – emit chunk\n    else if(node.label === 'table'){\n      const page   = node.prov?.[0]?.page_no ?? 'x';\n      const rows   = node.data?.grid ? gridToRows(node.data.grid)\n                  : cellsToRows(node.data || {});\n      if(rows.length){\n        out.push({\n          json:{\n            chunk_id: `${slug(state.currentHeader||'untitled')}_table_${state.tblCount}`,\n            section_title: state.currentHeader || 'Untitled',\n            text: rows.join('\\n'),\n            metadata:{\n              filename,\n              page_no: page,\n              table_index: state.tblCount,\n              chunked_at: nowISO()\n            }\n          }\n        });\n        state.tblCount += 1;\n      }\n    }\n\n    // If it's a group, recurse into its children\n    else if(node.children?.length){\n      processChildren(node.children, lookup, state, out, filename);\n    }\n  }\n}\n\n/* ---------- main ----------------------------------------------------- */\n\nconst outputs = [];\n\n$input.all().forEach(item => {\n  const doc = at(item.json, JSON_PATH);\n  if(!doc) return;\n\n  const lookup   = indexBySelfRef(doc);\n  const filename = doc.origin?.filename || 'unknown.pdf';\n\n  const state = { currentHeader: null, tblCount: 0 };\n  processChildren(doc.body.children, lookup, state, outputs, filename);\n});\n\nreturn outputs;\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -580,
+        1540
+      ],
+      "id": "146438e4-a180-48e5-9239-5b59231c0a91",
+      "name": "Chunks it + Tables"
+    },
+    {
+      "parameters": {
+        "jsCode": "/**\n * n8n Function node: Docling → RAG chunks  (text + tables)\n * -----------------------------------------------------------------\n * • Works on the Docling JSON found at  item.json.data.json_output\n * • Emits ONE output item per chunk (text window or table):\n *     {\n *       chunk_id,\n *       section_title,\n *       text,              // plain text   OR   pipe-delimited rows\n *       metadata : {\n *         filename, pages, section_no, offset_word,           // ← text chunks\n *         page_no, table_index,                               // ← table chunks\n *         created_at\n *       }\n *     }\n */\n\nconst MAX_TOKENS   = 512;     // ≈450 tokens + margin\nconst OVERLAP_TOK  = 50;\nconst estimateTok  = s => Math.ceil(s.length / 4);                // rough\nconst slug         = s => s.toLowerCase().replace(/[^a-z0-9]+/g,'_')\n                              .replace(/^_|_$/g,'').slice(0,50);\nconst nowISO       = () => new Date().toISOString();\n\n/* ---------- utilities -------------------------------------------------- */\n\nconst clean = s => s\n  .replace(/\\*\\*(.*?)\\*\\*/g, '$1')   // remove markdown bold\n  .replace(/^\\s*[-*]\\s+/gm, '')      // leading bullets\n  .replace(/[\\u2022\\u2043•⁃▪◦]+/g, '')\n  .replace(/---+/g, '')\n  .replace(/\\s{2,}/g, ' ')\n  .trim();\n\nconst isFurniture = label =>\n  ['page_footer','page_header','page_number','form_header'].includes(label);\n\n/* ---------- pull the document ----------------------------------------- */\n\nconst doc      = $input.first().json.data?.json_output;\nif(!doc) throw new Error('Docling json_output not found');\n\nconst filename = doc.origin?.filename || 'unknown.pdf';\nconst { texts = [] } = doc;\n\n/* ---------- TEXT SECTIONS → sliding-window chunks ---------------------- */\n\nconst sections = [];\nlet cur = { title:'Untitled', content:'', pages:[] };\n\nfor(const t of texts){\n  if(!t?.text || isFurniture(t.label)) continue;\n\n  const txt    = clean(t.text);\n  const pageNo = t.prov?.[0]?.page_no ?? null;\n  if(!txt) continue;\n\n  if(t.label === 'section_header'){\n    if(cur.content){\n      cur.pages = [...new Set(cur.pages)];\n      sections.push(cur);\n    }\n    cur = { title: txt, content:'', pages:[] };\n  } else {\n    cur.content += (cur.content?'\\n':'') + txt;\n  }\n  if(pageNo) cur.pages.push(pageNo);\n}\nif(cur.content){\n  cur.pages = [...new Set(cur.pages)];\n  sections.push(cur);\n}\n\n/* chunk the sections ---------------------------------------------------- */\nconst out = [];\n\nsections.forEach((sec, sIdx) => {\n  const words = sec.content.split(/\\s+/);\n  let start   = 0;\n  while(start < words.length){\n    const slice = words.slice(start, start + MAX_TOKENS).join(' ');\n    out.push({\n      chunk_id      : `${slug(sec.title)}_${sIdx}_${start}`,\n      section_title : sec.title,\n      text          : slice,\n      metadata      : {\n        pages      : sec.pages,\n        index : sIdx,\n        offset_word: start\n      }\n    });\n    start += (MAX_TOKENS - OVERLAP_TOK);\n  }\n});\n\n/* ---------- TABLES ----------------------------------------------------- */\n\n// helpers for tables\nfunction gridToRows(g){ return g.map(r => r.map(c => (c.text||'').trim()).join(' | ')); }\nfunction cellsToRows(d){\n  const { table_cells:cells=[], num_rows:R=0, num_cols:C=0 } = d;\n  const mtx = Array.from({length:R}, ()=>Array(C).fill(''));\n  cells.forEach(c=>{\n    const r=c.start_row_offset_idx, cidx=c.start_col_offset_idx;\n    if(r!=null && cidx!=null) mtx[r][cidx]=(c.text||'').trim();\n  });\n  return mtx.map(r=>r.join(' | '));\n}\nfunction indexByRef(doc){\n  const idx={};\n  ['texts','tables','groups','pictures','key_value_items',\n   'form_items'].forEach(k=> (doc[k]||[]).forEach(o=>idx[o.self_ref]=o));\n  return idx;\n}\nfunction walk(children, lookup, state){\n  for(const ch of children||[]){\n    const node = lookup[ch.$ref];\n    if(!node) continue;\n\n    if(node.label === 'section_header'){\n      state.currentHeader = (node.text||'').trim() || 'Untitled';\n    }\n    else if(node.label === 'table'){\n      const page = node.prov?.[0]?.page_no ?? null;\n      const rows = node.data?.grid ? gridToRows(node.data.grid)\n                : cellsToRows(node.data||{});\n      if(rows.length){\n        state.tables.push({\n          chunk_id      : `${slug(state.currentHeader||'untitled')}_table_${state.tables.length}`,\n          section_title : state.currentHeader || 'Untitled',\n          text          : rows.join('\\n'),\n          metadata      : {\n            page_no   : page,\n            table_index : state.tables.length          }\n        });\n      }\n    }\n    if(node.children?.length) walk(node.children, lookup, state);\n  }\n}\n\n// extract tables\nconst lookup   = indexByRef(doc);\nconst state    = { currentHeader: null, tables: [] };\nwalk(doc.body?.children || [], lookup, state);\n\n// merge table chunks\nout.push(...state.tables);\n\n/* ---------- return ----------------------------------------------------- */\n\nreturn out.map(c => ({ json: c }));\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -580,
+        1360
+      ],
+      "id": "6dc19f17-d15c-47f0-bd71-28d25621a4bd",
+      "name": "Chunk it1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://192.168.20.70:8878/parse/file",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            },
+            {
+              "name": "Authorization",
+              "value": "Bearer dev-key"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "data",
+              "value": "{\"chunk_document\":true,\"max_tokens_per_chunk\":7000,\"optimize_pdf\":true}"
+            },
+            {
+              "parameterType": "formBinaryData",
+              "name": "file",
+              "inputDataFieldName": "file"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -240,
+        640
+      ],
+      "id": "97fce93c-f58b-484b-b848-b0a07a8dac16",
+      "name": "Chunker Full"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://192.168.20.70:8084/v1alpha/convert/file",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "do_code_enrichment",
+              "value": "false"
+            },
+            {
+              "name": "pipeline",
+              "value": "standard"
+            },
+            {
+              "name": "ocr_engine",
+              "value": "tesseract"
+            },
+            {
+              "name": "images_scale",
+              "value": "2"
+            },
+            {
+              "name": "pdf_backend",
+              "value": "dlparse_v4"
+            },
+            {
+              "name": "picture_description_local",
+              "value": "{\"repo_id\":\"HuggingFaceTB/SmolVLM-256M-Instruct\",\"prompt\":\"Describe this image in a few sentences.\",\"generation_config\":{\"do_sample\":false,\"max_new_tokens\":200}}"
+            },
+            {
+              "name": "do_picture_description",
+              "value": "false"
+            },
+            {
+              "name": "from_formats",
+              "value": "pdf"
+            },
+            {
+              "name": "force_ocr",
+              "value": "false"
+            },
+            {
+              "name": "image_export_mode",
+              "value": "embedded"
+            },
+            {
+              "name": "do_ocr",
+              "value": "true"
+            },
+            {
+              "name": "page_range",
+              "value": "100"
+            },
+            {
+              "name": "do_table_structure",
+              "value": "true"
+            },
+            {
+              "name": "ocr_lang",
+              "value": "eng"
+            },
+            {
+              "name": "include_images",
+              "value": "true"
+            },
+            {
+              "name": "do_formula_enrichment",
+              "value": "false"
+            },
+            {
+              "name": "table_mode",
+              "value": "accurate"
+            },
+            {
+              "name": "picture_description_api",
+              "value": "{\"url\":\"http://localhost:8000/v1/chat/completions\",\"headers\":{},\"params\":{\"max_completion_tokens\":200,\"model\":\"HuggingFaceTB/SmolVLM-256M-Instruct\"},\"timeout\":20,\"prompt\":\"Describe this image in a few sentences.\"}"
+            },
+            {
+              "name": "abort_on_error",
+              "value": "false"
+            },
+            {
+              "name": "to_formats",
+              "value": "json"
+            },
+            {
+              "name": "return_as_file",
+              "value": "false"
+            },
+            {
+              "name": "do_picture_classification",
+              "value": "false"
+            },
+            {
+              "name": "picture_description_area_threshold",
+              "value": "0.05"
+            },
+            {
+              "name": "document_timeout",
+              "value": "604800"
+            },
+            {
+              "parameterType": "formBinaryData",
+              "name": "files",
+              "inputDataFieldName": "file"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -900,
+        1560
+      ],
+      "id": "c111a1a9-654e-4e34-ab8c-0bc429680557",
+      "name": "Dockling Serve"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://192.168.20.70:8878/parse/file",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            },
+            {
+              "name": "Authorization",
+              "value": "Bearer dev-key"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "data",
+              "value": "{\"include_json\":false,\"output_format\":\"markdown\"}"
+            },
+            {
+              "parameterType": "formBinaryData",
+              "name": "file",
+              "inputDataFieldName": "file"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -900,
+        1360
+      ],
+      "id": "909273de-a589-46d9-a6f0-958f72e6ab7a",
+      "name": "Dockling Markdown"
+    },
+    {
+      "parameters": {
+        "jsCode": "const slug = s => (s ?? \"\").toLowerCase()\n  .replace(/[^a-z0-9]+/g, '_')\n  .replace(/^_|_$/g, '')\n  .slice(0, 50);\n\nconst final = ($input.first()?.json?.data?.chunks ?? []).map((c, i) => {\n  const sectionTitle = c?.section_title ?? \"\";\n  const text = c?.text ?? \"\";\n  const chunkIndex = c?.chunk_index ?? \"\";\n\n  const chunkId = `${slug(sectionTitle)}_${i}`;\n  const metadata = {\n    ...(c?.metadata ?? {}),\n    chunk_index: chunkIndex\n  };\n\n  // Remove heading_path if it exists\n  if (\"heading_path\" in metadata) {\n    delete metadata.heading_path;\n  }\n\n  return {\n    section_title: sectionTitle,\n    chunk_id: chunkId,\n    text: text,\n    metadata: metadata\n  };\n});\n\nreturn final.map(j => ({ json: j }));\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        60,
+        540
+      ],
+      "id": "d073908a-2de2-4a58-bf9b-b7274cfd0735",
+      "name": "Format Output"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -920,
+        960
+      ],
+      "id": "e9715580-b573-4fbe-a232-d10b43d1d027",
+      "name": "When clicking ‘Test workflow’"
+    }
+  ],
+  "pinData": {},
+  "repo_name": "n8n-backup-zm",
+  "repo_owner": "zlatkomq",
+  "repo_path": "",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-05-14T19:45:15.607Z",
+  "versionId": "6fcebf55-2af0-414a-8634-450457bfbdc6"
+}
