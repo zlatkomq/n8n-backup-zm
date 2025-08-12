@@ -1,0 +1,561 @@
+{
+  "active": false,
+  "connections": {
+    "Ollama Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Reason bot",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Get chat embedding",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cats to Array": {
+      "main": [
+        []
+      ]
+    },
+    "Cat bot": {
+      "main": [
+        [
+          {
+            "node": "Cats to Array",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mistral model for cat": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Cat bot",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get chat embedding": {
+      "main": [
+        [
+          {
+            "node": "Vectors ALL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Clean data \\n separated": {
+      "main": [
+        []
+      ]
+    },
+    "GET User IDs": {
+      "main": [
+        [
+          {
+            "node": "Summarize",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Vectors results": {
+      "main": [
+        [
+          {
+            "node": "GET User IDs",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Clean data \\n separated",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get details from users": {
+      "main": [
+        [
+          {
+            "node": "Reason bot",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reason bot": {
+      "main": [
+        []
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Vectors tasks - projects",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "Summarize": {
+      "main": [
+        [
+          {
+            "node": "Get details from users",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Vectors ALL": {
+      "main": [
+        [
+          {
+            "node": "GET User Info only",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Summarize1": {
+      "main": [
+        [
+          {
+            "node": "Reason bot",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GET User Info only": {
+      "main": [
+        [
+          {
+            "node": "Summarize1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-04-07T12:19:36.305Z",
+  "id": "zit1yiO51nb5obZe",
+  "isArchived": false,
+  "meta": null,
+  "name": "CHAT ganttic",
+  "nodes": [
+    {
+      "parameters": {
+        "model": "llama3.2:latest",
+        "options": {
+          "temperature": 0.5
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
+      "typeVersion": 1,
+      "position": [
+        1700,
+        240
+      ],
+      "id": "edb137f9-edea-4d24-8eb3-e216d74c607d",
+      "name": "Ollama Chat Model",
+      "credentials": {
+        "ollamaApi": {
+          "id": "fv9DllLzKNe1SabK",
+          "name": "Ollama account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -760,
+        -80
+      ],
+      "id": "d5fc2ee3-fdde-4ba8-961a-46e46f835158",
+      "name": "When chat message received",
+      "webhookId": "be3cf2c0-6401-409c-b13f-d9d4eae481c5"
+    },
+    {
+      "parameters": {
+        "jsCode": "let imts = $input.first().json.output;\nlet arr = imts.split(',').map(item=>item.trim());\nreturn [\n  {\n    json: {\n      filter: {\n        fact_type: arr\n      }\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        140,
+        280
+      ],
+      "id": "fb14a9c0-0c7a-4eb9-8d61-6ed4d79a8f67",
+      "name": "Cats to Array"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are a first step in workflow that I'm building for chat in our firm. We have facts database vector store that has specific segmentation in next departments:\n\n- Basic identity facts\n- Skills facts (senior)\n- Skills facts (medium)\n- Skills facts (junior)\n- Department and team facts\n- Management chain facts\n- Certifications facts\n- Industry and vertical facts\n- Employment type facts\n- Additional notes facts\n\nBased on user input question - determine what would be closest category from the ones above - the keys from respective category indexes are:\n\n  identity\n  skills_senior\n  skills_medium\n  skills_junior\n  organization\n  management\n  certifications\n  industry\n  employment\n  notes\n\nUser Question: \"{{ $('When chat message received').item.json.chatInput }}\".\n\nYour response needs to return MAX TOP 3 similarity keys, that are comma separated (do not change case or change text) - never explain anything!\n\nIf simlarity score is below 0.6 return empty string\n",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.8,
+      "position": [
+        -40,
+        -20
+      ],
+      "id": "0c5f9df3-2509-4d85-9028-13c4da134f9c",
+      "name": "Cat bot",
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "model": "mistral-nemo:latest",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
+      "typeVersion": 1,
+      "position": [
+        -140,
+        240
+      ],
+      "id": "9db4f0af-7283-4921-b642-6af511dc9ad5",
+      "name": "Mistral model for cat",
+      "credentials": {
+        "ollamaApi": {
+          "id": "fv9DllLzKNe1SabK",
+          "name": "Ollama account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://192.168.20.70:11434/api/embeddings",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "model",
+              "value": "nomic-embed-text"
+            },
+            {
+              "name": "prompt",
+              "value": "={{ $json.chatInput }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a48a9f3e-f3e5-4d0e-b797-24d481b2320d",
+      "name": "Get chat embedding",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        -460,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const inputData = $input.all();\n\nconst extractedItems = inputData.map(item => {\n  const csvString = item.json.match_documents_resources_facts;\n  const parts = csvString.split(',').map(part => part.trim()); // Split & trim whitespace\n  return parts[3]; // Get index 3 (4th item)\n}).filter(Boolean); // Remove empty entries\n\nconst formattedOutput = extractedItems.join('\\n');\n\nreturn [{ json: { extracted_data: formattedOutput } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1260,
+        -140
+      ],
+      "id": "7aa023a5-294a-4cfd-bc0c-90742640416a",
+      "name": "Clean data \\n separated"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=User Question: \"{{ $('When chat message received').first().json.chatInput }}\"\n\nResources:\n---\n{{ $json.appended_id }}\n---",
+        "options": {
+          "systemMessage": "You are a helpful assistant that answers user questions about projects, tasks, resources, employees (including their skills, certificates, managers), and general organizational information.\n\nYour only source of truth is the provided \"Resources\" section.\n\nInstructions:\n- Only respond based on the content in \"Resources\".\n- Normalize extended Latin characters (e.g., č → c, ñ → n, ü → u) to ensure better matching.\n- If relevant information is found, explain the reasoning behind your answer in a simple, conversational tone.\n- If no relevant information is available, reply briefly and politely (e.g., \"Sorry, I couldn't find any matching information.\").\n- Avoid adding assumptions or external information.\n- Keep the answer clear and concise.\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.8,
+      "position": [
+        1820,
+        -100
+      ],
+      "id": "c37bc6f4-134b-4f77-86e2-e9916ed59dd8",
+      "name": "Reason bot"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "let imts = $json.match_documents_resources_facts;\nlet arr = '';\ntry{\n  arr = imts.split(',')[1].replace('(', '');\n}catch{};\nreturn{\n    json: {\n      id: arr\n    }\n  }\n;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        960,
+        -180
+      ],
+      "id": "910fbfcd-7c6a-4298-bb5a-cd2b85ce1ad0",
+      "name": "GET User IDs"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "= SELECT match_documents_resources_facts( '[{{ $('Get chat embedding').item.json.embedding }}]', 20, '{{ JSON.stringify($json.filter) }}' , 0.68 );",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        460,
+        120
+      ],
+      "id": "f29a015f-e988-44ba-8445-39462ec01213",
+      "name": "Vectors results",
+      "credentials": {
+        "postgres": {
+          "id": "wK2pSCG9jTniRU28",
+          "name": "Postgres account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "= select string_agg( embedding_facts_text, '\\n') as embedding_facts_text from ganttic_api_resources where id IN (\n  {{ $json.appended_id.map(item => \"'\"+item+\"'\" ) }}\n);",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        1300,
+        80
+      ],
+      "id": "0419055d-8d3b-4965-ad60-2ca0ef911f59",
+      "name": "Get details from users",
+      "credentials": {
+        "postgres": {
+          "id": "wK2pSCG9jTniRU28",
+          "name": "Postgres account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "= SELECT match_documents_combined_facts( '[{{ $('Get chat embedding').item.json.embedding }}]', 20, '{{ JSON.stringify($json.filter) }}' , 0.5 );",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        700,
+        360
+      ],
+      "id": "be04b355-5472-43c8-bdc5-8aa9dd35c24d",
+      "name": "Vectors tasks - projects",
+      "credentials": {
+        "postgres": {
+          "id": "wK2pSCG9jTniRU28",
+          "name": "Postgres account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "0e75313d-b352-414f-bc5b-ddaaa5cd6bfd",
+              "leftValue": "={{ $json.filter.fact_type }}",
+              "rightValue": "project",
+              "operator": {
+                "type": "array",
+                "operation": "contains",
+                "rightType": "any"
+              }
+            },
+            {
+              "id": "f312d0c5-78a5-4bba-8196-e463f1ddb08d",
+              "leftValue": "={{ $json.filter.fact_type }}",
+              "rightValue": "task",
+              "operator": {
+                "type": "array",
+                "operation": "contains",
+                "rightType": "any"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        400,
+        420
+      ],
+      "id": "de64ec8a-c556-4508-a960-f60e18ad0063",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "fieldsToSummarize": {
+          "values": [
+            {
+              "aggregation": "append",
+              "field": "id"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.summarize",
+      "typeVersion": 1.1,
+      "position": [
+        1040,
+        220
+      ],
+      "id": "a789dff1-3b12-4c7a-8ee0-2c7c1490ef97",
+      "name": "Summarize"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "= SELECT match_documents_resources_facts( '[{{ $('Get chat embedding').item.json.embedding }}]', 500, '{\"fact_type\": [\"skills_senior\",\"skills_medium\",\"skills_junior\",\"organization\",\"management\",\"certifications\",\"industry\",\"employment\",\"notes\", \"linkedin\"]}' , 0.7 );",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        460,
+        -80
+      ],
+      "id": "4d71555d-d9fa-4717-a55a-52a549fbb4ec",
+      "name": "Vectors ALL",
+      "credentials": {
+        "postgres": {
+          "id": "wK2pSCG9jTniRU28",
+          "name": "Postgres account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "### Choose one - all or specific ones..\n\nSpecific ones need more improvements",
+        "height": 580,
+        "width": 260,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        380,
+        -240
+      ],
+      "id": "915ccef8-6452-476e-902f-1e5b77fafe31",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "fieldsToSummarize": {
+          "values": [
+            {
+              "aggregation": "append",
+              "field": "id"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.summarize",
+      "typeVersion": 1.1,
+      "position": [
+        920,
+        -380
+      ],
+      "id": "db1d1b31-d91b-46b6-a578-d3221d808a78",
+      "name": "Summarize1"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "let imts = $json.match_documents_resources_facts;\nlet arr = '';\ntry{\n  let ln = imts.split(',').length;\n  arr = imts.split(',')[3]+\" | \"+imts.split(',')[ln-1]; // get data\n  // arr = arr.normalize('NFD').replace(/[\\u0300-\\u036f]/g, '');\n}catch{};\nreturn{\n    json: {\n      id: arr\n    }\n  }\n;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        680,
+        -240
+      ],
+      "id": "4f28faeb-11a5-4e9d-a6f7-2da6082c1ffd",
+      "name": "GET User Info only"
+    }
+  ],
+  "pinData": {},
+  "repo_name": "n8n-backup-zm",
+  "repo_owner": "zlatkomq",
+  "repo_path": "",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-03-31T12:45:21.811Z",
+      "updatedAt": "2025-03-31T12:45:21.811Z",
+      "id": "mUYuMooITov17Xfj",
+      "name": "Ganttic"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-04-25T13:27:01.895Z",
+  "versionId": "5c90be9c-e05e-49f0-a94e-512c52ee71a8"
+}
