@@ -1,0 +1,717 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "Gen facts & Max Pages",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Resources - INSERT": {
+      "main": [
+        [
+          {
+            "node": "More Res Pages?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "More Res Pages?": {
+      "main": [
+        [
+          {
+            "node": "Wait Res",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait Res1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Facts Vectors": {
+      "main": [
+        [
+          {
+            "node": "Merge Facts & Vectors",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Res Page": {
+      "main": [
+        [
+          {
+            "node": "Select Facts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait Res": {
+      "main": [
+        [
+          {
+            "node": "Increment Res Page",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Increment Res Page": {
+      "main": [
+        [
+          {
+            "node": "Set Res Page",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Select Facts": {
+      "main": [
+        [
+          {
+            "node": "Generate Facts Vectors",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge Facts & Vectors",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge Facts & Vectors": {
+      "main": [
+        [
+          {
+            "node": "Resources - INSERT",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gen facts & Max Pages": {
+      "main": [
+        [
+          {
+            "node": "Set Res Page",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait Res1": {
+      "main": [
+        [
+          {
+            "node": "Total Empty",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Total Empty": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Select Empty": {
+      "main": [
+        [
+          {
+            "node": "Generate Facts Vectors1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge Facts & Vectors1",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Select Empty",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Facts Vectors1": {
+      "main": [
+        [
+          {
+            "node": "Merge Facts & Vectors1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge Facts & Vectors1": {
+      "main": [
+        [
+          {
+            "node": "Resources - INSERT1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Resources - INSERT1": {
+      "main": [
+        [
+          {
+            "node": "Total Empty",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-04-03T20:44:03.590Z",
+  "id": "gcpUlYOlEBlinQ0h",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "RESOURCES RE-GENERATE",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -420,
+        100
+      ],
+      "id": "45ae9703-7e79-46ee-bd6f-69bd340e1236",
+      "name": "When clicking ‘Test workflow’"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://192.168.20.70:11434/api/embeddings",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "model",
+              "value": "mxbai-embed-large"
+            },
+            {
+              "name": "prompt",
+              "value": "={{ $json.fact_statement }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "24905fc6-29aa-4ef9-9b6c-a10f443d3c1f",
+      "name": "Generate Facts Vectors",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        800,
+        -280
+      ],
+      "retryOnFail": false,
+      "maxTries": 5,
+      "waitBetweenTries": 2000,
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "tableId": "resource_facts",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "fact_id",
+              "condition": "eq",
+              "keyValue": "={{ $json.fact_id_2 }}"
+            }
+          ]
+        },
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "fact_embedding",
+              "fieldValue": "={{ $json.embedding_1 }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        360,
+        240
+      ],
+      "id": "d6b9f8f8-e3d3-400c-838d-1f4505e4e231",
+      "name": "Resources - INSERT",
+      "alwaysOutputData": false,
+      "credentials": {
+        "supabaseApi": {
+          "id": "Vbtfas1bVCzZ2Wde",
+          "name": "Supabase account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "values": {
+          "number": [
+            {
+              "name": "page",
+              "value": "={{$json[\"next_page\"] || 1}}"
+            },
+            {
+              "name": "cp",
+              "value": "={{ $(\"Gen facts & Max Pages\").last().json.ceiling || 2 }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Set Res Page",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        -40,
+        -180
+      ],
+      "typeVersion": 1,
+      "id": "35d590bb-6f54-450b-a03b-7649b7fcf70b"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "number": [
+            {
+              "value1": "={{ $('Set Res Page').item.json.page }}",
+              "value2": "={{ $(\"Gen facts & Max Pages\").last().json.ceiling }}"
+            }
+          ]
+        }
+      },
+      "name": "More Res Pages?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        620,
+        240
+      ],
+      "id": "d53bea89-8fdd-4b17-aaff-fca0618e364f",
+      "executeOnce": true
+    },
+    {
+      "parameters": {
+        "amount": 1.5
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -160,
+        80
+      ],
+      "id": "c0e0d2fc-e70b-4b5a-895f-b09048e08912",
+      "name": "Wait Res",
+      "webhookId": "34f21572-31a2-4c5b-a08a-d4be2e33651d"
+    },
+    {
+      "parameters": {
+        "values": {
+          "number": [
+            {
+              "name": "next_page",
+              "value": "={{ $('Set Res Page').item.json.page + 1 }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Increment Res Page",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        80,
+        80
+      ],
+      "id": "169d30fb-0467-4776-bcb2-390a03a9e7b8"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "=select fact_id, fact_statement from resource_facts limit 25 offset {{ $('Set Res Page').item.json.page == 1 ? 0 : ($('Set Res Page').item.json.page)*25 }};",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        280,
+        -280
+      ],
+      "id": "8bdda411-5f89-42d1-bd19-70d9ab381d53",
+      "name": "Select Facts",
+      "alwaysOutputData": false,
+      "credentials": {
+        "postgres": {
+          "id": "wK2pSCG9jTniRU28",
+          "name": "Postgres account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combinationMode": "mergeByPosition",
+        "options": {
+          "clashHandling": {
+            "values": {
+              "resolveClash": "addSuffix"
+            }
+          }
+        }
+      },
+      "id": "c434d679-5c49-4fd4-8828-200f21fc3949",
+      "name": "Merge Facts & Vectors",
+      "type": "n8n-nodes-base.merge",
+      "position": [
+        560,
+        20
+      ],
+      "typeVersion": 2
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "= SELECT generate_resource_facts(); SELECT FLOOR( count(*)/25)-1 from resource_facts;",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        -460,
+        -180
+      ],
+      "id": "95901b60-5972-4370-9f13-ad46557d9d1a",
+      "name": "Gen facts & Max Pages",
+      "alwaysOutputData": true,
+      "credentials": {
+        "postgres": {
+          "id": "wK2pSCG9jTniRU28",
+          "name": "Postgres account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 4
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        920,
+        320
+      ],
+      "id": "d80e53a2-9a9a-45d2-bd91-bbceb502dada",
+      "name": "Wait Res1",
+      "webhookId": "34f21572-31a2-4c5b-a08a-d4be2e33651d"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "=select fact_id, fact_statement from resource_facts where fact_embedding ISNULL limit 25;",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        1880,
+        -180
+      ],
+      "id": "106a8e34-f8a7-4d9d-a7df-06c9d857f59d",
+      "name": "Select Empty",
+      "alwaysOutputData": false,
+      "credentials": {
+        "postgres": {
+          "id": "wK2pSCG9jTniRU28",
+          "name": "Postgres account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "=select count(fact_id) from resource_facts where fact_embedding ISNULL;",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        1320,
+        -180
+      ],
+      "id": "d29891de-73b3-4e7d-98cd-96471ae4f718",
+      "name": "Total Empty",
+      "alwaysOutputData": false,
+      "executeOnce": true,
+      "credentials": {
+        "postgres": {
+          "id": "wK2pSCG9jTniRU28",
+          "name": "Postgres account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "fa300318-c8cb-4aef-9536-931bf769c339",
+              "leftValue": "={{ $json.count }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1580,
+        -240
+      ],
+      "id": "ae4ed92c-a204-4006-bcf4-59decd215165",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://192.168.20.70:11434/api/embeddings",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "model",
+              "value": "mxbai-embed-large"
+            },
+            {
+              "name": "prompt",
+              "value": "={{ $json.fact_statement }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "8e4a3a3e-d2ed-491e-bae5-1e88a9491b4b",
+      "name": "Generate Facts Vectors1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        2240,
+        -200
+      ],
+      "retryOnFail": false,
+      "maxTries": 5,
+      "waitBetweenTries": 2000,
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combinationMode": "mergeByPosition",
+        "options": {}
+      },
+      "id": "eabfe3ef-602c-4f5e-83b8-9b5135f6aaaa",
+      "name": "Merge Facts & Vectors1",
+      "type": "n8n-nodes-base.merge",
+      "position": [
+        2420,
+        20
+      ],
+      "typeVersion": 2
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "tableId": "resource_facts",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "fact_id",
+              "condition": "eq",
+              "keyValue": "={{ $json.fact_id }}"
+            }
+          ]
+        },
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "fact_embedding",
+              "fieldValue": "={{ $json.embedding }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        2660,
+        140
+      ],
+      "id": "150cdbec-de71-4f93-a1ff-b7b741c7508a",
+      "name": "Resources - INSERT1",
+      "alwaysOutputData": false,
+      "credentials": {
+        "supabaseApi": {
+          "id": "Vbtfas1bVCzZ2Wde",
+          "name": "Supabase account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "# UPDATE skipped ollama vectors",
+        "height": 840,
+        "width": 1760,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1140,
+        -320
+      ],
+      "id": "5782c21e-5afa-4487-b190-114f025b3f5a",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "# GENERATE ollama vectors",
+        "height": 840,
+        "width": 1760,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -640,
+        -320
+      ],
+      "id": "4883407e-c160-4851-ad92-96af416204f7",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "jsCode": "return {\n  \"json\": {\n    \"success\": true\n  }\n}"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2220,
+        540
+      ],
+      "id": "7ddcbe60-52b8-4bba-9269-7337d1c4bec1",
+      "name": "Code"
+    }
+  ],
+  "pinData": {},
+  "repo_name": "n8n-backup-zm",
+  "repo_owner": "zlatkomq",
+  "repo_path": "",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-03-31T12:45:21.811Z",
+      "updatedAt": "2025-03-31T12:45:21.811Z",
+      "id": "mUYuMooITov17Xfj",
+      "name": "Ganttic"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-04-28T21:33:18.018Z",
+  "versionId": "6b8f06f8-3c61-4b25-8179-1f76b1d737cb"
+}
