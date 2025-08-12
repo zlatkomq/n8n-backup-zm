@@ -1,0 +1,305 @@
+{
+  "active": false,
+  "connections": {
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Encode URI1": {
+      "main": [
+        []
+      ]
+    },
+    "Pull linkedin profiles1": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking 'Test workflow'": {
+      "main": [
+        [
+          {
+            "node": "Pull linkedin profiles1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-04-10T13:15:52.238Z",
+  "id": "s3uEx24m0GydrGq2",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "LinkedIN_profiles_",
+  "nodes": [
+    {
+      "parameters": {
+        "url": "https://fresh-linkedin-profile-data.p.rapidapi.com/get-linkedin-profile-by-salesnavurl",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "linkedin_url",
+              "value": "={{ $json.url }}"
+            },
+            {
+              "name": "include_skills",
+              "value": "true"
+            },
+            {
+              "name": "include_certifications",
+              "value": "true"
+            },
+            {
+              "name": "include_publications",
+              "value": "true"
+            },
+            {
+              "name": "include_honors",
+              "value": "true"
+            },
+            {
+              "name": "include_volunteers",
+              "value": "true"
+            },
+            {
+              "name": "include_projects",
+              "value": "true"
+            },
+            {
+              "name": "include_patents",
+              "value": "true"
+            },
+            {
+              "name": "include_courses",
+              "value": "true"
+            },
+            {
+              "name": "include_organizations",
+              "value": "true"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "x-rapidapi-host",
+              "value": "fresh-linkedin-profile-data.p.rapidapi.com"
+            },
+            {
+              "name": "x-rapidapi-key",
+              "value": "85508ef12dmsh86fbb4e9b248ae7p12a1edjsnc4c756c98880"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        600,
+        -200
+      ],
+      "id": "6266251f-7a76-45b2-bba3-24deaa2bb4d2",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "fd914708-c85f-4c0e-a277-d8164c616699",
+              "name": "Linkedin Profile",
+              "type": "string",
+              "value": "={{ encodeURI($json.linkedin_url) }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "2bff398f-be87-42fe-87b8-90b6c92978cc",
+      "name": "Encode URI1",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        380,
+        100
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1WCkiHRiknt-JU39WnhAfvfB1o6CkFhTF-JgWx_Kz6pM",
+          "mode": "list",
+          "cachedResultName": "Linkedin Info",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WCkiHRiknt-JU39WnhAfvfB1o6CkFhTF-JgWx_Kz6pM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Employes",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WCkiHRiknt-JU39WnhAfvfB1o6CkFhTF-JgWx_Kz6pM/edit#gid=0"
+        },
+        "options": {}
+      },
+      "id": "dbf4a2d3-bfb9-4455-97d0-a54127dac38a",
+      "name": "Pull linkedin profiles1",
+      "type": "n8n-nodes-base.googleSheets",
+      "position": [
+        40,
+        -40
+      ],
+      "typeVersion": 4.5,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "VqBZlK3vKXeQiMtM",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -200,
+        -200
+      ],
+      "id": "f803966d-0a11-4435-a3ac-aade59e62204",
+      "name": "When clicking 'Test workflow'"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5d9a1ffc-a8e3-4cf9-9f40-636c36781a3b",
+              "name": "data.certifications",
+              "value": "={{ $json.data.certifications }}",
+              "type": "array"
+            },
+            {
+              "id": "9a9b8c03-a81a-4714-bc6c-90bb7287d281",
+              "name": "data.honors_and_awards",
+              "value": "={{ $json.data.honors_and_awards }}",
+              "type": "array"
+            },
+            {
+              "id": "e249f312-b24c-4525-adfb-9f084326745f",
+              "name": "data.languages",
+              "value": "={{ $json.data.languages }}",
+              "type": "array"
+            },
+            {
+              "id": "551de08d-db39-4d43-9782-d3ed3cff7692",
+              "name": "data.organizations",
+              "value": "={{ $json.data.organizations[0].name }}",
+              "type": "string"
+            },
+            {
+              "id": "85c4e7c7-c5b0-41b6-8af7-e671d81d282e",
+              "name": "data.profile_image_url",
+              "value": "={{ $json.data.profile_image_url }}",
+              "type": "string"
+            },
+            {
+              "id": "80e1a1ac-ba8a-435e-bfbd-a22f647fefe3",
+              "name": "data.projects",
+              "value": "={{ $json.data.projects }}",
+              "type": "array"
+            },
+            {
+              "id": "769790f6-5fb0-436c-89f7-032d788c2ba9",
+              "name": "data.publications",
+              "value": "={{ $json.data.publications }}",
+              "type": "array"
+            },
+            {
+              "id": "42e34379-0f3a-4821-b3e5-72dee77a06a7",
+              "name": "data.volunteers",
+              "value": "={{ $json.data.volunteers }}",
+              "type": "array"
+            },
+            {
+              "id": "5a540f47-6e3a-4c82-a5cd-6aff79eb7432",
+              "name": "data.experiences",
+              "value": "={{ $json.data.experiences }}",
+              "type": "array"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        880,
+        -80
+      ],
+      "id": "6430c463-cd21-496d-a522-4b9933f4aec5",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\n\nlet fst = $input.first().json.LinkeIN_url;\nreturn {\n  json: {\n    url: fst\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        280,
+        -120
+      ],
+      "id": "3b934ad6-ace6-49b8-8975-6594f7613494",
+      "name": "Code"
+    }
+  ],
+  "pinData": {},
+  "repo_name": "n8n-backup-zm",
+  "repo_owner": "zlatkomq",
+  "repo_path": "",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-03-31T12:45:21.811Z",
+      "updatedAt": "2025-03-31T12:45:21.811Z",
+      "id": "mUYuMooITov17Xfj",
+      "name": "Ganttic"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-04-10T14:54:14.799Z",
+  "versionId": "e4cb08dd-a826-4924-8648-ac662e87e40d"
+}
