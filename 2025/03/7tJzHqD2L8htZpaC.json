@@ -1,0 +1,571 @@
+{
+  "active": false,
+  "connections": {
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter already enriched1": {
+      "main": [
+        [
+          {
+            "node": "Encode URI1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Encode URI1": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FiIter out all arrays1": {
+      "main": [
+        []
+      ]
+    },
+    "Pull linkedin profiles1": {
+      "main": [
+        [
+          {
+            "node": "Filter already enriched1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "Pull linkedin profiles1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ollama Chat Model": {
+      "ai_languageModel": [
+        []
+      ]
+    },
+    "Basic LLM Chain": {
+      "main": [
+        [
+          {
+            "node": "Update the profile1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "createdAt": "2025-03-30T09:18:59.164Z",
+  "id": "7tJzHqD2L8htZpaC",
+  "isArchived": false,
+  "meta": {
+    "templateId": "2808",
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Enrich Linkedin Profiles from Google Sheets via RapidAPI",
+  "nodes": [
+    {
+      "parameters": {
+        "url": "https://fresh-linkedin-profile-data.p.rapidapi.com/get-linkedin-profile-by-salesnavurl",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "linkedin_url",
+              "value": "={{ $json[\"Linkedin Profile\"] }}"
+            },
+            {
+              "name": "include_skills",
+              "value": "true"
+            },
+            {
+              "name": "include_certifications",
+              "value": "true"
+            },
+            {
+              "name": "include_publications",
+              "value": "true"
+            },
+            {
+              "name": "include_honors",
+              "value": "true"
+            },
+            {
+              "name": "include_volunteers",
+              "value": "true"
+            },
+            {
+              "name": "include_projects",
+              "value": "true"
+            },
+            {
+              "name": "include_patents",
+              "value": "true"
+            },
+            {
+              "name": "include_courses",
+              "value": "true"
+            },
+            {
+              "name": "include_organizations",
+              "value": "true"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "x-rapidapi-host",
+              "value": "fresh-linkedin-profile-data.p.rapidapi.com"
+            },
+            {
+              "name": "x-rapidapi-key",
+              "value": "85508ef12dmsh86fbb4e9b248ae7p12a1edjsnc4c756c98880"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2480,
+        1000
+      ],
+      "id": "4c249e37-3f9c-4a97-a4d4-dda5d0426a5d",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "url": "https://fresh-linkedin-profile-data.p.rapidapi.com/get-linkedin-profile",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "linkedin_url",
+              "value": "https://www.linkedin.com/in/zlatko-matokanovi%C4%87-3485a254/"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "x-rapidapi-key",
+              "value": "85508ef12dmsh86fbb4e9b248ae7p12a1edjsnc4c756c98880"
+            },
+            {
+              "name": "x-rapidapi-host",
+              "value": "fresh-linkedin-profile-data.p.rapidapi.com"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "1c9bdb2b-8770-44ed-92d1-de5ca21682b1",
+      "name": "Call Rapid API1",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        1600,
+        1500
+      ],
+      "typeVersion": 4.2
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "version": 2,
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "5907d2f7-b15d-41cc-8fee-45631bb874e1",
+              "operator": {
+                "type": "string",
+                "operation": "empty",
+                "singleValue": true
+              },
+              "leftValue": "={{ $json.about }}",
+              "rightValue": ""
+            },
+            {
+              "id": "2857554e-a635-43d3-bf9e-a617b85009ca",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              },
+              "leftValue": "={{ $json.linkedin_url }}",
+              "rightValue": ""
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "7cb32e2c-1f0d-4bf9-a5cb-795e8e7b606c",
+      "name": "Filter already enriched1",
+      "type": "n8n-nodes-base.filter",
+      "position": [
+        2040,
+        1000
+      ],
+      "typeVersion": 2.2
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "fd914708-c85f-4c0e-a277-d8164c616699",
+              "name": "Linkedin Profile",
+              "type": "string",
+              "value": "={{ encodeURI($json.linkedin_url) }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "0f67913b-fc85-460c-8132-da87abcbf22e",
+      "name": "Encode URI1",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        2260,
+        1000
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "// Initialize an empty object to store filtered items\nlet filteredData = {};\n\n// Loop through each item in $input.item.json.data\nfor (const item in $input.item.json.data) {\n  // Check if the item is not an array\n  if (!Array.isArray($input.item.json.data[item])) {\n    // Add the item to the filteredData object\n    filteredData[item] = $input.item.json.data[item];\n  }\n}\nfilteredData['row_number'] = $('Pull linkedin profiles1').first().json.row_number\n// Return the filteredData array\nreturn filteredData;"
+      },
+      "id": "a8e68e71-2820-41ee-a183-05d057d53183",
+      "name": "FiIter out all arrays1",
+      "type": "n8n-nodes-base.code",
+      "position": [
+        3660,
+        1020
+      ],
+      "typeVersion": 2
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1WCkiHRiknt-JU39WnhAfvfB1o6CkFhTF-JgWx_Kz6pM",
+          "mode": "list",
+          "cachedResultName": "Linkedin Info",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WCkiHRiknt-JU39WnhAfvfB1o6CkFhTF-JgWx_Kz6pM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Employes",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WCkiHRiknt-JU39WnhAfvfB1o6CkFhTF-JgWx_Kz6pM/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {
+            "output": "={{ $json.output.persoanal_info }}"
+          },
+          "matchingColumns": [
+            "output"
+          ],
+          "schema": [
+            {
+              "id": "output",
+              "displayName": "output",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "647db7c8-a6b1-447a-90b3-583026b4933e",
+      "name": "Update the profile1",
+      "type": "n8n-nodes-base.googleSheets",
+      "position": [
+        3880,
+        820
+      ],
+      "typeVersion": 4.5,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "FtlTep04mtONOydH",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1WCkiHRiknt-JU39WnhAfvfB1o6CkFhTF-JgWx_Kz6pM",
+          "mode": "list",
+          "cachedResultName": "Linkedin Info",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WCkiHRiknt-JU39WnhAfvfB1o6CkFhTF-JgWx_Kz6pM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Employes",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WCkiHRiknt-JU39WnhAfvfB1o6CkFhTF-JgWx_Kz6pM/edit#gid=0"
+        },
+        "options": {}
+      },
+      "id": "02bb43d0-5863-414d-ba8e-6c822e7e99f2",
+      "name": "Pull linkedin profiles1",
+      "type": "n8n-nodes-base.googleSheets",
+      "position": [
+        1820,
+        1000
+      ],
+      "typeVersion": 4.5,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "FtlTep04mtONOydH",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        1600,
+        1000
+      ],
+      "id": "274c8606-a0ff-44fc-9edd-662e3e085065",
+      "name": "When clicking ‘Test workflow’"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        3260,
+        1060
+      ],
+      "id": "04c47a86-ba8c-415a-977a-ddf17820fd23",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "M8xqWvEC6mH6LNuk",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.data }}",
+        "hasOutputParser": true,
+        "messages": {
+          "messageValues": [
+            {
+              "message": "To effectively summarize an employee’s LinkedIn profile for enhancing your company’s internal records, please extract and organize the following information:\n\t1.\tPersonal Information:\n\t•\tFull Name\n\t•\tCurrent Job Title\n\t•\tCurrent Company\n\t•\tLocation\n\t2.\tContact Information:\n\t•\tEmail Address ￼\n\t•\tPhone Number\n\t•\tLinkedIn Profile URL ￼\n\t3.\tProfessional Summary:\n\t•\tA brief overview of the individual’s professional background and career objectives.\n\t4.\tExperience:\n\t•\tList of current and previous positions, including:\n\t•\tJob Title\n\t•\tCompany Name\n\t•\tEmployment Dates\n\t•\tKey Responsibilities and Achievements\n\t5.\tEducation:\n\t•\tDegrees obtained, institutions attended, and graduation dates.\n\t6.\tSkills:\n\t•\tList of professional skills and competencies.\n\t7.\tIndustry Knowledge:\n\t•\tAreas of expertise within specific industries.\n\t8.\tCertifications:\n\t•\tProfessional certifications obtained, including issuing organizations and dates.\n\t9.\tLanguages:\n\t•\tLanguages spoken and proficiency levels.\n\t10.\tProjects:\n\t•\tSignificant projects undertaken, detailing roles, responsibilities, and outcomes.\n\t11.\tPublications:\n\t•\tAuthored articles, research papers, or books, with publication details.\n\t12.\tPatents:\n\t•\tDetails of any patents granted or pending.\n\t13.\tHonors and Awards:\n\t•\tRecognitions and accolades received.\n\t14.\tVolunteering:\n\t•\tVolunteer work and roles within non-profit organizations.\n\t15.\tProfessional Memberships:\n\t•\tAffiliations with professional bodies or organizations.\n\t16.\tTraining and Development:\n\t•\tWorkshops, seminars, and courses attended for professional growth.\n\t17.\tPerformance Reviews:\n\t•\tSummaries of past performance evaluations and key achievements.\n\t18.\tGoals and Objectives:\n\t•\tIndividual goals aligned with company objectives.\n\t19.\tEmergency Contact Information:\n\t•\tDetails for use in case of emergencies.\n\nEnsure that the information is organized under the appropriate headings and presented clearly and concisely. This structured summary will provide a comprehensive view of the employee’s professional profile, aiding in effective resource allocation and team formation within the company."
+            }
+          ]
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.5,
+      "position": [
+        3280,
+        820
+      ],
+      "id": "6aaa233b-b724-4fa1-80b8-f683143a6d98",
+      "name": "Basic LLM Chain"
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"persoanal_info\": [\"\"],\n  \"experiences\": [\"\"],\n  \"all_skills\": [\"\"],\n  \"industry_knowledge\": [\"\"],\n  \"honors_and_awards\": [\"\"],\n  \"volunteering\": [\"\"],\n  \"description\": \"\",\n  \"domain_knowledge\": [\"\"],\n  \"certifications\": [\"\"],\n  \"top_skills\": [\"\"],\n  \"organizations\": [\"\"],\n  \"languages\": [\"\"],\n  \"education\": [\"\"],\n  \"projects\": [\"\"],\n  \"publications\": [\"\"],\n  \"patents\": [\"\"],\n  \"professional_memberships\": [\"\"],\n  \"training_and_development\": [\"\"],\n  \"performance_reviews\": [\"\"],\n  \"goals_and_objectives\": [\"\"],\n  \"emergency_contact_information\": [\"\"]\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.2,
+      "position": [
+        3420,
+        1260
+      ],
+      "id": "cba81f1b-cc3e-4578-b674-720267bed8d2",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "model": "phi4:latest",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
+      "typeVersion": 1,
+      "position": [
+        3260,
+        1260
+      ],
+      "id": "379154eb-45fc-472b-ae36-a0bc04385396",
+      "name": "Ollama Chat Model",
+      "credentials": {
+        "ollamaApi": {
+          "id": "fv9DllLzKNe1SabK",
+          "name": "Ollama account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5d9a1ffc-a8e3-4cf9-9f40-636c36781a3b",
+              "name": "data.certifications",
+              "value": "={{ $json.data.certifications }}",
+              "type": "array"
+            },
+            {
+              "id": "9a9b8c03-a81a-4714-bc6c-90bb7287d281",
+              "name": "data.honors_and_awards",
+              "value": "={{ $json.data.honors_and_awards }}",
+              "type": "array"
+            },
+            {
+              "id": "e249f312-b24c-4525-adfb-9f084326745f",
+              "name": "data.languages",
+              "value": "={{ $json.data.languages }}",
+              "type": "array"
+            },
+            {
+              "id": "551de08d-db39-4d43-9782-d3ed3cff7692",
+              "name": "data.organizations",
+              "value": "={{ $json.data.organizations[0].name }}",
+              "type": "string"
+            },
+            {
+              "id": "85c4e7c7-c5b0-41b6-8af7-e671d81d282e",
+              "name": "data.profile_image_url",
+              "value": "={{ $json.data.profile_image_url }}",
+              "type": "string"
+            },
+            {
+              "id": "80e1a1ac-ba8a-435e-bfbd-a22f647fefe3",
+              "name": "data.projects",
+              "value": "={{ $json.data.projects }}",
+              "type": "array"
+            },
+            {
+              "id": "769790f6-5fb0-436c-89f7-032d788c2ba9",
+              "name": "data.publications",
+              "value": "={{ $json.data.publications }}",
+              "type": "array"
+            },
+            {
+              "id": "42e34379-0f3a-4821-b3e5-72dee77a06a7",
+              "name": "data.volunteers",
+              "value": "={{ $json.data.volunteers }}",
+              "type": "array"
+            },
+            {
+              "id": "5a540f47-6e3a-4c82-a5cd-6aff79eb7432",
+              "name": "data.experiences",
+              "value": "={{ $json.data.experiences }}",
+              "type": "array"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2680,
+        1000
+      ],
+      "id": "4669795b-8325-4a80-8708-7460a0aaae37",
+      "name": "Edit Fields"
+    }
+  ],
+  "pinData": {},
+  "repo_name": "n8n-backup-zm",
+  "repo_owner": "zlatkomq",
+  "repo_path": "",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-04-10T13:12:07.311Z",
+  "versionId": "c0426046-9d08-4010-b39f-aabbe5a9c525"
+}
