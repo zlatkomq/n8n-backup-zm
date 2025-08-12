@@ -1,0 +1,864 @@
+{
+  "active": false,
+  "connections": {
+    "Has Hits?": {
+      "main": [
+        [
+          {
+            "node": "Deduplicate and Best Score",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Queries1": {
+      "main": [
+        [
+          {
+            "node": "Embed Query - ollama1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embed Query - ollama1": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Map Response1": {
+      "main": [
+        [
+          {
+            "node": "Deduplicate and Best Score1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Crate Index Name",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create index - Elastic Search": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Delete Index": {
+      "main": [
+        [
+          {
+            "node": "Create ES Url",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Create ES Url",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embed Chunks": {
+      "main": [
+        [
+          {
+            "node": "Embedding Isolated",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Remove TOC": {
+      "main": [
+        []
+      ]
+    },
+    "Final Escaping": {
+      "main": [
+        [
+          {
+            "node": "Embed Chunks",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Add To Index": {
+      "main": [
+        [
+          {
+            "node": "Queries1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter Empty & Duplicate Chunks": {
+      "main": [
+        [
+          {
+            "node": "Split Chunks",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Chunks": {
+      "main": [
+        [
+          {
+            "node": "Final Escaping",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Add To Index",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embedding Isolated": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Output": {
+      "main": [
+        [
+          {
+            "node": "Filter Empty & Duplicate Chunks",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create ES Url": {
+      "main": [
+        [
+          {
+            "node": "Create index - Elastic Search",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Chunker Full",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Crate Index Name": {
+      "main": [
+        [
+          {
+            "node": "Delete Index",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Chunker Full": {
+      "main": [
+        [
+          {
+            "node": "Format Output",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Query - Original Relaxed": {
+      "main": [
+        []
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Query - Original1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Query - Original1": {
+      "main": [
+        [
+          {
+            "node": "Map Response1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-07-02T11:07:50.174Z",
+  "id": "Lds67BBQZuJtEMxY",
+  "isArchived": false,
+  "meta": null,
+  "name": "ET Public - EL",
+  "nodes": [
+    {
+      "parameters": {
+        "jsCode": "// n8n Function Node: Dedupe → Merge Origins → Filter → Sort → Fallback\n\nconst MIN_SCORE = 3.0;\nconst DESIRED_COUNT = 10;\n\n// Step 1: Deduplicate & merge platform origins, keep highest‐score record\nconst seen = {};\nfor (const item of $input.all()) {\n  const { chunk_id, platform, _score, ...rest } = item.json;\n  \n  if (!seen[chunk_id]) {\n    // First time seeing this chunk\n    seen[chunk_id] = {\n      chunk_id,\n      _score,\n      ...rest,\n      platform_origins: [{ platform, score: _score }],\n    };\n  } else {\n    // Merge new platform origin\n    const record = seen[chunk_id];\n    if (!record.platform_origins.some(p => p.platform === platform)) {\n      record.platform_origins.push({ platform, score: _score });\n    }\n    // If this hit has a higher score, overwrite core fields\n    if (_score > record._score) {\n      record._score = _score;\n      Object.assign(record, rest);\n    }\n  }\n}\n\n// Convert deduped map back to array of items\nlet deduped = Object.values(seen).map(r => ({ json: r }));\n\n// Step 2: Filter by score and sort descending\nlet filtered = deduped\n  .filter(item => item.json._score >= MIN_SCORE)\n  .sort((a, b) => b.json._score - a.json._score);\n\n// Step 3: Fallback if too few hits\nif (filtered.length < DESIRED_COUNT) {\n  // Return top DESIRED_COUNT from deduped (regardless of score)\n  filtered = deduped\n    .sort((a, b) => b.json._score - a.json._score)\n    .slice(0, DESIRED_COUNT);\n}\n\n// Step 4: Ensure we only return up to DESIRED_COUNT\nfiltered = filtered.slice(0, DESIRED_COUNT);\n\n// Return in n8n-compatible format\nreturn filtered;\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        592,
+        352
+      ],
+      "id": "cce9782e-919f-48fd-bb8d-7423addcca39",
+      "name": "Deduplicate and Best Score"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "9a436325-f8ac-491f-99aa-c66f916b471d",
+              "leftValue": "={{$json._index === undefined}}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "false",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        208,
+        368
+      ],
+      "id": "af9e830c-db35-466e-977c-79e28342a81a",
+      "name": "Has Hits?"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "indexId": "={{ $('Start RFP Analysis').first().json.body.indexName }}",
+        "limit": 10,
+        "simple": false,
+        "options": {
+          "query": "={\n  \"size\": 10,\n  \"min_score\": 1.0,\n  \"_source\": [\n    \"chunk_id\",\"section_title\",\"text\",\n    \"metadata.filename\",\"metadata.page_numbers\",\n    \"metadata.parent_chunk_id\",\"metadata.is_split_chunk\",\n    \"metadata.split_part\",\"metadata.total_parts\",\n    \"vector_metadata.token_count\",\"vector_metadata.is_split\",\n    \"vector_metadata.chunk_index\"\n  ],\n  \"knn\": {\n    \"field\": \"embeddings\",\n    \"query_vector\": [ {{ $json.embeddings }} ],\n    \"k\": 20,\n    \"num_candidates\": 50\n  },\n  \"query\": {\n    \"bool\": {\n      \"should\": [\n        {\n          \"match_phrase\": {\n            \"text\": {\n              \"query\": \"{{ $('Queries').item.json.phrase }}\",\n              \"slop\": 4,\n              \"boost\": 2.0\n            }\n          }\n        },\n        {\n          \"multi_match\": {\n            \"query\": \"{{ $('Queries').item.json.keywords }}\",\n            \"fields\": [\"text^2\",\"section_title^3\"],\n            \"type\": \"most_fields\",\n            \"minimum_should_match\": 2,\n            \"boost\": 1.2\n          }\n        },\n        {\n          \"terms_set\": {\n            \"text.keyword\": {\n              \"terms\": {{ JSON.stringify($('Queries').item.json.keywords.split(',').map(k => k.trim())) }},\n\n              \"minimum_should_match_script\": {\n                \"source\": \"Math.min(params.num_terms, 2)\"\n              }\n            }\n          }\n        }\n      ],\n      \"minimum_should_match\": 1\n    }\n  },\n  \"rescore\": {\n    \"window_size\": 20,\n    \"query\": {\n      \"rescore_query\": {\n        \"match_phrase\": {\n          \"text\": {\n            \"query\": \"{{ $('Queries').item.json.rescore_query }}\",\n            \"slop\": 8\n          }\n        }\n      },\n      \"query_weight\": 0.7,\n      \"rescore_query_weight\": 0.3\n    }\n  },\n  \"highlight\": {\n    \"type\": \"unified\",\n    \"fields\": { \"text\": {}, \"section_title\": {} }\n  }\n}\n"
+        }
+      },
+      "type": "n8n-nodes-base.elasticsearch",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "3803995f-8bde-4f6f-bfe0-842138ef03e3",
+      "name": "Query - Full",
+      "alwaysOutputData": true,
+      "credentials": {
+        "elasticsearchApi": {
+          "id": "wwaILZtoajWrVXwt",
+          "name": "Elasticsearch account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "formTitle": "file",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "file",
+              "fieldType": "file",
+              "multipleFiles": false,
+              "acceptFileTypes": ".pdf"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "position": [
+        -816,
+        1088
+      ],
+      "id": "7bd6df78-cd34-4f16-893e-21f888e855e0",
+      "name": "On form submission",
+      "webhookId": "29129454-bb03-44d9-b4cf-071f54f83748"
+    },
+    {
+      "parameters": {
+        "jsCode": "return [\n  {\n    json: {\n      platform: \"web\",\n      query: \"What web technologies or platforms are mentioned in the RFP?\",\n      keywords: \"web technology, technologies, platform, platforms, website, webapp, web application, HTML, CSS, JavaScript, TypeScript, React, Angular, Vue, Svelte, Next.js, Nuxt.js, PHP, Python, Django, Flask, Ruby, Rails, Node.js, Express, .NET, ASP.NET, Java, Spring, Laravel, Drupal, WordPress, CMS, frontend, backend, server-side, client-side, SaaS, PaaS, cloud hosting\",\n      phrase: \"web technology platform web application\",\n      rescore_query: \"web application OR React OR Angular OR Vue OR HTML OR CSS\"\n    }\n  },\n  {\n    json: {\n      platform: \"mobile\",\n      query: \"Is a mobile app required or mentioned in the RFP? Android, iOS or Flutter?\",\n      keywords: \"mobile app, application, Android, iOS, Flutter, React Native, Swift, Kotlin, cross-platform, smartphone, tablet, mobile device, iPhone, iPad, Play Store, App Store\",\n      phrase: \"mobile application mobile app\",\n      rescore_query: \"mobile app OR Android OR iOS OR Flutter OR React Native\"\n    }\n  },\n  {\n    json: {\n      platform: \"backend\",\n      query: \"Are there backend services or APIs involved in the RFP?\",\n      keywords: \"backend service, services, API, APIs, REST, RESTful, GraphQL, server, database, microservice, microservices, endpoint, endpoints, integration, integration layer, middleware, backend system, data storage, authentication, authorization, business logic\",\n      phrase: \"backend service API integration\",\n      rescore_query: \"REST API OR GraphQL OR microservice OR backend service\"\n    }\n  },\n  {\n    json: {\n      platform: \"admin\",\n      query: \"Does the RFP include an admin portal or dashboard?\",\n      keywords: \"admin portal, dashboard, administration, control panel, admin interface, management console, backend portal, admin dashboard, reporting, analytics, monitoring, configuration settings, user management\",\n      phrase: \"admin portal admin dashboard\",\n      rescore_query: \"admin portal OR admin dashboard OR management console\"\n    }\n  },\n  {\n    json: {\n      platform: \"desktop\",\n      query: \"Is desktop software or a desktop client part of the RFP scope?\",\n      keywords: \"desktop software, client application, Windows, MacOS, Linux, desktop app, Electron, desktop client, installable application, native desktop, cross-platform desktop, program, executable\",\n      phrase: \"desktop software desktop client\",\n      rescore_query: \"desktop app OR Electron OR native desktop\"\n    }\n  },\n  {\n    json: {\n      platform: \"kiosk\",\n      query: \"Are kiosk systems or interfaces required in the RFP?\",\n      keywords: \"kiosk system, systems, interface, interfaces, self-service terminal, touch screen, touchscreen, kiosk application, kiosk mode, interactive kiosk, public kiosk, digital kiosk, POS, point of sale\",\n      phrase: \"kiosk system kiosk interface\",\n      rescore_query: \"kiosk interface OR touchscreen OR point of sale\"\n    }\n  },\n  {\n    json: {\n      platform: \"system-architecture\",\n      query: \"Describe the overall system structure and functionality mentioned in the RFP.\",\n      keywords: \"system structure, architecture, functionality, components, modules, workflow, process, integration, overview, system design, system diagram, technical architecture, high-level design, system overview\",\n      phrase: \"system structure system functionality\",\n      rescore_query: \"system architecture OR technical architecture OR system design\"\n    }\n  },\n  {\n    json: {\n      platform: \"technical-components\",\n      query: \"What are the main technical or system components described in the RFP?\",\n      keywords: \"technical component, components, system element, elements, module, modules, subsystem, subsystems, architecture, infrastructure, technology stack, platform, integration, interface, API, backend, frontend, database, server, client\",\n      phrase: \"technical component system component\",\n      rescore_query: \"technical component OR system module OR technology stack\"\n    }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -608,
+        1840
+      ],
+      "id": "5c8d73e4-3692-46eb-af08-8892aa5b089e",
+      "name": "Queries1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://192.168.20.70:11434/api/embed",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"nomic-embed-text:latest\",\n  \"input\": [\"{{ $json.query }}\"]\n}",
+        "options": {}
+      },
+      "id": "8d3bc152-d6cf-4e18-ad02-9312109a7297",
+      "name": "Embed Query - ollama1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -368,
+        1840
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "17f9e7d3-307e-4d60-92ef-e32285cbec29",
+              "name": "_score",
+              "value": "={{ $json._score }}",
+              "type": "number"
+            },
+            {
+              "id": "618f58cd-27c7-4ab4-8612-899f048afb6c",
+              "name": "_id",
+              "value": "={{ $json._id }}",
+              "type": "string"
+            },
+            {
+              "id": "a8cfb079-48c6-4ce2-a54c-251304107206",
+              "name": "chunk_id",
+              "value": "={{ $json._source.chunk_id }}",
+              "type": "string"
+            },
+            {
+              "id": "22e6e029-7ff1-4870-a1c2-d3b025a2748b",
+              "name": "section_title",
+              "value": "={{ $json._source.section_title }}",
+              "type": "string"
+            },
+            {
+              "id": "27e9a9ac-b6ed-4320-bb21-027f8659e7c5",
+              "name": "text",
+              "value": "={{ $json._source.text }}",
+              "type": "string"
+            },
+            {
+              "id": "6830a868-6492-405b-b8fb-1ae36ea184b2",
+              "name": "metadata",
+              "value": "={{ $json._source.metadata }}",
+              "type": "object"
+            },
+            {
+              "id": "e5dce93c-eb16-42be-8b42-47ca5cfacc52",
+              "name": "platform",
+              "value": "={{ $('Queries1').item.json.platform }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        592,
+        1840
+      ],
+      "id": "e95688c5-751c-4d34-b855-7d81d6891dcd",
+      "name": "Map Response1"
+    },
+    {
+      "parameters": {
+        "jsCode": "// n8n Function Node: Dedupe → Merge Origins → Filter → Sort → Fallback\n\nconst MIN_SCORE = 3.0;\nconst DESIRED_COUNT = 10;\n\n// Step 1: Deduplicate & merge platform origins, keep highest‐score record\nconst seen = {};\nfor (const item of $input.all()) {\n  const { chunk_id, platform, _score, ...rest } = item.json;\n  \n  if (!seen[chunk_id]) {\n    // First time seeing this chunk\n    seen[chunk_id] = {\n      chunk_id,\n      _score,\n      ...rest,\n      platform_origins: [{ platform, score: _score }],\n    };\n  } else {\n    // Merge new platform origin\n    const record = seen[chunk_id];\n    if (!record.platform_origins.some(p => p.platform === platform)) {\n      record.platform_origins.push({ platform, score: _score });\n    }\n    // If this hit has a higher score, overwrite core fields\n    if (_score > record._score) {\n      record._score = _score;\n      Object.assign(record, rest);\n    }\n  }\n}\n\n// Convert deduped map back to array of items\nlet deduped = Object.values(seen).map(r => ({ json: r }));\n\n// Step 2: Filter by score and sort descending\nlet filtered = deduped\n  .filter(item => item.json._score >= MIN_SCORE)\n  .sort((a, b) => b.json._score - a.json._score);\n\n// Step 3: Fallback if too few hits\nif (filtered.length < DESIRED_COUNT) {\n  // Return top DESIRED_COUNT from deduped (regardless of score)\n  filtered = deduped\n    .sort((a, b) => b.json._score - a.json._score)\n    .slice(0, DESIRED_COUNT);\n}\n\n// Step 4: Ensure we only return up to DESIRED_COUNT\nfiltered = filtered.slice(0, DESIRED_COUNT);\n\n// Return in n8n-compatible format\nreturn filtered;\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        928,
+        1840
+      ],
+      "id": "12412e09-2803-43db-8d63-f9ca5f31bb68",
+      "name": "Deduplicate and Best Score1"
+    },
+    {
+      "parameters": {
+        "method": "PUT",
+        "url": "={{ $json.elasticsearchUrl }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "elasticsearchApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"mappings\": {\n    \"dynamic\": \"strict\",\n    \"properties\": {\n      \"chunk_id\": {\n        \"type\": \"keyword\"\n      },\n      \"section_title\": {\n        \"type\": \"text\",\n        \"fields\": {\n          \"keyword\": { \"type\": \"keyword\" }\n        }\n      },\n      \"text\": {\n        \"type\": \"text\",\n        \"analyzer\": \"standard\"\n      },\n      \"metadata\": {\n        \"type\": \"object\",\n        \"dynamic\": \"strict\",\n        \"properties\": {\n          \"content_type\": { \"type\": \"keyword\" },\n          \"pages\":        { \"type\": \"integer\" },\n          \"chunk_index\":  { \"type\": \"integer\" }\n        }\n      },\n      \"embeddings\": {\n        \"type\":       \"dense_vector\",\n        \"dims\":       768,\n        \"index\":      true,\n        \"similarity\": \"cosine\"\n      }\n    }\n  }\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -80,
+        1248
+      ],
+      "id": "2cc31ed2-238a-4b42-88d5-c45bccd98f79",
+      "name": "Create index - Elastic Search",
+      "credentials": {
+        "elasticsearchApi": {
+          "id": "wwaILZtoajWrVXwt",
+          "name": "Elasticsearch account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "index",
+        "operation": "delete",
+        "indexId": "={{ $json.indexName }}"
+      },
+      "type": "n8n-nodes-base.elasticsearch",
+      "typeVersion": 1,
+      "position": [
+        -464,
+        1232
+      ],
+      "id": "51245769-b9a0-4d29-a845-55bf92773ad6",
+      "name": "Delete Index",
+      "alwaysOutputData": false,
+      "credentials": {
+        "elasticsearchApi": {
+          "id": "wwaILZtoajWrVXwt",
+          "name": "Elasticsearch account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://192.168.20.70:11434/api/embed",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"nomic-embed-text:latest\",\n  \"input\": [\"{{ $input.item.json.text}}\"]\n}",
+        "options": {}
+      },
+      "id": "d2dc6976-948b-4c2d-9b5a-56b73d94b09a",
+      "name": "Embed Chunks",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        480,
+        1312
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.all().map(item => item.json);\n\n// Normalize and test against known patterns\nfunction isTOC(title) {\n  if (!title || typeof title !== 'string') return false;\n\n  const normalized = title\n    .toLowerCase()\n    .replace(/[^a-z0-9]/g, ' ') // replace punctuation with space\n    .replace(/\\s+/g, ' ')       // collapse spaces\n    .trim();\n\n  const tocKeywords = [\n    'table of contents',\n    'table of content',\n    'contents',\n    'toc'\n  ];\n\n  return tocKeywords.some(keyword => normalized.includes(keyword));\n}\n\n// Filter out chunks where the title suggests it's TOC\nconst filtered = input.filter(chunk => {\n  const title = chunk.section_title || chunk.text || '';\n  return !isTOC(title);\n});\n\nreturn filtered.map(chunk => ({ json: chunk }));\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1280,
+        1040
+      ],
+      "id": "4fc5d0cd-a480-49a9-a9cc-12b24d4731c8",
+      "name": "Remove TOC"
+    },
+    {
+      "parameters": {
+        "jsCode": "/**\n * Sanitizes chunk text to ensure compatibility with Nomic embedding API\n * This function deals with \"smart\" characters, quotes, and other problematic elements\n * Preserves existing chunk_index values\n * \n * @returns {Array} - The processed items\n */\nfunction sanitizeChunksForEmbedding() {\n  // Get input data\n  const items = $input.all();\n  const outputItems = [];\n  \n  // Process each item\n  for (const item of items) {\n    // Handle different possible input formats\n    let chunks;\n    \n    if (Array.isArray(item.json)) {\n      // If item.json is already an array of chunks\n      chunks = item.json;\n    } else if (item.json.chunks && Array.isArray(item.json.chunks)) {\n      // If chunks are in a property called 'chunks'\n      chunks = item.json.chunks;\n    } else {\n      // If the item itself is a single chunk\n      chunks = [item.json];\n    }\n    \n    // Track chunk indices per section for chunks without existing chunk_index\n    const sectionIndices = {};\n    \n    // Sanitize each chunk\n    const sanitizedChunks = chunks.map(chunk => {\n      // Create a new object to avoid modifying the original\n      const sanitizedChunk = { ...chunk };\n      \n      // Sanitize the main text field if it exists\n      if (sanitizedChunk.text) {\n        sanitizedChunk.text = sanitizeText(sanitizedChunk.text);\n      }\n      \n      // Sanitize the embedding text field if it exists\n      if (sanitizedChunk.text_to_embed) {\n        sanitizedChunk.text_to_embed = sanitizeText(sanitizedChunk.text_to_embed);\n      }\n      \n      // Sanitize section title if it exists\n      if (sanitizedChunk.section_title) {\n        sanitizedChunk.section_title = sanitizeText(sanitizedChunk.section_title);\n      }\n      \n      // Ensure vector_metadata exists\n      if (!sanitizedChunk.vector_metadata) {\n        sanitizedChunk.vector_metadata = {};\n      }\n      \n      // IMPORTANT CHANGE: Only set chunk_index if it doesn't already exist\n      if (sanitizedChunk.vector_metadata.chunk_index === undefined) {\n        // Initialize or get the current section's index tracker\n        const sectionKey = sanitizedChunk.section_title || 'default';\n        if (sectionIndices[sectionKey] === undefined) {\n          sectionIndices[sectionKey] = 0;\n        }\n        \n        // Populate chunk_index in vector_metadata\n        sanitizedChunk.vector_metadata.chunk_index = sectionIndices[sectionKey];\n        \n        // If this is a split chunk and already has part_index, don't increment the section index\n        // Otherwise, increment for the next chunk with the same section\n        if (!sanitizedChunk.vector_metadata.is_split || \n            (sanitizedChunk.vector_metadata.is_split && sanitizedChunk.vector_metadata.part_index === 0)) {\n          sectionIndices[sectionKey]++;\n        }\n      }\n      \n      return sanitizedChunk;\n    });\n    \n    // Return in the same format as received\n    if (Array.isArray(item.json)) {\n      outputItems.push({ json: sanitizedChunks });\n    } else if (item.json.chunks && Array.isArray(item.json.chunks)) {\n      outputItems.push({\n        json: {\n          ...item.json,\n          chunks: sanitizedChunks\n        }\n      });\n    } else {\n      // Return processed single chunk\n      outputItems.push({ json: sanitizedChunks[0] });\n    }\n  }\n  \n  return outputItems;\n}\n\n/**\n * Sanitizes text by replacing special characters and ensuring JSON compatibility\n * @param {string} text - Text to sanitize\n * @returns {string} - Sanitized text\n */\nfunction sanitizeText(text) {\n  if (!text) return '';\n  \n  // Remove wrapping quotes if present\n  let sanitized = text;\n  if ((text.startsWith('\"') && text.endsWith('\"')) || \n      (text.startsWith('\"') && text.endsWith('\"'))) {\n    sanitized = text.substring(1, text.length - 1);\n  }\n  \n // Replace smart/curly quotes with straight quotes\n  sanitized = sanitized\n    .replace(/[\\u2018\\u2019]/g, \"'\") // Replace single smart quotes\n    .replace(/[\\u201C\\u201D]/g, '\"') // Replace double smart quotes\n    \n    // Remove invisible control characters\n    .replace(/[\\u0000-\\u001F\\u007F-\\u009F\\u2000-\\u200F\\u2028-\\u202F]/g, ' ')\n    \n    // Replace other problematic characters\n    .replace(/[\\u2013\\u2014]/g, '-') // Replace em dash and en dash\n    .replace(/\\u2026/g, '...') // Replace ellipsis\n    .replace(/\\u00A0/g, ' ') // Replace non-breaking space\n    \n    // Special handling for bullet points and other list markers\n    .replace(/[\\u2022\\u2023\\u25E6\\u2043\\u2219]/g, '*') // Convert bullets to asterisks\n    \n    // Normalize whitespace (remove multiple spaces, tabs, etc.)\n    .replace(/\\s+/g, ' ')\n    // Trim leading and trailing whitespace\n    .replace(/\"/g, '\\\\\"')\n    // Handle other special characters that might cause issues in JSON\n    //.replace(/\\\\/g, '\\\\\\\\')\n    .replace(/\\f/g, '\\\\f')\n    .replace(/\\n/g, '\\\\n')\n    .replace(/\\r/g, '\\\\r')\n    .replace(/\\t/g, '\\\\t')\n    .trim();\n  \n  return sanitized;\n}\n\n// Execute the function and return the result\nreturn sanitizeChunksForEmbedding();"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        304,
+        1312
+      ],
+      "id": "17f60281-89a4-4892-93c4-5857b6bd543c",
+      "name": "Final Escaping"
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "indexId": "=testing_rfp",
+        "dataToSend": "autoMapInputData",
+        "inputsToIgnore": "=",
+        "additionalFields": {},
+        "options": {}
+      },
+      "type": "n8n-nodes-base.elasticsearch",
+      "typeVersion": 1,
+      "position": [
+        1072,
+        1312
+      ],
+      "id": "dea6caa5-c295-46c2-9387-2535b0ad54db",
+      "name": "Add To Index",
+      "credentials": {
+        "elasticsearchApi": {
+          "id": "wwaILZtoajWrVXwt",
+          "name": "Elasticsearch account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// n8n Function node\n// Filters out empty / duplicate chunks and adds an incremental `index` starting at 0.\n\nfunction filterEmptyAndDuplicateChunks() {\n  const inputItems   = $input.all();\n  const seenContent  = new Set();\n  const validChunks  = [];\n\n  for (const item of inputItems) {\n    const chunk = item.json;\n\n    /* 1 ── skip empty rows */\n    if (!chunk || !chunk.text || chunk.text.trim() === \"\") continue;\n\n    const titleText   = (chunk.section_title || \"\").trim();\n    const contentText = chunk.text.trim();\n\n    /* 2 ── drop title-only rows */\n    if (contentText === titleText) continue;\n\n    /* 3 ── duplicate detection (normalise whitespace + leading numbers) */\n    const normalized = contentText\n      .replace(/^\\d+(\\.\\d+)*\\s+/gm, \"\")  // remove numbered prefixes\n      .replace(/\\s+/g, \" \")              // collapse whitespace\n      .trim();\n\n    if (seenContent.has(normalized)) continue;\n    seenContent.add(normalized);\n\n    validChunks.push(chunk);\n  }\n\n  /* 4 ── return with incremental index */\n  return validChunks.map((chunk, idx) => ({\n    json: {\n      ...chunk\n    }\n  }));\n}\n\nreturn filterEmptyAndDuplicateChunks();\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1040,
+        1040
+      ],
+      "id": "888fcb1f-7039-4fac-a10f-301823bb0bdf",
+      "name": "Filter Empty & Duplicate Chunks"
+    },
+    {
+      "parameters": {
+        "jsCode": "/**\n * N8n Function node to split document chunks for optimized Elasticsearch vector search\n * Takes chunks like those extracted from PDF documents and splits them if they exceed token limits\n * while preserving context and section structure\n * \n * @param {Object} items - The input items coming from n8n workflow\n * @returns {Object} - The processed items with optimized chunks for vector search\n */\n\n// Main processing function for n8n Function node\nfunction processDocumentChunks() {\n  // Get input data\n  const items = $input.all();\n  \n  // Configuration (could be made into node parameters in a custom n8n node)\n  const maxTokens = 7000;        // Maximum tokens per chunk\n  const overlapTokens = 50;     // Tokens to overlap between chunks\n  const embeddingField = 'text_to_embed'; // Field for the text to be embedded\n  \n  let outputItems = [];\n  let globalChunkIndex = 0;  // Global counter for chunk indexing\n  \n  // Process each item\n  for (const item of items) {\n    let inputChunks;\n    \n    // Determine input format\n    if (Array.isArray(item.json)) {\n      // If input is already an array of chunks\n      inputChunks = item.json;\n    } else if (item.json.chunks && Array.isArray(item.json.chunks)) {\n      // If chunks are in a property called 'chunks'\n      inputChunks = item.json.chunks;\n    } else {\n      // If the item itself is a single chunk\n      inputChunks = [item.json];\n    }\n    \n    // Process the chunks\n    const processedChunks = splitChunks(inputChunks, maxTokens, overlapTokens, embeddingField, globalChunkIndex);\n    \n    // Update the counter\n    globalChunkIndex += inputChunks.length;\n    \n    // Return in the same format as received\n    if (Array.isArray(item.json)) {\n      outputItems.push({ json: processedChunks });\n    } else if (item.json.chunks) {\n      outputItems.push({\n        json: {\n          ...item.json,\n          chunks: processedChunks\n        }\n      });\n    } else {\n      // Return processed chunks as separate items\n      processedChunks.forEach(chunk => {\n        outputItems.push({ json: chunk });\n      });\n    }\n  }\n  \n  return outputItems;\n}\n\n/**\n * Split chunks if they exceed the token limit\n * @param {Array} chunks - Array of document chunks\n * @param {number} maxTokens - Maximum tokens per chunk\n * @param {number} overlapTokens - Tokens to overlap between chunks\n * @param {string} embeddingField - Field name for embeddings\n * @param {number} startIndex - Starting index for global chunk indexing\n * @returns {Array} - Processed chunks\n */\nfunction splitChunks(chunks, maxTokens, overlapTokens, embeddingField, startIndex = 0) {\n  const result = [];\n  \n  // Process each chunk\n  chunks.forEach((chunk, index) => {\n    const tokenCount = estimateTokens(chunk.text);\n    const actualIndex = startIndex + index;\n    \n    // If chunk is within token limit, add vector fields and keep it as is\n    if (tokenCount <= maxTokens) {\n      result.push({\n        ...chunk,\n        //[embeddingField]: chunk.text, // Add embedding field\n        // vector_metadata: {\n        //   token_count: tokenCount,\n        //   is_split: false,\n        // }\n      });\n      return;\n    }\n    \n    // Need to split the chunk - first try by paragraphs\n    const paragraphs = splitIntoParagraphs(chunk.text);\n    let chunkParts = [];\n    \n    if (paragraphs.length > 1) {\n      // If we have multiple paragraphs, try to group them into chunks\n      chunkParts = groupContentUnits(paragraphs, maxTokens, chunk.section_title);\n    } else {\n      // Otherwise split by sentences\n      const sentences = splitIntoSentences(chunk.text);\n      chunkParts = groupContentUnits(sentences, maxTokens, chunk.section_title);\n    }\n    \n    // Create chunk objects for each part\n    chunkParts.forEach((part, partIndex) => {\n      // Add section title to beginning of parts after the first one\n      const textWithContext = partIndex === 0 \n        ? part\n        : `${chunk.section_title || ''} (continued) ${part}`;\n      \n      result.push({\n        chunk_id: `${chunk.chunk_id}_part${partIndex + 1}`,\n        section_title: chunk.section_title,\n        text: textWithContext,\n        //[embeddingField]: textWithContext, // Field for embedding\n        metadata: {\n          ...chunk.metadata,\n          parent_chunk_id: chunk.chunk_id,\n          is_split_chunk: true,\n          split_part: partIndex + 1,\n          total_parts: chunkParts.length\n        },\n        //vector_metadata: {\n         // token_count: estimateTokens(textWithContext),\n         // is_split: true,\n         // part_index: partIndex\n       // }\n      });\n    });\n  });\n  \n  return result;\n}\n\n/**\n * Group content units (paragraphs or sentences) into chunks of appropriate size\n * @param {Array} units - Content units to group\n * @param {number} maxTokens - Maximum tokens per chunk\n * @param {string} sectionTitle - Section title for context\n * @returns {Array} - Grouped content as chunks\n */\nfunction groupContentUnits(units, maxTokens, sectionTitle) {\n  const chunks = [];\n  let currentChunk = '';\n  let currentTokens = 0;\n  const contextPrefix = sectionTitle ? sectionTitle + ' ' : '';\n  const contextTokens = estimateTokens(contextPrefix);\n  \n  // Account for context in parts after the first\n  const effectiveMaxTokens = maxTokens - contextTokens;\n  \n  units.forEach((unit, index) => {\n    const unitTokens = estimateTokens(unit);\n    \n    // If this unit alone exceeds limits, split it further by words\n    if (unitTokens > effectiveMaxTokens) {\n      if (currentChunk) {\n        chunks.push(currentChunk);\n        currentChunk = '';\n        currentTokens = 0;\n      }\n      \n      // Split large unit by words\n      const words = unit.split(/\\s+/);\n      let tempChunk = '';\n      \n      words.forEach(word => {\n        const wordTokens = estimateTokens(word + ' ');\n        \n        if (currentTokens + wordTokens > effectiveMaxTokens) {\n          if (tempChunk) {\n            chunks.push(tempChunk);\n            tempChunk = word;\n            currentTokens = wordTokens;\n          } else {\n            // Word itself is too big, have to include it anyway\n            tempChunk = word;\n            currentTokens = wordTokens;\n          }\n        } else {\n          tempChunk += (tempChunk ? ' ' : '') + word;\n          currentTokens += wordTokens;\n        }\n      });\n      \n      if (tempChunk) {\n        chunks.push(tempChunk);\n      }\n    }\n    // If adding this unit would exceed max tokens, start a new chunk\n    else if (currentTokens + unitTokens > effectiveMaxTokens) {\n      if (currentChunk) {\n        chunks.push(currentChunk);\n      }\n      currentChunk = unit;\n      currentTokens = unitTokens;\n    } \n    // Add to current chunk\n    else {\n      currentChunk += (currentChunk ? ' ' : '') + unit;\n      currentTokens += unitTokens;\n    }\n  });\n  \n  // Add any remaining content\n  if (currentChunk) {\n    chunks.push(currentChunk);\n  }\n  \n  return chunks;\n}\n\n/**\n * Split text into paragraphs\n * @param {string} text - Input text\n * @returns {Array} - Array of paragraphs\n */\nfunction splitIntoParagraphs(text) {\n  // Split on double newlines or equivalent\n  return text.split(/\\n\\s*\\n|\\r\\n\\s*\\r\\n/).filter(p => p.trim());\n}\n\n/**\n * Split text into sentences\n * @param {string} text - Input text\n * @returns {Array} - Array of sentences\n */\nfunction splitIntoSentences(text) {\n  // Split on sentence-ending punctuation followed by space or end of string\n  return text.split(/(?<=[.!?])\\s+|(?<=[.!?])$/).filter(s => s.trim());\n}\n\n/**\n * Estimate token count for a text string\n * @param {string} text - Text to estimate tokens for\n * @returns {number} - Estimated token count\n */\nfunction estimateTokens(text) {\n  if (!text) return 0;\n  \n  // Simple estimation: roughly 4 characters per token for English\n  // For production, replace with a proper tokenizer matching your embedding model\n  return Math.ceil(text.length / 4);\n}\n\n// Execute the function and return results\nreturn processDocumentChunks();"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        144,
+        1312
+      ],
+      "id": "e2dd1eff-4cbe-4ac0-aca2-57b8d1ec9d3c",
+      "name": "Split Chunks"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "ab2bedcf-f824-47dd-9e51-00888ee470fa",
+              "name": "chunk_id",
+              "value": "={{ $('Final Escaping').item.json.chunk_id }}",
+              "type": "string"
+            },
+            {
+              "id": "3ad9ad67-06cb-4490-b5c0-d87362a48128",
+              "name": "section_title",
+              "value": "={{ $('Final Escaping').item.json.section_title }}",
+              "type": "string"
+            },
+            {
+              "id": "16c251d1-42c5-45a4-978e-ce91f0e295bb",
+              "name": "text",
+              "value": "={{ $('Final Escaping').item.json.text }}",
+              "type": "string"
+            },
+            {
+              "id": "53121648-9acf-46fb-9027-7898e85865d5",
+              "name": "metadata",
+              "value": "={{ $('Final Escaping').item.json.metadata }}",
+              "type": "object"
+            },
+            {
+              "id": "4f420c43-5c17-474f-b524-9f7a98f9873a",
+              "name": "embeddings",
+              "value": "={{ $json.embedding }}",
+              "type": "array"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        848,
+        1312
+      ],
+      "id": "d8dc378c-6d8d-41d6-8b52-02a43ed581e8",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "const input = $json;\nreturn {\n  json: {\n    embedding: input.embeddings[0]\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        672,
+        1312
+      ],
+      "id": "7a8b1539-73ed-4395-9aa0-5bce63e8e9f7",
+      "name": "Embedding Isolated"
+    },
+    {
+      "parameters": {
+        "jsCode": "const slug = s => (s ?? \"\").toLowerCase()\n  .replace(/[^a-z0-9]+/g, '_')\n  .replace(/^_|_$/g, '')\n  .slice(0, 50);\n\nconst final = ($input.first()?.json?.data?.chunks ?? []).map((c, i) => {\n  const sectionTitle = c?.section_title ?? \"\";\n  const text = c?.text ?? \"\";\n  const chunkIndex = c?.chunk_index ?? \"\";\n\n  const chunkId = `${slug(sectionTitle)}_${i}`;\n  const metadata = {\n    ...(c?.metadata ?? {}),\n    chunk_index: chunkIndex\n  };\n\n  // Remove heading_path if it exists\n  if (\"heading_path\" in metadata) {\n    delete metadata.heading_path;\n  }\n\n  return {\n    section_title: sectionTitle,\n    chunk_id: chunkId,\n    text: text,\n    metadata: metadata\n  };\n});\n\nreturn final.map(j => ({ json: j }));\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        624,
+        1040
+      ],
+      "id": "d718e15f-cceb-4088-a541-107dc6afb899",
+      "name": "Format Output"
+    },
+    {
+      "parameters": {
+        "jsCode": "const indexName = $('Crate Index Name').first().json.indexName;\nif (!indexName) {\n  throw new Error('indexName not found in previous step');\n}\n\nconst elasticUrl = `http://192.168.20.70:9204/${indexName}`;\n\nreturn [{\n  json: {\n    ...items[0].json,\n    elasticsearchUrl: elasticUrl,\n    elasticEndpoint: `${elasticUrl}/_doc`  // For document operations\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -256,
+        1248
+      ],
+      "id": "2a19a322-45f0-4f78-b00f-3f6506956e38",
+      "name": "Create ES Url"
+    },
+    {
+      "parameters": {
+        "mode": "chooseBranch"
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        144,
+        1040
+      ],
+      "id": "d2a0d7d4-72b6-4586-8460-4eb595d04a99",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "jsCode": "const fileName = $input.first().json.file.filename.toLowerCase()\n  .replace('.pdf', '')\n  .replace(/[^a-z0-9]/g, '-');\nconst indexName = `rfp-${fileName}`;\n\nreturn [{\n  json: {\n    ...items[0].json,\n    indexName: \"testing_rfp\" // rfp-tps-8e7b748d\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -624,
+        1232
+      ],
+      "id": "9b6aa213-a490-4756-9b65-0e930a39f5a0",
+      "name": "Crate Index Name"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://192.168.20.70:8878/parse/file",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            },
+            {
+              "name": "Authorization",
+              "value": "Bearer dev-key"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "data",
+              "value": "{\"chunk_document\":true,\"max_tokens_per_chunk\":7000,\"optimize_pdf\":true}"
+            },
+            {
+              "parameterType": "formBinaryData",
+              "name": "file",
+              "inputDataFieldName": "file"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        368,
+        1040
+      ],
+      "id": "d8871d59-7b96-4ad1-a1d0-1d5376970158",
+      "name": "Chunker Full"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "indexId": "=testing_rfp",
+        "limit": 10,
+        "simple": false,
+        "options": {
+          "query": "={\n  \"size\": 10,\n  \"min_score\": 1.5,\n  \"_source\": [\n    \"chunk_id\",\"section_title\",\"text\",\n    \"metadata.filename\",\"metadata.page_numbers\",\n    \"metadata.parent_chunk_id\",\"metadata.is_split_chunk\",\n    \"metadata.split_part\",\"metadata.total_parts\",\n    \"vector_metadata.token_count\",\"vector_metadata.is_split\",\n    \"vector_metadata.chunk_index\"\n  ],\n  \"knn\": {\n    \"field\": \"embeddings\",\n    \"query_vector\": [ {{ $json.embeddings }} ],\n    \"k\": 20,\n    \"num_candidates\": 50\n  },\n  \"query\": {\n    \"bool\": {\n      \"should\": [\n        {\n          \"match_phrase\": {\n            \"text\": {\n              \"query\": \"{{ $('Queries1').item.json.phrase }}\",\n              \"slop\": 4,\n              \"boost\": 2.0\n            }\n          }\n        },\n        {\n          \"multi_match\": {\n            \"query\": \"{{ $('Queries1').item.json.keywords }}\",\n            \"fields\": [\"text^2\",\"section_title^3\"],\n            \"type\": \"most_fields\",\n            \"minimum_should_match\": 2,\n            \"boost\": 1.2\n          }\n        },\n        {\n          \"terms_set\": {\n            \"text.keyword\": {\n              \"terms\": {{ JSON.stringify($('Queries1').item.json.keywords.split(',').map(k => k.trim())) }},\n\n              \"minimum_should_match_script\": {\n                \"source\": \"Math.min(params.num_terms, 2)\"\n              }\n            }\n          }\n        }\n      ],\n      \"minimum_should_match\": 1\n    }\n  },\n  \"rescore\": {\n    \"window_size\": 20,\n    \"query\": {\n      \"rescore_query\": {\n        \"match_phrase\": {\n          \"text\": {\n            \"query\": \"{{ $('Queries1').item.json.rescore_query }}\",\n            \"slop\": 8\n          }\n        }\n      },\n      \"query_weight\": 0.7,\n      \"rescore_query_weight\": 0.3\n    }\n  },\n  \"highlight\": {\n    \"type\": \"unified\",\n    \"fields\": { \"text\": {}, \"section_title\": {} }\n  }\n}\n"
+        }
+      },
+      "type": "n8n-nodes-base.elasticsearch",
+      "typeVersion": 1,
+      "position": [
+        272,
+        1840
+      ],
+      "id": "9a55a7df-f8a9-4d1c-96c0-c2a889a0174a",
+      "name": "Query - Original1",
+      "credentials": {
+        "elasticsearchApi": {
+          "id": "wwaILZtoajWrVXwt",
+          "name": "Elasticsearch account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "indexId": "=testing_rfp",
+        "limit": 10,
+        "simple": false,
+        "options": {
+          "query": "={\n  \"size\": 10,\n  \"min_score\": 0.8,\n  \"_source\": [\n    \"chunk_id\",\"section_title\",\"text\",\n    \"metadata.filename\",\"metadata.page_numbers\",\n    \"metadata.parent_chunk_id\",\"metadata.is_split_chunk\",\n    \"metadata.split_part\",\"metadata.total_parts\",\n    \"vector_metadata.token_count\",\"vector_metadata.is_split\",\n    \"vector_metadata.chunk_index\"\n  ],\n  \"knn\": {\n    \"field\": \"embeddings\",\n    \"query_vector\": [ {{ $json.embeddings }} ],\n    \"k\": 20,\n    \"num_candidates\": 50\n  },\n  \"query\": {\n    \"bool\": {\n      \"should\": [\n        {\n          \"match_phrase\": {\n            \"text\": {\n              \"query\": \"{{ $('Queries1').item.json.phrase }}\",\n              \"slop\": 4,\n              \"boost\": 2.0\n            }\n          }\n        },\n        {\n          \"multi_match\": {\n            \"query\": \"{{ $('Queries1').item.json.keywords }}\",\n            \"fields\": [\"text^2\",\"section_title^3\"],\n            \"type\": \"most_fields\",\n            \"minimum_should_match\": 1,\n            \"boost\": 1.2\n          }\n        },\n        {\n          \"terms_set\": {\n            \"text.keyword\": {\n              \"terms\": {{ JSON.stringify($('Queries1').item.json.keywords.split(',').map(k => k.trim())) }},\n\n              \"minimum_should_match_script\": {\n                \"source\": \"Math.min(params.num_terms, 2)\"\n              }\n            }\n          }\n        }\n      ],\n      \"minimum_should_match\": 0\n    }\n  },\n  \"rescore\": {\n    \"window_size\": 20,\n    \"query\": {\n      \"rescore_query\": {\n        \"match_phrase\": {\n          \"text\": {\n            \"query\": \"{{ $('Queries1').item.json.rescore_query }}\",\n            \"slop\": 8\n          }\n        }\n      },\n      \"query_weight\": 0.7,\n      \"rescore_query_weight\": 0.3\n    }\n  },\n  \"highlight\": {\n    \"type\": \"unified\",\n    \"fields\": { \"text\": {}, \"section_title\": {} }\n  }\n}"
+        }
+      },
+      "type": "n8n-nodes-base.elasticsearch",
+      "typeVersion": 1,
+      "position": [
+        272,
+        1648
+      ],
+      "id": "f4efbc5a-2386-43c1-9882-4965bab5b306",
+      "name": "Query - Original Relaxed",
+      "retryOnFail": true,
+      "waitBetweenTries": 100,
+      "credentials": {
+        "elasticsearchApi": {
+          "id": "wwaILZtoajWrVXwt",
+          "name": "Elasticsearch account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 0.3
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -128,
+        1840
+      ],
+      "id": "d2ffda3f-7476-4b70-851c-f02142feacef",
+      "name": "Wait",
+      "webhookId": "39e4fb26-2d96-4dd9-a44a-ca00c6b72d67"
+    }
+  ],
+  "pinData": {
+    "On form submission": [
+      {
+        "json": {
+          "file": {
+            "filename": "Minimal_RFP.pdf",
+            "mimetype": "application/pdf",
+            "size": 44483
+          },
+          "submittedAt": "2025-07-02T08:53:35.216-04:00",
+          "formMode": "test"
+        }
+      }
+    ]
+  },
+  "repo_name": "n8n-backup-zm",
+  "repo_owner": "zlatkomq",
+  "repo_path": "",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-04-24T10:59:44.979Z",
+      "updatedAt": "2025-04-24T10:59:44.979Z",
+      "id": "qEREEA2JvunvA9Nv",
+      "name": "Estimation Tool"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-07-10T11:00:24.471Z",
+  "versionId": "73b4c72f-761b-4926-8715-810134104988"
+}
