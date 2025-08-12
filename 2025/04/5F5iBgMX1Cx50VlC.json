@@ -1,0 +1,2524 @@
+{
+  "active": false,
+  "connections": {
+    "Extract Text from PDF": {
+      "main": [
+        [
+          {
+            "node": "Prepare RFP Context",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare RFP Context": {
+      "main": [
+        [
+          {
+            "node": "Text Cleanup",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Text Cleanup": {
+      "main": [
+        [
+          {
+            "node": "file_upload",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Scope and Extraction",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Chunking": {
+      "main": [
+        [
+          {
+            "node": "Document Extraction1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Data": {
+      "main": [
+        [
+          {
+            "node": "Effort Estimator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Scope & Requirements Extractor": {
+      "main": [
+        [
+          {
+            "node": "Prepare for frontend1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Format Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calculator": {
+      "ai_tool": [
+        [
+          {
+            "node": "Effort Estimator",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Effort Estimator": {
+      "main": [
+        [
+          {
+            "node": "Prepare for frontend2",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Team Composition Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Team Composition Agent": {
+      "main": [
+        [
+          {
+            "node": "Format Json",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Development Plan",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Json": {
+      "main": [
+        [
+          {
+            "node": "Prepare for frontend3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Total Effort": {
+      "main": [
+        [
+          {
+            "node": "Prepare for frontend5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Development Plan": {
+      "main": [
+        [
+          {
+            "node": "Prepare for frontend4",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Prepare for frontend6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Effort Estimator",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anthropic Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Effort Estimator",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anthropic Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Scope & Requirements Extractor",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anthropic Chat Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Document Extraction1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anthropic Chat Model3": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Team Composition Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anthropic Chat Model4": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Development Plan",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calculator1": {
+      "ai_tool": [
+        [
+          {
+            "node": "Development Plan",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anthropic Chat Model5": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Reporter",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reporter": {
+      "main": [
+        [
+          {
+            "node": "Prepare for frontend7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anthropic Chat Model6": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Scope and Extraction",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser1": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Scope and Extraction",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "file_upload1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "file_upload1": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "document_preparation1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait1": {
+      "main": [
+        [
+          {
+            "node": "data_extraction1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "data_extraction1": {
+      "main": [
+        [
+          {
+            "node": "Wait2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait2": {
+      "main": [
+        [
+          {
+            "node": "scope_analysis1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "scope_analysis1": {
+      "main": [
+        [
+          {
+            "node": "Wait3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait3": {
+      "main": [
+        [
+          {
+            "node": "effort_estimation1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "effort_estimation1": {
+      "main": [
+        [
+          {
+            "node": "Wait4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait4": {
+      "main": [
+        [
+          {
+            "node": "team_composition1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "team_composition1": {
+      "main": [
+        [
+          {
+            "node": "Wait5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait5": {
+      "main": [
+        [
+          {
+            "node": "development_plan1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "development_plan1": {
+      "main": [
+        [
+          {
+            "node": "Wait6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait6": {
+      "main": [
+        [
+          {
+            "node": "final_report1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "document_preparation1": {
+      "main": [
+        [
+          {
+            "node": "Wait1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "document_preparation2": {
+      "main": [
+        [
+          {
+            "node": "Scope & Requirements Extractor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code1": {
+      "main": [
+        [
+          {
+            "node": "data_extraction",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare for frontend": {
+      "main": [
+        [
+          {
+            "node": "document_preparation2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Scope and Extraction": {
+      "main": [
+        [
+          {
+            "node": "Prepare for frontend",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare for frontend1": {
+      "main": [
+        [
+          {
+            "node": "scope_analysis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser2": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Scope & Requirements Extractor",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare for frontend2": {
+      "main": [
+        [
+          {
+            "node": "effort_estimation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare for frontend3": {
+      "main": [
+        [
+          {
+            "node": "team_composition",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare for frontend4": {
+      "main": [
+        [
+          {
+            "node": "development_plan",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser3": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Development Plan",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare for frontend5": {
+      "main": [
+        [
+          {
+            "node": "Prepare for Gantt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare for frontend6": {
+      "main": [
+        [
+          {
+            "node": "Total Effort",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare for frontend7": {
+      "main": [
+        [
+          {
+            "node": "final_report",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare for Gantt": {
+      "main": [
+        [
+          {
+            "node": "Reporter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RFP Upload": {
+      "main": [
+        [
+          {
+            "node": "Extract Text from PDF",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send PDF to Email": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Gmail",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-04-16T21:06:22.715Z",
+  "id": "5F5iBgMX1Cx50VlC",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Estimation Tool -old",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "RFP Analyzer",
+        "formDescription": "Upload your RFP document to extract features, create a backlog, and estimate development time",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "RFP Document (PDF)",
+              "fieldType": "file",
+              "acceptFileTypes": ".pdf",
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "44f855d6-937b-4a98-8d4d-94d206dcb4b0",
+      "name": "RFP PDF Upload Form",
+      "type": "n8n-nodes-base.formTrigger",
+      "position": [
+        7000,
+        10140
+      ],
+      "typeVersion": 2.2,
+      "webhookId": "d9fa7da6-8639-44cf-951c-8f1e63fa048e",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "operation": "pdf",
+        "binaryPropertyName": "=file",
+        "options": {}
+      },
+      "id": "8f35feca-902e-4e82-996a-db3a46b583c5",
+      "name": "Extract Text from PDF",
+      "type": "n8n-nodes-base.extractFromFile",
+      "position": [
+        7220,
+        10560
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "62eb33b1-52f2-4a1e-b0e8-9a5e7a96ccbf",
+              "name": "rfpText",
+              "type": "string",
+              "value": "={{ $json.text }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "6303bed8-aa96-437c-a6c7-fa30b002e9d4",
+      "name": "Prepare RFP Context",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        7440,
+        10560
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "jsCode": "// This function handles cleaning and formatting of RFP text for LLM processing\nfunction cleanRfpText(text) {\n  if (!text || typeof text !== 'string') {\n    throw new Error('Invalid input: Expected text string');\n  }\n\n  let cleanedText = text;\n\n  try {\n    // 1. Fix common OCR issues and formatting problems\n    cleanedText = cleanedText\n      // Fix broken line breaks from PDF extraction\n      .replace(/(\\w+)-\\s*\\n\\s*(\\w+)/g, '$1$2')\n      \n      // Normalize whitespace (multiple spaces, tabs)\n      .replace(/[ \\t]+/g, ' ')\n      \n      // Fix paragraph breaks (ensure consistent double line breaks)\n      .replace(/\\n{3,}/g, '\\n\\n')\n      \n      // Fix bullet points and numbered lists\n      .replace(/•\\s*/g, '• ')\n      .replace(/(\\d+)[\\.\\)]\\s*/g, '$1. ')\n      \n      // Clean up page numbers and headers/footers\n      .replace(/Page \\d+ of \\d+/gi, '')\n      .replace(/^\\s*\\d+\\s*$\\n/gm, '')\n      \n      // Fix common OCR errors\n      .replace(/\\bI\\s+I\\b/g, 'II')\n      .replace(/\\b1\\s+I\\b/g, 'II')\n      .replace(/\\bO\\b/g, '0')\n      .replace(/\\b0\\b/g, 'O') // CAUTION: Only uncomment if truly needed for your RFPs\n      \n      // Remove form field markers often found in PDFs\n      .replace(/□|☐|■|☑|☒/g, '')\n      \n      // Fix broken section headers\n      .replace(/(\\d+)[\\.\\s]+([A-Z][a-z]+)\\s*\\n/g, '$1. $2\\n')\n      \n      // Normalize URLs\n      .replace(/(?:https?:\\/\\/)(?:www\\.)?([a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)+)(?:\\/[^\\s]*)?/g, 'https://$1')\n      \n      // Fix broken table structures\n      .replace(/\\|\\s*\\|/g, '|')\n      .replace(/\\|\\s*\\n\\s*\\|/g, '|\\n|')\n      \n      // Standardize quotation marks\n      .replace(/[\"\"]/g, '\"')\n      .replace(/['']/g, \"'\");\n    \n    // 2. Handle structured content like sections and tables\n    // Find and standardize section headings\n    cleanedText = cleanedText.replace(/^(\\d+\\.?\\d*\\.?\\d*)\\s+([A-Z][A-Za-z\\s]+)$/gm, \n                                     '## $1 $2');\n    \n    // 3. Special handling for common RFP components\n    \n    // Format requirements sections\n    cleanedText = cleanedText.replace(/Requirements?:?\\s*\\n/gi, '### Requirements:\\n');\n    \n    // Format deliverables sections\n    cleanedText = cleanedText.replace(/Deliverables?:?\\s*\\n/gi, '### Deliverables:\\n');\n    \n    // Format timeline/schedule sections\n    cleanedText = cleanedText.replace(/(?:Timeline|Schedule):?\\s*\\n/gi, '### Timeline:\\n');\n    \n    // 4. Final cleanup\n    // Remove redundant spaces at line beginnings/endings\n    cleanedText = cleanedText.replace(/^\\s+|\\s+$/gm, '');\n    \n    // Ensure consistent heading formatting for sections\n    cleanedText = cleanedText.replace(/^([A-Z][A-Z\\s]+):\\s*$/gm, '## $1');\n    \n    // Remove PDF artifacts like Form field [____] often used for signatures\n    cleanedText = cleanedText.replace(/\\[_{2,}\\]/g, '[SIGNATURE FIELD]');\n    \n    // Replace multiple spaces between sentences\n    cleanedText = cleanedText.replace(/\\.\\s{2,}/g, '. ');\n    \n    // Normalize line endings\n    cleanedText = cleanedText.replace(/\\r\\n/g, '\\n');\n    \n    // 5. Sanity check to ensure we haven't broken the text\n    if (cleanedText.length < 0.5 * text.length) {\n      console.log('Warning: Cleaning reduced text length by more than 50%. Using original with basic cleaning.');\n      return text.replace(/\\s+/g, ' ').trim();\n    }\n    \n    return cleanedText.trim();\n  } catch (error) {\n    console.error('Error during RFP text cleaning:', error);\n    // Return original text with basic cleaning if something goes wrong\n    return text.replace(/\\s+/g, ' ').trim();\n  }\n}\n\n// Main function for n8n processing\nconst rfpText = $input.first()?.json?.rfpText;\n\nif (!rfpText) {\n  return {\n    json: {\n      error: 'No RFP text found in input',\n      expectedInput: 'json.rfpText'\n    }\n  };\n}\n\ntry {\n  const cleanedRfpText = cleanRfpText(rfpText);\n  \n  return {\n    json: {\n      cleanedRfpText,\n      originalLength: rfpText.length,\n      cleanedLength: cleanedRfpText.length,\n      reductionPercentage: ((rfpText.length - cleanedRfpText.length) / rfpText.length * 100).toFixed(2) + '%'\n    }\n  };\n} catch (error) {\n  return {\n    json: {\n      error: error.message,\n      errorDetails: error.toString(),\n      partialResult: rfpText.replace(/\\s+/g, ' ').trim()\n    }\n  };\n}"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        7660,
+        10560
+      ],
+      "id": "b9d0bd17-3165-4cd1-867f-bf6dd3f2c5da",
+      "name": "Text Cleanup"
+    },
+    {
+      "parameters": {
+        "jsCode": "const text = $('Scope and Extraction').first().json.output.markdown; // replace with the correct input field if different\nconst maxChars = 10000; // GPT-4o-safe chunk size (~1500 tokens)\nconst overlapChars = 600; // optional overlap to preserve context\n\nfunction smartChunker(text, maxLen, overlap = 0) {\n  const chunks = [];\n  const paragraphs = text.split(/\\n{2,}/); // split on double newlines (semantic breaks)\n  let buffer = \"\";\n\n  for (const para of paragraphs) {\n    const paragraph = para.trim();\n    if (!paragraph) continue;\n\n    if ((buffer + \"\\n\\n\" + paragraph).length <= maxLen) {\n      buffer += (buffer ? \"\\n\\n\" : \"\") + paragraph;\n    } else {\n      if (buffer) {\n        chunks.push(buffer.trim());\n      }\n      // paragraph might still be too large — break it into sentences\n      if (paragraph.length > maxLen) {\n        const sentences = paragraph.split(/(?<=[.?!])\\s+/);\n        let sentenceBuffer = \"\";\n        for (const sentence of sentences) {\n          if ((sentenceBuffer + \" \" + sentence).length <= maxLen) {\n            sentenceBuffer += (sentenceBuffer ? \" \" : \"\") + sentence;\n          } else {\n            if (sentenceBuffer) chunks.push(sentenceBuffer.trim());\n            sentenceBuffer = sentence;\n          }\n        }\n        if (sentenceBuffer) chunks.push(sentenceBuffer.trim());\n        buffer = \"\";\n      } else {\n        chunks.push(paragraph);\n        buffer = \"\";\n      }\n    }\n  }\n\n  if (buffer) chunks.push(buffer.trim());\n\n  // Apply overlap if needed\n  const overlappedChunks = [];\n  for (let i = 0; i < chunks.length; i++) {\n    let chunk = chunks[i];\n    if (i > 0 && overlap > 0) {\n      const prevChunk = chunks[i - 1];\n      const overlapText = prevChunk.slice(-overlap);\n      chunk = overlapText + \"\\n\\n\" + chunk;\n    }\n    overlappedChunks.push({ chunk, index: i + 1 });\n  }\n\n  return overlappedChunks;\n}\n\nconst finalChunks = smartChunker(text, maxChars, overlapChars);\n\n// Output each chunk as its own item in the workflow\nreturn finalChunks.map(c => ({\n  json: {\n    chunk_index: c.index,\n    chunk_text: c.chunk\n  }\n}));\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        7000,
+        8220
+      ],
+      "id": "60282706-f2e7-49ca-a74c-0ab1537dd9b5",
+      "name": "Chunking",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nvar number = 0;\nfor (const item of $input.all()) {\n  item.json.chunkIndex = number++;\n}\n\nreturn $input.all();"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        7000,
+        8840
+      ],
+      "id": "2b096a3c-4c76-493a-87d4-3984a68b2575",
+      "name": "Add Chunk Index",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "jsCode": "for (const item of $input.all()) {\n  chunkIndex++;\n  console.log(`⏳ Processing chunk ${chunkIndex}`);\n\n  let raw = item.json.output || item.json.chunk_text || \"\";\n  console.log(`✂️ Raw length: ${raw.length}`);\n\n  const cleanRaw = tryToFixMalformedJson(raw);\n\n  let parsed;\n  try {\n    parsed = JSON.parse(cleanRaw);\n    console.log(`✅ Parsed chunk ${chunkIndex}, ${parsed.length} items`);\n  } catch (e) {\n    console.error(`❌ Failed chunk ${chunkIndex}:`, e.message);\n    throw new Error(`❌ JSON parse failed in chunk ${chunkIndex}: ${e.message}`);\n  }\n\n  for (const req of parsed) {\n    if (req && req.description) {\n      output.push({\n        json: {\n          chunkIndex,\n          ...req\n        }\n      });\n    }\n  }\n}\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        7000,
+        9620
+      ],
+      "id": "f6a6f951-1b3c-467a-9be7-d8897d98294d",
+      "name": "Clean and Combine Chunks"
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.first().json.output; // grab the full array from \"output\"\n\nconst grouped = {\n  FR: [],\n  NFR: [],\n  TC: [],\n  BC: []\n};\n\nfor (const { category, description } of input) {\n  if (grouped[category]) {\n    grouped[category].push(`- ${description}`);\n  }\n}\n\nlet formattedText = `## Project Features (Grouped)\\n`;\n\nfor (const cat of ['FR', 'NFR', 'TC', 'BC']) {\n  if (grouped[cat].length > 0) {\n    const label = {\n      FR: \"Functional Requirements\",\n      NFR: \"Non-functional Requirements\",\n      TC: \"Technical Constraints\",\n      BC: \"Business Constraints\"\n    }[cat];\n\n    formattedText += `\\n### ${label}\\n${grouped[cat].join('\\n')}\\n`;\n  }\n}\n\nreturn [\n  {\n    json: {\n      formattedFeatures: formattedText\n    }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        9080,
+        10860
+      ],
+      "id": "2092d6ea-4761-4d5f-9048-819187d0ee32",
+      "name": "Format Data"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You will receive a complete list of structured project requirements, written in Markdown. Your task is to extract all meaningful features and expectations and assign them to one of the following categories:\n\n- Functional Requirement (FR): What the system must do.\n- Non-functional Requirement (NFR): How the system must behave (e.g. performance, usability, security).\n- Technical Constraint (TC): Technology or architecture constraints (e.g. on-premise hosting, DB selection).\n- Business Constraint (BC): Policy, contract, or staffing constraints (e.g. SLA terms, staffing location).\n\nInstructions:\n- You must assign every feature to one of the four categories.\n- If a feature could belong to multiple categories, choose the most specific and relevant one.\n- Do not skip, combine, or summarize any features.\n- Do not refer to “the document” or mention formatting.\n- Do not include commentary, labels, headings, or markdown blocks.\n\nReturn only the result as a clean JSON array, using this structure:\n[\n  features: {\n    \"category\": \"FR | NFR | TC | BC\",\n    \"description\": \"Clear and specific requirement\"\n  },\n  ...\n]\n\n--- BEGIN REQUIREMENTS ---\n{{ $('Scope and Extraction').item.json.output.markdown }}\n--- END REQUIREMENTS ---\n",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "You are highly disciplined, consistent, and precise. Your output must be reliable for automation and estimation.\n\nYou are a Scope and Requirements Analysis Agent specializing in software project proposals. You analyze complete, structured RFP scope content and extract key requirements, goals, and constraints.\n\nYou always:\n- Identify and tag requirements using one of four categories:\n  - Functional Requirement (FR)\n  - Non-functional Requirement (NFR)\n  - Technical Constraint (TC)\n  - Business Constraint (BC)\n- Preserve every relevant feature without omission, duplication, or interpretation\n- Ensure clean, accurate, and structured output that downstream systems can use directly\n\nYou are highly disciplined, consistent, and precise. Your output must be delivered as a valid JSON array and must be reliable for automation and effort estimation.\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.8,
+      "position": [
+        8700,
+        10700
+      ],
+      "id": "544321eb-3e3f-43f0-ae9f-da092fb2b5c6",
+      "name": "Scope & Requirements Extractor"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Below is a grouped list of features and requirements extracted from a software project RFP.\n\nYour tasks:\n1. Estimate the number of 2-week sprints needed to implement this project.\n2. Return a range: `min_sprints` to `max_sprints`.\n3. Explain your reasoning — highlight areas of likely complexity or unknowns and return it in 'note'.\n\nKey delivery assumptions:\n- Development will be performed using **AI-assisted tooling**, including AI pair programming, code generation, and automated testing.\n- Assume a typical cross-functional team (backend, frontend, mobile, QA, PM, etc.).\n- The team is experienced, cross-functional, and capable of delivering 13-16 story points per sprint.\n- Use a **narrow range** between min and max where there are no big unknowns.\n- If there are big unknowns and risks, explain them and explain how they are affecting the max range.\n- Do NOT include wide buffers or overly cautious estimates.\n- Do NOT create a detailed plan or estimate per feature.\n- Base your estimate on realistic, high-velocity agile delivery.\n- Focus on giving a well-informed effort range based on scope size and density.\n\n--- BEGIN FEATURES ---\n{{ $json.formattedFeatures }}\n--- END FEATURES ---\n",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "You are a highly disciplined and accurate software effort estimation agent. You evaluate project requirements and return precise sprint estimates for delivery using agile practices. Your estimates should reflect AI-augmented engineering workflows.\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.8,
+      "position": [
+        9320,
+        10860
+      ],
+      "id": "57dc0f47-dc59-4b9d-ad79-ac15692c27d8",
+      "name": "Effort Estimator"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolCalculator",
+      "typeVersion": 1,
+      "position": [
+        9420,
+        11080
+      ],
+      "id": "31ea17dd-3773-4b70-8a05-dae1c1aefd29",
+      "name": "Calculator"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=A software development project has been scoped and effort has been estimated at between {{ $json.output.min_sprints }} and {{ $json.output.max_sprints }} sprints (2-week sprints). Below is a grouped list of the project’s functional, non-functional, technical, and business requirements.\n\nYour task:\n1. Recommend the team composition required to deliver this project efficiently.\n2. For each role, specify:\n   - `\"role\"`: Role title\n   - `\"count\"`: Approximate number of people\n   - `\"justification\"`: Why this role is needed\n3. Consider all relevant delivery work: development, testing, infrastructure, security, compliance, deployment, and training.\n\n**Format**: Return only a JSON array like this (no explanation or headers):\n```json\n[\n  {\n    \"role\": \"Backend Developer\",\n    \"count\": 2,\n    \"justification\": \"Handles core APIs, database integration, and logic-heavy modules like translation memory and OCR.\"\n  },\n  ...\n]\n--- BEGIN REQUIREMENTS --- {{ $('Format Data').item.json.formattedFeatures }} --- END REQUIREMENTS ---",
+        "options": {
+          "systemMessage": "You are a software delivery strategist and agile team architect. You design cross-functional delivery teams for software projects based on project scope and delivery timeline.\n\nYou always return precise, justified team structures in clean JSON format, without commentary or summaries.\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.8,
+      "position": [
+        9740,
+        11000
+      ],
+      "id": "194c7941-30b0-4d15-bf2a-3be8c43ccc74",
+      "name": "Team Composition Agent"
+    },
+    {
+      "parameters": {
+        "jsCode": "const raw = $input.first().json.output || \"\";\n\n// Remove code fences (e.g., ```json ... ```)\nconst clean = raw.replace(/^```json\\s*|\\s*```$/g, '').trim();\n\nlet team;\ntry {\n  team = JSON.parse(clean);\n} catch (err) {\n  throw new Error(\"Failed to parse team composition JSON: \" + err.message);\n}\n\n// Wrap the whole array under the \"team\" key and return as a single item\nreturn [\n  {\n    json: {\n      team\n    }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        10220,
+        10800
+      ],
+      "id": "0bb79831-7579-4134-aa6b-80b05530cb55",
+      "name": "Format Json"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get the stringified team JSON from the first input item\nconst raw =  $('Team Composition Agent').first().json.output || \"\";\n\nlet team;\ntry {\n  team = JSON.parse(raw); // parse the JSON string\n} catch (err) {\n  throw new Error(\"Failed to parse team JSON: \" + err.message);\n}\n\n// Get sprint range from another node\nconst minSprints = $('Effort Estimator').first().json.output.min_sprints ?? 0;\nconst maxSprints = $('Effort Estimator').first().json.output.max_sprints ?? 0;\n\n// Calculate totals\nconst totalTeamSize = team.reduce((sum, member) => sum + Number(member.count || 0), 0);\nconst daysPerSprintPerPerson = 10;\nconst personDaysPerSprint = totalTeamSize * daysPerSprintPerPerson;\nconst minPersonDays = minSprints * personDaysPerSprint;\nconst maxPersonDays = maxSprints * personDaysPerSprint;\nconst avgSprints = (minSprints + maxSprints) / 2;\nconst avgEffort = (minPersonDays + maxPersonDays) / 2;\nconst fteEstimate = avgEffort / (avgSprints * 10); // 10 days per person per sprint\n\n// Prepare summary for report\nconst teamSummary = team.map(member => ({\n  role: member.role,\n  count: Number(member.count)\n}));\n\nreturn [\n  {\n    json: {\n      effort: {\n      total_team_size: totalTeamSize,\n      days_per_sprint_per_person: daysPerSprintPerPerson,\n      person_days_per_sprint: personDaysPerSprint,\n      estimated_effort: {\n        min_sprints: minSprints,\n        max_sprints: maxSprints,\n        min_person_days: minPersonDays,\n        max_person_days: maxPersonDays,\n        fte_estimate: fteEstimate\n      }\n      },\n      team_summary: teamSummary\n    }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        10780,
+        11260
+      ],
+      "id": "dc7f0697-3867-4e3d-ae57-d245d4f918ec",
+      "name": "Total Effort"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=We have a software development project with the following scope and estimated effort:\n\n- Estimated duration: {{ $('Effort Estimator').item.json.output.min_sprints }} to {{ $('Effort Estimator').item.json.output.max_sprints }} sprints (2-week sprints)\n- Below is a grouped list of functional, non-functional, technical, and business requirements.\n\nYour task:\n1. Create a high-level **sprint-based development plan** that aligns with the estimated duration.\n2. Organize the plan into **semantically labeled phases** based on common delivery flow, such as:\n   - \"Planning and Foundation\"\n   - \"Core Development\"\n   - \"Feature Completion and Polishing\"\n   - \"Finalization and Handover\"\n3. For each phase, include:\n   - A `\"name\"` (semantic label as described)\n   - A `\"sprints\"` object with `\"start\"` and `\"end\"` sprint numbers\n   - A list of `\"items\"` representing deliverables, feature groups, or technical milestones\n\n4. Also provide a `\"cross_cutting\"` section with grouped items under:\n   - `\"infrastructure\"`\n   - `\"security\"`\n   - `\"testing\"`\n   - `\"documentation\"`\n   - `\"deployment\"`\n\nYou must not re-estimate effort. Use the sprint range provided.\n\nReturn your response as a single valid JSON object using this structure:\n{\n  \"phases\": [\n    {\n      \"name\": \"Planning and Foundation\",\n      \"sprints\": { \"start\": 1, \"end\": 2 },\n      \"items\": [\n        \"Set up environments and CI/CD pipeline\",\n        \"Define architecture and technical frameworks\",\n        \"Implement user authentication and role system\"\n      ]\n    },\n    {\n      \"name\": \"Core Development\",\n      \"sprints\": { \"start\": 3, \"end\": 6 },\n      \"items\": [\n        \"Develop mission system and rewards engine\",\n        \"Integrate forest visualization and topic feed\"\n      ]\n    }\n    // ...more phases\n  ],\n  \"cross_cutting\": {\n    \"infrastructure\": [ \"CI/CD setup\", \"VPN access configuration\" ],\n    \"security\": [ \"Access control\", \"Penetration testing\" ],\n    \"testing\": [ \"Unit testing\", \"UAT\" ],\n    \"documentation\": [ \"API documentation\", \"User guides\" ],\n    \"deployment\": [ \"Staging environment\", \"Production rollout\" ]\n  }\n}\n\nDo not return markdown, bullet points, or code fences. Only output valid JSON.\n--- BEGIN REQUIREMENTS ---\n{{ $('Format Data').first().json.formattedFeatures }}\n--- END REQUIREMENTS ---\n",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "You are a senior technical project planner and agile delivery strategist. You design high-level sprint-based development plans for software projects based on known scope and estimated duration.\n\nYou always:\n- Organize the plan into clear sprint phases\n- Include key delivery activities per phase\n- Address cross-cutting themes like infrastructure, testing, and security\n- Avoid repeating or re-estimating effort\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.8,
+      "position": [
+        10140,
+        11160
+      ],
+      "id": "c27e23fd-aa6a-48fc-8c14-c298704c8b7a",
+      "name": "Development Plan"
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n\t\"min_sprints\": 0,\n\t\"max_sprints\": 0,\n    \"note\":\"\"\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.2,
+      "position": [
+        9540,
+        11080
+      ],
+      "id": "a3587b97-750d-45e4-ab76-4f75f7185a44",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "claude-3-7-sonnet-20250219",
+          "mode": "list",
+          "cachedResultName": "Claude 3.7 Sonnet"
+        },
+        "options": {
+          "temperature": 0.3,
+          "thinking": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [
+        9300,
+        11080
+      ],
+      "id": "f906796f-3ef1-4af5-ab4d-84ef5a95b2fb",
+      "name": "Anthropic Chat Model",
+      "credentials": {
+        "anthropicApi": {
+          "id": "qzCm5Ds2qD9ZY1W5",
+          "name": "Anthropic account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1DyuEkvoNn_yfnAWTVKvnE9UhMnjv-HjHzoaZSWpu-cE",
+          "mode": "list",
+          "cachedResultName": "AI Estimations",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1DyuEkvoNn_yfnAWTVKvnE9UhMnjv-HjHzoaZSWpu-cE/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Claude 3.7",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1DyuEkvoNn_yfnAWTVKvnE9UhMnjv-HjHzoaZSWpu-cE/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Min": "={{ $json.output.min_sprints }}",
+            "Max": "={{ $json.output.max_sprints }}",
+            "Note": "={{ $json.output.note }}",
+            "Time": "={{$now}}",
+            "File": "={{ $('RFP PDF Upload Form').first().json[\"RFP Document (PDF)\"][0].filename }}"
+          },
+          "matchingColumns": [
+            "Estimation"
+          ],
+          "schema": [
+            {
+              "id": "File",
+              "displayName": "File",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Min",
+              "displayName": "Min",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Max",
+              "displayName": "Max",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Note",
+              "displayName": "Note",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Time",
+              "displayName": "Time",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        7000,
+        9880
+      ],
+      "id": "19ae0100-d19a-4c08-97a5-30a564dfe78e",
+      "name": "Claude 3.7",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "FtlTep04mtONOydH",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1DyuEkvoNn_yfnAWTVKvnE9UhMnjv-HjHzoaZSWpu-cE",
+          "mode": "list",
+          "cachedResultName": "AI Estimations",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1DyuEkvoNn_yfnAWTVKvnE9UhMnjv-HjHzoaZSWpu-cE/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 249221196,
+          "mode": "list",
+          "cachedResultName": "GPT4o",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1DyuEkvoNn_yfnAWTVKvnE9UhMnjv-HjHzoaZSWpu-cE/edit#gid=249221196"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Min": "={{ $json.output.min_sprints }}",
+            "Max": "={{ $json.output.max_sprints }}",
+            "Note": "={{ $json.output.note }}",
+            "Time": "={{$now}}",
+            "File": "={{ $('RFP PDF Upload Form').first().json[\"RFP Document (PDF)\"][0].filename }}"
+          },
+          "matchingColumns": [
+            "Estimation"
+          ],
+          "schema": [
+            {
+              "id": "File",
+              "displayName": "File",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Min",
+              "displayName": "Min",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Max",
+              "displayName": "Max",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Note",
+              "displayName": "Note",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Time",
+              "displayName": "Time",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        7000,
+        9360
+      ],
+      "id": "2aa52288-e675-4609-8413-13d186681a27",
+      "name": "GPT4o",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "FtlTep04mtONOydH",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1DyuEkvoNn_yfnAWTVKvnE9UhMnjv-HjHzoaZSWpu-cE",
+          "mode": "list",
+          "cachedResultName": "AI Estimations",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1DyuEkvoNn_yfnAWTVKvnE9UhMnjv-HjHzoaZSWpu-cE/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 94145736,
+          "mode": "list",
+          "cachedResultName": "GPT 4o mini",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1DyuEkvoNn_yfnAWTVKvnE9UhMnjv-HjHzoaZSWpu-cE/edit#gid=94145736"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Min": "={{ $json.output.min_sprints }}",
+            "Max": "={{ $json.output.max_sprints }}",
+            "Note": "={{ $json.output.note }}",
+            "Time": "={{$now}}",
+            "File": "={{ $('RFP PDF Upload Form').first().json[\"RFP Document (PDF)\"][0].filename }}"
+          },
+          "matchingColumns": [
+            "Estimation"
+          ],
+          "schema": [
+            {
+              "id": "File",
+              "displayName": "File",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Min",
+              "displayName": "Min",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Max",
+              "displayName": "Max",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Note",
+              "displayName": "Note",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Time",
+              "displayName": "Time",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        7000,
+        7600
+      ],
+      "id": "1fae9b20-bff4-4c2a-8b46-44c00fa07839",
+      "name": "GPT4o - mini",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "FtlTep04mtONOydH",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1mDakVXLu1hkomSMS-oZtVX588sZaEY2vFjVCWVhH0hI",
+          "mode": "list",
+          "cachedResultName": "AI Estimation Tool  Public - Scope",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1mDakVXLu1hkomSMS-oZtVX588sZaEY2vFjVCWVhH0hI/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Claude 3.7",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1mDakVXLu1hkomSMS-oZtVX588sZaEY2vFjVCWVhH0hI/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Output": "={{ $json.formattedFeatures }}"
+          },
+          "matchingColumns": [
+            "Output"
+          ],
+          "schema": [
+            {
+              "id": "Output",
+              "displayName": "Output",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        7000,
+        7860
+      ],
+      "id": "23c62800-1660-4a76-9584-1e7da005eacc",
+      "name": "GPT4o1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "FtlTep04mtONOydH",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "claude-3-7-sonnet-20250219",
+          "mode": "list",
+          "cachedResultName": "Claude 3.7 Sonnet"
+        },
+        "options": {
+          "thinking": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [
+        8740,
+        10920
+      ],
+      "id": "7b316c78-f4a2-47f6-9825-32670f53ace1",
+      "name": "Anthropic Chat Model1",
+      "credentials": {
+        "anthropicApi": {
+          "id": "qzCm5Ds2qD9ZY1W5",
+          "name": "Anthropic account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "claude-3-7-sonnet-20250219",
+          "mode": "list",
+          "cachedResultName": "Claude 3.7 Sonnet"
+        },
+        "options": {
+          "thinking": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [
+        7320,
+        8340
+      ],
+      "id": "e4acc41b-6239-4a4d-81fb-0b8647b8281b",
+      "name": "Anthropic Chat Model2",
+      "credentials": {
+        "anthropicApi": {
+          "id": "qzCm5Ds2qD9ZY1W5",
+          "name": "Anthropic account"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "claude-3-7-sonnet-20250219",
+          "cachedResultName": "Claude 3.7 Sonnet"
+        },
+        "options": {
+          "temperature": 0.3
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [
+        9820,
+        11220
+      ],
+      "id": "462e1ff3-fef1-4454-8a65-b3bc8f23222f",
+      "name": "Anthropic Chat Model3",
+      "credentials": {
+        "anthropicApi": {
+          "id": "qzCm5Ds2qD9ZY1W5",
+          "name": "Anthropic account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "claude-3-7-sonnet-20250219",
+          "cachedResultName": "Claude 3.7 Sonnet"
+        },
+        "options": {
+          "temperature": 0.3
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [
+        10120,
+        11380
+      ],
+      "id": "074dbf0c-81db-4ed9-9a84-39ada0e2296f",
+      "name": "Anthropic Chat Model4",
+      "credentials": {
+        "anthropicApi": {
+          "id": "qzCm5Ds2qD9ZY1W5",
+          "name": "Anthropic account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolCalculator",
+      "typeVersion": 1,
+      "position": [
+        10240,
+        11380
+      ],
+      "id": "7234194a-bd13-4b90-8324-65bfb69586d0",
+      "name": "Calculator1"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "claude-3-7-sonnet-20250219",
+          "cachedResultName": "Claude 3.7 Sonnet"
+        },
+        "options": {
+          "temperature": 0.5
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [
+        11520,
+        11480
+      ],
+      "id": "2f2ac8a7-a08d-4c52-8b07-73db329c11f6",
+      "name": "Anthropic Chat Model5",
+      "credentials": {
+        "anthropicApi": {
+          "id": "qzCm5Ds2qD9ZY1W5",
+          "name": "Anthropic account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Generate a high-level project delivery summary based on the following structured inputs. This will be usefull for clients that want to see effort needed to complete the project in rfp.\n\n\nYour output should be a business-readable project summary. Include:\n\n### 1. Project Scope and Requirements\n{{ $('Format Data').first().json.formattedFeatures }}\n\n### 2. Effort Estimate - Make this part structured and clearly visible in table and make it bold.\n- Duration: {{ $('Effort Estimator').item.json.output.min_sprints }} to {{ $('Effort Estimator').item.json.output.max_sprints }} sprints (2-week sprints)\n\n### 3. Team Composition - Make this part structured and clearly visible in table.\n{{ $('Total Effort').first().json.team_summary.map(r => `- ${r.role}: ${r.count}`).join('\\n') }}\n\n### 4. Notes about reasons for the effort estimation\n{{ $('Effort Estimator').item.json.output.note }}\n\n### 5. Development Plan\n{{ $('Development Plan').item.json.output.phases.map(p => `#### Phase: ${p.name} (Sprints ${p.sprints.start}–${p.sprints.end})\\n${p.items.map(i => `- ${i}`).join('\\n')}`).join('\\n\\n') }}\n\n### 7. Additional data, write in a sentence.\n{{ $('Total Effort').item.json.effort.estimated_effort.min_person_days }} to \n{{ $('Total Effort').item.json.effort.estimated_effort.max_person_days }}\n{{ $('Prepare for frontend5').item.json.total_effort }}\n\n\nDo not return JSON. Return Markdown. Make this markdown friendly for html conversion later on. Make all titles and subtitle clearly formaerd in markdown. Make all tables and section clearly separated with some vertical padding. Clearly separate different tables. Do not include raw feature lists. Write as if explaining to a potential client.",
+        "options": {
+          "systemMessage": "You are a technical project reporting assistant. You generate clear, professional summaries of software projects based on structured input. Your reports are intended for stakeholders, clients, and delivery managers.\n\nYou write in concise, business-appropriate language. You highlight key scope elements, the estimated effort, the proposed team, and the planned delivery phases. You do not repeat raw data or code."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.8,
+      "position": [
+        11420,
+        11260
+      ],
+      "id": "f04b1b00-b37c-4ae7-ab73-4016643e414e",
+      "name": "Reporter"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "claude-3-7-sonnet-20250219",
+          "mode": "list",
+          "cachedResultName": "Claude 3.7 Sonnet"
+        },
+        "options": {
+          "thinking": true
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [
+        7920,
+        10920
+      ],
+      "id": "07fc3dd7-d71a-407d-9054-c41c3f7ab2df",
+      "name": "Anthropic Chat Model6",
+      "credentials": {
+        "anthropicApi": {
+          "id": "qzCm5Ds2qD9ZY1W5",
+          "name": "Anthropic account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n\t\"markdown\": \"\"\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.2,
+      "position": [
+        8040,
+        10920
+      ],
+      "id": "f7918684-07e7-4e43-9f41-e40f497a8908",
+      "name": "Structured Output Parser1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://sse-estimation-tool.onrender.com/progress",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"step\": \"file_upload\",\n  \"title\": \"Step 1: File Uploaded\",\n  \"output\": \"{{ $('Extract Text from PDF').item.json.info.Title }}\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        7960,
+        10400
+      ],
+      "id": "54c05891-6582-4774-a0f7-e9c471980dfd",
+      "name": "file_upload"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://sse-estimation-tool.onrender.com/progress",
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "={{ $json.body }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        7220,
+        8580
+      ],
+      "id": "471333bc-59c3-4976-8b8f-7a7b4906f0dd",
+      "name": "data_extraction",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://sse-estimation-tool.onrender.com/progress",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"step\": \"scope_analysis\",\n  \"title\": \"Scope Analysis\",\n  \"output\": {{ $json.features }},\n  \"sessionId\": \"{{ $('RFP Upload').item.json.body.sessionId }}\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        9420,
+        10560
+      ],
+      "id": "bb869e9e-38ae-4dc4-a0d4-6f93ed754c68",
+      "name": "scope_analysis"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://sse-estimation-tool.onrender.com/progress",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"step\": \"effort_estimation\",\n  \"title\": \"Effort Estimation\",\n  \"output\": {{ $json.effort }},\n  \"sessionId\": \"{{ $('RFP Upload').item.json.body.sessionId }}\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        10220,
+        10560
+      ],
+      "id": "02592a3c-7f74-4787-9151-70cc739d9164",
+      "name": "effort_estimation"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://sse-estimation-tool.onrender.com/progress",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"step\": \"development_plan\",\n  \"title\": \"Development Plan\",\n  \"output\": {{ $json.development_plan }},\n  \"sessionId\": \"{{ $('RFP Upload').item.json.body.sessionId }}\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        10780,
+        11060
+      ],
+      "id": "f9e88578-4144-4fef-b3d7-3d02d2e21b1c",
+      "name": "development_plan"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://sse-estimation-tool.onrender.com/progress",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"step\": \"final_report\",\n  \"title\": \"Final Report\",\n  \"output\": {{ $json.final_report }},\n  \"sessionId\": \"{{ $('RFP Upload').item.json.body.sessionId }}\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        12040,
+        11260
+      ],
+      "id": "093d596d-8530-44c1-a0b4-5d9256d72901",
+      "name": "final_report"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://sse-estimation-tool.onrender.com/progress",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"step\": \"team_composition\",\n  \"title\": \"Team Composition\",\n  \"output\": {{ $json.team }},\n  \"sessionId\": \"{{ $('RFP Upload').item.json.body.sessionId }}\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        10780,
+        10800
+      ],
+      "id": "fd8d2939-754e-4635-befb-aafc0cda546c",
+      "name": "team_composition"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://sse-estimation-tool.onrender.com/progress",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"step\": \"file_upload\",\n  \"title\": \"Step 1: File Uploaded\",\n  \"output\": \"Only scope\",\n  \"sessionId\": \"{{ $json.body.sessionId }}\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        8400,
+        8520
+      ],
+      "id": "b328069c-1c4c-4c1f-8328-92aa0c2535ae",
+      "name": "file_upload1"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        8180,
+        8520
+      ],
+      "id": "f69f2b89-e30d-43a2-9fd4-7ef91356871d",
+      "name": "When clicking ‘Test workflow’",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://sse-estimation-tool.onrender.com/progress",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"step\": \"data_extraction\",\n  \"title\": \"Step 3: Data Extracted\",\n  \"output\": \"Data Extracted\",\n  \"sessionId\": \"{{ $('RFP Upload').item.json.body.sessionId }}\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        9280,
+        8520
+      ],
+      "id": "7f42a18f-0ab3-4a68-9aa6-bf32275ed2ee",
+      "name": "data_extraction1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://sse-estimation-tool.onrender.com/progress",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"step\": \"scope_analysis\",\n  \"title\": \"Step 4: Scope Analysis\",\n  \"output\": \"Scope Analysed\",\n  \"sessionId\": \"{{ $('RFP Upload').item.json.body.sessionId }}\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        9720,
+        8520
+      ],
+      "id": "d4cfc7b0-eae0-4370-9f18-d3fadc099081",
+      "name": "scope_analysis1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://sse-estimation-tool.onrender.com/progress",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"step\": \"effort_estimation\",\n  \"title\": \"Step 5: Effort Estimation\",\n  \"output\": \"Effort Estimation\",\n  \"sessionId\": \"{{ $('RFP Upload').item.json.body.sessionId }}\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        10160,
+        8520
+      ],
+      "id": "85098dfb-2d78-47c4-8343-8f453fac30a7",
+      "name": "effort_estimation1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://sse-estimation-tool.onrender.com/progress",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"step\": \"team_composition\",\n  \"title\": \"Step 6: Team Composition\",\n  \"output\": \"Team Composition\",\n  \"sessionId\": \"{{ $('RFP Upload').item.json.body.sessionId }}\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        10600,
+        8520
+      ],
+      "id": "562f0b7e-0713-42d0-86f9-357bcb00da34",
+      "name": "team_composition1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://sse-estimation-tool.onrender.com/progress",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"step\": \"development_plan\",\n  \"title\": \"Step 7: Development Plan\",\n  \"output\": \"Development Plan\",\n  \"sessionId\": \"{{ $('RFP Upload').item.json.body.sessionId }}\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        11040,
+        8520
+      ],
+      "id": "35e3375b-8769-4c1d-97ea-15c985f4969f",
+      "name": "development_plan1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://sse-estimation-tool.onrender.com/progress",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"step\": \"final_report\",\n  \"title\": \"Step 8: Final Report\",\n  \"output\": \"Final Report\",\n  \"sessionId\": \"{{ $('RFP Upload').item.json.body.sessionId }}\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        11480,
+        8520
+      ],
+      "id": "7e97be70-d230-4a5c-9094-46a0ebfcb8c4",
+      "name": "final_report1"
+    },
+    {
+      "parameters": {
+        "amount": 3
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        8620,
+        8520
+      ],
+      "id": "74ca2b3a-3556-4f3b-a680-84f2e1a1528c",
+      "name": "Wait",
+      "webhookId": "dde90e75-f027-4bde-91cd-450d25d5dd42"
+    },
+    {
+      "parameters": {
+        "amount": 3
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        9060,
+        8520
+      ],
+      "id": "94e592bb-36f7-4297-8313-834401d12f68",
+      "name": "Wait1",
+      "webhookId": "dde90e75-f027-4bde-91cd-450d25d5dd42"
+    },
+    {
+      "parameters": {
+        "amount": 3
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        9500,
+        8520
+      ],
+      "id": "388f9ef7-f4b1-424d-9928-0dad5e305990",
+      "name": "Wait2",
+      "webhookId": "dde90e75-f027-4bde-91cd-450d25d5dd42"
+    },
+    {
+      "parameters": {
+        "amount": 3
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        9940,
+        8520
+      ],
+      "id": "0110d3fa-d31a-4c60-8f03-aa73ad58bda9",
+      "name": "Wait3",
+      "webhookId": "dde90e75-f027-4bde-91cd-450d25d5dd42"
+    },
+    {
+      "parameters": {
+        "amount": 3
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        10380,
+        8520
+      ],
+      "id": "853db04f-acc4-444d-8ca9-7aee730c699d",
+      "name": "Wait4",
+      "webhookId": "dde90e75-f027-4bde-91cd-450d25d5dd42"
+    },
+    {
+      "parameters": {
+        "amount": 3
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        10820,
+        8520
+      ],
+      "id": "97bfc72a-14fb-463e-a82a-df7d470076d7",
+      "name": "Wait5",
+      "webhookId": "dde90e75-f027-4bde-91cd-450d25d5dd42"
+    },
+    {
+      "parameters": {
+        "amount": 3
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        11260,
+        8520
+      ],
+      "id": "2595cf19-22c3-4489-96a3-ce2b754a2408",
+      "name": "Wait6",
+      "webhookId": "dde90e75-f027-4bde-91cd-450d25d5dd42"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://sse-estimation-tool.onrender.com/progress",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"step\": \"document_preparation\",\n  \"title\": \"Step 2: Document Preparation\",\n  \"output\": \"Document Preparation\",\n  \"sessionId\": \"{{ $('RFP Upload').item.json.body.sessionId }}\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        8840,
+        8520
+      ],
+      "id": "05eed556-589c-4a49-936e-2412d24242b7",
+      "name": "document_preparation1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://sse-estimation-tool.onrender.com/progress",
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "={{ $json.body }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        8480,
+        10700
+      ],
+      "id": "090d010a-02f7-4c15-b7f8-446157bbc57f",
+      "name": "document_preparation2"
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.first().json;\n\nconst payload = {\n  step: \"data_extraction\",\n  title: \"Data Extracted!\",\n  sessionId: $('RFP Upload').first().json.body.sessionId || \"no-session\",\n  output: $('Scope and Extraction').first().json.output.markdown.toString() ?? ''\n};\n\nreturn [\n  {\n    json: {\n      body: JSON.stringify(payload)\n    }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        7000,
+        8580
+      ],
+      "id": "3cf013c9-1088-47c6-9a47-94ff8da34290",
+      "name": "Code1",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.first().json;\n\nconst payload = {\n  step: \"document_preparation\",\n  title: \"Document Preparation Test\",\n  sessionId: $('RFP Upload').first().json.body.sessionId || \"no-session\",\n  output: input.output?.markdown.toString() ?? ''\n};\n\nreturn [\n  {\n    json: {\n      body: JSON.stringify(payload)\n    }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        8260,
+        10700
+      ],
+      "id": "1bd8dfac-7b93-44cc-86ff-a1128a584b4b",
+      "name": "Prepare for frontend"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You will receive raw RFP text. Your task is to extract only the parts that describe the software project scope, system requirements, goals, features, and deliverables — even if the structure is inconsistent or if the scope is implied.\n\nYour task:\nExtract only the sections that clearly describe the software project scope. These may include:\n- Functional or non-functional requirements\n- System features and technical specifications\n- Deployment or integration constraints\n- Business or operational obligations\n- Any descriptions of system functionality or software features\n- Project goals and what the software is expected to achieve\n- Expected integrations, platforms, components, modules, or user types\n- Anything that relates to what the vendor is being asked to build or deliver\n\nDo NOT include:\n- High level project overview\n- Legal terms or disclaimers\n- Submission instructions or deadlines\n- Evaluation or scoring criteria\n- Company background or vendor qualification rules\n- Cover letters or general introductions\n\nIf section headers are not clear, scan for paragraphs that mention:\n- Project objectives\n- Business goals\n- Functional requirements\n- Technical needs\n- Scope, modules, or integrations\n\nFormat your output in clean Markdown:\n- Use ## for section headers\n- Use ### for subheaders\n- Use bullet points (-) or numbered lists where applicable\n- Preserve any tables or structured formatting (use triple backticks for tables)\n\nYou must extract directly from the input.\n\nYou may include goal- or feature-related content even if it's not in list format, as long as it's clearly scope-related.\n\nDo not include code fences or extra formatting around your JSON.\n\n--- RFP TEXT START ---\n{{ $json.cleanedRfpText }}\n--- RFP TEXT END ---",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "You are a strict RFP filtering agent that extracts only scope-relevant sections from raw proposal documents.\n\nYou must:\n- Detect and preserve all sections related to system features, scope, delivery, architecture, or business constraints\n- Remove any administrative, legal, or vendor selection content\n- Format all retained content as Markdown using a clear, structured layout\n- Wrap your result in a valid JSON object under the key \"output\"\n\nYou may include goal- or feature-related content even if it's not in list format, as long as it's clearly scope-related. Your goal is to pass through only what is needed for further technical analysis and estimation.\n\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.8,
+      "position": [
+        7000,
+        9100
+      ],
+      "id": "8a2780da-8a3f-40f1-8063-5a3825f8b07d",
+      "name": "Only Scope1",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are processing a single **CHUNK** from a larger RFP document. It may contain incomplete paragraphs or duplicated lines due to overlap. Your job is to convert this into clean, structured Markdown that reflects the **original document structure** as faithfully as possible.\n\nYour output must:\n- Extract **ALL visible content** without omitting anything\n- Preserve the original hierarchy (section headers, subheaders, bullet lists, numbered items)\n- Format everything in **Markdown**, using:\n  - `##` for section headers\n  - `###` for subheaders\n  - `-` or numbered lists where applicable\n  - Triple backticks for tables or fixed-width formatting\n- Maintain bullet/numbering structure and indentation if meaningful\n- Do NOT summarize, paraphrase, or interpret content\n- Do NOT add context or fill in missing sections\n- Do NOT label the chunk or return anything other than the Markdown content\n\nIf metadata is included (e.g., project name, submission deadline, issuing organization), extract and format it at the top of the output.\n\nIf the chunk contains mentions of requirements, timelines, evaluation, or vendor criteria — preserve them exactly as written. You may insert Markdown comments like:\n`<!-- possible requirement -->` or `<!-- possible evaluation criteria -->` above the relevant lines.\nReturn a clean JSON array only. Do not include markdown code blocks like ```json.\n--- CHUNK START ---\n{{ $json.chunk_text }}\n--- CHUNK END ---",
+        "options": {
+          "systemMessage": "You are a Document Extraction Specialist for software-related RFPs. You process small chunks of these documents and transform them into structured, machine-readable content.\n\nYou always:\n- Extract exactly what is visible in the chunk\n- Preserve the RFP’s original structure and formatting\n- Output Markdown without commentary\n- Avoid summarization, inference, or hallucination\n",
+          "returnIntermediateSteps": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.8,
+      "position": [
+        7220,
+        8120
+      ],
+      "id": "5808de6c-f297-4568-ad2c-137a5786fed0",
+      "name": "Document Extraction1",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You will receive raw extracted text from a Request for Proposal (RFP). It may contain vague descriptions, goal statements, or scattered mentions of functionality.\n\nYour task is to extract any content that clearly or implicitly describes the software project scope. This includes:\n\n- Functional and non-functional requirements\n- System goals, features, components, or modules\n- Business objectives that relate to the purpose of the system\n- Integration needs, user expectations, or platform limitations\n- Any sections or statements that hint at what is being asked for\n\nDo not include:\n- Vendor instructions or qualification requirements\n- Evaluation or scoring rules\n- Legal disclaimers, deadlines, or submission processes\n- Company history or general background\n\nFormat your output in clean Markdown using:\n- ## and ### for headings\n- - for bullets\n- Triple backticks for tables or formatted blocks\n\nDo not include any formatting outside of this JSON object.\n\n--- BEGIN RFP TEXT ---\n{{ $json.cleanedRfpText }}\n--- END RFP TEXT ---\n",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "You are an intelligent RFP filtering agent trained to identify and extract the true project scope from raw, unstructured RFP documents.\n\nYour task is to extract any information that reveals:\n- What the client wants the software to do\n- How the system should behave or function\n- What features, components, or integrations are expected\n- Any delivery expectations, goals, or business obligations\n\nYou can extract relevant information even if it is embedded in narrative, scattered across sections, or not clearly labeled.\n\nYou must:\n- Ignore legal text, submission rules, evaluation criteria, and vendor eligibility\n- Return only content related to software requirements, goals, and scope\n- Format your output in Markdown\n- Wrap the Markdown in a valid JSON object with the key \"markdown\"\n- Preserve original phrasing where possible — do not invent, but you may include relevant paraphrased sentences if they express scope clearly\n\nBe structured but flexible. Err on the side of inclusion when the content may plausibly relate to scope.\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.8,
+      "position": [
+        7880,
+        10700
+      ],
+      "id": "d63a6026-b226-41ec-8264-35af5f3ffaa0",
+      "name": "Scope and Extraction"
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.first().json;\nreturn [\n  {\n    json: {\n      features: JSON.stringify(input.output)\n    }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        9080,
+        10560
+      ],
+      "id": "fe855be7-5173-4e2e-b2d7-0713874f2278",
+      "name": "Prepare for frontend1"
+    },
+    {
+      "parameters": {
+        "schemaType": "manual",
+        "inputSchema": "{\n  \"features\": \n\t\t[\n  {\n    \"category\": \"FR | NFR | TC | BC\",\n    \"description\": \"Clear and specific requirement\"\n  }\n]\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.2,
+      "position": [
+        8860,
+        10920
+      ],
+      "id": "f07ec301-1801-4c14-945b-b9f9f531eb17",
+      "name": "Structured Output Parser2"
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.first().json;\nreturn [\n  {\n    json: {\n      effort: JSON.stringify(input.output)\n    }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        9820,
+        10560
+      ],
+      "id": "a6fd63e5-2f1f-4862-a9c5-5f1cc66afea3",
+      "name": "Prepare for frontend2"
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.first().json.team;\nreturn [\n  {\n    json: {\n      team: JSON.stringify(input)\n    }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        10560,
+        10800
+      ],
+      "id": "fa4dce62-9122-4a42-84e6-d9bc61beada0",
+      "name": "Prepare for frontend3"
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.first().json;\nreturn [\n  {\n    json: {\n      development_plan: JSON.stringify(input.output)\n    }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        10560,
+        11060
+      ],
+      "id": "b57d7d48-5bf5-47e5-ba95-39c0caf5b917",
+      "name": "Prepare for frontend4"
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"phases\": [\n  {\n    \"name\": \"Planning and Foundation\",\n      \"sprints\": { \"start\": 1, \"end\": 2 },\n      \"items\": [\n        \"Set up environments and CI/CD pipeline\",\n        \"Define architecture and technical frameworks\",\n        \"Implement user authentication and role system\"\n      ]\n  }\n],\n  \"cross_cutting\": {\n    \"infrastructure\": [ \"CI/CD setup\", \"VPN access configuration\" ],\n    \"security\": [ \"Access control\", \"Penetration testing\" ],\n    \"testing\": [ \"Unit testing\", \"UAT\" ],\n    \"documentation\": [ \"API documentation\", \"User guides\" ],\n    \"deployment\": [ \"Staging environment\", \"Production rollout\" ]\n  }\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.2,
+      "position": [
+        10360,
+        11380
+      ],
+      "id": "70966a1a-4751-495f-a4f8-a0f501441c67",
+      "name": "Structured Output Parser3"
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.first().json.effort;\nreturn [\n  {\n    json: {\n      total_effort: JSON.stringify(input)\n    }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        11000,
+        11260
+      ],
+      "id": "5eb3dbda-efd7-4e3c-a89d-c0eb5e852fd1",
+      "name": "Prepare for frontend5"
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.first().json.output.cross_cutting;\nreturn [\n  {\n    json: {\n      cross_cutting: JSON.stringify(input)\n    }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        10560,
+        11260
+      ],
+      "id": "ed473d57-e1e9-4932-a1be-a2020b9b81f7",
+      "name": "Prepare for frontend6"
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.first().json.output;\n\nreturn [\n  {\n    json: {\n      final_report: JSON.stringify(input)\n    }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        11820,
+        11260
+      ],
+      "id": "bfb16389-3ea2-4f12-a38e-664b34d9c80e",
+      "name": "Prepare for frontend7"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Config: you can change this\nconst projectStartDate = new Date('2024-05-01'); // project start date\nconst sprintLengthInDays = 14;\n\n// Get input\nconst input = $('Development Plan').first().json.output; // assumes { phases: [...] }\nconst phases = input.phases ?? [];\n\nfunction sprintToDate(sprintNum) {\n  const date = new Date(projectStartDate);\n  date.setDate(date.getDate() + (sprintNum - 1) * sprintLengthInDays);\n  return date.toISOString().split('T')[0]; // YYYY-MM-DD\n}\n\nconst gantt = [];\n\nphases.forEach((phase, index) => {\n  const startSprint = phase.sprints.start;\n  const endSprint = phase.sprints.end;\n\n  const task = {\n    id: `phase-${index + 1}`,\n    name: phase.name,\n    start: sprintToDate(startSprint),\n    end: sprintToDate(endSprint + 1), // end = end of sprint range\n    progress: 0,\n    custom_class: \"gantt-phase\"\n  };\n\n  gantt.push(task);\n});\n\nreturn [\n  {\n    json: {\n      gantt\n    }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        11220,
+        11260
+      ],
+      "id": "043e3461-24d6-4567-83bc-d2066914c57f",
+      "name": "Prepare for Gantt"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "sendToEmail",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        6980,
+        11440
+      ],
+      "id": "08611c4c-7680-4e52-af01-61c09d90e19e",
+      "name": "Send PDF to Email",
+      "webhookId": "663a2e7d-35dd-4241-8890-97393732bb42"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "rfp-upload",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        7000,
+        10560
+      ],
+      "id": "39f2a326-76b3-4ad1-810f-5447b52379c3",
+      "name": "RFP Upload",
+      "webhookId": "663a2e7d-35dd-4241-8890-97393732bb42"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.email }}",
+        "subject": "=Your Q AI RFP Analysis Report is Ready for {{ $json.fileName }}",
+        "message": "=<!DOCTYPE html>\n<html>\n  <head>\n    <meta charset=\"UTF-8\" />\n    <title>Q AI RFP Analysis Report</title>\n  </head>\n  <body style=\"font-family: Arial, sans-serif; background-color: #f5f5f5; padding: 20px; margin: 0;\">\n    <table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"max-width: 600px; margin: auto; background-color: #ffffff; border-radius: 8px; overflow: hidden;\">\n      <tr>\n        <td style=\"padding: 30px 40px;\">\n          <h2 style=\"color: #333333;\">Dear {{ $json.name }},</h2>\n          <p style=\"font-size: 16px; color: #555555; line-height: 1.6;\">\n            Thank you for using the <strong>Q AI RFP Analysis Tool</strong>.\n          </p>\n          <p style=\"font-size: 16px; color: #555555; line-height: 1.6;\">\n            Attached to this email, you will find the informative analysis report generated based on the RFP you uploaded.\n            The report includes insights related to estimated effort, key requirements, potential risks, and other relevant aspects of the document.\n          </p>\n          <p style=\"font-size: 16px; color: #555555; line-height: 1.6;\">\n            We hope this helps you streamline your decision-making process and improve planning efficiency.\n          </p>\n          <p style=\"font-size: 16px; color: #555555; line-height: 1.6;\">\n            If you have any questions or would like further support, feel free to reach out.\n          </p>\n          <p style=\"font-size: 16px; color: #333333; margin-top: 30px;\">\n            Best regards,<br/>\n            <strong>AI Team at Q Agency</strong>\n          </p>\n        </td>\n      </tr>\n      <tr>\n        <td style=\"background-color: #eeeeee; padding: 20px; text-align: center; font-size: 12px; color: #888888;\">\n          © 2025 Q Agency. All rights reserved.\n        </td>\n      </tr>\n    </table>\n  </body>\n</html>",
+        "options": {
+          "appendAttribution": false,
+          "attachmentsUi": {
+            "attachmentsBinary": [
+              {
+                "property": "file"
+              }
+            ]
+          },
+          "bccList": "zlatko.matokanovic@q.agency"
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        7700,
+        11440
+      ],
+      "id": "ac2ebf2e-cf24-4656-885f-3f99df25dbf8",
+      "name": "Gmail",
+      "webhookId": "e71d01f0-8d29-4bad-8b6a-25062a67369e",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "AnMIdKkQ5ToxkLrh",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "function extractNameFromEmail(email) {\n  if (!email || typeof email !== 'string') return '';\n\n  const localPart = email.split('@')[0];\n\n  // Replace separators with spaces\n  const raw = localPart.replace(/[\\._\\-]+/g, ' ').trim();\n\n  // Split and capitalize\n  const nameParts = raw\n    .split(' ')\n    .filter(Boolean)\n    .map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase());\n\n  return nameParts.join(' ');\n}\n\nconst input = $input.first().json;\n\nconst email = input.body?.email || '';\nconst sessionId = input.body?.sessionId || '';\nconst name = extractNameFromEmail(email);\nconst fileName = $input.first().json.body.originalFilename\n\n\nreturn [\n  {\n    json: {\n      email,\n      name,\n      sessionId,\n      fileName,\n      binary: input.binary\n    }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        7220,
+        11560
+      ],
+      "id": "be2f0ae3-6af1-4fcd-b3f2-bb963904690b",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineAll",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        7440,
+        11440
+      ],
+      "id": "51c76a8b-39ef-44a7-ac83-bc4acddc0b3f",
+      "name": "Merge"
+    }
+  ],
+  "pinData": {
+    "Scope and Extraction": [
+      {
+        "json": {
+          "output": {
+            "markdown": "## Mobile/Web Application Scope for Sustainability Platform\n\n### 1. Intro Section\n- Welcome back screen functionality\n- Rewards screen with display capabilities\n- Feature for choosing rewards and generating confirmation\n\n### 2. Collective Forest Feature\n- Personal forest visualization showing tree growth progress\n- Collective forest view \n- Social media sharing functionality for trees\n- Access to forest through profile account\n\n### 3. Home Feed Screen\n- Display list of stories previews\n- Member home section with:\n  - My feed\n  - Topics\n  - Challenges\n  - Leaderboard\n- My feed section displaying:\n  - Collective missions\n  - Trending videos\n  - Collective Impact\n  - Latest events\n  - Latest guides\n  - Latest podcasts\n\n### 4. Topics Section\n- Preview capabilities for sustainability categories:\n  - Sustainable food\n  - Oceans\n  - Energy transition\n  - Mindfulness and wellbeing\n  - Women's rights\n  - Circularity\n  - Nature and outdoors\n  - Climate\n\n### 5. Topic Detail View (e.g., Sustainable Food)\n- Following functionality\n- Learn more option with commenting and reply capabilities\n- Watch option\n- Events display\n- Podcasts integration\n- Learn section\n- Other content types\n\n### 6. Collective Missions\n- Email integration capability\n- Action options:\n  - Donation functionality\n  - Competition joining\n  - Petition signing\n\n### 7. Competition Feature\n- Challenge acceptance functionality\n- Social interaction (liking, commenting on posts)\n- Mission joining with data collection (postal code, garden size)\n- Notification system for tree growth/planting\n- Mission participation tracking\n- Mission details view with community activities\n- Photo upload capability within descriptions\n\n### 8. Mission Discovery\n- Preview of other available missions\n\n### 9. Leaderboard Functionality\n- Monthly leaderboard with filtering options:\n  - Personal missions\n  - Other missions\n\n### 10. User Account/Profile\n- Profile editing capability\n- Activity tracking\n- Achievements system:\n  - Current and future achievements display\n  - Achievement explanation feature\n  - Reading history tracking\n\n### 11. Email Integration\n- Year-end summary/preview email functionality"
+          }
+        }
+      }
+    ],
+    "Scope & Requirements Extractor": [
+      {
+        "json": {
+          "output": [
+            {
+              "category": "FR",
+              "description": "Welcome back screen functionality"
+            },
+            {
+              "category": "FR",
+              "description": "Rewards screen with display capabilities"
+            },
+            {
+              "category": "FR",
+              "description": "Feature for choosing rewards and generating confirmation"
+            },
+            {
+              "category": "FR",
+              "description": "Personal forest visualization showing tree growth progress"
+            },
+            {
+              "category": "FR",
+              "description": "Collective forest view"
+            },
+            {
+              "category": "FR",
+              "description": "Social media sharing functionality for trees"
+            },
+            {
+              "category": "FR",
+              "description": "Access to forest through profile account"
+            },
+            {
+              "category": "FR",
+              "description": "Display list of stories previews"
+            },
+            {
+              "category": "FR",
+              "description": "Member home section with My feed, Topics, Challenges, Leaderboard"
+            },
+            {
+              "category": "FR",
+              "description": "My feed section displaying Collective missions, Trending videos, Collective Impact, Latest events, Latest guides, Latest podcasts"
+            },
+            {
+              "category": "FR",
+              "description": "Preview capabilities for sustainability categories (Sustainable food, Oceans, Energy transition, Mindfulness and wellbeing, Women's rights, Circularity, Nature and outdoors, Climate)"
+            },
+            {
+              "category": "FR",
+              "description": "Topic detail view with Following functionality"
+            },
+            {
+              "category": "FR",
+              "description": "Learn more option with commenting and reply capabilities"
+            },
+            {
+              "category": "FR",
+              "description": "Watch option"
+            },
+            {
+              "category": "FR",
+              "description": "Events display"
+            },
+            {
+              "category": "FR",
+              "description": "Podcasts integration"
+            },
+            {
+              "category": "FR",
+              "description": "Learn section"
+            },
+            {
+              "category": "FR",
+              "description": "Other content types"
+            },
+            {
+              "category": "FR",
+              "description": "Email integration capability"
+            },
+            {
+              "category": "FR",
+              "description": "Action option for donation functionality"
+            },
+            {
+              "category": "FR",
+              "description": "Action option for competition joining"
+            },
+            {
+              "category": "FR",
+              "description": "Action option for petition signing"
+            },
+            {
+              "category": "FR",
+              "description": "Challenge acceptance functionality"
+            },
+            {
+              "category": "FR",
+              "description": "Social interaction (liking, commenting on posts)"
+            },
+            {
+              "category": "FR",
+              "description": "Mission joining with data collection (postal code, garden size)"
+            },
+            {
+              "category": "FR",
+              "description": "Notification system for tree growth/planting"
+            },
+            {
+              "category": "FR",
+              "description": "Mission participation tracking"
+            },
+            {
+              "category": "FR",
+              "description": "Mission details view with community activities"
+            },
+            {
+              "category": "FR",
+              "description": "Photo upload capability within descriptions"
+            },
+            {
+              "category": "FR",
+              "description": "Preview of other available missions"
+            },
+            {
+              "category": "FR",
+              "description": "Monthly leaderboard with filtering options (Personal missions, Other missions)"
+            },
+            {
+              "category": "FR",
+              "description": "Profile editing capability"
+            },
+            {
+              "category": "FR",
+              "description": "Activity tracking"
+            },
+            {
+              "category": "FR",
+              "description": "Achievements system with current and future achievements display"
+            },
+            {
+              "category": "FR",
+              "description": "Achievement explanation feature"
+            },
+            {
+              "category": "FR",
+              "description": "Reading history tracking"
+            },
+            {
+              "category": "FR",
+              "description": "Year-end summary/preview email functionality"
+            }
+          ]
+        }
+      }
+    ],
+    "Effort Estimator": [
+      {
+        "json": {
+          "output": {
+            "min_sprints": 8,
+            "max_sprints": 12,
+            "note": "This project represents a medium-to-large mobile/web application with social, content management, and gamification features. Key considerations:\n\n1. AI-assisted development will accelerate implementation of standard features like user profiles, content feeds, and basic CRUD operations.\n\n2. Areas of complexity that will require more time:\n   - Forest visualization system (likely requiring custom graphics/animations)\n   - Achievements and rewards system (complex business logic)\n   - Content management across multiple types (podcasts, videos, articles)\n   - Social features with commenting hierarchies\n   - Mission/challenge tracking with data collection\n\n3. Integration points that add uncertainty:\n   - Email system integration\n   - Social media platform connections\n   - Podcast integration\n   - Photo upload and storage\n\n4. The leaderboard and achievements systems suggest a gamification layer that will require careful implementation to ensure proper tracking and display.\n\nWith AI-assisted development, many standard components can be generated quickly, but the custom visualization, gamification logic, and multiple content types will still require significant effort. The range accounts for the complexity while recognizing the acceleration from AI tooling."
+          }
+        }
+      }
+    ],
+    "Team Composition Agent": [
+      {
+        "json": {
+          "output": "[\n  {\n    \"role\": \"Project Manager\",\n    \"count\": 1,\n    \"justification\": \"Required to coordinate the 8-12 sprint project, manage stakeholder expectations, and ensure timely delivery of all features.\"\n  },\n  {\n    \"role\": \"Frontend Developer\",\n    \"count\": 3,\n    \"justification\": \"Needed to implement numerous UI components including rewards screens, forest visualizations, social media sharing, content feeds, and interactive elements.\"\n  },\n  {\n    \"role\": \"Backend Developer\",\n    \"count\": 2,\n    \"justification\": \"Required for implementing API endpoints, database integration, notification systems, user authentication, and data processing for missions and achievements.\"\n  },\n  {\n    \"role\": \"UX/UI Designer\",\n    \"count\": 1,\n    \"justification\": \"Essential for designing user interfaces for multiple screens, ensuring consistent user experience across features like forests, rewards, missions, and profiles.\"\n  },\n  {\n    \"role\": \"QA Engineer\",\n    \"count\": 2,\n    \"justification\": \"Needed to test complex user flows, social interactions, and ensure cross-platform compatibility for all features.\"\n  },\n  {\n    \"role\": \"DevOps Engineer\",\n    \"count\": 1,\n    \"justification\": \"Required for setting up CI/CD pipelines, managing deployments, and ensuring infrastructure supports features like image uploads and social sharing.\"\n  },\n  {\n    \"role\": \"Mobile Developer\",\n    \"count\": 2,\n    \"justification\": \"Needed to implement mobile-specific functionality for photo uploads, notifications, and social sharing features.\"\n  },\n  {\n    \"role\": \"Database Engineer\",\n    \"count\": 1,\n    \"justification\": \"Required to design and optimize database schemas for user profiles, achievements, missions, content, and tracking user activities.\"\n  },\n  {\n    \"role\": \"Content Manager\",\n    \"count\": 1,\n    \"justification\": \"Needed to manage various content types including podcasts, videos, guides, and sustainability categories.\"\n  },\n  {\n    \"role\": \"Scrum Master\",\n    \"count\": 1,\n    \"justification\": \"Required to facilitate agile processes, remove impediments, and ensure efficient sprint execution over the 8-12 sprint timeline.\"\n  }\n]"
+        }
+      }
+    ],
+    "Development Plan": [
+      {
+        "json": {
+          "output": {
+            "phases": [
+              {
+                "name": "Planning and Foundation",
+                "sprints": {
+                  "start": 1,
+                  "end": 3
+                },
+                "items": [
+                  "Project setup and architecture definition",
+                  "User authentication and profile system",
+                  "Basic account management and profile editing",
+                  "Environment configuration",
+                  "Core data models and database schema",
+                  "Basic UI framework and design system"
+                ]
+              },
+              {
+                "name": "Core Development",
+                "sprints": {
+                  "start": 4,
+                  "end": 7
+                },
+                "items": [
+                  "Personal forest visualization and growth tracking",
+                  "Collective forest view implementation",
+                  "Rewards system and redemption flow",
+                  "Mission system core functionality",
+                  "My feed section with content previews",
+                  "Topics browsing and following capability",
+                  "Mission joining with data collection",
+                  "Notification system foundation"
+                ]
+              },
+              {
+                "name": "Feature Expansion",
+                "sprints": {
+                  "start": 8,
+                  "end": 10
+                },
+                "items": [
+                  "Social media sharing functionality",
+                  "Challenge system and leaderboards",
+                  "Content integration (podcasts, videos, events)",
+                  "Learn section with commenting capabilities",
+                  "Action options (donations, petitions, competitions)",
+                  "Achievements system implementation",
+                  "Social interaction features (likes, comments)",
+                  "Email integration and notifications"
+                ]
+              },
+              {
+                "name": "Finalization and Optimization",
+                "sprints": {
+                  "start": 11,
+                  "end": 12
+                },
+                "items": [
+                  "Welcome back screen optimization",
+                  "Reading history and activity tracking",
+                  "Year-end summary functionality",
+                  "Performance optimization",
+                  "Final UI/UX refinements",
+                  "Feature integration testing",
+                  "Bug fixes and stability improvements",
+                  "Prepare for production release"
+                ]
+              }
+            ],
+            "cross_cutting": {
+              "infrastructure": [
+                "CI/CD pipeline setup and maintenance",
+                "Development, staging, and production environments",
+                "Database infrastructure and scaling",
+                "Cloud resources management",
+                "Monitoring and logging systems"
+              ],
+              "security": [
+                "User authentication and authorization",
+                "Data encryption and protection",
+                "Security testing and vulnerability scanning",
+                "GDPR and data privacy compliance",
+                "API security measures"
+              ],
+              "testing": [
+                "Unit testing for all components",
+                "Integration testing",
+                "End-to-end testing",
+                "Performance testing",
+                "User acceptance testing",
+                "Cross-browser and device compatibility testing"
+              ],
+              "documentation": [
+                "API documentation",
+                "Technical architecture documentation",
+                "User guides and help content",
+                "Developer onboarding documentation",
+                "System diagrams and data flow documentation"
+              ],
+              "deployment": [
+                "Deployment automation",
+                "Feature flagging system",
+                "Rollback procedures",
+                "Database migration strategies",
+                "Release notes preparation",
+                "Phased rollout strategy"
+              ]
+            }
+          }
+        }
+      }
+    ]
+  },
+  "repo_name": "n8n-backup-zm",
+  "repo_owner": "zlatkomq",
+  "repo_path": "",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-04-17T12:32:58.978Z",
+  "versionId": "e0091ee6-1460-425a-a196-4d7e8a8c8f4d"
+}
