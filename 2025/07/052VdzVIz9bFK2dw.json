@@ -1,0 +1,284 @@
+{
+  "active": false,
+  "connections": {
+    "Error Trigger": {
+      "main": [
+        [
+          {
+            "node": "Read SessionId From File System",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read SessionId From File System": {
+      "main": [
+        [
+          {
+            "node": "Get SessionId",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get SessionId": {
+      "main": [
+        [
+          {
+            "node": "If General",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "General Error": {
+      "main": [
+        [
+          {
+            "node": "SSE - General Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If General": {
+      "main": [
+        [
+          {
+            "node": "General Error",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Custom Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Custom Error": {
+      "main": [
+        [
+          {
+            "node": "SSE - Custom Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SSE - General Error": {
+      "main": [
+        [
+          {
+            "node": "Delete tmp file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SSE - Custom Error": {
+      "main": [
+        [
+          {
+            "node": "Delete tmp file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-07-02T13:24:54.949Z",
+  "id": "052VdzVIz9bFK2dw",
+  "isArchived": false,
+  "meta": null,
+  "name": "Error Estimation Public",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "position": [
+        -460,
+        -40
+      ],
+      "id": "3bd4d2d0-ca12-473e-9bcb-cbc765d67e42",
+      "name": "Error Trigger"
+    },
+    {
+      "parameters": {
+        "command": "=cat /tmp/session_{{ $json.execution.id }}.json 2>/dev/null || echo '{}'\n"
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        -140,
+        -40
+      ],
+      "id": "52629393-131c-4296-8da9-67ee6a75b9c2",
+      "name": "Read SessionId From File System"
+    },
+    {
+      "parameters": {
+        "jsCode": "const fileOutput = $input.first()?.json?.stdout;\nlet sessionId = `error-recovery-${Date.now()}`;\n\ntry {\n  if (fileOutput && fileOutput.trim() !== '{}') {\n    const sessionData = JSON.parse(fileOutput);\n    sessionId = sessionData.sessionId;\n    console.log('✅ Retrieved sessionId:', sessionId);\n  }\n} catch (e) {\n  console.log('⚠️ Using recovery sessionId');\n}\n\nreturn {\n  json: {\n    sessionId: sessionId,\n    errorData: $input.first()?.json\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        100,
+        -40
+      ],
+      "id": "6393fbab-e79d-45ad-8b9e-68ccae8c2e9a",
+      "name": "Get SessionId"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get sessionId from the RFP Upload node\nconst sessionId = $input.first().json.sessionId;\n\nconst payload = {\n    step: \"general_error\",\n    title: \"Failed to complete\", \n    sessionId: sessionId,\n    output: \"Oops! Something went wrong. Please try uploading your file again.\"\n};\n\nreturn [\n  {\n    json: {\n      body: JSON.stringify(payload)\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        720,
+        -180
+      ],
+      "id": "72bcbb1a-a5bd-4631-aee7-b3a4fdd82e8e",
+      "name": "General Error"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "d882739f-cbae-4701-ab74-0c129d78f9da",
+              "leftValue": "={{ $('Error Trigger').item.json.execution.error.errorResponse.message }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notExists",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "b74018ac-5b36-4521-81db-b7ff8d0f2e8f",
+              "leftValue": "={{ $('Error Trigger').item.json.execution.error.errorResponse.title }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notExists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        400,
+        -40
+      ],
+      "id": "3f2119c5-de9d-48ba-9110-36a6f8cba820",
+      "name": "If General"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get sessionId from the RFP Upload node\nconst sessionId = $input.first().json.sessionId;\n//const message = $('Error Trigger').first().json.execution.error.message;\nconst title = $('Error Trigger').first().json.execution.error.errorResponse.title;\nconst message = $('Error Trigger').first().json.execution.error.errorResponse.message;\n\n\nconst payload = {\n    step: \"general_error\",\n    title: title, \n    sessionId: sessionId,\n    output: message\n};\n\nreturn [\n  {\n    json: {\n      body: JSON.stringify(payload)\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        720,
+        80
+      ],
+      "id": "1d1f906b-9b8f-4861-991b-e52b37e1a76a",
+      "name": "Custom Error"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://sse-estimation-tool.onrender.com/progress",
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "={{ $json.body }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1080,
+        -180
+      ],
+      "id": "3d5630e8-ecb3-4df8-b10c-f0497a21122d",
+      "name": "SSE - General Error"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://sse-estimation-tool.onrender.com/progress",
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "={{ $json.body }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1080,
+        80
+      ],
+      "id": "d171883e-5c37-4177-a2c0-8ebd0a07edbe",
+      "name": "SSE - Custom Error"
+    },
+    {
+      "parameters": {
+        "command": "=rm -f /tmp/session_{{ $('Error Trigger').first().json.execution.id }}.json && echo \"Session file cleaned up\"\n"
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        1400,
+        -40
+      ],
+      "id": "71a83a90-1532-4b50-a3f0-d30294aade41",
+      "name": "Delete tmp file"
+    }
+  ],
+  "pinData": {},
+  "repo_name": "n8n-backup-zm",
+  "repo_owner": "zlatkomq",
+  "repo_path": "",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-04-24T10:59:44.979Z",
+      "updatedAt": "2025-04-24T10:59:44.979Z",
+      "id": "qEREEA2JvunvA9Nv",
+      "name": "Estimation Tool"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-07-10T10:04:00.411Z",
+  "versionId": "5ef490f6-3a2d-44d2-86a3-86abcad38bd9"
+}
