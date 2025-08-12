@@ -1,0 +1,245 @@
+{
+  "active": false,
+  "connections": {
+    "Ollama Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "RAG AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "RAG AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RAG AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres Chat Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "RAG AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-05-21T19:48:10.207Z",
+  "id": "y4Rr27J3kNaN5jZ9",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Resources_sql_agent",
+  "nodes": [
+    {
+      "parameters": {
+        "model": "llama3.2:latest",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
+      "typeVersion": 1,
+      "position": [
+        -40,
+        20
+      ],
+      "id": "40c1ff2a-ec64-405a-b8ce-9f93508f8953",
+      "name": "Ollama Chat Model",
+      "credentials": {
+        "ollamaApi": {
+          "id": "fv9DllLzKNe1SabK",
+          "name": "Ollama account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "agent": "sqlAgent",
+        "promptType": "define",
+        "text": "=You are a helpful assistant that answers company user related questions about employees (including their skills, certificates, managers etc.. \n\nYour only source of truth is the provided in \"ganttic_api_resources\" postgres table\n\nFor this user question:\n\n{{ $json.chatInput }}\n\n\nplease compile best select statement that will return results for user question.\n\nTable scheme - columns: ganttic_api_resources\nColumns:\n- id (text) — unique identifier\n- name (text) — full name of the person\n- skills_senior (text) — list of senior-level skills\n- skills_medium (text) — list of medium-level skills\n- skills_junior (text) — list of junior-level skills\n- industry (text) — industry domain or sector\n- description (text) — internal description\n- section (text) — company division or section\n- seniority (text) — level of seniority (e.g., junior, senior)\n- team (text) — team name or code\n- department (text) — department name\n- vertical (text) — vertical business unit\n- coe_manager (text) — name of Center of Excellence manager\n- el (text) — name of Engineering Lead\n- eh (text) — name of Engineering Head\n- director (text) — name of the Director\n- employment_type (text) — type of employment (e.g., contractor, full-time)\n- certs (text) — certifications held by the person\n- notes text null —\n- embedding_facts public.vector null, — (ignore this column)\n- embedding_convo public.vector null, — (ignore this column)\n- embedding_full public.vector null, — (ignore this column)\n- full_payload jsonb null, — (ignore this column)\n- embedding_convo_text text null, — (ignore this column)\n- embedding_facts_text text null, — (ignore this column)\n\n\nExample row from database:\n\nid,name,skills_senior,skills_medium,skills_junior,industry,description,section,seniority,team,department,vertical,coe_manager,el,eh,director,employment_type,certs,notes,embedding_facts,embedding_convo,embedding_full,full_payload,embedding_convo_text,embedding_facts_text\n1035353,Tomislav Soldo,\"JS - Angular, Web Slice/CSS/HTML\",\"Android, CMS - Wordpress, Flutter, iOS, Java - J2EE, Java - Spring (Boot), JS - Next.js, JS - React, Node.js - Express, Node.js - Koa.js, Node.js - Nest.js, PHP - Laravel, PHP - Symfony, ReactNative\",,\"Banking & Insurance, Big Data, Civil Engineering, Crypto, E-commerce, Entertainment & Sports, Food, Healthcare, Hospitality or Travel, Logistics, Media, Real Estate, SaaS, Social Media\",,Frontend - Angular,Senior 1,Universal Team 03,Universal Department 02,Universal,Nikol Štimac Rojtinić‌‌‌,Jurica Drvoderić,Tom Cvitković,Josip Barišić,Contractor,,,,,,,,,,,,,,,,\n\nExample query:\n\n\"Find all developers that Tom Cvitkovic is engineering head\"\n\nExample query:\n\nselect name, skills_senior, skills_medium, skills_junior, industry, description, section, seniority, team, department, vertical, certs from ganttic_api_resources where unaccent(eh) ILIKE unaccent('%tom cvitkovic%')\n\n",
+        "options": {
+          "includedTables": "ganttic_api_resources",
+          "topK": 20
+        }
+      },
+      "id": "f6c045d9-c277-470e-8f8e-172020c4d636",
+      "name": "RAG AI Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.6,
+      "position": [
+        180,
+        -200
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "wK2pSCG9jTniRU28",
+          "name": "Postgres account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "d7a8892b-8d2b-4cac-b8b8-8c56bffc4f54",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "d5577a7e-79c5-433b-b35b-b952c787ab53",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -300,
+        0
+      ],
+      "webhookId": "d7a8892b-8d2b-4cac-b8b8-8c56bffc4f54"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "9a9a245e-f1a1-4282-bb02-a81ffe629f0f",
+              "name": "chatInput",
+              "value": "={{ $json?.chatInput || $json.body.chatInput }}",
+              "type": "string"
+            },
+            {
+              "id": "b80831d8-c653-4203-8706-adedfdb98f77",
+              "name": "sessionId",
+              "value": "={{ $json?.sessionId || $json.body.sessionId}}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "0040a6fe-38cb-44b8-9b8d-184b80b872c4",
+      "name": "Edit Fields",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -40,
+        -200
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "a42620e1-4f62-4f83-9825-0bdb6da0d9ab",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        520,
+        -200
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## RAG sql AI Agent",
+        "height": 464.8027193303974,
+        "width": 1035.6381264595484
+      },
+      "id": "69d195f0-c632-4ff0-8716-929046f772e1",
+      "name": "Sticky Note2",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -340,
+        -280
+      ]
+    },
+    {
+      "parameters": {
+        "tableName": "langchain_chat_histories"
+      },
+      "id": "d6e82971-60b5-432a-a52b-c6106b59e041",
+      "name": "Postgres Chat Memory",
+      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+      "typeVersion": 1,
+      "position": [
+        100,
+        20
+      ],
+      "notesInFlow": false,
+      "credentials": {
+        "postgres": {
+          "id": "wK2pSCG9jTniRU28",
+          "name": "Postgres account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -300,
+        -200
+      ],
+      "id": "17e88d41-094f-4953-986c-dc49b351d868",
+      "name": "When chat message received",
+      "webhookId": "241eabd3-30ec-40fa-bb3a-268cbe308a7c"
+    }
+  ],
+  "pinData": {},
+  "repo_name": "n8n-backup-zm",
+  "repo_owner": "zlatkomq",
+  "repo_path": "",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-05-21T22:49:31.505Z",
+  "versionId": "bc4c62bf-bfd0-4c3e-871e-09302c53de02"
+}
