@@ -1,0 +1,508 @@
+{
+  "active": false,
+  "connections": {
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Get chat embedding",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pull linkedin profiles1": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking 'Test workflow'": {
+      "main": [
+        [
+          {
+            "node": "Pull linkedin profiles1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get chat embedding": {
+      "main": [
+        [
+          {
+            "node": "Vectors results",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Vectors results": {
+      "main": [
+        [
+          {
+            "node": "GET User IDs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GET User IDs": {
+      "main": [
+        [
+          {
+            "node": "Postgres",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-04-15T08:47:11.740Z",
+  "id": "1tyCbZRWNWibLbPI",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "linkedin_req",
+  "nodes": [
+    {
+      "parameters": {
+        "url": "https://fresh-linkedin-profile-data.p.rapidapi.com/get-linkedin-profile-by-salesnavurl",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "linkedin_url",
+              "value": "={{ $json.LinkeIN_url }}"
+            },
+            {
+              "name": "include_skills",
+              "value": "true"
+            },
+            {
+              "name": "include_certifications",
+              "value": "true"
+            },
+            {
+              "name": "include_publications",
+              "value": "true"
+            },
+            {
+              "name": "include_honors",
+              "value": "true"
+            },
+            {
+              "name": "include_volunteers",
+              "value": "true"
+            },
+            {
+              "name": "include_projects",
+              "value": "true"
+            },
+            {
+              "name": "include_patents",
+              "value": "true"
+            },
+            {
+              "name": "include_courses",
+              "value": "true"
+            },
+            {
+              "name": "include_organizations",
+              "value": "true"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "x-rapidapi-host",
+              "value": "fresh-linkedin-profile-data.p.rapidapi.com"
+            },
+            {
+              "name": "x-rapidapi-key",
+              "value": "85508ef12dmsh86fbb4e9b248ae7p12a1edjsnc4c756c98880"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1080,
+        -380
+      ],
+      "id": "05d9e311-c15a-4e60-a032-c09ffbb1821a",
+      "name": "HTTP Request",
+      "retryOnFail": true,
+      "maxTries": 2
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1WCkiHRiknt-JU39WnhAfvfB1o6CkFhTF-JgWx_Kz6pM",
+          "mode": "list",
+          "cachedResultName": "Linkedin Info",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WCkiHRiknt-JU39WnhAfvfB1o6CkFhTF-JgWx_Kz6pM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Employes",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WCkiHRiknt-JU39WnhAfvfB1o6CkFhTF-JgWx_Kz6pM/edit#gid=0"
+        },
+        "options": {}
+      },
+      "id": "429f5c57-c833-41c8-8de8-6d62c2637efa",
+      "name": "Pull linkedin profiles1",
+      "type": "n8n-nodes-base.googleSheets",
+      "position": [
+        0,
+        -160
+      ],
+      "typeVersion": 4.5,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "VqBZlK3vKXeQiMtM",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -240,
+        -320
+      ],
+      "id": "7255ad64-5e4c-4f7c-a0bc-3343360a7165",
+      "name": "When clicking 'Test workflow'"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5d9a1ffc-a8e3-4cf9-9f40-636c36781a3b",
+              "name": "data.certifications",
+              "value": "={{ $json.data.certifications }}",
+              "type": "array"
+            },
+            {
+              "id": "9a9b8c03-a81a-4714-bc6c-90bb7287d281",
+              "name": "data.honors_and_awards",
+              "value": "={{ $json.data.honors_and_awards }}",
+              "type": "array"
+            },
+            {
+              "id": "e249f312-b24c-4525-adfb-9f084326745f",
+              "name": "data.languages",
+              "value": "={{ $json.data.languages }}",
+              "type": "array"
+            },
+            {
+              "id": "551de08d-db39-4d43-9782-d3ed3cff7692",
+              "name": "data.organizations",
+              "value": "={{ $json.data.organizations[0].name }}",
+              "type": "string"
+            },
+            {
+              "id": "85c4e7c7-c5b0-41b6-8af7-e671d81d282e",
+              "name": "data.profile_image_url",
+              "value": "={{ $json.data.profile_image_url }}",
+              "type": "string"
+            },
+            {
+              "id": "80e1a1ac-ba8a-435e-bfbd-a22f647fefe3",
+              "name": "data.projects",
+              "value": "={{ $json.data.projects }}",
+              "type": "array"
+            },
+            {
+              "id": "769790f6-5fb0-436c-89f7-032d788c2ba9",
+              "name": "data.publications",
+              "value": "={{ $json.data.publications }}",
+              "type": "array"
+            },
+            {
+              "id": "42e34379-0f3a-4821-b3e5-72dee77a06a7",
+              "name": "data.volunteers",
+              "value": "={{ $json.data.volunteers }}",
+              "type": "array"
+            },
+            {
+              "id": "5a540f47-6e3a-4c82-a5cd-6aff79eb7432",
+              "name": "data.experiences",
+              "value": "={{ $json.data.experiences }}",
+              "type": "array"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        680,
+        280
+      ],
+      "id": "d1725e56-f721-4edc-8a7b-14771642d72b",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://192.168.20.70:11434/api/embeddings",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "model",
+              "value": "nomic-embed-text"
+            },
+            {
+              "name": "prompt",
+              "value": "=get resource ID for {{ $json.data.full_name.normalize('NFD').replace(/[\\u0300-\\u036f]/g, '') }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "5284308d-cdf8-40a2-aaac-0649631e097b",
+      "name": "Get chat embedding",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        1380,
+        -520
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "upsert",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "linkedin_info",
+          "mode": "list",
+          "cachedResultName": "linkedin_info"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "id": "={{ $('HTTP Request').item.json.data.profile_id }}",
+            "payload": "={{ $('HTTP Request').item.json.data }}",
+            "url": "={{ $('Wait').item.json.LinkeIN_url }}",
+            "ganttic_res_id": "={{ $json.id || '' }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": true,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "url",
+              "displayName": "url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "payload",
+              "displayName": "payload",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "ganttic_res_id",
+              "displayName": "ganttic_res_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        2340,
+        -120
+      ],
+      "id": "0478331d-2c07-488c-baae-b05d6c0f97cd",
+      "name": "Postgres",
+      "credentials": {
+        "postgres": {
+          "id": "wK2pSCG9jTniRU28",
+          "name": "Postgres account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 4
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        820,
+        -220
+      ],
+      "id": "25440c5e-504b-470c-948b-5ada0db4f648",
+      "name": "Wait",
+      "webhookId": "4d3b37c3-4750-4f6a-97fc-f47c6f44b83a"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "= SELECT * FROM (\n  SELECT match_documents_resources_facts( '[{{ $json.embedding }}]', 1, '{\"fact_type\": [\"identity\"]}' , 0.7 )\n  ) AS t\nUNION ALL\nSELECT null\nLIMIT 1;",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        1700,
+        -520
+      ],
+      "id": "9cc45b20-4d54-41af-99cd-d81e159d7eca",
+      "name": "Vectors results",
+      "credentials": {
+        "postgres": {
+          "id": "wK2pSCG9jTniRU28",
+          "name": "Postgres account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "let imts = $json.match_documents_resources_facts;\nlet arr = '';\ntry{\n  arr = imts.split(',')[1].replace('(', '');\n}catch{};\nreturn{\n    json: {\n      id: arr\n    }\n  }\n;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2020,
+        -340
+      ],
+      "id": "380ba3a2-1d54-4a7b-9419-8562ef80df34",
+      "name": "GET User IDs"
+    },
+    {
+      "parameters": {
+        "options": {
+          "reset": false
+        }
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        580,
+        -380
+      ],
+      "id": "74086d83-cafd-4b2e-b691-0c4ab998dfeb",
+      "name": "Loop Over Items",
+      "retryOnFail": true
+    }
+  ],
+  "pinData": {},
+  "repo_name": "n8n-backup-zm",
+  "repo_owner": "zlatkomq",
+  "repo_path": "",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-03-31T12:45:21.811Z",
+      "updatedAt": "2025-03-31T12:45:21.811Z",
+      "id": "mUYuMooITov17Xfj",
+      "name": "Ganttic"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-04-15T11:44:20.137Z",
+  "versionId": "25d57ff9-80fb-497a-9f3b-7f60578712f8"
+}
