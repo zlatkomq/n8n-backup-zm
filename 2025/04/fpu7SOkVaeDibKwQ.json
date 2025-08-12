@@ -1,0 +1,1066 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "Return all documents - FAQ",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read from sheet": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "node": "Create Document Bulk - FAQ",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Embed question - ollama",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge questions and embeddings": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embed question - ollama": {
+      "main": [
+        [
+          {
+            "node": "Merge questions and embeddings",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Return all documents - FAQ": {
+      "main": [
+        [
+          {
+            "node": "Delete all documents - FAQ",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Empty Ouput": {
+      "main": [
+        [
+          {
+            "node": "Read from sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Delete all documents - FAQ": {
+      "main": [
+        [
+          {
+            "node": "Empty Ouput",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload to LlamaParse": {
+      "main": [
+        [
+          {
+            "node": "Get Processing Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Processing Status": {
+      "main": [
+        [
+          {
+            "node": "Is Job Ready?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait to stay within service limits": {
+      "main": [
+        [
+          {
+            "node": "Get Processing Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Job Ready?": {
+      "main": [
+        [
+          {
+            "node": "Get Parsed Invoice Data",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [],
+        [],
+        [
+          {
+            "node": "Wait to stay within service limits",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Parsed Invoice Data": {
+      "main": [
+        [
+          {
+            "node": "Clean text",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Clean text": {
+      "main": [
+        [
+          {
+            "node": "OpenAI",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge all questions": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI": {
+      "main": [
+        [
+          {
+            "node": "Merge all questions",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search for question in faq": {
+      "main": [
+        [
+          {
+            "node": "If Match",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Embed question - ollama2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If Match": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Read from sheet2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Search for question in faq1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items1": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Embed question - ollama2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge questions and embeddings1": {
+      "main": [
+        [
+          {
+            "node": "Search for question in faq",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read from sheet2": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embed question - ollama2": {
+      "main": [
+        [
+          {
+            "node": "Merge questions and embeddings1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-04-23T19:09:05.899Z",
+  "id": "fpu7SOkVaeDibKwQ",
+  "isArchived": false,
+  "meta": null,
+  "name": "RFP_FAQ",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "5ca228d6-43a1-46a6-a41c-f29e9512cf76",
+      "name": "When clicking ‘Test workflow’",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1180,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "17dXQ9bcziiKPAYaSIlbE3W9hNK31f8Hd1mM2fl1oOj4",
+          "mode": "list",
+          "cachedResultName": "RFP FAQ",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/17dXQ9bcziiKPAYaSIlbE3W9hNK31f8Hd1mM2fl1oOj4/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "FAQ",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/17dXQ9bcziiKPAYaSIlbE3W9hNK31f8Hd1mM2fl1oOj4/edit#gid=0"
+        },
+        "options": {}
+      },
+      "id": "7449e59a-a1d2-454c-a6e1-99c213b1de1d",
+      "name": "Read from sheet",
+      "type": "n8n-nodes-base.googleSheets",
+      "position": [
+        -460,
+        160
+      ],
+      "typeVersion": 4.3
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "48d7068e-bf84-4991-994a-700094152573",
+      "name": "Loop Over Items",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -240,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const id = Date.now() + Math.floor(Math.random() * 1000);\nconst question =  $('Loop Over Items').first().json.Question; // Original question\nconst answer =  $('Loop Over Items').first().json.Answer; // Original question\nconst embedding = $input.first().json.embeddings[0]; // Extracted embedding\nreturn { id, embedding, question, answer };"
+      },
+      "id": "4212715f-7de3-4617-979e-c8bf201492e2",
+      "name": "Merge questions and embeddings",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        200,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://192.168.20.70:11434/api/embed",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"nomic-embed-text:latest\",\n  \"input\": [\"{{ $json.Question }}\"]\n}",
+        "options": {}
+      },
+      "id": "51a877fb-1164-41ae-8af3-51cbda87a9bf",
+      "name": "Embed question - ollama",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        0,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "indexId": "faq",
+        "returnAll": true,
+        "simple": false,
+        "options": {
+          "query": ""
+        }
+      },
+      "id": "636d3c1a-49e2-4130-a4c9-dbbf1aeef1e0",
+      "name": "Return all documents - FAQ",
+      "type": "n8n-nodes-base.elasticsearch",
+      "typeVersion": 1,
+      "position": [
+        -1000,
+        160
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "elasticsearchApi": {
+          "id": "wwaILZtoajWrVXwt",
+          "name": "Elasticsearch account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "return [];"
+      },
+      "id": "bff5cc8e-d947-47d4-ab44-a5fc2bc330d9",
+      "name": "Empty Ouput",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -620,
+        160
+      ],
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "indexId": "faq",
+        "documentId": "={{ $json._id }}",
+        "options": {
+          "bulkOperation": true
+        }
+      },
+      "id": "2c27c73b-5e0a-4111-9a0c-6e968ce491c6",
+      "name": "Delete all documents - FAQ",
+      "type": "n8n-nodes-base.elasticsearch",
+      "typeVersion": 1,
+      "position": [
+        -800,
+        160
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "elasticsearchApi": {
+          "id": "wwaILZtoajWrVXwt",
+          "name": "Elasticsearch account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "indexId": "faq",
+        "dataToSend": "autoMapInputData",
+        "additionalFields": {},
+        "options": {
+          "bulkOperation": true
+        }
+      },
+      "id": "4b54f259-b622-454b-8402-5843ee27f79b",
+      "name": "Create Document Bulk - FAQ",
+      "type": "n8n-nodes-base.elasticsearch",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "credentials": {
+        "elasticsearchApi": {
+          "id": "wwaILZtoajWrVXwt",
+          "name": "Elasticsearch account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.cloud.llamaindex.ai/api/parsing/upload",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "parameterType": "formBinaryData",
+              "name": "file",
+              "inputDataFieldName": "=file"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "54cfe3f6-bb94-4b26-9503-d725eebd96a3",
+      "name": "Upload to LlamaParse",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        -3340,
+        1120
+      ],
+      "typeVersion": 4.2
+    },
+    {
+      "parameters": {
+        "content": "## 1. Advanced PDF Processing with LlamaParse\n[Read more about using HTTP Requests](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.httprequest/)\n\nLlamaIndex's LlamaCloud is a cloud-based service that allows you to upload,\nparse, and index document. LlamaParse is a tool offered by LlamaCloud\nto parse for complex PDFs with embedded objects ie PDF Tables and figures.\n\nAt time of writing, you can parse 1000 pdfs/day with LlamaCloud's free plan\nby signing up at [https://cloud.llamaindex.ai/](https://cloud.llamaindex.ai/?ref=n8n.io).",
+        "height": 623.4951418211454,
+        "width": 785.9525375246163,
+        "color": 7
+      },
+      "id": "7e4d19f8-b8a3-4ef1-b5a3-dd9adacd6c4b",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -3420,
+        860
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "url": "=https://api.cloud.llamaindex.ai/api/parsing/job/{{ $json.id }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "5927bdc1-1044-47ad-a35a-860770c5cdff",
+      "name": "Get Processing Status",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        -3180,
+        1120
+      ],
+      "typeVersion": 4.2
+    },
+    {
+      "parameters": {
+        "amount": 1
+      },
+      "id": "567f0726-c090-4e9f-919c-3f4188e33766",
+      "name": "Wait to stay within service limits",
+      "type": "n8n-nodes-base.wait",
+      "position": [
+        -2800,
+        1300
+      ],
+      "webhookId": "17a96ed6-b5ff-47bb-a8a2-39c1eb40185a",
+      "typeVersion": 1.1
+    },
+    {
+      "parameters": {
+        "url": "=https://api.cloud.llamaindex.ai/api/parsing/job/{{ $json.id }}/result/markdown",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {
+          "redirect": {
+            "redirect": {}
+          }
+        }
+      },
+      "id": "d70ce11f-742e-4e08-9cf2-81f7834ce56e",
+      "name": "Get Parsed Invoice Data",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        -2800,
+        980
+      ],
+      "typeVersion": 4.2
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "id": "300fce8c-b19a-4d0c-86e8-f62853c70ce2",
+                    "operator": {
+                      "name": "filter.operator.equals",
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "leftValue": "={{ $json.status }}",
+                    "rightValue": "SUCCESS"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "SUCCESS"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "id": "e6058aa0-a3e2-4ce3-9bed-6ff41a5be052",
+                    "operator": {
+                      "name": "filter.operator.equals",
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "leftValue": "={{ $json.status }}",
+                    "rightValue": "ERROR"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "ERROR"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "id": "ceb6338f-4261-40ac-be11-91f61c7302ba",
+                    "operator": {
+                      "name": "filter.operator.equals",
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "leftValue": "={{ $json.status }}",
+                    "rightValue": "CANCELED"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "CANCELED"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "id": "0fa97d86-432a-409a-917e-5f1a002b1ab9",
+                    "operator": {
+                      "name": "filter.operator.equals",
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "leftValue": "={{ $json.status }}",
+                    "rightValue": "PENDING"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "PENDING"
+            }
+          ]
+        },
+        "options": {
+          "allMatchingOutputs": true
+        }
+      },
+      "id": "a092a7f8-88fc-4eb3-b1bf-86702933ee8c",
+      "name": "Is Job Ready?",
+      "type": "n8n-nodes-base.switch",
+      "position": [
+        -3000,
+        1120
+      ],
+      "typeVersion": 3
+    },
+    {
+      "parameters": {
+        "jsCode": "\n// Initialize an empty array to hold all questions\nlet allQuestions = [];\n\n// Iterate through all incoming items\nitems.forEach(item => {\n    // Check if the item has a 'questions' array and merge it\n    if (item.json.message.content.questions && Array.isArray(item.json.message.content.questions)) {\n        allQuestions = allQuestions.concat(item.json.message.content.questions);\n    }\n});\n\n// Return a single item containing the merged array\nreturn [\n    {\n        json: {\n            rfpquestions: allQuestions\n        }\n    }\n];"
+      },
+      "id": "e2bc8dee-40e0-4487-b413-c33e6cedf695",
+      "name": "Merge all questions",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -2040,
+        980
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const chunkSize = 2000; // Adjust based on token limits\n\nlet cleanedText = $input.first().json.markdown\n    .replace(/\\n+/g, \" \") // Remove excessive newlines\n    .replace(/Page \\d+/g, \"\"); // Remove page numbers\n\nlet chunks = [];\nfor (let i = 0; i < cleanedText.length; i += chunkSize) {\n    chunks.push(cleanedText.slice(i, i + chunkSize));\n}\n\nreturn chunks.map((chunk, index) => ({\n    chunkIndex: index,\n    chunkText: chunk,\n}));"
+      },
+      "id": "b73118f0-4b1d-4782-b413-8c9b583807cd",
+      "name": "Clean text",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -2580,
+        980
+      ]
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "rfpquestions",
+        "options": {}
+      },
+      "id": "cb0d34b8-9c02-4d3a-9d52-17b36fe42f14",
+      "name": "Split Out",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        -1820,
+        980
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://192.168.20.70:9204/rfp/_doc?pretty",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "elasticsearchApi",
+        "sendHeaders": true,
+        "specifyHeaders": "json",
+        "jsonHeaders": "{\n  \"Content-Type\": \"application/json\"\n}",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "id",
+              "value": "={{ $json.id }}"
+            },
+            {
+              "name": "text",
+              "value": "={{ $json.text }}"
+            },
+            {
+              "name": "=embedding",
+              "value": "={{ $json.embedding }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "e5713252-a929-4e43-8efe-9308b2a5a2a1",
+      "name": "RFP - Add to ElasticSearch - bulk",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -360,
+        680
+      ]
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-2024-11-20",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-2024-11-20"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=Please extract all the questions from the following text and return them as a JSON object in the following format:\n{\n  \"questions\": [\n    \"Question 1\",\n    \"Question 2\",\n    \"Question 3\"\n  ]\n}\nHere is the text: {{ $json.chunkText }}"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {}
+      },
+      "id": "86d7eac0-b87c-4416-9925-e7e27a8e621d",
+      "name": "OpenAI",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.7,
+      "position": [
+        -2380,
+        980
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://192.168.20.70:9204/faq/_search?pretty",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "elasticsearchApi",
+        "sendHeaders": true,
+        "specifyHeaders": "json",
+        "jsonHeaders": "{\n  \"Content-Type\": \"application/json\"\n}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"knn\": {\n    \"field\": \"embedding\",\n    \"query_vector\": [{{ $json.embedding }}],\n    \"k\": 1,\n    \"num_candidates\": 20\n  },\n  \"_source\": [\"question\", \"answer\"]\n}",
+        "options": {
+          "allowUnauthorizedCerts": false
+        }
+      },
+      "id": "b250811c-0d16-455e-b392-8f54f4654066",
+      "name": "Search for question in faq",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -960,
+        1000
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "765cc1f2-2c96-4847-a9e0-594532ae96d6",
+              "name": "rfpquestions",
+              "value": "={{ $json[\"Test Question\"] }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "678b71f5-ed3a-46de-81cd-c522571ce1ac",
+      "name": "Edit Fields",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1460,
+        720
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "4937699c-12cd-4378-911f-5fee35c32788",
+              "leftValue": "={{ $json.hits.hits[0]._score }}",
+              "rightValue": 0.81,
+              "operator": {
+                "type": "number",
+                "operation": "gte"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "20c656b6-02af-4933-82c2-dee5bfd9223a",
+      "name": "If Match",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -760,
+        1000
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "765cc1f2-2c96-4847-a9e0-594532ae96d6",
+              "name": "embedding",
+              "value": "={{ $json.embeddings[0] }}",
+              "type": "string"
+            },
+            {
+              "id": "f6dd45b2-2928-4c15-bf06-54f9826c01d8",
+              "name": "question",
+              "value": "={{ $('Edit Fields').item.json.rfpquestions }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "e617044d-1f6b-49ac-adba-dacb388d56d5",
+      "name": "Edit Fields1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1020,
+        720
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://192.168.20.70:9204/faq/_search?pretty",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "elasticsearchApi",
+        "sendHeaders": true,
+        "specifyHeaders": "json",
+        "jsonHeaders": "{\n  \"Content-Type\": \"application/json\"\n}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"knn\": {\n    \"field\": \"embedding\",\n    \"query_vector\": {{ $json.embedding }},\n    \"k\": 1,\n    \"num_candidates\": 20\n  },\n  \"_source\": [\"question\", \"answer\"]\n}",
+        "options": {
+          "allowUnauthorizedCerts": false
+        }
+      },
+      "id": "89c684a4-5bb2-427b-865d-c04feaeddde4",
+      "name": "Search for question in faq1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -800,
+        720
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "e7120083-e23a-46a9-a92d-5d200eeeace2",
+        "options": {}
+      },
+      "id": "f398e47a-ab62-49e7-b864-9ef76e3efdb3",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -3660,
+        1120
+      ],
+      "webhookId": "e7120083-e23a-46a9-a92d-5d200eeeace2"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -600,
+        720
+      ],
+      "id": "43df89c5-1f7d-4599-9623-8c33151c7759",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "8784b911-6c44-430f-881e-4b0c7089cc0f",
+      "name": "Loop Over Items1",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -1560,
+        980
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const question =  $('Loop Over Items1').first().json.rfpquestions; // Original question\nconst embedding = $input.first().json.embeddings[0]; // Extracted embedding\nreturn { embedding, question };"
+      },
+      "id": "e2ccb7e1-5388-4fb5-b871-ab560bbd6db9",
+      "name": "Merge questions and embeddings1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1160,
+        1000
+      ]
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "17dXQ9bcziiKPAYaSIlbE3W9hNK31f8Hd1mM2fl1oOj4",
+          "mode": "list",
+          "cachedResultName": "RFP FAQ",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/17dXQ9bcziiKPAYaSIlbE3W9hNK31f8Hd1mM2fl1oOj4/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 467545788,
+          "mode": "list",
+          "cachedResultName": "TestData",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/17dXQ9bcziiKPAYaSIlbE3W9hNK31f8Hd1mM2fl1oOj4/edit#gid=467545788"
+        },
+        "options": {}
+      },
+      "id": "d3bf6de0-0a50-47e7-bb7d-2010e5af0bfa",
+      "name": "Read from sheet2",
+      "type": "n8n-nodes-base.googleSheets",
+      "position": [
+        -1660,
+        720
+      ],
+      "typeVersion": 4.3
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://192.168.20.70:11434/api/embed",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"nomic-embed-text:latest\",\n  \"input\": [\"{{ $json.rfpquestions }}\"]\n}",
+        "options": {}
+      },
+      "id": "4f1f30eb-8b9d-4398-98d1-8acbb88aebc7",
+      "name": "Embed question - ollama2",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1340,
+        1000
+      ]
+    }
+  ],
+  "pinData": {},
+  "repo_name": "n8n-backup-zm",
+  "repo_owner": "zlatkomq",
+  "repo_path": "",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-04-23T19:10:51.679Z",
+  "versionId": "1503dffd-8c10-4b71-82a9-7bf28ff43795"
+}
