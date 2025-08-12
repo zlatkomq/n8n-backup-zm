@@ -1,0 +1,774 @@
+{
+  "active": false,
+  "connections": {
+    "Vector Store Tool": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Code- Workflow ID lekérdezése",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calculator": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wikipedia": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webscrape": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Research the internet": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI1": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Supabase Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supabase Vector Store": {
+      "ai_vectorStore": [
+        [
+          {
+            "node": "Vector Store Tool",
+            "type": "ai_vectorStore",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code- Workflow ID lekérdezése": {
+      "main": [
+        [
+          {
+            "node": "Execute Workflow",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CRM Summary": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Markdown_to_BBCode": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prompt extension": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres Chat Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Main": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Vector Query": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Vector Store Tool",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres": {
+      "main": [
+        [
+          {
+            "node": "OpenAI",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Flux picture generator": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Prompt extension",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Markdown_to_BBCode",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Postgres",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-03-25T16:47:07.662Z",
+  "id": "G7XwSZ9W6mAcAOrb",
+  "isArchived": false,
+  "meta": null,
+  "name": "ai_agent_example",
+  "nodes": [
+    {
+      "parameters": {
+        "name": "KnowledgeBase"
+      },
+      "id": "64975e22-9796-499e-9437-fa9c1836b668",
+      "name": "Vector Store Tool",
+      "type": "@n8n/n8n-nodes-langchain.toolVectorStore",
+      "typeVersion": 1,
+      "position": [
+        660,
+        680
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://{{ $('Postgres').item.json.bitrix_link }}/rest/1/{{ $('Postgres').item.json.rest_api_secret_chatbot }}/imbot.message.add.json ",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "BOT_ID",
+              "value": "={{ $('Webhook').item.json.body.BOT_ID }}"
+            },
+            {
+              "name": "CLIENT_ID",
+              "value": "={{ $('Webhook').item.json.body.CLIENT_ID }}"
+            },
+            {
+              "name": "DIALOG_ID",
+              "value": "={{ $('Webhook').item.json.body.DIALOG_ID }}"
+            },
+            {
+              "name": "MESSAGE",
+              "value": "={{ $json.formatted_output }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "9b4d5cda-0724-4ccc-a976-eca4afa93563",
+      "name": "HTTP Request",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1140,
+        420
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "e23917c2-eeeb-43a8-8a97-49c3ffb2385e",
+      "name": "Calculator",
+      "type": "@n8n/n8n-nodes-langchain.toolCalculator",
+      "typeVersion": 1,
+      "position": [
+        1380,
+        740
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "5875f167-5052-440a-b43d-2c18f91c0e71",
+      "name": "Wikipedia",
+      "type": "@n8n/n8n-nodes-langchain.toolWikipedia",
+      "typeVersion": 1,
+      "position": [
+        1320,
+        960
+      ]
+    },
+    {
+      "parameters": {
+        "name": "webscrape",
+        "description": "Call this tool to scrape a single webpage the user want to read. The input should be the URL of the webpage.",
+        "workflowId": "pT8oGUPHPlivYOks",
+        "fields": {
+          "values": [
+            {
+              "name": "language",
+              "stringValue": "={{ $json.language }}"
+            },
+            {
+              "name": "geo",
+              "stringValue": "={{ $json.geo}}"
+            },
+            {
+              "name": "country",
+              "stringValue": "={{ $json.country }}"
+            }
+          ]
+        }
+      },
+      "id": "704e50c2-7356-4141-9a3a-0301ec204771",
+      "name": "Webscrape",
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 1.1,
+      "position": [
+        1060,
+        960
+      ],
+      "notesInFlow": true,
+      "notes": "Scrapeninja/Srappey workflow"
+    },
+    {
+      "parameters": {
+        "name": "Websearching",
+        "description": "Call this tool to research the internet. The input should be the question in Hungarian language. Ensure that the response includes a list of source websites used to generate the answer, extracted from the 'citations' array, and displayed below the answer.",
+        "workflowId": "N95alUdncLIw1h53",
+        "responsePropertyName": "answer"
+      },
+      "id": "6c28d294-2c6b-4e70-8e3b-ee5a1ba4615d",
+      "name": "Research the internet",
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 1.1,
+      "position": [
+        1200,
+        960
+      ],
+      "notesInFlow": true,
+      "notes": "Perplexity keresés"
+    },
+    {
+      "parameters": {
+        "content": "## INTERNET FUNKCIÓK",
+        "height": 292.90697674418595,
+        "width": 418.16279069767427
+      },
+      "id": "573d056d-6d07-405f-8bb0-9eec8edc4a1b",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1020,
+        900
+      ]
+    },
+    {
+      "parameters": {
+        "model": "text-embedding-3-small",
+        "options": {}
+      },
+      "id": "7eee546f-095c-4c8f-8afa-20ffc9182da6",
+      "name": "Embeddings OpenAI1",
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1,
+      "position": [
+        380,
+        1060
+      ]
+    },
+    {
+      "parameters": {
+        "tableName": {
+          "__rl": true,
+          "value": "documents",
+          "mode": "list",
+          "cachedResultName": "documents"
+        },
+        "options": {
+          "queryName": "match_documents"
+        }
+      },
+      "id": "86189446-65f5-4736-89f6-09ea728e0d14",
+      "name": "Supabase Vector Store",
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
+      "typeVersion": 1,
+      "position": [
+        400,
+        900
+      ],
+      "credentials": {
+        "supabaseApi": {
+          "id": "Vbtfas1bVCzZ2Wde",
+          "name": "Supabase account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get the execution ID\nconst executionId = $execution.id;\n\n// You can store this value in the node output to use it later in the workflow\nreturn {\n  json: {\n    executionId: executionId\n  }\n};\n"
+      },
+      "id": "90fcb606-53d0-460d-bfee-aac0e856aa98",
+      "name": "Code- Workflow ID lekérdezése",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1320,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "name": "Bitrix_CRM_tool",
+        "description": "=Call this tool if the user want a summary from a company deal stored in Bitrix. The input of the workflow should the deal ID number. ",
+        "workflowId": {
+          "__rl": true,
+          "value": "RsUQLsDUyqDkLqWU",
+          "mode": "list",
+          "cachedResultName": "Ebringa — 014. Bitrix CRM"
+        },
+        "responsePropertyName": "result",
+        "fields": {
+          "values": [
+            {
+              "name": "bitrix_link_crm_modul",
+              "stringValue": "={{ $node[\"Postgres\"].json[\"bitrix_link\"] }}"
+            },
+            {
+              "name": "rest_api_secret_crm_modul",
+              "stringValue": "={{ $node[\"Postgres\"].json[\"rest_api_secret_crm\"] }}"
+            },
+            {
+              "name": "BOT_ID",
+              "stringValue": "={{ $node[\"Webhook\"].json[\"body\"][\"BOT_ID\"] }}"
+            },
+            {
+              "name": "CLIENT_ID",
+              "stringValue": "={{ $node[\"Webhook\"].json[\"body\"][\"CLIENT_ID\"] }}"
+            },
+            {
+              "name": "DIALOG_ID",
+              "stringValue": "={{ $node[\"Webhook\"].json[\"body\"][\"DIALOG_ID\"] }}"
+            },
+            {
+              "name": "rest_api_secret_chatbot",
+              "stringValue": "={{ $node[\"Postgres\"].json[\"rest_api_secret_chatbot\"] }}"
+            }
+          ]
+        }
+      },
+      "id": "3d732921-3b1d-4725-bd09-19824e037c74",
+      "name": "CRM Summary",
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        1600,
+        740
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Feltételezve, hogy az előző node \"output\" mező tartalmazza a markdown szöveget\nlet output = $json[\"output\"];\n\n// Markdown formázás cseréje BBCode-ra\nlet formatted_output = output.replace(/\\*\\*(.*?)\\*\\*/g, '[B]$1[/B]');  // **text** -> <b>text</b>\nformatted_output = formatted_output.replace(/\\*(.*?)\\*/g, '[I]$1[/I]'); // *text* -> <i>text</i>\n// Hasonló szabályokat hozhatsz létre más markdown elemekhez is\n\n\n// A következő node-nak a \"formatted_output\" mezőt adjuk át\nreturn {\n  formatted_output: formatted_output\n};\n\n"
+      },
+      "id": "0d3369c5-c516-45ed-a5da-c479faddcdd2",
+      "name": "Markdown_to_BBCode",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        960,
+        280
+      ],
+      "notesInFlow": true,
+      "notes": "Formátum váltás"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Webhookból érkező MESSAGE string\n//let message = $json[\"body\"][\"MESSAGE\"];\nlet message = $node[\"Webhook\"].json[\"body\"][\"MESSAGE\"];\n// Eltávolítjuk a \"reply: '\" előtagot, ha benne van, valamint a végéről a záró ' jelet is\nmessage = message.replace(/^reply:\\s*'/, '').replace(/'$/, '');\n\n// Definiálunk egy objektumot, ahol a rövid kódok és a hozzájuk tartozó promptok vannak.\nconst promptReplacements = {\n    \"/crmmail\": \"Te egy profi értékesítési asszisztens vagy az Ebringa Zrt-nél. Használd a Bitrix_CRM_Tool eszközöd, hogy az értékesítéssel kapcsolatos előzményeket megkapd. Fogalmazz meg egy üzleti levelet a vásárlónak az értékesítő nevében a következő információk alapján: deal száma: \",\n    \"/translate\": \"Profi szakfordító vagy 20 éves tapasztalattal. Fordítsd le az következő szöveget angolra. Ügyelj a nyelvhelyességre! Az üzenet a következő:\"\n    // Itt tudsz további rövidítéseket és hozzájuk tartozó promptokat hozzáadni\n};\n\n// Keresd meg a \"/xxx\" kódot a MESSAGE szövegben (keressük a \"/\" jeltől az első szóközig vagy a szöveg végéig)\nconst regex = /\\/(\\w+)\\b/;\nconst match = message.match(regex);\n\nif (match) {\n    const code = `/${match[1]}`;\n\n    // Ha a kód szerepel a promptReplacements objektumban, akkor helyettesítjük a megfelelő prompttal\n    if (promptReplacements[code]) {\n        message = `${promptReplacements[code]} ${message.replace(match[0], '').trim()}`;\n    }\n}\n\n// Visszaküldjük az eredeti vagy a módosított MESSAGE-t új mezőben\nreturn {\n  json: {\n    ...$json,  // Az összes eredeti adat megmarad\n    body: {\n      ...$json[\"body\"],\n      formatted_message: message  // Az új mezőbe tesszük a módosított üzenetet\n    }\n  }\n};\n\n"
+      },
+      "id": "e96eeda3-f0de-4faf-87f3-d6fd6d2526bc",
+      "name": "Prompt extension",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        260,
+        340
+      ],
+      "notesInFlow": true,
+      "notes": "Speciális rövidítő promptok a gyakran használt parancsokhoz."
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $node[\"Webhook\"].json[\"body\"]['DIALOG_ID'] }}",
+        "tableName": "n8n_ebringa_chat_histories"
+      },
+      "id": "5cf3f6ab-c502-42ae-b853-b85bfbb78c83",
+      "name": "Postgres Chat Memory",
+      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+      "typeVersion": 1.1,
+      "position": [
+        420,
+        700
+      ]
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "kwrT6fCAFigD1odO",
+          "mode": "list",
+          "cachedResultName": "Ebringa — DEMO: Utólagos lekérdezés"
+        },
+        "options": {
+          "waitForSubWorkflow": false
+        }
+      },
+      "id": "6bdef1d1-45d1-452e-84db-760cbd275a2c",
+      "name": "Execute Workflow",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.1,
+      "position": [
+        1560,
+        420
+      ]
+    },
+    {
+      "parameters": {
+        "model": "gpt-4o",
+        "options": {
+          "frequencyPenalty": 0.5,
+          "maxTokens": -1,
+          "presencePenalty": 0,
+          "temperature": 0.7
+        }
+      },
+      "id": "c6e34a63-a92e-4f31-a597-89d1470b8ccc",
+      "name": "OpenAI Chat Main",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1,
+      "position": [
+        180,
+        680
+      ]
+    },
+    {
+      "parameters": {
+        "model": "gpt-4o-mini-2024-07-18",
+        "options": {}
+      },
+      "id": "455b273d-a3b5-40bb-a50e-2d167d94b978",
+      "name": "OpenAI Vector Query",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1,
+      "position": [
+        820,
+        920
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "customer",
+          "mode": "list",
+          "cachedResultName": "customer"
+        },
+        "where": {
+          "values": [
+            {
+              "column": "bitrix_bot_client_id",
+              "value": "={{ $json.body.CLIENT_ID }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "7828966c-14f6-4679-8e0d-3bce84f17692",
+      "name": "Postgres",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        -260,
+        400
+      ],
+      "notesInFlow": true,
+      "notes": "Costumer adatok kiválasztása"
+    },
+    {
+      "parameters": {
+        "name": "picture",
+        "description": "Call this tool to generate a picture. The input should be the prompt for the generation in English language. The tool will give back the URL of the picture, which you need to add to your answer. The text part of your answer should be in the same language as the question from the user. Ensure that the URL is inserted directly without square brackets or additional characters.",
+        "workflowId": {
+          "__rl": true,
+          "value": "lkgu6tZMjfzBX1uy",
+          "mode": "list",
+          "cachedResultName": "Ebringa — Flux picture generator"
+        },
+        "responsePropertyName": "link",
+        "fields": {
+          "values": [
+            {
+              "name": "customer_nummer",
+              "type": "numberValue",
+              "numberValue": "={{ $json.customer_number }}"
+            }
+          ]
+        }
+      },
+      "id": "cabc6f12-d23f-47d4-bfe8-d3f045435d13",
+      "name": "Flux picture generator",
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        1760,
+        740
+      ],
+      "notesInFlow": true,
+      "notes": "Picture generator"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "e1dc8585-f604-49db-8da7-775f67de0041",
+              "leftValue": "={{$json[\"message\"][\"content\"][\"long_form\"]}}\n",
+              "rightValue": "yes",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "44bceef5-aba3-4396-8984-96b3ca558715",
+              "leftValue": "={{$json[\"message\"][\"content\"][\"source_link\"]}}",
+              "rightValue": "not defined",
+              "operator": {
+                "type": "string",
+                "operation": "notContains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "id": "9299f1fa-fa4f-4cfc-8e69-d3d419086552",
+      "name": "If",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        120,
+        180
+      ]
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "You are an assistant that analyzes user requests to determine if they are asking for a long-form article based on a web source. If the user's request meets this criterion, respond with the following details: the source link, article format (e.g., blog post, product description, social media post), the number of paragraphs, and the word count per paragraph. Also, respond with \"long_form\": \"yes\" if the user explicitly requests a long-form article, or \"long_form\": \"no\" if they do not. If any of these details are missing in the user's prompt, replace them with the words \"not defined\".\n",
+              "role": "system"
+            },
+            {
+              "content": "={{ $('Webhook').item.json.body.MESSAGE }}"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {
+          "temperature": 1
+        }
+      },
+      "id": "98b20135-dced-469f-a693-4acb647dcdca",
+      "name": "OpenAI",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.6,
+      "position": [
+        -300,
+        180
+      ],
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "agent": "conversationalAgent",
+        "promptType": "define",
+        "text": "=Answer the user question: {{ $json.body.formatted_message }}",
+        "options": {
+          "humanMessage": "=TOOLS\n------\nAssistant can ask the user to use tools to look up information that may be helpful in answering the users original question. The tools the human can use are:\n\n{tools}\n\n{format_instructions}\n\nUSER'S INPUT\n--------------------\nHere is the user's input (remember to respond with a bbcode code snippet of a json blob with a single action, and NOTHING else):\n{{ $json.body.formatted_message }}\n ",
+          "systemMessage": "=Assistant is a large language model trained by OpenAI.\n\nAssistant is designed to be able to assist with a wide range of tasks, from answering simple questions to providing in-depth explanations and discussions on a wide range of topics. As a language model, Assistant is able to generate human-like text based on the input it receives, allowing it to engage in natural-sounding conversations and provide responses that are coherent and relevant to the topic at hand.\n\nAssistant is constantly learning and improving, and its capabilities are constantly evolving. It is able to process and understand large amounts of text, and can use this knowledge to provide accurate and informative responses to a wide range of questions. Additionally, Assistant is able to generate its own text based on the input it receives, allowing it to engage in discussions and provide explanations and descriptions on a wide range of topics.\n\nOverall, Assistant is a powerful system that can help with a wide range of tasks and provide valuable insights and information on a wide range of topics. Whether you need help with a specific question or just want to have a conversation about a particular topic, Assistant is here to assist.\n\nThe primary language of the answer is {{ $json.language }} unless the Human ask for translation.\n\nThe assistant uses BBcode for the formatting of the answer, so \"[B]Bold[/B]\" means bold text. Listing is done with \"[LIST] [*]list item 1 [*]list item 2 [/LIST]\" format. "
+        }
+      },
+      "id": "aeb3b171-97b6-4d97-beb8-6e6ad7882620",
+      "name": "AI Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.6,
+      "position": [
+        520,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "/001/",
+        "options": {}
+      },
+      "id": "2ba46269-3373-4b6a-a5b4-03694c95233d",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -620,
+        300
+      ],
+      "webhookId": "68b23604-f06d-4d73-9ec7-b628e32aee19"
+    }
+  ],
+  "pinData": {},
+  "repo_name": "n8n-backup-zm",
+  "repo_owner": "zlatkomq",
+  "repo_path": "",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-03-25T16:47:07.662Z",
+  "versionId": "f3c2141a-eb01-4eb2-b76c-ce7d7bcd8146"
+}
