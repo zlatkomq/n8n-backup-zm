@@ -1,0 +1,207 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        []
+      ]
+    },
+    "Anthropic Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "news api": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-04-13T12:33:29.094Z",
+  "id": "tLB6YDfSNWR3Hpgy",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "News",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        260,
+        0
+      ],
+      "id": "eb3d12cf-2f22-4e14-89b9-9880e37acb89",
+      "name": "When clicking ‘Test workflow’"
+    },
+    {
+      "parameters": {
+        "url": "https://newsapi.org/v2/top-headlines",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "q",
+              "value": "AI"
+            },
+            {
+              "name": "from",
+              "value": "2025-04-11"
+            },
+            {
+              "name": "sortBy",
+              "value": "popularity"
+            },
+            {
+              "name": "apiKey",
+              "value": "a253aa57f5bf4a1fab13715496be9880"
+            },
+            {
+              "name": "category",
+              "value": "technology"
+            },
+            {
+              "name": "language",
+              "value": "en"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        120,
+        320
+      ],
+      "id": "47d41a76-5bcf-43ac-8069-b1ac182b76be",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Use the HTTP Request tool to fetch the latest tech news.\n\nOnce you have the response (an array of news articles), filter it to include only the articles relevant to:\n- AI in software development\n- AI research (architecture, training, coding, frameworks)\n\nReturn a JSON array of the matching articles with the following structure:\n[\n  {\n    \"title\": \"...\",\n    \"description\": \"...\",\n    \"url\": \"...\",\n    \"source\": \"...\",\n    \"author\": \"...\"\n  }\n]\n\nDo not include commentary, markdown, or code blocks — only valid JSON.\n",
+        "options": {
+          "systemMessage": "You are an AI News Filtering Agent focused on artificial intelligence in software development and research.\n\nYou are allowed to use the HTTP Request tool (news api tool) to fetch a list of recent news articles in JSON format.\n\nYour goal is to extract only the articles that are highly relevant to:\n- AI technologies used in software engineering or programming\n- Research breakthroughs in machine learning, LLMs, or training techniques\n- AI tools, platforms, or systems built for or by developers\n\nYou must ignore articles about:\n- AI politics, ethics, or regulation\n- Consumer AI products (unless clearly tied to software development)\n- Business or economic discussions unrelated to technical advances\n\nYou are expected to return a clean JSON array of only the filtered articles.\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.8,
+      "position": [
+        480,
+        0
+      ],
+      "id": "1a321ef9-161a-43a6-8df9-bcacd0cd8369",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "claude-3-7-sonnet-20250219",
+          "cachedResultName": "Claude 3.7 Sonnet"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [
+        420,
+        240
+      ],
+      "id": "e4fea1e8-4aab-4c8d-8519-20ec6968f2e9",
+      "name": "Anthropic Chat Model",
+      "credentials": {
+        "anthropicApi": {
+          "id": "qzCm5Ds2qD9ZY1W5",
+          "name": "Anthropic account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "toolDescription": "Get the latest AI related news.",
+        "url": "https://newsapi.org/v2/top-headlines",
+        "sendQuery": true,
+        "parametersQuery": {
+          "values": [
+            {
+              "name": "q"
+            },
+            {
+              "name": "from",
+              "valueProvider": "fieldValue",
+              "value": "2025-04-11"
+            },
+            {
+              "name": "sortBy",
+              "valueProvider": "fieldValue",
+              "value": "popularity"
+            },
+            {
+              "name": "apiKey",
+              "valueProvider": "fieldValue",
+              "value": "a253aa57f5bf4a1fab13715496be9880"
+            },
+            {
+              "name": "category",
+              "valueProvider": "fieldValue",
+              "value": "technology"
+            },
+            {
+              "name": "language",
+              "valueProvider": "fieldValue",
+              "value": "en"
+            }
+          ]
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
+      "typeVersion": 1.1,
+      "position": [
+        660,
+        240
+      ],
+      "id": "e70d2bd5-c746-488a-a800-48c6db53b3bd",
+      "name": "news api"
+    }
+  ],
+  "pinData": {},
+  "repo_name": "n8n-backup-zm",
+  "repo_owner": "zlatkomq",
+  "repo_path": "",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-04-13T13:11:04.292Z",
+  "versionId": "4de850f4-e57e-48a0-8068-9af99fba4789"
+}
