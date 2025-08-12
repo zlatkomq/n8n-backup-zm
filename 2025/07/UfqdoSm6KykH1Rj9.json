@@ -1,0 +1,1547 @@
+{
+  "active": false,
+  "connections": {
+    "Set Local Variables": {
+      "main": [
+        [
+          {
+            "node": "Search For Company On People Data Labs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Company Website Crawl Request": {
+      "main": [
+        [
+          {
+            "node": "Wait For Scrape Completion",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Retrieve Company Website Crawl Data": {
+      "main": [
+        [
+          {
+            "node": "Generate Company Dossier",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Array Containing Field Data": {
+      "main": [
+        [
+          {
+            "node": "Get Supabase Record Based On Name",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search For Company On People Data Labs": {
+      "main": [
+        [
+          {
+            "node": "Update Supabase Record To Include Company",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait For Scrape Completion": {
+      "main": [
+        [
+          {
+            "node": "Retrieve Company Website Crawl Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anthropic Chat Model (GES)": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Generate Executive Summary",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Array Of Metric Notes": {
+      "main": [
+        [
+          {
+            "node": "Generate Summaries For Key Metrics",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Combine All ChatGPT Outcomes Into One Response (Scores And Justifications)": {
+      "main": [
+        [
+          {
+            "node": "Calculate GRI Score",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Combine All ChatGPT Outcomes Into One Response (Notes)": {
+      "main": [
+        [
+          {
+            "node": "Update Record With Summarized Notes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate PDF using PDF.co": {
+      "main": [
+        [
+          {
+            "node": "Download PDF File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Trigger Pipeline When Record Created In Supabase": {
+      "main": [
+        [
+          {
+            "node": "Set Local Variables",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Supabase Record To Include Company": {
+      "main": [
+        [
+          {
+            "node": "Send Company Website Crawl Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Supabase Record Based On Name": {
+      "main": [
+        [
+          {
+            "node": "Construct Perplexity Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Record In Supabase": {
+      "main": [
+        [
+          {
+            "node": "Combine All ChatGPT Outcomes Into One Response (Scores And Justifications)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Record With Final Summaries": {
+      "main": [
+        [
+          {
+            "node": "Create Array Of Metric Notes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Record With Summarized Notes": {
+      "main": [
+        [
+          {
+            "node": "Generate PDF using PDF.co",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Record With PDF": {
+      "main": [
+        [
+          {
+            "node": "Download PDF File (For Mail)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model (GCD)": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Generate Company Dossier",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calculate GRI Score": {
+      "main": [
+        [
+          {
+            "node": "Update GRI Score",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download PDF File": {
+      "main": [
+        [
+          {
+            "node": "Upload To Supabase Bucket",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Summaries For Key Metrics": {
+      "main": [
+        [
+          {
+            "node": "Combine All ChatGPT Outcomes Into One Response (Notes)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload To Supabase Bucket": {
+      "main": [
+        [
+          {
+            "node": "Generate Presigned URL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Presigned URL": {
+      "main": [
+        [
+          {
+            "node": "Update Record With PDF",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download PDF File (For Mail)": {
+      "main": [
+        [
+          {
+            "node": "Send Report",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anthropic Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Generate Score And Justification",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Generate Score And Justification",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Progress": {
+      "main": [
+        [
+          {
+            "node": "Create Array Containing Field Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Listen For Insert To Supabase Table": {
+      "main": [
+        [
+          {
+            "node": "Trigger Pipeline When Record Created In Supabase",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update GRI Score": {
+      "main": [
+        [
+          {
+            "node": "Generate Executive Summary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Executive Summary": {
+      "main": [
+        [
+          {
+            "node": "Update Record With Final Summaries",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Construct Perplexity Prompt": {
+      "main": [
+        [
+          {
+            "node": "Generate Factsheet (Perplexity)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Score And Justification": {
+      "main": [
+        [
+          {
+            "node": "Update Record In Supabase",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Factsheet (Perplexity)": {
+      "main": [
+        [
+          {
+            "node": "Generate Score And Justification",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Company Dossier": {
+      "main": [
+        [
+          {
+            "node": "Update Progress",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-07-01T12:16:34.718Z",
+  "id": "UfqdoSm6KykH1Rj9",
+  "isArchived": false,
+  "meta": null,
+  "name": "DMG",
+  "nodes": [
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "{\n  \"PEOPLE_DATA_LABS_X_API_KEY\": \"e979db8811b2d6c1763534d070e1461708aac3d9681322f1ba4603bffec4cfa9\",\n  \"FIRECRAWL_API_URL\": \"https://api.firecrawl.dev/v1/crawl\",\n  \"FIRECRAWL_API_AUTHORIZATION\": \"Bearer fc-ab62895dc07b462281bfb9e76716c499\",\n  \"PDFCO_API_URL\": \"https://api.pdf.co/v1/pdf/edit/add\",\n  \"PDFCO_API_AUTHORIZATION\": \"evan@kubeshop.io_x1qrIPb3ghBJGqdzn2SEyNHGX4xz4x19DDNxA5GJ9R1NB7HruzGUwUhIVuvnTHlv\",\n  \"ADOBE_API_URL\": \"https://pdf-services-ew1.adobe.io/operation/documentgeneration\",\n  \"ADOBE_API_AUTHORIZATION\": \"\",\n    \"ADOBE_API_API_KEY\": \"dcbc23ee180e4b739d547b01dd482342\",\n  \"PERPLEXITY_API_URL\": \"https://api.perplexity.ai/chat/completions\",\n  \"PERPLEXITY_API_AUTHORIZATION\": \"Bearer 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\",\n  \"SUPABASE_STORAGE_API_URL\": \"https://jvshsliprfblgvxxbgcp.supabase.co/storage/v1\",\n  \"SUPABASE_API_AUTHORIZATION\": \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp2c2hzbGlwcmZibGd2eHhiZ2NwIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcyODI0NTgxNywiZXhwIjoyMDQzODIxODE3fQ.K1c6ZGxR0wiINpTW9EF77Klcs7Bb9-yUCixJ0WKeD1s\",\n  \"RUBRIC_VERSION\": \"V6\"\n}\n",
+        "options": {}
+      },
+      "id": "ff8a2c3d-25c3-4a1f-be4c-47083e8a2f2a",
+      "name": "Set Local Variables",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        800,
+        420
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Set Local Variables').item.json.FIRECRAWL_API_URL }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "={{ $('Set Local Variables').item.json.FIRECRAWL_API_AUTHORIZATION }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"scrapeOptions\": {\n    \"onlyMainContent\": true,\n    \"formats\": [\n      \"markdown\"\n    ],\n    \"includeTags\": [],\n    \"excludeTags\": [],\n    \"waitFor\": 10000\n  },\n  \"allowExternalLinks\": false,\n  \"allowBackwardLinks\": false,\n  \"limit\": 20,\n  \"ignoreSitemap\": true,\n  \"maxDepth\": 4,\n  \"excludePaths\": [\n    \"blog/*\",\n    \"search/*\",\n    \"contact/*\",\n    \"articles/*\",\n    \"posts/*\"\n  ],\n  \"url\": \"https://{{ $json.website }}\"\n}",
+        "options": {}
+      },
+      "id": "38747932-d736-414b-aa62-ba38947fdf60",
+      "name": "Send Company Website Crawl Request",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1680,
+        420
+      ]
+    },
+    {
+      "parameters": {
+        "url": "={{ $('Send Company Website Crawl Request').item.json.url }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "={{ $('Set Local Variables').item.json.FIRECRAWL_API_AUTHORIZATION }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "1e0088a0-77d8-4f64-8baa-252661099fb6",
+      "name": "Retrieve Company Website Crawl Data",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2120,
+        420
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [\n  {\n    name: \"Cultural And Strategic Posture\",\n    prefix: \"c_and_p_\"\n  },\n  {\n    name: \"Competency Alignment\",\n    prefix: \"ca_\"\n  },\n  {\n    name: \"Sector Value Unlock Potential\",\n    prefix: \"svu_\"    \n  },\n  {\n    name: \"Sector GenAI Capital Intensity\",\n    prefix: \"sci_\"\n  },\n  {\n    name: \"GenAI Velocity\",\n    prefix: \"genai_v_\"\n  },\n  {\n    name: \"Moat Strength\",\n    prefix: \"moat_strength_\"\n  },\n    {\n    name: \"Market Status\",\n    prefix: \"market_status_\"\n  }\n];"
+      },
+      "id": "aeb811ca-0500-4803-ae11-f1cfc38670e1",
+      "name": "Create Array Containing Field Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3160,
+        420
+      ],
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "url": "=https://api.peopledatalabs.com/v5/company/enrich?website={{ $('Trigger Pipeline When Record Created In Supabase').item.json.website }}&pretty=false&titlecase=false&include_if_matched=false&min_likelihood=2",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-API-Key",
+              "value": "={{ $json.PEOPLE_DATA_LABS_X_API_KEY }}"
+            },
+            {
+              "name": "accept",
+              "value": "application/json"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "38ea1148-e698-4907-b71a-e4b421848fab",
+      "name": "Search For Company On People Data Labs",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1240,
+        420
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Trigger Pipeline When New Supabase Record Created\nWe want to run the pipeline whenever a new Supabase record is created. We also want to set any local variables that we may use.",
+        "height": 459.8930981056508,
+        "width": 488.15496247731295
+      },
+      "id": "a5dfe4c8-7128-42f3-8cb9-69b072661c55",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        500,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Get Company Information And Crawl Website\nWe want to retrieve the company's information from People Data Labs and then use Firecrawl to scrape data from their website.",
+        "height": 459.8930981056508,
+        "width": 1204.1677245752758
+      },
+      "id": "66bfdf0c-7995-4c76-bbca-69d14f1bcb08",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1140,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Generate A Dossier On The Company\nWe want to use Google's Gemini API to generate a dossier on the company, and then we want to create an array that contains all of the dynamic fields to be updated when we are updating the Supabase record.",
+        "height": 604.0706335491475,
+        "width": 874.7066253780613
+      },
+      "id": "2901a879-d2da-4649-a6e7-28a3e70f851f",
+      "name": "Sticky Note2",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2480,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Update Each Metric Using AI Agents\nWe want to update each of the company's fields in Supabase based on calculations we make by the AI agents.",
+        "height": 611.8711351324401,
+        "width": 2002.446773195927
+      },
+      "id": "06137302-866c-46b8-9928-7c57699d4e73",
+      "name": "Sticky Note3",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        3500,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Generate Executive Summary For Company\nWe want to use Anthropic to generate a comprehensive, final summary on the company's AI and GenAI capabilities, and then update the record in Supabase.",
+        "height": 611.5827574791144,
+        "width": 660.9987008627003
+      },
+      "id": "73bc9d31-c74b-4189-b35f-35a86726aba6",
+      "name": "Sticky Note4",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        5700,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Summarize Certain Fields Related To The Company\nWe want to take certain fields from the company's record in the Supabase table, and summarize them to less than 65 characters.",
+        "height": 611.5827574791144,
+        "width": 1122.3298688770697
+      },
+      "id": "3de5ab75-5786-4950-9444-16d46d4a2a54",
+      "name": "Sticky Note5",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        6540,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "amount": 20
+      },
+      "id": "6fa047b0-3bf9-4332-9d95-4a3fe33e92f0",
+      "name": "Wait For Scrape Completion",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1900,
+        420
+      ],
+      "webhookId": "1ebf0b3b-452c-4970-ae05-ed83cb764e43"
+    },
+    {
+      "parameters": {
+        "options": {
+          "maxTokensToSample": 400
+        }
+      },
+      "id": "1d3a3b07-6082-4c4d-883a-fc0f830f09b6",
+      "name": "Anthropic Chat Model (GES)",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.2,
+      "position": [
+        5820,
+        600
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [\n  {\n    name: \"c_and_p\",\n    note: $('Update Record With Final Summaries').item.json.c_and_p_note },\n  {\n    name: \"ca\",\n    note: $('Update Record With Final Summaries').item.json.ca_note\n  },\n  {\n    name: \"svu\",\n    note: $('Update Record With Final Summaries').item.json.svu_note\n  },\n  {\n    name: \"sci\",\n    note: $('Update Record With Final Summaries').item.json.sci_note\n  },\n  {\n    name: \"genai_v\",\n    note: $('Update Record With Final Summaries').item.json.genai_v_note\n  },\n  {\n    name: \"moat_strength\",\n    note: $('Update Record With Final Summaries').item.json.moat_strength_note\n  },\n    {\n    name: \"market_status\",\n    note: $('Update Record With Final Summaries').item.json.market_status_note\n  }\n];"
+      },
+      "id": "b4a851fa-286c-49e6-ba13-30fb28d7c416",
+      "name": "Create Array Of Metric Notes",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        6640,
+        420
+      ]
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "options": {}
+      },
+      "id": "73ab676c-15d2-448e-bf07-5372b0324c18",
+      "name": "Combine All ChatGPT Outcomes Into One Response (Scores And Justifications)",
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        4880,
+        420
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Create The PDF And Send It Out\nWe want to take all the information that we have and create a PDF using it. Then, we want to send out the email report.",
+        "height": 611.5827574791144,
+        "width": 1657.2354143245825
+      },
+      "id": "1d6e8ded-476f-45d3-9542-6ff8e604175a",
+      "name": "Sticky Note9",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        7840,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "fieldsToAggregate": {
+          "fieldToAggregate": [
+            {
+              "fieldToAggregate": "message.content.c_and_p_summary"
+            },
+            {
+              "fieldToAggregate": "message.content.ca_summary"
+            },
+            {
+              "fieldToAggregate": "message.content.svu_summary"
+            },
+            {
+              "fieldToAggregate": "message.content.sci_summary"
+            },
+            {
+              "fieldToAggregate": "message.content.genai_v_summary"
+            },
+            {
+              "fieldToAggregate": "message.content.moat_strength_summary"
+            },
+            {
+              "fieldToAggregate": "message.content.market_status_summary"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "4385916d-d794-4212-a755-4cbd44d33912",
+      "name": "Combine All ChatGPT Outcomes Into One Response (Notes)",
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        7240,
+        420
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Part One",
+        "height": 80,
+        "color": 4
+      },
+      "id": "bc637189-fd5a-462f-94ac-6a8f6908d1e4",
+      "name": "Sticky Note6",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        500,
+        40
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Part Two",
+        "height": 80,
+        "color": 4
+      },
+      "id": "e3bc7f05-0e87-4d6a-9697-ff49e77cc961",
+      "name": "Sticky Note7",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        6540,
+        40
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Part Three",
+        "height": 80,
+        "color": 4
+      },
+      "id": "78576d1a-53a9-447c-bb59-902a58d223a1",
+      "name": "Sticky Note11",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        7840,
+        40
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Set Local Variables').item.json.PDFCO_API_URL }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "x-api-key",
+              "value": "={{ $('Set Local Variables').item.json.PDFCO_API_AUTHORIZATION }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n    \"async\": false,\n    \"inline\": true,\n    \"name\": \"New GenAI Report\",\n    \"url\": \"https://cdn.prod.website-files.com/66841ee65a8e67dcd43a0c57/66f47fcbb616f87f51f3d460_Wordless%20Copy%20of%20GenAI%20SLB%20Tempalte%20%20(3).pdf\",\n    \"annotations\": [\n        {\n            \"text\": {{ JSON.stringify($json.genai_v_note) }},\n            \"x\": 140,\n            \"y\": 176,\n            \"pages\": \"6\",\n            \"color\": \"FFFFFF\",\n            \"width\": \"357\",\n            \"height\": \"155\",\n            \"alignment\": \"left\"\n        },\n        {\n            \"text\": {{ JSON.stringify($json.moat_strength_summary) }},\n            \"x\": 134,\n            \"y\": 347,\n            \"pages\": \"6\",\n            \"color\": \"FFFFFF\",\n            \"width\": \"369\",\n            \"height\": \"86\",\n            \"alignment\": \"left\"\n        },\n        {\n            \"text\": {{ JSON.stringify($json.ca_note) }},\n            \"x\": 132,\n            \"y\": 447,\n            \"pages\": \"6\",\n            \"color\": \"FFFFFF\",\n            \"width\": \"371\",\n            \"height\": \"98\",\n            \"alignment\": \"left\"\n        },\n        {\n            \"text\": {{ JSON.stringify($json.c_and_p_note) }},\n            \"x\": 131,\n            \"y\": 558,\n            \"pages\": \"6\",\n            \"color\": \"FFFFFF\",\n            \"width\": \"372\",\n            \"height\": \"114\",\n            \"alignment\": \"left\"\n        },\n        {\n            \"text\": \"{{ $json.genai_v_score }}\",\n            \"x\": 513,\n            \"y\": 230.5,\n            \"pages\": \"6\",\n            \"color\": \"FFFFFF\",\n            \"width\": \"26\",\n            \"height\": \"36\",\n            \"alignment\": \"left\"\n        },\n        {\n            \"text\": \"{{ $json.genai_v_score }}\",\n            \"x\": 513,\n            \"y\": 230.5,\n            \"pages\": \"6\",\n            \"color\": \"FFFFFF\",\n            \"width\": \"26\",\n            \"height\": \"36\",\n            \"alignment\": \"left\"\n        },\n        {\n            \"text\": \"{{ $json.moat_strength_score }}\",\n            \"x\": 513,\n            \"y\": 369,\n            \"pages\": \"6\",\n            \"color\": \"FFFFFF\",\n            \"width\": \"31\",\n            \"height\": \"45\",\n            \"alignment\": \"left\"\n        },\n        {\n            \"text\": \"{{ $json.ca_score }}\",\n            \"x\": 513,\n            \"y\": 481,\n            \"pages\": \"6\",\n            \"color\": \"FFFFFF\",\n            \"width\": \"26\",\n            \"height\": \"35\",\n            \"alignment\": \"left\"\n        },\n        {\n            \"text\": \"{{ $json.c_and_p_score }}\",\n            \"x\": 514,\n            \"y\": 585,\n            \"pages\": \"6\",\n            \"color\": \"FFFFFF\",\n            \"width\": \"25\",\n            \"height\": \"51\",\n            \"alignment\": \"left\"\n        },\n        {\n            \"text\": {{ JSON.stringify($json.executive_summary) }},\n            \"x\": 50,\n            \"y\": 214,\n            \"pages\": \"5\",\n            \"color\": \"FFFFFF\",\n            \"width\": \"268\",\n            \"height\": \"206\",\n            \"alignment\": \"left\"\n        },\n        {\n            \"text\": {{ JSON.stringify($json.company) }},\n            \"x\": 230,\n            \"y\": 130,\n            \"pages\": \"1\",\n            \"color\": \"FFFFFF\",\n            \"width\": \"116\",\n            \"height\": \"22\",\n            \"alignment\": \"center\"\n        },\n        {\n            \"text\": \"{{ $('Calculate GRI Score').item.json.gri_score }}%\",\n            \"x\": 472,\n            \"y\": 105,\n            \"pages\": \"5\",\n            \"size\": \"16\",\n            \"fontBold\": true,\n            \"color\": \"9ED32C\",\n            \"width\": \"36\",\n            \"height\": \"22\",\n            \"alignment\": \"center\"\n        },\n        {\n            \"text\": \"{{ $json.svu_score }}\",\n            \"x\": 480,\n            \"y\": 260,\n            \"pages\": \"7\",\n            \"size\": \"16\",\n            \"fontBold\": true,\n            \"color\": \"FFFFFF\",\n            \"width\": \"24\",\n            \"height\": \"30\",\n            \"alignment\": \"left\"\n        },\n        {\n            \"text\": \"{{ $json.sci_score }}\",\n            \"x\": 480,\n            \"y\": 420,\n            \"pages\": \"7\",\n            \"size\": \"16\",\n            \"fontBold\": true,\n            \"color\": \"FFFFFF\",\n            \"width\": \"20\",\n            \"height\": \"30\",\n            \"alignment\": \"center\"\n        },\n        {\n            \"text\": \"{{ $json.genai_v_score }}\",\n            \"x\": 405,\n            \"y\": 349,\n            \"pages\": \"5\",\n            \"size\": \"18\",\n            \"fontBold\": true,\n            \"color\": \"9ED32C\",\n            \"width\": \"18\",\n            \"height\": \"20\",\n            \"alignment\": \"center\"\n        },\n        {\n            \"text\": \"{{ $json.moat_strength_score }}\",\n            \"x\": 30.25,\n            \"y\": 506,\n            \"pages\": \"5\",\n            \"size\": \"18\",\n            \"fontBold\": true,\n            \"color\": \"9ED32C\",\n            \"width\": \"18\",\n            \"height\": \"20\",\n            \"alignment\": \"center\"\n        },\n        {\n            \"text\": {{ JSON.stringify($json.company) }},\n            \"x\": 50,\n            \"y\": 456,\n            \"pages\": \"0\",\n            \"color\": \"FFFFFF\",\n            \"width\": \"116\",\n            \"height\": \"20\",\n            \"alignment\": \"center\"\n        },\n        {\n            \"text\": \"{{ $json.c_and_p_score }}\",\n            \"x\": 222.25,\n            \"y\": 506,\n            \"pages\": \"5\",\n            \"size\": \"18\",\n            \"fontBold\": true,\n            \"color\": \"9ED32C\",\n            \"width\": \"18\",\n            \"height\": \"20\",\n            \"alignment\": \"center\"\n        },\n        {\n            \"text\": \"{{ $json.ca_score }}\",\n            \"x\": 404,\n            \"y\": 506,\n            \"pages\": \"5\",\n            \"size\": \"18\",\n            \"fontBold\": true,\n            \"color\": \"9ED32C\",\n            \"width\": \"18\",\n            \"height\": \"20\",\n            \"alignment\": \"center\"\n        },\n        {\n            \"text\": \"{{ $json.market_status_score }}\",\n            \"x\": 33,\n            \"y\": 662,\n            \"pages\": \"5\",\n            \"size\": \"18\",\n            \"fontBold\": true,\n            \"color\": \"9ED32C\",\n            \"width\": \"18\",\n            \"height\": \"20\",\n            \"alignment\": \"center\"\n        },\n        {\n            \"text\": \"{{ $json.svu_score }}\",\n            \"x\": 226,\n            \"y\": 662,\n            \"pages\": \"5\",\n            \"size\": \"18\",\n            \"fontBold\": true,\n            \"color\": \"78B4E2\",\n            \"width\": \"18\",\n            \"height\": \"20\",\n            \"alignment\": \"center\"\n        },\n        {\n            \"text\": \"{{ $json.sci_score }}\",\n            \"x\": 406,\n            \"y\": 662,\n            \"pages\": \"5\",\n            \"size\": \"18\",\n            \"fontBold\": true,\n            \"color\": \"78B4E2\",\n            \"width\": \"18\",\n            \"height\": \"20\",\n            \"alignment\": \"center\"\n        },\n        {\n            \"text\": \"{{ $('Calculate GRI Score').item.json.gri_score }}%\",\n            \"x\": 480,\n            \"y\": 80,\n            \"pages\": \"6\",\n            \"color\": \"FFFFFF\",\n            \"width\": \"56\",\n            \"height\": \"16\",\n            \"alignment\": \"center\"\n        },\n        {\n            \"text\": \"{{ $('Calculate GRI Score').item.json.gri_score }}%\",\n            \"x\": 480,\n            \"y\": 80,\n            \"pages\": \"7\",\n            \"color\": \"FFFFFF\",\n            \"width\": \"56\",\n            \"height\": \"16\",\n            \"alignment\": \"center\"\n        },\n        {\n            \"text\": {{ JSON.stringify($json.moat_strength_summary) }},\n            \"x\": 38,\n            \"y\": 553,\n            \"pages\": \"5\",\n            \"color\": \"FFFFFF\",\n            \"width\": \"120\",\n            \"height\": \"70\",\n            \"alignment\": \"left\"\n        },\n        {\n            \"text\": {{ JSON.stringify($json.c_and_p_summary) }},\n            \"x\": 235,\n            \"y\": 557,\n            \"pages\": \"5\",\n            \"color\": \"FFFFFF\",\n            \"width\": \"120\",\n            \"height\": \"70\",\n            \"alignment\": \"left\"\n        },\n        {\n            \"text\": {{ JSON.stringify($json.ca_summary) }},\n            \"x\": 410,\n            \"y\": 554,\n            \"pages\": \"5\",\n            \"color\": \"FFFFFF\",\n            \"width\": \"120\",\n            \"height\": \"70\",\n            \"alignment\": \"left\"\n        },\n        {\n            \"text\": {{ JSON.stringify($json.svu_summary) }},\n            \"x\": 231,\n            \"y\": 711,\n            \"pages\": \"5\",\n            \"color\": \"FFFFFF\",\n            \"width\": \"120\",\n            \"height\": \"70\",\n            \"alignment\": \"left\"\n        },\n        {\n            \"text\": {{ JSON.stringify($json.sci_summary) }},\n            \"x\": 405,\n            \"y\": 705,\n            \"pages\": \"5\",\n            \"color\": \"FFFFFF\",\n            \"width\": \"120\",\n            \"height\": \"70\",\n            \"alignment\": \"left\"\n        },\n        {\n            \"text\": {{ JSON.stringify($json.genai_v_summary) }},\n            \"x\": 404,\n            \"y\": 390,\n            \"pages\": \"5\",\n            \"color\": \"FFFFFF\",\n            \"width\": \"120\",\n            \"height\": \"70\",\n            \"alignment\": \"left\"\n        },\n        {\n            \"text\": {{ JSON.stringify($json.market_status_summary) }},\n            \"x\": 40,\n            \"y\": 708,\n            \"pages\": \"5\",\n            \"color\": \"FFFFFF\",\n            \"width\": \"120\",\n            \"height\": \"72\",\n            \"alignment\": \"left\"\n        },\n        {\n            \"text\": {{ JSON.stringify($json.market_status_note) }},\n            \"x\": 130,\n            \"y\": 681,\n            \"pages\": \"6\",\n            \"color\": \"FFFFFF\",\n            \"width\": \"376\",\n            \"height\": \"88\",\n            \"alignment\": \"left\"\n        },\n        {\n            \"text\": \"{{ $json.market_status_score }}\",\n            \"x\": 513,\n            \"y\": 708,\n            \"pages\": \"6\",\n            \"color\": \"FFFFFF\",\n            \"alignment\": \"center\"\n        },\n        {\n            \"text\": {{ JSON.stringify($json.svu_note) }},\n            \"x\": 149,\n            \"y\": 186,\n            \"pages\": \"7\",\n            \"color\": \"FFFFFF\",\n            \"width\": \"319\",\n            \"height\": \"194\",\n            \"alignment\": \"left\"\n        },\n        {\n            \"text\": {{ JSON.stringify($json.sci_note) }},\n            \"x\": 148,\n            \"y\": 395,\n            \"pages\": \"7\",\n            \"color\": \"FFFFFF\",\n            \"width\": \"319\",\n            \"height\": \"89\",\n            \"alignment\": \"left\"\n        },\n        {\n            \"text\": {{ JSON.stringify($json.interpretations) }},\n            \"x\": 445,\n            \"y\": 128,\n            \"pages\": \"5\",\n            \"size\": \"8\",\n            \"color\": \"FFFFFF\",\n            \"width\": \"87\",\n            \"height\": \"15\",\n            \"alignment\": \"center\"\n        },\n        {\n            \"text\": {{ JSON.stringify($json.interpretations) }},\n            \"x\": 474,\n            \"y\": 98,\n            \"pages\": \"6\",\n            \"size\": \"8\",\n            \"color\": \"FFFFFF\",\n            \"width\": \"67\",\n            \"height\": \"10\",\n            \"alignment\": \"center\"\n        },\n        {\n            \"text\": {{ JSON.stringify($json.interpretations_number_above) }},\n            \"x\": 362,\n            \"y\": 202,\n            \"pages\": \"5\",\n            \"color\": \"FFFFFF\",\n            \"width\": \"27\",\n            \"height\": \"12\",\n            \"alignment\": \"center\"\n        },\n        {\n            \"text\": {{ JSON.stringify($json.interpretations_number_range) }},\n            \"x\": 364,\n            \"y\": 249,\n            \"pages\": \"5\",\n            \"color\": \"FFFFFF\",\n            \"width\": \"27\",\n            \"height\": \"12\",\n            \"alignment\": \"center\"\n        },\n        {\n            \"text\": {{ JSON.stringify($json.interpretations_below) }},\n            \"x\": 362,\n            \"y\": 289,\n            \"pages\": \"5\",\n            \"size\": \"10\",\n            \"color\": \"FFFFFF\",\n            \"width\": \"27\",\n            \"height\": \"12\",\n            \"alignment\": \"center\"\n        },\n        {\n            \"text\": {{ JSON.stringify($json.interpretations_above) }},\n            \"x\": 401,\n            \"y\": 195,\n            \"pages\": \"5\",\n            \"size\": \"10\",\n            \"color\": \"FFFFFF\",\n            \"width\": \"48\",\n            \"height\": \"26\",\n            \"alignment\": \"center\"\n        },\n        {\n            \"text\": {{ JSON.stringify($json.interpretations) }},\n            \"x\": 401,\n            \"y\": 238,\n            \"pages\": \"5\",\n            \"size\": \"10\",\n            \"color\": \"FFFFFF\",\n            \"width\": \"48\",\n            \"height\": \"26\",\n            \"alignment\": \"center\"\n        },\n        {\n            \"text\": {{ JSON.stringify($json.interpretations_below) }},\n            \"x\": 401,\n            \"y\": 281,\n            \"pages\": \"5\",\n            \"size\": \"10\",\n            \"color\": \"FFFFFF\",\n            \"width\": \"48\",\n            \"height\": \"26\",\n            \"alignment\": \"center\"\n        },\n        {\n            \"text\": {{ JSON.stringify($json.interpretations_summary_above) }},\n            \"x\": 457,\n            \"y\": 191,\n            \"pages\": \"5\",\n            \"size\": \"10\",\n            \"color\": \"FFFFFF\",\n            \"width\": \"104\",\n            \"height\": \"40\",\n            \"alignment\": \"center\"\n        },\n        {\n            \"text\": {{ JSON.stringify($json.interpretations_summary) }},\n            \"x\": 457,\n            \"y\": 240,\n            \"pages\": \"5\",\n            \"size\": \"10\",\n            \"color\": \"FFFFFF\",\n            \"width\": \"104\",\n            \"height\": \"37\",\n            \"alignment\": \"center\"\n        },\n        {\n            \"text\": {{ JSON.stringify($json.interpretations_summary_below) }},\n            \"x\": 457,\n            \"y\": 285,\n            \"pages\": \"5\",\n            \"size\": \"10\",\n            \"color\": \"FFFFFF\",\n            \"width\": \"104\",\n            \"height\": \"37\",\n            \"alignment\": \"center\"\n        },\n        {\n            \"text\": {{ JSON.stringify($json.interpretations) }},\n            \"x\": 474,\n            \"y\": 98,\n            \"pages\": \"7\",\n            \"size\": \"8\",\n            \"color\": \"FFFFFF\",\n            \"width\": \"67\",\n            \"height\": \"10\",\n            \"alignment\": \"center\"\n        }\n    ]\n}",
+        "options": {
+          "response": {
+            "response": {}
+          }
+        }
+      },
+      "id": "c250cb6c-d2d1-41cf-a379-25407b010759",
+      "name": "Generate PDF using PDF.co",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        7940,
+        420
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "tableId": "current_ai_reportcard",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "id",
+              "keyValue": "={{ $json.body.record.id }}"
+            }
+          ]
+        }
+      },
+      "id": "923651fe-dbae-45a5-b9dd-1c60ea23ca41",
+      "name": "Trigger Pipeline When Record Created In Supabase",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        580,
+        420
+      ],
+      "credentials": {
+        "supabaseApi": {
+          "id": "Vbtfas1bVCzZ2Wde",
+          "name": "Supabase account 2"
+        }
+      },
+      "notes": "{{ $json.body.record.id }}"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "tableId": "current_ai_reportcard",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "id",
+              "condition": "eq",
+              "keyValue": "={{ $('Trigger Pipeline When Record Created In Supabase').item.json.id }}"
+            }
+          ]
+        },
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "company",
+              "fieldValue": "={{ $json.display_name }}"
+            },
+            {
+              "fieldId": "progress",
+              "fieldValue": "10"
+            }
+          ]
+        }
+      },
+      "id": "eb86d102-0445-4a06-8364-770bf7e9705b",
+      "name": "Update Supabase Record To Include Company",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        1460,
+        420
+      ],
+      "credentials": {
+        "supabaseApi": {
+          "id": "Vbtfas1bVCzZ2Wde",
+          "name": "Supabase account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "tableId": "rubric_panel",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "name",
+              "keyValue": "={{ $json.name }}"
+            },
+            {
+              "keyName": "version",
+              "keyValue": "={{ $('Set Local Variables').item.json.RUBRIC_VERSION }}"
+            }
+          ]
+        }
+      },
+      "id": "0299f635-e676-42a8-be8b-0454191f7c7d",
+      "name": "Get Supabase Record Based On Name",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        3620,
+        420
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "tableId": "current_ai_reportcard",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "id",
+              "condition": "eq",
+              "keyValue": "={{ $('Update Supabase Record To Include Company').item.json.id }}"
+            }
+          ]
+        },
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "={{ $('Create Array Containing Field Data').item.json.prefix }}score",
+              "fieldValue": "={{ $json.output.score }}"
+            },
+            {
+              "fieldId": "={{ $('Create Array Containing Field Data').item.json.prefix }}note",
+              "fieldValue": "={{ $json.output.note }}"
+            },
+            {
+              "fieldId": "={{ $('Create Array Containing Field Data').item.json.prefix }}summary",
+              "fieldValue": "={{ $json.output.summary }}"
+            },
+            {
+              "fieldId": "progress",
+              "fieldValue": "50"
+            }
+          ]
+        }
+      },
+      "id": "c680a4f8-4063-4913-b085-afc679613ab3",
+      "name": "Update Record In Supabase",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        4660,
+        420
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "tableId": "current_ai_reportcard",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "id",
+              "condition": "eq",
+              "keyValue": "={{ $('Update Supabase Record To Include Company').item.json.id }}"
+            }
+          ]
+        },
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "executive_summary",
+              "fieldValue": "={{ $json.text }}"
+            },
+            {
+              "fieldId": "website_content",
+              "fieldValue": "={{ $('Retrieve Company Website Crawl Data').item.json.data[0].markdown }}"
+            },
+            {
+              "fieldId": "company_dossier",
+              "fieldValue": "={{ $('Generate Company Dossier').item.json.text }}"
+            },
+            {
+              "fieldId": "progress",
+              "fieldValue": "60"
+            }
+          ]
+        }
+      },
+      "id": "045666a1-3ea3-4a47-a3fb-379ada433bb1",
+      "name": "Update Record With Final Summaries",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        6160,
+        420
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "tableId": "current_ai_reportcard",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "id",
+              "condition": "eq",
+              "keyValue": "={{ $('Update Record With Final Summaries').item.json.id }}"
+            }
+          ]
+        },
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "c_and_p_summary",
+              "fieldValue": "={{ $json.c_and_p_summary[0] }}"
+            },
+            {
+              "fieldId": "ca_summary",
+              "fieldValue": "={{ $json.ca_summary[0] }}"
+            },
+            {
+              "fieldId": "svu_summary",
+              "fieldValue": "={{ $json.svu_summary[0] }}"
+            },
+            {
+              "fieldId": "sci_summary",
+              "fieldValue": "={{ $json.sci_summary[0] }}"
+            },
+            {
+              "fieldId": "genai_v_summary",
+              "fieldValue": "={{ $json.genai_v_summary[0] }}"
+            },
+            {
+              "fieldId": "moat_strength_summary",
+              "fieldValue": "={{ $json.moat_strength_summary[0] }}"
+            },
+            {
+              "fieldId": "market_status_summary",
+              "fieldValue": "={{ $json.market_status_summary[0] }}"
+            },
+            {
+              "fieldId": "progress",
+              "fieldValue": "80"
+            }
+          ]
+        }
+      },
+      "id": "c039c628-2ca5-497f-9fa2-3bc537832544",
+      "name": "Update Record With Summarized Notes",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        7460,
+        420
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "tableId": "current_ai_reportcard",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "id",
+              "condition": "eq",
+              "keyValue": "={{ $('Update Record With Summarized Notes').item.json.id }}"
+            }
+          ]
+        },
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "report_url",
+              "fieldValue": "={{ $('Set Local Variables').item.json.SUPABASE_STORAGE_API_URL }}{{ $json.body.signedURL }}"
+            },
+            {
+              "fieldId": "progress",
+              "fieldValue": "100"
+            }
+          ]
+        }
+      },
+      "id": "8b4b4e5c-54e1-4054-a019-5a5c0f12919e",
+      "name": "Update Record With PDF",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        8840,
+        420
+      ]
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-1.5-pro",
+        "options": {
+          "maxOutputTokens": 1200,
+          "temperature": 1,
+          "topK": 10,
+          "topP": 0.8
+        }
+      },
+      "id": "60284609-a91e-4fac-a903-af6a2c529da6",
+      "name": "Google Gemini Chat Model (GCD)",
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        2600,
+        600
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "71d58b90-3795-4dd4-b1a9-aa7d4900e157",
+              "name": "gri_score",
+              "value": "={{ ((($json.data[6].sci_score * 1) + ($json.data[6].svu_score * 2) + ($json.data[6].ca_score * 4) + ($json.data[6].moat_strength_score * 5) + ($json.data[6].c_and_p_score * 4) + ($json.data[6].genai_v_score * 5) + ($json.data[6].market_status_score * 2)) / 115 * 100).toFixed(0) }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "51f3d362-1cc3-43c1-9611-3694cd3927f7",
+      "name": "Calculate GRI Score",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        5100,
+        420
+      ]
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Update Record With Summarized Notes').item.json.email }}",
+        "subject": "=GRI Report Card for {{ $('Update Record With Summarized Notes').item.json.company }}",
+        "message": "=<!DOCTYPE html> <html> <body> <p>     Hello there!      <br><br>     We've just finished generating your requested GRI Report Card for <b>{{ $('Update Record With Summarized Notes').item.json.company }}</b>. You can find it attached to this email.     <br><br>     Need another report? You can easily request one by visiting: <a href=\"https://gri.kuiper.so/\">https://gri.kuiper.so/</a>      <br><br>     We hope this helps!      <br>     Best,     <br>     The Kuiper AI Team </p> </body> </html>",
+        "options": {
+          "appendAttribution": false,
+          "attachmentsUi": {
+            "attachmentsBinary": [
+              {}
+            ]
+          }
+        }
+      },
+      "id": "dfd30868-e6a6-4821-a7f2-1f33b50ed6e3",
+      "name": "Send Report",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        9280,
+        420
+      ],
+      "webhookId": "23a56163-119c-453d-9c72-300c612cf245"
+    },
+    {
+      "parameters": {
+        "url": "={{ $('Generate PDF using PDF.co').item.json.url }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          }
+        }
+      },
+      "id": "9cb8805d-b897-4d7f-bdc4-a572933e64a4",
+      "name": "Download PDF File",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        8160,
+        420
+      ]
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o",
+          "mode": "list",
+          "cachedResultName": "GPT-4O"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=Shrink this note to below 65 characters in length. The field name should be \"{{ $json.name }}_summary\".",
+              "role": "system"
+            },
+            {
+              "content": "=\"{{ $json.name }}\": {{ $json.note }}"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {
+          "temperature": 0.3
+        }
+      },
+      "id": "400decc1-3216-45b1-ac3b-876b4a7f2c0e",
+      "name": "Generate Summaries For Key Metrics",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.4,
+      "position": [
+        6860,
+        420
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "677f916d-b65b-4bcb-b398-cf47b54d424d",
+      "name": "When clicking ‘Test workflow’",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        120,
+        180
+      ],
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Set Local Variables').item.json.SUPABASE_STORAGE_API_URL }}/object/reports/{{ $now.toMillis() }}_{{ $('Update Record With Summarized Notes').item.json.company }}_{{ $json.name }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "Authorization",
+              "value": "={{ $('Set Local Variables').item.json.SUPABASE_API_AUTHORIZATION }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "parameterType": "formBinaryData",
+              "name": "file",
+              "inputDataFieldName": "data"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true
+            }
+          }
+        }
+      },
+      "id": "ef342b4f-ea78-4d6f-9b9b-ee8015daaa35",
+      "name": "Upload To Supabase Bucket",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        8400,
+        420
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Set Local Variables').item.json.SUPABASE_STORAGE_API_URL }}/object/sign/{{ $json.body.Key }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "Authorization",
+              "value": "={{ $('Set Local Variables').item.json.SUPABASE_API_AUTHORIZATION }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "expiresIn",
+              "value": "315360000"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true
+            }
+          }
+        }
+      },
+      "id": "c0a9af71-c12b-471c-81cd-ad52757a6ccd",
+      "name": "Generate Presigned URL",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        8620,
+        420
+      ]
+    },
+    {
+      "parameters": {
+        "url": "={{ $('Generate PDF using PDF.co').item.json.url }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          }
+        }
+      },
+      "id": "bf1bcbc0-6b86-48cd-b1eb-e0656ebdbd27",
+      "name": "Download PDF File (For Mail)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        9060,
+        420
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Testing\nDeactivate the Webhook trigger below and connect this trigger to the \"Trigger Pipeline When Record Created In Supabase\" node, and then replace the id in the \"Trigger Pipeline When Record Created In Supabase\" from \"{{ $json.body.record.id }}\" to an ID of a sample record in the Supabase current_ai_reportcard table (you can always create a new one there and just fill in website and email).",
+        "height": 459.7726910577675,
+        "width": 310.534750837122,
+        "color": 4
+      },
+      "id": "ad07aef4-569b-4f92-b8ba-a3d1705eb3dc",
+      "name": "Sticky Note10",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        20,
+        -100
+      ]
+    },
+    {
+      "parameters": {
+        "options": {
+          "maxTokensToSample": 4096,
+          "temperature": 0.3
+        }
+      },
+      "id": "60e7327c-b605-4be9-95d0-e3aae2194760",
+      "name": "Anthropic Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.2,
+      "position": [
+        4300,
+        600
+      ]
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n\t\"score\": 5,\n\t\"note\": \"Example\",\n    \"summary\": \"Example\"\n}"
+      },
+      "id": "8a3752d7-c799-4781-83ba-c785148885d0",
+      "name": "Structured Output Parser",
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.2,
+      "position": [
+        4460,
+        600
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "tableId": "current_ai_reportcard",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "id",
+              "condition": "eq",
+              "keyValue": "={{ $('Update Supabase Record To Include Company').item.json.id }}"
+            }
+          ]
+        },
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "progress",
+              "fieldValue": "30"
+            }
+          ]
+        }
+      },
+      "id": "c7887ab0-f9ca-45c7-804a-df2a4d35e307",
+      "name": "Update Progress",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        2960,
+        420
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "0f8fb704-3a79-45d8-accd-c36514af491e",
+        "responseMode": "lastNode",
+        "responseData": "noData",
+        "options": {}
+      },
+      "id": "9630df49-8828-4729-99b5-d5e8ae9b88b9",
+      "name": "Listen For Insert To Supabase Table",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        120,
+        420
+      ],
+      "webhookId": "0f8fb704-3a79-45d8-accd-c36514af491e"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "tableId": "current_ai_reportcard",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "id",
+              "condition": "eq",
+              "keyValue": "={{ $('Update Supabase Record To Include Company').item.json.id }}"
+            }
+          ]
+        },
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "gri_score",
+              "fieldValue": "={{ $json.gri_score }}"
+            }
+          ]
+        }
+      },
+      "id": "ff33c4d1-5fac-444c-99c3-3437646bfc05",
+      "name": "Update GRI Score",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        5300,
+        420
+      ]
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are tasked with creating a concise yet comprehensive executive summary focusing on a company's AI and GenAI capabilities and positioning. Use the provided data to craft a summary that follows these guidelines:\n\nFormatting and Style:\n\nAim for a single paragraph of 5-7 sentences. Limit to 200-250 charecters at the most.\nUse a formal, objective tone that balances positive achievements with growth areas.\nEmploy precise language and industry-specific terms where appropriate.\nEnsure a logical flow from the opening score to future potential.\nDifferentiate between general AI and GenAI if relevant.\n\nScore Interpretation: \n| Range | Grade | Interpretation |\n|-------|-------|----------------|\n| 90-100 | GenAI Trailblazers | Pioneering new GenAI technologies and reshaping industries |\n| 76-89 | GenAI Innovators | Implementing advanced GenAI solutions across multiple business areas |\n| 51-75 | GenAI Adapters | Actively incorporating GenAI solutions in specific areas |\n| 26-50 | GenAI Explorers | Experimenting with GenAI in limited capacities |\n| 0-25 | GenAI Laggards | Minimal engagement with GenAI technologies |.\n\nRespondly on with your executive summary as text and nothing else. \n\nBelow are the results of the evaluation for the company you are to write about: \n\nCompany: {{ $json.company }}\nWebsite: {{ $json.website }}\n\nGenAI Velocity Score: {{ $json.genai_v_score }}\nGenAI Velocity Note: {{ $json.genai_v_note }}\n\nMoat Strength Score: {{ $json.moat_strength_score }}\nMoat Strength Note: {{ $json.moat_strength_note }}\n\nCulture & Strategic Posture Score: {{ $json.c_and_p_score }}\nCulture & Strategic Posture Note: {{ $json.c_and_p_note }}\n\nCompetency Alignment Score: {{ $json.ca_score }}\nCompetency Alignment Note: {{ $json.ca_note }}\n\nSector Value Unlock Potential Score: {{ $json.svu_score }}\nSector Value Unlock Potential Note: {{ $json.svu_note }}\n\nSector Capital Intensity Score: {{ $json.sci_score }}\nSector Capital Intensity Note: {{ $json.sci_note }}\n\nMarket Status Score: {{ $json.market_status_score }}\nMarket Status Note: {{ $json.market_status_note }}\n"
+      },
+      "id": "0f394ecb-9d84-4529-936e-60f3b166a82d",
+      "name": "Generate Executive Summary",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.4,
+      "position": [
+        5800,
+        420
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "d62f02e1-55b8-48fc-ae75-a163d0d72772",
+              "name": "prompt",
+              "value": "=Input Data:\n1. Company Dossier: {{ $('Generate Company Dossier').item.json.text }}\n2. Research Rubric: {{ $json.name }}\n3. Rubric Description: {{ $json.rubric_objective }}\n4. Research Grading Scale: {{ $json.rubric_grading_scale }}\n   \nTask Instructions:\n1. Review the company dossier thoroughly.\n2. Follow the research rubric and its description meticulously.\n3. Conduct supplementary research to address information gaps.\n4. Compile findings into a structured fact sheet.\n\nOutput Guidelines:\n- Format: \"[Company Name] Fact Sheet\"\n- Structure: Numbered sections (as per rubric), bullet points for facts\n- Content: Factual, objective, up-to-date information\n- Citations: Include for all additional research\n- Length: Aim for 2 pages of data dense facts \n\nSpecial Considerations:\n- Conflicting Information: Present all versions with respective sources\n- Unavailable Information: Clearly state \"Information not available\" in the relevant section\n- Uncertainty: Use phrases like \"According to [source], potentially...\" for less certain information",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "cfe5cfe2-80e7-4694-9245-8c163d9fb906",
+      "name": "Construct Perplexity Prompt",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        3840,
+        420
+      ]
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Company Information －\n\nCompany Name: {{ $('Update Supabase Record To Include Company').item.json.company }}\nCompany Dossier: {{ $('Generate Company Dossier').item.json.text }}\nCompany Notes: {{ $json.message.content }}",
+        "hasOutputParser": true,
+        "messages": {
+          "messageValues": [
+            {
+              "message": "=You are an AI assistant tasked with evaluating a company based on the provided information and rubric. Your response should be a JSON object with two items: 1. \"{{ $('Get Supabase Record Based On Name').item.json.name.toLowerCase().split(' ').join('_') }}_score\": A number from 1 to 5 based on the rubric below. 2. \"{{ $('Get Supabase Record Based On Name').item.json.name.toLowerCase().split(' ').join('_') }}_justification\": A description of 200 - 300 characters that justifies the score articulately and taking into account all the data and the guidelines of the rubric.\n\nYour output should be a valid JSON object structured like the following:\n\n```\n{ \n  \"{{ $('Create Array Containing Field Data').item.json.prefix }}score\": \"number\",\n  \"{{ $('Create Array Containing Field Data').item.json.prefix }}note\": \"string\",\n  \"{{ $('Create Array Containing Field Data').item.json.prefix }}summary\": \"string\"\n}\n```\n\nRubric Name: {{ $('Get Supabase Record Based On Name').item.json.name }}\nRubric Description: {{ $('Get Supabase Record Based On Name').item.json.rubric_objective }}\nRubric Grading Scale: {{ $('Get Supabase Record Based On Name').item.json.rubric_grading_scale }}"
+            }
+          ]
+        }
+      },
+      "id": "1be487af-79e4-4d2d-9fe6-18457c325a72",
+      "name": "Generate Score And Justification",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.4,
+      "position": [
+        4280,
+        420
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Set Local Variables').item.json.PERPLEXITY_API_URL }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "={{ $('Set Local Variables').item.json.PERPLEXITY_API_AUTHORIZATION }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"llama-3.1-sonar-small-128k-online\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"You are a diligent and precise research agent specializing in creating comprehensive company fact sheets. Your output should be objective, well-structured, and tailored for further analysis by business professionals. Focus on accuracy, relevance, and clarity in your fact compilation. Do not attempt to grade the company yourself.\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": {{ JSON.stringify($json.prompt) }}\n    }\n  ],\n  \"max_tokens\": 400,\n  \"temperature\": 0.2\n}",
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "id": "4a0a3904-9918-4292-90d6-7bd2369b0075",
+      "name": "Generate Factsheet (Perplexity)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        4060,
+        420
+      ]
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Compile a comprehensive, data-dense fact sheet about the target company using their website content and provided additional data. The fact sheet should be highly detailed, presented in a bullet-point format, and include information that might be relevant to the GenAI Resilience Index Scorecard criteria. \\nData Sources\\n\\nCOMPANY WEBSITE CONTENT:\\nWebsite content: {{ $ifEmpty($json.data[0].markdown, \"\") }}\\n\\nCOMPANY DATA:\\nwebsite: {{ $ifEmpty($('Update Supabase Record To Include Company').item.json.website, \"\") }}\\nsize: {{ $ifEmpty($('Search For Company On People Data Labs').item.json.size, \"\") }}\\nindustry: {{ $ifEmpty($('Search For Company On People Data Labs').item.json.industry, \"\") }} {{ $ifEmpty($('Search For Company On People Data Labs').item.json.tags, \"\") }} {{ $ifEmpty($('Search For Company On People Data Labs').item.json.sic[0].industry_group, \"\") }}\\ndescription: {{ $ifEmpty($('Search For Company On People Data Labs').item.json.summary, \"\") }}\\nfounded: {{ $ifEmpty($('Search For Company On People Data Labs').item.json.founded, \"\") }}\\nheadquarters_city: {{ $ifEmpty($('Search For Company On People Data Labs').item.json.location.name, \"\") }}\\nemployees_count: {{ $ifEmpty($('Search For Company On People Data Labs').item.json.employee_count, \"\") }}\\n\\n\\n\\n\\nOutput Guidelines\\n\\nFormat the fact sheet as a series of detailed bullet points.\\nOrganize information into the following categories, which align with the GenAI Resilience Index Scorecard criteria:\\n\\nAI and Technology Integration\\nCompany Strengths and Market Position\\nTechnical Competencies and Expertise\\nCompany Culture and Strategic Direction\\nIndustry and Sector Information\\n\\n\\nInclude as much factual data as possible, prioritizing specificity and quantitative information where available.\\nFor each piece of information, indicate its source (website content or additional data).\\nCollect all relevant information without making any judgments or assessments about the company's performance or potential scores.\\n\\nInformation to Collect (for each category)\\nAI and Technology Integration\\n\\nAny mentions of AI, machine learning, or generative AI in products or services\\nDetails about AI-related projects, initiatives, or partnerships\\nInformation about the company's technology stack or digital transformation efforts\\n\\nCompany Strengths and Market Position\\n\\nData on market share or industry ranking\\nInformation about unique selling points or competitive advantages\\nDetails about product lines, services, or solutions offered\\nAny data on customer base, retention, or satisfaction\\n\\nTechnical Competencies and Expertise\\n\\nInformation about the company's R&D efforts\\nDetails on technical capabilities or specializations\\nAny mentions of patents, innovations, or proprietary technologies\\nInformation about the technical background of leadership or key employees\\n\\nCompany Culture and Strategic Direction\\n\\nStatements from leadership about company vision or future direction\\nAny mentions of AI or technology in the company's strategy\\nInformation about company values, culture, or workplace initiatives\\nDetails about recent organizational changes or new strategic focuses\\n\\nIndustry and Sector Information\\n\\nData on the company's industry or sector\\nInformation about industry trends, challenges, or opportunities\\nAny sector-specific AI or technology adoption data\\nDetails about regulatory environment or industry standards related to AI\\n\\nSpecial Instructions\\n\\nCollect all relevant information without attempting to analyze or interpret its significance for GenAI resilience.\\nIf you encounter conflicting information, include all versions and cite the sources.\\nFor any key areas where information is missing or unclear, explicitly note this in the fact sheet.\\nUse phrases like \\\"According to the company website...\\\" or \\\"Based on provided data...\\\" to clarify sources.\\nIf you identify implied information, clearly label it as such.\\n\\nFinal Notes\\n\\nAim for exhaustive detail while maintaining clarity and organization.\\nInclude all potentially relevant information, even if its significance isn't immediately apparent.\\nYour role is solely to compile and present information, not to analyze or draw conclusions.\\nEnsure that the fact sheet provides a comprehensive foundation for subsequent analysis by others.\\n\\nPlease proceed with creating the comprehensive fact sheet based on these instructions and the provided data."
+      },
+      "id": "54d7b2a8-6c36-472a-ace5-49648afc1cca",
+      "name": "Generate Company Dossier",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.4,
+      "position": [
+        2580,
+        420
+      ],
+      "alwaysOutputData": false,
+      "onError": "continueRegularOutput"
+    }
+  ],
+  "pinData": {},
+  "repo_name": "n8n-backup-zm",
+  "repo_owner": "zlatkomq",
+  "repo_path": "",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-07-01T12:16:56.003Z",
+  "versionId": "809b34be-669b-4b41-9c8c-8f332090bf70"
+}
