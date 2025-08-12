@@ -1,0 +1,247 @@
+{
+  "active": false,
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Embed question - ollama",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge questions and embeddings": {
+      "main": [
+        [
+          {
+            "node": "Search for question in faq",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embed question - ollama": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Search for question in faq1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Query Preparation": {
+      "main": [
+        []
+      ]
+    },
+    "Code": {
+      "main": [
+        []
+      ]
+    },
+    "Search for question in faq1": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "createdAt": "2025-03-24T11:34:14.062Z",
+  "id": "eWKOsAv8VJ782Sxr",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Elastic Search",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -380,
+        440
+      ],
+      "id": "174d35ae-1e3b-47d0-85af-cb2a93acdfb5",
+      "name": "When chat message received",
+      "webhookId": "6bb7d7eb-8ca0-470b-a59a-7bc7a8bbf896"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://192.168.20.70:9204/faq/_search?pretty",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "elasticsearchApi",
+        "sendHeaders": true,
+        "specifyHeaders": "json",
+        "jsonHeaders": "{\n  \"Content-Type\": \"application/json\"\n}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"knn\": {\n    \"field\": \"embedding\",\n    \"query_vector\": [{{ $json.embedding }}],\n    \"k\": 1,\n    \"num_candidates\": 20\n  },\n  \"_source\": [\"question\", \"answer\"]\n}",
+        "options": {
+          "allowUnauthorizedCerts": false
+        }
+      },
+      "id": "22b234b0-c872-4ef6-b023-5a1db4b5dc82",
+      "name": "Search for question in faq",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -600,
+        720
+      ],
+      "credentials": {
+        "elasticsearchApi": {
+          "id": "wwaILZtoajWrVXwt",
+          "name": "Elasticsearch account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const question =  $('Loop Over Items').first().json.rfpquestions; // Original question\nconst embedding = $input.first().json.embeddings[0]; // Extracted embedding\nreturn { embedding, question };"
+      },
+      "id": "44d20a7f-95a5-4384-a014-f1b1360f0554",
+      "name": "Merge questions and embeddings",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -800,
+        620
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "{\n  \"knn\": {\n    \"field\": \"embedding\",\n    \"query_vector\": [{{ $json.embedding }}],\n    \"k\": 1,\n    \"num_candidates\": 20\n  },\n  \"_source\": [\"question\", \"answer\"]\n}"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        620,
+        740
+      ],
+      "id": "3505e899-367f-4dcc-8c3d-5b972577eb8c",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get data from previous nodes\nconst embedding = $input.first().json.embedding;\nconst originalQuery = $input.first().json.query;\n\n// Create hybrid search query (combining vector search with text search)\nconst esQuery = {\n  query: {\n    bool: {\n      should: [\n        // Vector search component (70% weight)\n        {\n          script_score: {\n            query: { match_all: {} },\n            script: {\n              source: \"cosineSimilarity(params.query_vector, 'vector') + 1.0\",\n              params: { query_vector: embedding }\n            },\n            boost: 0.7\n          }\n        },\n        // Text search component (30% weight)\n        {\n          multi_match: {\n            query: originalQuery,\n            fields: [\"text^3\", \"metadata.doc_title^2\", \"metadata.book_name\", \"metadata.page_name\"],\n            type: \"best_fields\",\n            boost: 0.3\n          }\n        }\n      ]\n    }\n  },\n  size: 5\n};\n\nreturn {\n  json: {\n    esQuery: esQuery,\n    originalQuery: originalQuery\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        360,
+        700
+      ],
+      "id": "353584c0-5c71-490b-a2e4-315e78ee7268",
+      "name": "Query Preparation"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "ee903657-2fab-4237-907f-03de83954d8b",
+              "name": "embedding",
+              "value": "={{ $json.embeddings }}",
+              "type": "array"
+            },
+            {
+              "id": "2bf2cdb5-0495-47a7-b85d-b781f864b22b",
+              "name": "query",
+              "value": "={{ $('When chat message received').item.json.chatInput }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        140,
+        440
+      ],
+      "id": "3820a6e0-2c09-4eb1-98fe-95f19928d32c",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://192.168.20.70:11434/api/embed",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"nomic-embed-text:latest\",\n  \"input\": [\"{{ $json.chatInput }}\"]\n}",
+        "options": {}
+      },
+      "id": "9ab4085d-2e99-43e6-a22a-3c296ca1d33b",
+      "name": "Embed question - ollama",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -100,
+        440
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://192.168.20.70:9204/dev-vs-2_nomic_embed_text_latest/_search",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "elasticsearchApi",
+        "sendHeaders": true,
+        "specifyHeaders": "json",
+        "jsonHeaders": "={\n  \"Content-Type\": \"application/json\"\n}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"size\": 5,\n  \"query\": {\n    \"bool\": {\n      \"should\": [\n        {\n          \"match\": {\n            \"text\": \"{{ $json.query }}\"\n          }\n        }\n      ],\n      \"minimum_should_match\": 1\n    }\n  },\n  \"knn\": {\n    \"field\": \"vector\",\n    \"query_vector\": [{{ $('Embed question - ollama').item.json.embeddings }}],\n    \"k\": 5,\n    \"num_candidates\": 100\n  }\n}",
+        "options": {
+          "allowUnauthorizedCerts": false
+        }
+      },
+      "id": "45cb881d-32da-44a3-a017-76355f66102c",
+      "name": "Search for question in faq1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        420,
+        440
+      ],
+      "credentials": {
+        "elasticsearchApi": {
+          "id": "wwaILZtoajWrVXwt",
+          "name": "Elasticsearch account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "repo_name": "n8n-backup-zm",
+  "repo_owner": "zlatkomq",
+  "repo_path": "",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-03-24T12:38:19.034Z",
+  "versionId": "2c4d5998-1ad2-4b13-874d-4e3d150e87d8"
+}
