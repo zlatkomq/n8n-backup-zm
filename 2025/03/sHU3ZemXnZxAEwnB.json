@@ -1,0 +1,615 @@
+{
+  "active": false,
+  "connections": {
+    "Embeddings OpenAI": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Supabase Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embed question - ollama3": {
+      "main": [
+        [
+          {
+            "node": "Prepare for Elastic Search1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare for Elastic Search1": {
+      "main": [
+        [
+          {
+            "node": "Supabase1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "Read from sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ollama Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supabase Vector Store": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalize Data": {
+      "main": [
+        [
+          {
+            "node": "Embed question - ollama3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read from sheet": {
+      "main": [
+        [
+          {
+            "node": "Normalize Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-03-20T10:46:16.893Z",
+  "id": "sHU3ZemXnZxAEwnB",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Zlatkov workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "model": "deepseek-coder-v2:latest",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
+      "typeVersion": 1,
+      "position": [
+        1060,
+        640
+      ],
+      "id": "edc56e25-0c5e-45be-804f-1170f75c4eac",
+      "name": "Ollama Chat Model",
+      "credentials": {
+        "ollamaApi": {
+          "id": "fv9DllLzKNe1SabK",
+          "name": "Ollama account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "2f841ab4-b43f-46d5-b7d4-f9c0f50ea72c",
+              "name": "resource_name",
+              "value": "={{ $('Normalize Data').item.json.resource_name }}",
+              "type": "string"
+            },
+            {
+              "id": "c2177bb2-3ab3-41b1-9034-a3a0950f7678",
+              "name": "technical_domain",
+              "value": "={{ $('Normalize Data').item.json.technical_domain }}",
+              "type": "string"
+            },
+            {
+              "id": "cc54412b-3d77-4c2a-a7c8-b02050125b2f",
+              "name": "role_category",
+              "value": "={{ $('Normalize Data').item.json.role_category }}",
+              "type": "string"
+            },
+            {
+              "id": "52bb2a98-1561-437e-976e-9f25b7fe71c0",
+              "name": "skills",
+              "value": "={{ $('Normalize Data').item.json.skills }}",
+              "type": "object"
+            },
+            {
+              "id": "4e1d1c60-094a-4a9f-9237-87aca062ec6d",
+              "name": "all_skills",
+              "value": "={{ $('Normalize Data').item.json.all_skills }}",
+              "type": "array"
+            },
+            {
+              "id": "e8b6b422-803c-4e34-9583-50d1bcd28f82",
+              "name": "primary_skill_areas",
+              "value": "={{ $('Normalize Data').item.json.primary_skill_areas }}",
+              "type": "array"
+            },
+            {
+              "id": "0c143020-940e-4628-831a-633bc2ce7671",
+              "name": "industries",
+              "value": "={{ $('Normalize Data').item.json.industries }}",
+              "type": "array"
+            },
+            {
+              "id": "e6c462f4-b3eb-4f87-9633-9c65607ba7eb",
+              "name": "industries",
+              "value": "={{ $('Normalize Data').item.json.industries }}",
+              "type": "array"
+            },
+            {
+              "id": "f1c91687-f73b-4b55-a546-aff80560563c",
+              "name": "metadata",
+              "value": "={{ $('Normalize Data').item.json.metadata }}",
+              "type": "object"
+            },
+            {
+              "id": "c67a298a-221a-49ba-b5d4-be7c2aeb3499",
+              "name": "conversation_text",
+              "value": "={{ $('Normalize Data').item.json.conversation_text }}",
+              "type": "string"
+            },
+            {
+              "id": "925ad71c-aa78-404f-8dc7-4c0873f65c0d",
+              "name": "text_to_embed",
+              "value": "={{ $('Normalize Data').item.json.text_to_embed }}",
+              "type": "string"
+            },
+            {
+              "id": "6493bd78-7ffe-4e4a-afff-bf5aa3e9f0ae",
+              "name": "embedding",
+              "value": "={{ $json.data[0].embedding }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2560,
+        80
+      ],
+      "id": "f9f3a9b6-ddd0-452c-9039-ccb7cb179da6",
+      "name": "Prepare for Elastic Search"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        1160,
+        480
+      ],
+      "id": "8aa8931f-09ec-4066-8dbb-efec6f1a6f49",
+      "name": "Window Buffer Memory"
+    },
+    {
+      "parameters": {},
+      "id": "d3a047fb-0dc0-4a43-876a-4be228b682c3",
+      "name": "Postgres Chat Memory",
+      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+      "typeVersion": 1,
+      "position": [
+        2300,
+        480
+      ],
+      "notesInFlow": false
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        740,
+        400
+      ],
+      "id": "ad1d5b3f-7234-49d3-83fb-335c516128d2",
+      "name": "When chat message received",
+      "webhookId": "497d2593-dd4d-45c9-8e34-eb1c0feff8cf"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        1460,
+        640
+      ],
+      "id": "44e32171-dac5-4c7b-9af2-fc4d0015ab83",
+      "name": "Embeddings OpenAI"
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolName": "resources_base",
+        "toolDescription": "Work with you data in supabase vector store to retrieve resources.",
+        "tableName": {
+          "__rl": true,
+          "value": "resources",
+          "mode": "list",
+          "cachedResultName": "resources"
+        },
+        "topK": 10,
+        "options": {
+          "queryName": "match_resources"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
+      "typeVersion": 1,
+      "position": [
+        1440,
+        480
+      ],
+      "id": "6cd5aaff-c4eb-45db-a4bd-219c2d13a502",
+      "name": "Supabase Vector Store",
+      "credentials": {
+        "supabaseApi": {
+          "id": "Vbtfas1bVCzZ2Wde",
+          "name": "Supabase account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o",
+          "mode": "list",
+          "cachedResultName": "gpt-4o"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        980,
+        480
+      ],
+      "id": "79a4ce08-9ff8-4065-a335-2118378d7c77",
+      "name": "OpenAI Chat Model"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f5e91ad1-ba92-4001-b749-d72aa16927aa",
+              "name": "resource_id",
+              "value": "={{ $('Normalize Data').item.json.resource_id }}",
+              "type": "number"
+            },
+            {
+              "id": "5255b9c5-278d-47f7-a3a1-387a2caab5ba",
+              "name": "resource_name",
+              "value": "={{ $('Normalize Data').item.json.resource_name }}",
+              "type": "string"
+            },
+            {
+              "id": "587b9273-17e9-4b35-ba64-80cade70457c",
+              "name": "technical_domain",
+              "value": "={{ $('Normalize Data').item.json.technical_domain }}",
+              "type": "string"
+            },
+            {
+              "id": "3755ec35-329e-430c-befc-87e9bb0d29f5",
+              "name": "role_category",
+              "value": "={{ $('Normalize Data').item.json.role_category }}",
+              "type": "string"
+            },
+            {
+              "id": "700c4949-bf96-4f35-adec-dbbb1d432f69",
+              "name": "global_seniority",
+              "value": "={{ $('Normalize Data').item.json.seniority.global_seniority }}",
+              "type": "string"
+            },
+            {
+              "id": "dac44eca-45f7-4593-a7db-e653c8759b3c",
+              "name": "seniority_level",
+              "value": "={{ $('Normalize Data').item.json.seniority.level }}",
+              "type": "string"
+            },
+            {
+              "id": "22bd94b6-f15d-41a4-8cad-caecce8b0725",
+              "name": "is_lead_or_manager",
+              "value": "={{ $('Normalize Data').item.json.seniority.is_lead_or_manager }}",
+              "type": "boolean"
+            },
+            {
+              "id": "bca2c544-0dbe-4269-90ea-72ab362c297c",
+              "name": "team",
+              "value": "={{ $('Normalize Data').item.json.organization.team }}",
+              "type": "string"
+            },
+            {
+              "id": "323f05fa-2ce6-4b52-ab29-8c0b71ae69fb",
+              "name": "department",
+              "value": "={{ $('Normalize Data').item.json.organization.department }}",
+              "type": "string"
+            },
+            {
+              "id": "f9facf4b-dd0d-49cb-be74-a20e0d174d05",
+              "name": "vertical",
+              "value": "={{ $('Normalize Data').item.json.organization.vertical }}",
+              "type": "string"
+            },
+            {
+              "id": "a6a9ae5e-8ade-43d6-b3ad-e1fa36cfc8a6",
+              "name": "reporting_manager",
+              "value": "={{ $('Normalize Data').item.json.organization.reports_to }}",
+              "type": "object"
+            },
+            {
+              "id": "187a0075-dba6-4547-871f-d56eb2184a6f",
+              "name": "employment_type",
+              "value": "={{ $('Normalize Data').item.json.employment_type }}",
+              "type": "string"
+            },
+            {
+              "id": "0ca8b8a3-41cf-40f6-a17e-c6894b3bc110",
+              "name": "skills",
+              "value": "={{ $('Normalize Data').item.json.skills }}",
+              "type": "object"
+            },
+            {
+              "id": "66798bef-674f-41aa-9f7d-fd1dc94b1b15",
+              "name": "all_skills",
+              "value": "={{ $('Normalize Data').item.json.all_skills }}",
+              "type": "array"
+            },
+            {
+              "id": "1a6da504-5179-4f15-b3e8-f7d19f320f4e",
+              "name": "primary_skill_areas",
+              "value": "={{ $('Normalize Data').item.json.primary_skill_areas }}",
+              "type": "array"
+            },
+            {
+              "id": "b31d6c72-f5ae-4de3-918a-cfba103feecd",
+              "name": "industries",
+              "value": "={{ $('Normalize Data').item.json.industries }}",
+              "type": "array"
+            },
+            {
+              "id": "134e7ee2-9232-4617-a5e2-fd2401b969bf",
+              "name": "certificates",
+              "value": "={{ $('Normalize Data').item.json.certificates }}",
+              "type": "array"
+            },
+            {
+              "id": "735fb084-25e7-4c96-9e09-66e7b04b3fd8",
+              "name": "technical_knowledge",
+              "value": "={{ $('Normalize Data').item.json.technical_knowledge }}",
+              "type": "object"
+            },
+            {
+              "id": "a183912d-1f2a-4333-86ca-40eb07bba7af",
+              "name": "note",
+              "value": "={{ $('Normalize Data').item.json.note }}",
+              "type": "string"
+            },
+            {
+              "id": "178cb317-0dc6-4dc9-9caf-1a320d495ef1",
+              "name": "conversation_text",
+              "value": "={{ $('Normalize Data').item.json.conversation_text }}",
+              "type": "string"
+            },
+            {
+              "id": "8c854fca-8549-496e-adc9-610ef4751d0e",
+              "name": "text_to_embed",
+              "value": "={{ $('Normalize Data').item.json.text_to_embed }}",
+              "type": "string"
+            },
+            {
+              "id": "e76a11d9-4d9f-4725-9bef-195f5d44729d",
+              "name": "embedding",
+              "value": "={{ $json.data[0].embedding }}",
+              "type": "array"
+            }
+          ]
+        },
+        "options": {
+          "ignoreConversionErrors": true
+        }
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        800,
+        -60
+      ],
+      "id": "acb54c81-a09e-4603-8b96-5d478cfc7a29",
+      "name": "Prepare for Elastic Search1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.openai.com/v1/embeddings",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "openAiApi",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "model",
+              "value": "text-embedding-3-small"
+            },
+            {
+              "name": "input",
+              "value": "={{ $json.text_to_embed }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "8201c395-8b9c-435f-a7dd-9abbc13040e5",
+      "name": "Embed question - ollama3",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        580,
+        100
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "8CvuVJ8cItZcxDOX",
+          "name": "OpenAi account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "tableId": "resources",
+        "dataToSend": "autoMapInputData"
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        1020,
+        0
+      ],
+      "id": "e9f5e952-2f1f-4c6e-a430-194ea23f2c28",
+      "name": "Supabase1",
+      "credentials": {
+        "supabaseApi": {
+          "id": "Vbtfas1bVCzZ2Wde",
+          "name": "Supabase account 2"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -140,
+        -100
+      ],
+      "id": "a3968c6f-6f66-477a-bd07-b0bd3ff5a583",
+      "name": "When clicking ‘Test workflow’"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "You are a Talent Matching Assistant that helps identify the best resources for projects. You have access to a Supabase vector database containing detailed information about our technical team members.\n\nYour primary function is to understand project requirements, convert them into structured queries, and interpret the results from our resource database to provide tailored recommendations.\n\nWhen handling requests focused on certifications, regulatory compliance, or specialized domain knowledge, ensure that these factors are properly highlighted in the query parameters sent to the match_resources function. When interpreting results, emphasize how the returned resources specifically match these specialized requirements.\n\n\nPROCESS:\n1. Carefully analyze the user's request to understand:\n   - Technical domain requirements (Frontend, Backend, Mobile, DevOps, QA, etc.)\n   - Role specifics (Developer, Designer, Manager, Architect, etc.)\n   - Seniority level (Junior, Mid, Senior)\n   - Required skills and technologies\n   - Industry experience needed\n   - Team structure requirements\n\n2. Form a query that captures these requirements. Be as specific as possible.\n\n3. When you receive resource matches from the database:\n   - Present the top matches with their relevant qualifications\n   - Explain why each person is a good fit\n   - Highlight key skills and experience that align with the requirements\n   - Note any potential gaps or areas where additional training might be needed\n\n4. If forming a team, consider:\n   - Team cohesion and complementary skills\n   - Balance of seniority levels\n   - Leadership roles\n   - Vertical alignment\n\nGUIDELINES:\n- Always focus on the specific requirements in the request\n- Provide clear, concise summaries of why each person is recommended\n- If a perfect match isn't available, explain the trade-offs in your recommendations\n- Be transparent about confidence levels in your matches\n- Remember that resource availability is determined separately - focus on skills match\n\nYou have a direct connection to our talent database through the match_resources function, which handles the complex similarity searches and provides weighted results based on the query parameters.",
+          "returnIntermediateSteps": true
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        1120,
+        260
+      ],
+      "id": "f5bfd764-dfa6-45d6-8a97-7f3818fbadbf",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nreturn items.map(item => {\n    // Extract all available fields from the input\n    const resourceId = item.json[\"Employee ID\"] || \"\";\n    const resourceName = item.json[\"Resource Name\"] || \"\";\n    const technicalDomain = item.json[\"Section\"] || \"\";\n    const globalSeniority = item.json[\"Global Seniority (bob)\"] || \"\";\n    const team = item.json[\"Team (bob)\"] || \"\";\n    const department = item.json[\"Department (bob)\"] || \"\";\n    const vertical = item.json[\"Vertical (bob)\"] || \"\";\n    const coeManager = item.json[\"COE manager\"] || \"\";\n    const engineeringLead = item.json[\"EL\"] || \"\";\n    const engineeringHead = item.json[\"EH\"] || \"\";\n    const director = item.json[\"Director\"] || \"\";\n    const employmentType = item.json[\"Employment type (bob)\"] || \"\";\n    const skillSeniorLevel = item.json[\"Skills - Senior Level\"] || \"\";\n    const skillMidLevel = item.json[\"Skills - Mid Level\"] || \"\";\n    const skillJuniorLevel = item.json[\"Skills - Junior Level\"] || \"\";\n    const industryExpertise = item.json[\"Industry Expertise\"] || \"\";\n    const domainKnowledge = item.json[\"Domain knowledge\"] || \"\";\n    const certificates = item.json[\"Certificate(s)\"] || \"\";\n    const note = item.json[\"Note\"] || \"\";\n    \n    // Universal parser function that handles parentheses, brackets, and quoted text\n    const smartParse = (textString) => {\n        if (!textString) return [];\n        \n        const results = [];\n        let currentItem = '';\n        let insideParentheses = 0;  // Track nested parentheses\n        let insideBrackets = 0;     // Track nested brackets\n        let insideQuotes = false;   // Track quoted text\n        \n        // Process character by character\n        for (let i = 0; i < textString.length; i++) {\n            const char = textString[i];\n            \n            // Handle different states\n            if (char === '(') {\n                insideParentheses++;\n                currentItem += char;\n            } else if (char === ')') {\n                insideParentheses = Math.max(0, insideParentheses - 1); // Guard against mismatched parentheses\n                currentItem += char;\n            } else if (char === '[') {\n                insideBrackets++;\n                currentItem += char;\n            } else if (char === ']') {\n                insideBrackets = Math.max(0, insideBrackets - 1); // Guard against mismatched brackets\n                currentItem += char;\n            } else if (char === '\"' || char === \"'\") {\n                insideQuotes = !insideQuotes;\n                currentItem += char;\n            } else if (char === ',' && !insideParentheses && !insideBrackets && !insideQuotes) {\n                // Only split on commas when not inside special characters\n                results.push(currentItem.trim());\n                currentItem = '';\n            } else {\n                currentItem += char;\n            }\n        }\n        \n        // Add the last item if there is one\n        if (currentItem.trim()) {\n            results.push(currentItem.trim());\n        }\n        \n        // Post-processing: Handle special formats and clean up\n        return results\n            .map(item => {\n                // Clean up quote marks if they balance at beginning/end\n                if ((item.startsWith('\"') && item.endsWith('\"')) || \n                    (item.startsWith(\"'\") && item.endsWith(\"'\"))) {\n                    item = item.slice(1, -1).trim();\n                }\n                \n                // Remove any trailing dots or punctuation\n                return item.replace(/[.,;]+$/, '').trim();\n            })\n            .filter(Boolean);\n    };\n    \n    // Clean and standardize a skill/domain string\n    const cleanField = (text) => {\n        if (!text) return text;\n        \n        // Remove redundant whitespace\n        text = text.replace(/\\s+/g, ' ').trim();\n        \n        // Standardize common variations (could be expanded based on your data)\n        const standardizations = {\n            'Javascript': 'JavaScript',\n            'React.js': 'React',\n            'React.JS': 'React',\n            'ReactJS': 'React',\n            'Node.js': 'Node.js',\n            'NodeJS': 'Node.js',\n            'Artificial Intelligence': 'AI',\n            'Machine Learning': 'ML',\n            '.NET Core': '.NET Core',\n            '.Net Core': '.NET Core',\n            'Devops': 'DevOps',\n            'CI/CD': 'CI/CD',\n            'CI / CD': 'CI/CD',\n            'Front-end': 'Frontend',\n            'Front end': 'Frontend',\n            'Back-end': 'Backend',\n            'Back end': 'Backend',\n            'Next.js': 'Next.js',\n            'NextJS': 'Next.js',\n            'Vue.js': 'Vue.js',\n            'VueJS': 'Vue.js',\n            'Express.js': 'Express',\n            'ExpressJS': 'Express'\n        };\n        \n        // Apply standardizations\n        Object.keys(standardizations).forEach(key => {\n            // Use word boundaries for more precise replacement\n            const regex = new RegExp(`\\\\b${key}\\\\b`, 'gi');\n            text = text.replace(regex, standardizations[key]);\n        });\n        \n        return text;\n    };\n    \n    // Extract role category from technical domain\n    const extractRoleCategory = (technicalDomain) => {\n        if (!technicalDomain) return \"Other\";\n        \n        const domainLower = technicalDomain.toLowerCase();\n        \n        // Map technical domains to general role categories\n        if (domainLower === 'ba' || domainLower.includes('business analyst')) {\n            return 'Business Analyst';\n        }\n        if (domainLower === 'pm' || domainLower.includes('project manager')) {\n            return 'Project Manager';\n        }\n        if (domainLower === 'po' || domainLower.includes('product owner')) {\n            return 'Product Owner';\n        }\n        if (domainLower === 'sa' || domainLower.includes('solution architect')) {\n            return 'Solution Architect';\n        }\n        if (domainLower.includes('frontend') || domainLower === 'fe' || \n            domainLower.includes('react') || domainLower.includes('angular') || \n            domainLower.includes('vue') || domainLower.includes('slice')) {\n            return 'Frontend Developer';\n        }\n        if (domainLower.includes('backend') || domainLower === 'be' || \n            domainLower.includes('java') || domainLower.includes('php') || \n            domainLower.includes('python') || domainLower.includes('.net') || \n            domainLower.includes('node') || domainLower.includes('ruby') ||\n            domainLower.includes('cms')) {\n            return 'Backend Developer';\n        }\n        if (domainLower.includes('fullstack') || domainLower === 'fs' || \n            domainLower.includes('full stack') || domainLower.includes('full-stack')) {\n            return 'Full Stack Developer';\n        }\n        if (domainLower.includes('mobile') || domainLower.includes('android') || \n            domainLower.includes('ios') || domainLower.includes('flutter') || \n            domainLower.includes('react native')) {\n            return 'Mobile Developer';\n        }\n        if (domainLower.includes('devops') || domainLower.includes('sre') || \n            domainLower.includes('infrastructure') || domainLower.includes('cloud')) {\n            return 'DevOps Engineer';\n        }\n        if (domainLower === 'qa' || domainLower.includes('test') || \n            domainLower.includes('quality')) {\n            return 'QA Engineer';\n        }\n        if (domainLower.includes('data') || domainLower.includes('bi') || \n            domainLower.includes('business intelligence')) {\n            return 'Data Engineer';\n        }\n        if (domainLower === 'data science' || domainLower.includes('ml') || domainLower.includes('ai') || \n            domainLower.includes('machine learning') || domainLower.includes('data science')) {\n            return 'AI/ML Engineer';\n        }\n        if (domainLower.includes('design') || domainLower.includes('ux') || domainLower.includes('ui')) {\n            return 'UI/UX Designer';\n        }\n        if (domainLower.includes('support')) {\n            return 'Support Engineer';\n        }\n        \n        // Return the original technical domain if no mapping found\n        return technicalDomain;\n    };\n    \n    // Extract additional technical skills from domain knowledge\n    const extractTechnicalDetails = (domainKnowledge) => {\n        if (!domainKnowledge) return { tools: [], technologies: [], methodologies: [] };\n        \n        // Common tools, technologies and methodologies to look for\n        const tools = [\n            'Jira', 'Confluence', 'Azure DevOps', 'GitHub', 'GitLab', 'Bitbucket',\n            'Jenkins', 'TeamCity', 'Travis CI', 'CircleCI', 'Bamboo',\n            'Slack', 'Microsoft Teams', 'Asana', 'Trello', 'Monday',\n            'Figma', 'Sketch', 'Adobe XD', 'InVision', 'Zeplin',\n            'Power BI', 'Tableau', 'Looker', 'Grafana', 'Kibana',\n            'Postman', 'Swagger', 'SonarQube', 'Selenium', 'BPMN', 'UML',\n            'Axure', 'Adobe Photoshop', 'Adobe Illustrator', 'InDesign'\n        ];\n        \n        const technologies = [\n            'React', 'Angular', 'Vue', 'Next.js', 'Nuxt', 'Svelte',\n            'Node.js', 'Express', 'Django', 'Flask', 'Spring Boot', 'Laravel', 'ASP.NET',\n            'MongoDB', 'PostgreSQL', 'MySQL', 'SQL Server', 'Oracle', 'DynamoDB', 'Cassandra',\n            'Docker', 'Kubernetes', 'AWS', 'Azure', 'GCP', 'Terraform', 'Ansible', 'Puppet',\n            'TensorFlow', 'PyTorch', 'Keras', 'scikit-learn', 'pandas', 'NumPy',\n            'Hadoop', 'Spark', 'Kafka', 'Airflow', 'Databricks',\n            'REST', 'GraphQL', 'SOAP', 'API', 'Microservices', 'ERP', 'CRM',\n            'Firebase', 'Cognito', 'Auth0', 'Mobile banking', 'Payment gateway'\n        ];\n        \n        const methodologies = [\n            'Agile', 'Scrum', 'Kanban', 'SAFe', 'Waterfall', 'Lean', 'DevOps',\n            'CI/CD', 'TDD', 'BDD', 'DDD', 'Microservices', 'Serverless',\n            'User research', 'Design thinking', 'User-centered design',\n            'Data modeling', 'ETL', 'Data warehousing', 'OLAP',\n            'Product discovery', 'User story mapping', 'Requirements elicitation',\n            'Business analysis', 'Product ownership', 'Continuous integration'\n        ];\n        \n        // Extract matches\n        const findMatches = (text, terms) => {\n            const matches = [];\n            const lowerText = text.toLowerCase();\n            \n            terms.forEach(term => {\n                if (lowerText.includes(term.toLowerCase())) {\n                    matches.push(term);\n                }\n            });\n            \n            return [...new Set(matches)]; // Remove duplicates\n        };\n        \n        return {\n            tools: findMatches(domainKnowledge, tools),\n            technologies: findMatches(domainKnowledge, technologies),\n            methodologies: findMatches(domainKnowledge, methodologies)\n        };\n    };\n    \n    // Determine seniority level based on Global Seniority \n    const determineSeniorityLevel = (globalSeniority) => {\n        // If global seniority is not available, return unknown\n        if (!globalSeniority) return \"Unknown\";\n        \n        const seniorityLower = globalSeniority.toLowerCase();\n        \n        if (seniorityLower.includes('senior')) {\n            // Extract number if available (e.g., \"Senior 2\" -> 2)\n            const seniorityNum = seniorityLower.match(/\\d+/);\n            if (seniorityNum) {\n                return `Senior ${seniorityNum[0]}`;\n            }\n            return \"Senior\";\n        }\n        \n        if (seniorityLower.includes('mid')) {\n            // Extract number if available (e.g., \"Mid 2\" -> 2)\n            const midNum = seniorityLower.match(/\\d+/);\n            if (midNum) {\n                return `Mid ${midNum[0]}`;\n            }\n            return \"Mid\";\n        }\n        \n        if (seniorityLower.includes('junior')) {\n            // Extract number if available (e.g., \"Junior 2\" -> 2)\n            const juniorNum = seniorityLower.match(/\\d+/);\n            if (juniorNum) {\n                return `Junior ${juniorNum[0]}`;\n            }\n            return \"Junior\";\n        }\n        \n        if (seniorityLower.includes('head')) {\n            return \"Head\";\n        }\n        \n        if (seniorityLower.includes('manager')) {\n            return \"Manager\";\n        }\n        \n        // Return original if no mapping\n        return globalSeniority;\n    };\n    \n    // Determine if the person is a manager or lead\n    const isLeadOrManager = (globalSeniority, engineeringLead, coeManager) => {\n        if (!globalSeniority && !engineeringLead && !coeManager) return false;\n        \n        // Check if global seniority indicates management position\n        if (globalSeniority && (\n            globalSeniority.toLowerCase().includes('manager') ||\n            globalSeniority.toLowerCase().includes('head')\n        )) {\n            return true;\n        }\n        \n        // Check if they are listed as engineering lead for anyone\n        if (engineeringLead && engineeringLead === resourceName) {\n            return true;\n        }\n        \n        // Check if they are listed as COE manager for anyone\n        if (coeManager && coeManager === resourceName) {\n            return true;\n        }\n        \n        return false;\n    };\n    \n    // Create skills arrays\n    const skills = {\n        senior: smartParse(skillSeniorLevel).map(cleanField),\n        mid: smartParse(skillMidLevel).map(cleanField),\n        junior: smartParse(skillJuniorLevel).map(cleanField)\n    };\n    \n    // Extract all skills for quick access and filtering\n    const allSkills = [\n        ...skills.senior.map(skill => ({ skill, level: 'senior' })),\n        ...skills.mid.map(skill => ({ skill, level: 'mid' })),\n        ...skills.junior.map(skill => ({ skill, level: 'junior' }))\n    ];\n    \n    // Get flat list of skills\n    const flatSkills = allSkills.map(s => s.skill);\n    \n    // Extract technical details from domain knowledge\n    const technicalDetails = extractTechnicalDetails(domainKnowledge);\n    \n    // Add extracted technical details to all_skills if not already present\n    technicalDetails.tools.forEach(tool => {\n        if (!flatSkills.includes(tool)) {\n            flatSkills.push(tool);\n        }\n    });\n    \n    technicalDetails.technologies.forEach(tech => {\n        if (!flatSkills.includes(tech)) {\n            flatSkills.push(tech);\n        }\n    });\n    \n    technicalDetails.methodologies.forEach(method => {\n        if (!flatSkills.includes(method)) {\n            flatSkills.push(method);\n        }\n    });\n    \n    // Determine primary skill areas based on skills\n    const identifyPrimarySkillAreas = (allSkills) => {\n        const skillGroups = {\n            'Frontend': ['React', 'Angular', 'Vue', 'JavaScript', 'TypeScript', 'HTML', 'CSS', 'SASS', 'LESS', 'Redux', 'Next.js'],\n            'Backend': ['Java', 'Spring', 'Python', 'Django', 'FastAPI', 'PHP', 'Laravel', 'Symfony', 'C#', '.NET', 'Node.js', 'Express', 'Ruby', 'Rails'],\n            'Database': ['SQL', 'PostgreSQL', 'MySQL', 'MongoDB', 'DynamoDB', 'Elasticsearch', 'Redis', 'Cassandra'],\n            'DevOps': ['Docker', 'Kubernetes', 'AWS', 'Azure', 'GCP', 'CI/CD', 'Jenkins', 'Terraform', 'Ansible'],\n            'Mobile': ['Android', 'iOS', 'Swift', 'Kotlin', 'Flutter', 'React Native'],\n            'AI/ML': ['TensorFlow', 'PyTorch', 'ML', 'AI', 'NLP', 'Computer Vision', 'Data Science'],\n            'Testing': ['QA', 'Selenium', 'Cypress', 'Jest', 'Testing', 'TDD', 'BDD', 'JUnit', 'PyTest'],\n            'Management': ['Agile', 'Scrum', 'Kanban', 'Project Management', 'Product Management', 'JIRA', 'Business Analysis'],\n            'Design': ['UI', 'UX', 'Figma', 'Sketch', 'Adobe XD', 'Photoshop', 'Illustrator']\n        };\n        \n        // Count occurrences of skills in each area\n        const areaScores = {};\n        Object.keys(skillGroups).forEach(area => {\n            areaScores[area] = 0;\n            skillGroups[area].forEach(skill => {\n                allSkills.forEach(userSkill => {\n                    if (userSkill.toLowerCase().includes(skill.toLowerCase())) {\n                        areaScores[area]++;\n                    }\n                });\n            });\n        });\n        \n        // Return areas with at least one skill match, sorted by score\n        const matchedAreas = Object.keys(areaScores)\n            .filter(area => areaScores[area] > 0)\n            .sort((a, b) => areaScores[b] - areaScores[a]);\n        \n        return matchedAreas;\n    };\n    \n    // Get role category from technical domain\n    const roleCategory = extractRoleCategory(technicalDomain);\n    \n    // Get seniority level\n    const seniorityLevel = determineSeniorityLevel(globalSeniority);\n    \n    // Check if the person is a lead or manager\n    const isLeadOrManagerRole = isLeadOrManager(globalSeniority, engineeringLead, coeManager);\n    \n    // Get primary skill areas\n    const primarySkillAreas = identifyPrimarySkillAreas(flatSkills);\n    \n    // Parse industries\n    const industries = smartParse(industryExpertise).map(cleanField);\n    \n    // Parse certificates\n    const certificatesList = smartParse(certificates).map(cleanField);\n    \n    // Extract organizational structure\n    const orgStructure = {\n        team: team,\n        department: department,\n        vertical: vertical,\n        reports_to: {\n            engineering_lead: engineeringLead !== resourceName ? engineeringLead : null,\n            coe_manager: coeManager,\n            engineering_head: engineeringHead,\n            director: director\n        },\n        is_lead_or_manager: isLeadOrManagerRole\n    };\n    \n    // Create normalized item\n    const normalizedItem = {\n        resource_id: resourceId,\n        resource_name: resourceName,\n        technical_domain: technicalDomain,\n        role_category: roleCategory,\n        seniority: {\n            global_seniority: globalSeniority,\n            level: seniorityLevel,\n            is_lead_or_manager: isLeadOrManagerRole\n        },\n        organization: orgStructure,\n        employment_type: employmentType,\n        skills: skills,\n        all_skills: flatSkills,\n        primary_skill_areas: primarySkillAreas,\n        industries: industries,\n        certificates: certificatesList,\n        technical_knowledge: {\n            domain_knowledge: domainKnowledge,\n            extracted_tools: technicalDetails.tools,\n            extracted_technologies: technicalDetails.technologies,\n            extracted_methodologies: technicalDetails.methodologies\n        },\n        note: note\n    };\n    \n    // Build natural language descriptions for better LLM understanding\n    \n    // 1. Role description\n    let roleDescription = `${resourceName} is a ${roleCategory}`;\n    if (globalSeniority) {\n        roleDescription += ` with ${globalSeniority} seniority`;\n    }\n    if (isLeadOrManagerRole) {\n        roleDescription += ` in a leadership position`;\n    }\n    if (primarySkillAreas.length > 0) {\n        roleDescription += ` specializing in ${primarySkillAreas.slice(0, 2).join(' and ')}`;\n    }\n    roleDescription += `.`;\n    \n    // 2. Skills description\n    let skillsDescription = \"\";\n    \n    if (skills.senior.length > 0) {\n        skillsDescription += `Has senior-level expertise in ${skills.senior.join(', ')}.`;\n    }\n    \n    if (skills.mid.length > 0) {\n        skillsDescription += ` Proficient in ${skills.mid.join(', ')}.`;\n    }\n    \n    if (skills.junior.length > 0) {\n        skillsDescription += ` Also familiar with ${skills.junior.join(', ')}.`;\n    }\n    \n    // 3. Industry description\n    let industryDescription = \"\";\n    if (industries.length > 0) {\n        industryDescription = `Has experience in the following industries: ${industries.join(', ')}.`;\n    }\n    \n    // 4. Organizational context\n    let orgDescription = \"\";\n    if (team || department || vertical) {\n        orgDescription = `Works in ${team || 'the company'}`;\n        if (department) {\n            orgDescription += `, part of ${department}`;\n        }\n        if (vertical) {\n            orgDescription += ` within the ${vertical} vertical`;\n        }\n        orgDescription += '.';\n    }\n    \n    // 5. Management chain\n    let managementDescription = \"\";\n    if (coeManager || engineeringLead || engineeringHead || director) {\n        const managers = [];\n        if (engineeringLead && engineeringLead !== resourceName) managers.push(`Engineering Lead: ${engineeringLead}`);\n        if (coeManager) managers.push(`COE Manager: ${coeManager}`);\n        if (engineeringHead) managers.push(`Engineering Head: ${engineeringHead}`);\n        if (director) managers.push(`Director: ${director}`);\n        \n        if (managers.length > 0) {\n            managementDescription = `Reports to ${managers.join(', ')}.`;\n        }\n    }\n    \n    // 6. Domain knowledge, technical tools and certificates\n    let expertiseDescription = \"\";\n    \n    if (technicalDetails.tools.length > 0 || \n        technicalDetails.technologies.length > 0 || \n        technicalDetails.methodologies.length > 0) {\n        \n        if (technicalDetails.tools.length > 0) {\n            expertiseDescription += `Experienced with tools: ${technicalDetails.tools.join(', ')}. `;\n        }\n        \n        if (technicalDetails.technologies.length > 0) {\n            expertiseDescription += `Familiar with technologies: ${technicalDetails.technologies.join(', ')}. `;\n        }\n        \n        if (technicalDetails.methodologies.length > 0) {\n            expertiseDescription += `Follows methodologies: ${technicalDetails.methodologies.join(', ')}. `;\n        }\n    }\n    \n    if (domainKnowledge) {\n        expertiseDescription += `Domain knowledge: ${domainKnowledge} `;\n    }\n    \n    if (certificatesList.length > 0) {\n        expertiseDescription += `Holds certifications in: ${certificatesList.join(', ')}.`;\n    }\n    \n    // 7. Create conversation-friendly search text\n    // This is optimized for natural language questions to the LLM\n    const conversationText = `\n${roleDescription}\n${skillsDescription}\n${industryDescription}\n${orgDescription}\n${managementDescription}\n${expertiseDescription}\n${note ? 'Additional info: ' + note : ''}\n`.trim();\n    \n    // 8. Create structured embedding text (for vector search)\n    const structuredParts = [];\n    \n    // Start with name, technical domain and role category\n    structuredParts.push(`Resource: ${resourceName} | ID: ${resourceId} | Technical Domain: ${technicalDomain} | Role: ${roleCategory} | Seniority: ${globalSeniority}`);\n    \n    // Add team info\n    if (team || department || vertical) {\n        structuredParts.push(`Organization: ${vertical || ''} | ${department || ''} | ${team || ''}`);\n    }\n    \n    // Add management\n    if (coeManager || engineeringLead || engineeringHead || director) {\n        structuredParts.push(`Management: ${engineeringLead !== resourceName ? engineeringLead : ''} | ${coeManager} | ${engineeringHead} | ${director}`);\n    }\n    \n    // Add primary skill areas\n    if (primarySkillAreas.length > 0) {\n        structuredParts.push(`Primary Skill Areas: ${primarySkillAreas.join(', ')}`);\n    }\n    \n    // Add skills by level\n    if (skills.senior.length > 0) {\n        structuredParts.push(`Senior Skills: ${skills.senior.join(', ')}`);\n    }\n    \n    if (skills.mid.length > 0) {\n        structuredParts.push(`Mid Skills: ${skills.mid.join(', ')}`);\n    }\n    \n    if (skills.junior.length > 0) {\n        structuredParts.push(`Junior Skills: ${skills.junior.join(', ')}`);\n    }\n    \n    // Add industries\n    if (industries.length > 0) {\n        structuredParts.push(`Industries: ${industries.join(', ')}`);\n    }\n    \n    // Add extracted tools and technologies\n    if (technicalDetails.tools.length > 0) {\n        structuredParts.push(`Tools: ${technicalDetails.tools.join(', ')}`);\n    }\n    \n    if (technicalDetails.technologies.length > 0) {\n        structuredParts.push(`Technologies: ${technicalDetails.technologies.join(', ')}`);\n    }\n    \n    if (technicalDetails.methodologies.length > 0) {\n        structuredParts.push(`Methodologies: ${technicalDetails.methodologies.join(', ')}`);\n    }\n    \n    // Add certificates\n    if (certificatesList.length > 0) {\n        structuredParts.push(`Certificates: ${certificatesList.join(', ')}`);\n    }\n    \n    // Add miscellaneous notes if present\n    if (note && note.trim()) {\n        structuredParts.push(`Additional Info: ${note}`);\n    }\n    \n    // Join with pipe separator\n    const structuredText = structuredParts.filter(Boolean).join(' | ');\n    \n    // Full text for embedding combines structured and natural language\n    const textToEmbed = `${structuredText} | ${conversationText}`;\n    \n    // Return both the structured data and the text for embedding\n    return {\n        json: {\n            ...normalizedItem,\n            conversation_text: conversationText,\n            text_to_embed: textToEmbed\n        }\n    };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        360,
+        -80
+      ],
+      "id": "f1768364-0ce2-4517-96c0-dd4ee0cb2cf7",
+      "name": "Normalize Data"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "13sIAv6BIWWZ3z9iH9ARRmRzvB84WApzfa2o7g2erlSI",
+          "mode": "list",
+          "cachedResultName": "ResourcingData2",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/13sIAv6BIWWZ3z9iH9ARRmRzvB84WApzfa2o7g2erlSI/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 813830402,
+          "mode": "list",
+          "cachedResultName": "Ganttic",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/13sIAv6BIWWZ3z9iH9ARRmRzvB84WApzfa2o7g2erlSI/edit#gid=813830402"
+        },
+        "combineFilters": "OR",
+        "options": {}
+      },
+      "id": "cc39955e-2538-4e35-b777-fc2820c1d5ae",
+      "name": "Read from sheet",
+      "type": "n8n-nodes-base.googleSheets",
+      "position": [
+        60,
+        140
+      ],
+      "typeVersion": 4.3,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "P5zBMkfSr8qY5tBv",
+          "name": "Google Sheets account 2"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "repo_name": "n8n-backup-zm",
+  "repo_owner": "zlatkomq",
+  "repo_path": "",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-04-02T11:53:13.017Z",
+  "versionId": "b3848015-c246-4b44-86db-7a06ad5e1b98"
+}
