@@ -1,0 +1,273 @@
+{
+  "active": false,
+  "connections": {
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Deduplicate and Best Score",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Deduplicate and Best Score": {
+      "main": [
+        [
+          {
+            "node": "Filter low Scores and Sort",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter low Scores and Sort": {
+      "main": [
+        [
+          {
+            "node": "Merge Chunks",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge Chunks": {
+      "main": [
+        [
+          {
+            "node": "Token Budgeting",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Token Budgeting": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Delete Index": {
+      "main": [
+        [
+          {
+            "node": "Create index - Elastic Search",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "Delete Index",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-04-28T10:25:14.201Z",
+  "id": "AcPlWNDUfcLr4m6g",
+  "isArchived": false,
+  "meta": null,
+  "name": "Embed, Clean, Filter, Merge, Budget Token",
+  "nodes": [
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "_score",
+              "type": "number"
+            },
+            {
+              "name": "_id"
+            },
+            {
+              "name": "chunk_id"
+            },
+            {
+              "name": "section_title"
+            },
+            {
+              "name": "text"
+            },
+            {
+              "name": "metadata",
+              "type": "object"
+            },
+            {
+              "name": "query_type"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -580,
+        -180
+      ],
+      "id": "714cfa06-8068-41c4-a657-e8f3f2b2098c",
+      "name": "When Executed by Another Workflow",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        580,
+        -180
+      ],
+      "id": "344daaa0-a32c-418a-9d0c-8f6d07bd81c2",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "jsCode": "const seen = {};\nconst results = [];\n\nfor (const item of $input.all()) {\n  const { chunk_id, platform, _score } = item.json;\n\n  if (!seen[chunk_id]) {\n    // First time seeing this chunk_id\n    seen[chunk_id] = {\n      ...item.json,\n      platform_origins: [{ platform, score: _score }], // <-- Save score per platform\n    };\n    delete seen[chunk_id].platform_origin;\n    results.push({ json: seen[chunk_id] });\n  } else {\n    // Merge platform origins\n    const existing = seen[chunk_id].platform_origins;\n\n    if (!existing.some(p => p.platform === platform)) {\n      existing.push({ platform, score: _score });\n    }\n\n    // Check if this new hit has a better score\n    if (_score > seen[chunk_id]._score) {\n      Object.assign(seen[chunk_id], {\n        ...item.json,\n        platform_origins: existing, // preserve merged origins with scores\n      });\n    }\n  }\n}\n\nreturn results;\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -260,
+        -180
+      ],
+      "id": "16322b9f-05a0-4659-b603-bb54c77c17c6",
+      "name": "Deduplicate and Best Score"
+    },
+    {
+      "parameters": {
+        "jsCode": "const MIN_SCORE = 1.0;\n\nconst filtered = $input.all()\n  .map(item => item.json)\n  .filter(chunk => chunk._score >= MIN_SCORE)   // Remove low-score chunks\n  .sort((a, b) => b._score - a._score);          // Sort high to low\n\nreturn filtered.map(chunk => ({ json: chunk }));"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -20,
+        -180
+      ],
+      "id": "b717753f-3161-421e-9789-dff98e26568d",
+      "name": "Filter low Scores and Sort"
+    },
+    {
+      "parameters": {
+        "jsCode": "const grouped = {};\nconst mergedChunks = [];\n\n// Group by parent_chunk_id (or by chunk_id if it's not split)\nfor (const item of items) {\n  const data = item.json;\n  const parentId = data.metadata?.is_split_chunk\n    ? data.metadata.parent_chunk_id\n    : data.chunk_id;\n\n  if (!grouped[parentId]) {\n    grouped[parentId] = [];\n  }\n\n  grouped[parentId].push(data);\n}\n\n// Merge chunks in each group\nfor (const groupId in grouped) {\n  const group = grouped[groupId];\n\n  if (group.length === 1 && !group[0].metadata?.is_split_chunk) {\n    // Not split → push as is\n    mergedChunks.push({ json: group[0] });\n  } else {\n    // Sort parts by split_part index\n    const sortedParts = group.sort((a, b) =>\n      (a.metadata?.split_part ?? 0) - (b.metadata?.split_part ?? 0)\n    );\n\n    // Merge texts and metadata\n    const mergedText = sortedParts.map(p => p.text).join(\"\\n\\n\");\n    const base = sortedParts[0];\n\n    // Build merged result\n    mergedChunks.push({\n      json: {\n        ...base,\n        chunk_id: groupId, // Use parent_chunk_id as unified ID\n        text: mergedText,\n        metadata: {\n          ...base.metadata,\n          is_split_chunk: false,\n          split_part: undefined,\n          total_parts: undefined,\n        }\n      }\n    });\n  }\n}\n\nreturn mergedChunks;\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        180,
+        -180
+      ],
+      "id": "d49cd0a5-7279-428e-8ccb-cadae4957571",
+      "name": "Merge Chunks"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Configuration\nconst TOKEN_LIMIT = 5000;\nconst MIN_STRONG_SCORE = 7.0;\n\n// Rough token estimator (1 token ~ 4 characters)\nfunction estimateTokenCount(text) {\n  if (!text) return 0;\n  return Math.ceil(text.length / 4);\n}\n\n// Input already filtered and sorted!\nconst chunks = $input.all().map(item => item.json);\n\n// Build the final list\nconst selectedChunks = [];\nlet tokenCount = 0;\n\nfor (const chunk of chunks) {\n  const tokens = estimateTokenCount(chunk.text);\n\n  if ((tokenCount + tokens) <= TOKEN_LIMIT) {\n    selectedChunks.push(chunk);\n    tokenCount += tokens;\n  } else if (chunk._score >= MIN_STRONG_SCORE) {\n    // Allow overflow for very strong chunks\n    selectedChunks.push(chunk);\n    tokenCount += tokens;\n  } else {\n    break; // Stop adding\n  }\n}\n\n// Prepare output\nconst output = selectedChunks.map(chunk => ({ json: chunk }));\n\n// Add token usage metadata (attach to first item for simplicity)\nif (output.length > 0) {\n  output[0].json._token_summary = {\n    total_tokens_estimated: tokenCount,\n    total_chunks_selected: selectedChunks.length,\n  };\n}\n\nreturn output;\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        400,
+        -180
+      ],
+      "id": "2d147411-0f27-4eaf-a834-019af9dbcab5",
+      "name": "Token Budgeting"
+    },
+    {
+      "parameters": {
+        "method": "PUT",
+        "url": "http://192.168.20.70:9204/est_tool_rfp",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "elasticsearchApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"mappings\": {\n    \"properties\": {\n      \"chunk_id\": {\n        \"type\": \"keyword\"\n      },\n      \"section_title\": {\n        \"type\": \"text\",\n        \"fields\": {\n          \"keyword\": {\n            \"type\": \"keyword\",\n            \"ignore_above\": 256\n          }\n        }\n      },\n      \"text\": {\n        \"type\": \"text\",\n        \"analyzer\": \"standard\"\n      },\n      \"embedding\": {\n        \"type\": \"dense_vector\",\n        \"dims\": 768,\n        \"index\": true,\n        \"similarity\": \"cosine\"\n      },\n      \"metadata\": {\n        \"properties\": {\n          \"filename\": {\n            \"type\": \"keyword\"\n          },\n          \"page_numbers\": {\n            \"type\": \"integer\"\n          },\n          \"parent_chunk_id\": {\n            \"type\": \"keyword\"\n          },\n          \"is_split_chunk\": {\n            \"type\": \"boolean\"\n          },\n          \"split_part\": {\n            \"type\": \"integer\"\n          },\n          \"total_parts\": {\n            \"type\": \"integer\"\n          }\n        }\n      },\n      \"vector_metadata\": {\n        \"properties\": {\n          \"token_count\": {\n            \"type\": \"integer\"\n          },\n          \"is_split\": {\n            \"type\": \"boolean\"\n          },\n          \"chunk_index\": {\n            \"type\": \"integer\"\n          },\n          \"part_index\": {\n            \"type\": \"integer\"\n          }\n        }\n      }\n    }\n  },\n  \"settings\": {\n    \"index\": {\n      \"number_of_shards\": 1,\n      \"number_of_replicas\": 1,\n      \"refresh_interval\": \"1s\"\n    },\n    \"analysis\": {\n      \"analyzer\": {\n        \"text_analyzer\": {\n          \"type\": \"custom\",\n          \"tokenizer\": \"standard\",\n          \"filter\": [\"lowercase\", \"asciifolding\"]\n        }\n      }\n    }\n  }\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -120,
+        140
+      ],
+      "id": "67d343f5-ac89-4ce5-8bf9-9593a3ced174",
+      "name": "Create index - Elastic Search",
+      "credentials": {
+        "elasticsearchApi": {
+          "id": "wwaILZtoajWrVXwt",
+          "name": "Elasticsearch account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "index",
+        "operation": "delete",
+        "indexId": "est_tool_rfp"
+      },
+      "type": "n8n-nodes-base.elasticsearch",
+      "typeVersion": 1,
+      "position": [
+        -340,
+        140
+      ],
+      "id": "4fc861e3-cd87-4337-b840-bc71ff452493",
+      "name": "Delete Index",
+      "credentials": {
+        "elasticsearchApi": {
+          "id": "wwaILZtoajWrVXwt",
+          "name": "Elasticsearch account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -560,
+        100
+      ],
+      "id": "df34facd-8036-4571-90cb-2950b7cd7222",
+      "name": "When clicking ‘Test workflow’"
+    }
+  ],
+  "pinData": {},
+  "repo_name": "n8n-backup-zm",
+  "repo_owner": "zlatkomq",
+  "repo_path": "",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-04-24T10:59:44.979Z",
+      "updatedAt": "2025-04-24T10:59:44.979Z",
+      "id": "qEREEA2JvunvA9Nv",
+      "name": "Estimation Tool"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-04-28T11:14:09.743Z",
+  "versionId": "412cd3ae-45de-46c4-ae69-6c9c7c9bdf22"
+}
