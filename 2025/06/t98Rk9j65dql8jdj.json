@@ -1,0 +1,179 @@
+{
+  "active": false,
+  "connections": {
+    "Embed Query - ollama1": {
+      "main": [
+        [
+          {
+            "node": "Query - Full1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Query - Full1": {
+      "main": [
+        [
+          {
+            "node": "Map Response1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Embed Query - ollama1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-06-20T09:34:17.326Z",
+  "id": "t98Rk9j65dql8jdj",
+  "isArchived": false,
+  "meta": null,
+  "name": "Elastic Search Retriever",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -380,
+        -260
+      ],
+      "id": "75a25b43-69b9-40d5-b884-87e58903794e",
+      "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://192.168.20.70:11434/api/embed",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"nomic-embed-text:latest\",\n  \"input\": [\"{{ $json.keywords }}\"]\n}",
+        "options": {}
+      },
+      "id": "5ded992d-8f61-4961-b356-85969f55fa85",
+      "name": "Embed Query - ollama1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -20,
+        -120
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "17f9e7d3-307e-4d60-92ef-e32285cbec29",
+              "name": "_score",
+              "value": "={{ $json._score }}",
+              "type": "number"
+            },
+            {
+              "id": "618f58cd-27c7-4ab4-8612-899f048afb6c",
+              "name": "_id",
+              "value": "={{ $json._id }}",
+              "type": "string"
+            },
+            {
+              "id": "a8cfb079-48c6-4ce2-a54c-251304107206",
+              "name": "chunk_id",
+              "value": "={{ $json._source.chunk_id }}",
+              "type": "string"
+            },
+            {
+              "id": "22e6e029-7ff1-4870-a1c2-d3b025a2748b",
+              "name": "section_title",
+              "value": "={{ $json._source.section_title }}",
+              "type": "string"
+            },
+            {
+              "id": "27e9a9ac-b6ed-4320-bb21-027f8659e7c5",
+              "name": "text",
+              "value": "={{ $json._source.text }}",
+              "type": "string"
+            },
+            {
+              "id": "6830a868-6492-405b-b8fb-1ae36ea184b2",
+              "name": "metadata",
+              "value": "={{ $json._source.metadata }}",
+              "type": "object"
+            },
+            {
+              "id": "e5dce93c-eb16-42be-8b42-47ca5cfacc52",
+              "name": "platform",
+              "value": "={{ $('Queries1').item.json.info_type }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        360,
+        -120
+      ],
+      "id": "313cf89f-ee61-4ea0-8f50-8470199735c6",
+      "name": "Map Response1"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "indexId": "={{ $('Start RFP Analysis').first().json.body.indexName }}",
+        "limit": 10,
+        "simple": false,
+        "options": {
+          "query": "={\n  \"size\": 10,\n  \"min_score\": 5.0,\n  \"_source\": [\n    \"chunk_id\",\n    \"section_title\",\n    \"text\",\n    \"metadata.filename\",\n    \"metadata.page_numbers\",\n    \"metadata.parent_chunk_id\",\n    \"metadata.is_split_chunk\",\n    \"metadata.split_part\",\n    \"metadata.total_parts\",\n    \"vector_metadata.token_count\",\n    \"vector_metadata.is_split\",\n    \"vector_metadata.chunk_index\"\n  ],\n  \"knn\": {\n    \"field\": \"embeddings\",\n    \"query_vector\": [{{ $json.embeddings }}],\n    \"k\": 10,\n    \"num_candidates\": 50\n  },\n  \"query\": {\n    \"bool\": {\n      \"should\": [\n        {\n          \"multi_match\": {\n            \"query\": \"{{ $('Queries1').item.json.keywords }}\",\n            \"fields\": [\"text^3\", \"section_title^5\"],\n            \"type\": \"best_fields\",\n            \"operator\": \"OR\",\n            \"minimum_should_match\": \"30%\"\n          }\n        }\n      ],\n      \"filter\": [\n        {\n          \"exists\": {\n            \"field\": \"text\"\n          }\n        }\n      ]\n    }\n  },\n  \"rescore\": {\n    \"window_size\": 20,\n    \"query\": {\n      \"rescore_query\": {\n        \"match_phrase\": {\n          \"text\": {\n            \"query\": \"{{ $('Queries1').item.json.phrase }}\",\n            \"slop\": 20\n          }\n        }\n      },\n      \"query_weight\": 0.8,\n      \"rescore_query_weight\": 0.2\n    }\n  }\n}\n"
+        }
+      },
+      "type": "n8n-nodes-base.elasticsearch",
+      "typeVersion": 1,
+      "position": [
+        180,
+        -120
+      ],
+      "id": "c73b6dc4-572a-41a0-b066-3382266655d1",
+      "name": "Query - Full1",
+      "alwaysOutputData": true,
+      "notesInFlow": false,
+      "credentials": {
+        "elasticsearchApi": {
+          "id": "wwaILZtoajWrVXwt",
+          "name": "Elasticsearch account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "repo_name": "n8n-backup-zm",
+  "repo_owner": "zlatkomq",
+  "repo_path": "",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-04-24T10:59:44.979Z",
+      "updatedAt": "2025-04-24T10:59:44.979Z",
+      "id": "qEREEA2JvunvA9Nv",
+      "name": "Estimation Tool"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-07-10T20:08:27.319Z",
+  "versionId": "700473d0-d33d-4621-9fb9-1a7baaf11b56"
+}
