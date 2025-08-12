@@ -1,0 +1,82 @@
+{
+  "active": false,
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "MCP Client",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-04-22T09:12:44.839Z",
+  "id": "HIk3U6CF6kJyhYdC",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "MCP Client",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "convert",
+        "authentication": "basicAuth",
+        "responseMode": "lastNode",
+        "options": {
+          "binaryPropertyName": "data"
+        }
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "534d24d4-076a-4458-8a56-b23219b58404",
+      "name": "Webhook",
+      "webhookId": "33254abf-a2dc-47cf-ac04-fbc8eca67fee",
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "jwl7t6hrOm0ajNXt",
+          "name": "basic_login"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "connectionType": "sse"
+      },
+      "type": "n8n-nodes-mcp.mcpClient",
+      "typeVersion": 1,
+      "position": [
+        220,
+        0
+      ],
+      "id": "28a8467b-b102-442e-8514-3e0dc4e4df54",
+      "name": "MCP Client",
+      "credentials": {
+        "mcpClientSseApi": {
+          "id": "K8JoXGURp4Y0JPZ0",
+          "name": "MCP Client (STDIO) account 4"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "repo_name": "n8n-backup-zm",
+  "repo_owner": "zlatkomq",
+  "repo_path": "",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-06-13T07:10:24.304Z",
+  "versionId": "b86dac98-b87c-45b2-a3e2-7d34fc19642d"
+}
