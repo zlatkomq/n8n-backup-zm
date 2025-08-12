@@ -1,0 +1,849 @@
+{
+  "active": false,
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "If not a bot",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Valid Request?": {
+      "main": [
+        [
+          {
+            "node": "Is Challenge?",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Invalid Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Challenge?": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Is Direct Message?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call Chatbot API": {
+      "main": [
+        [
+          {
+            "node": "Send Slack Response",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Request": {
+      "main": [
+        [
+          {
+            "node": "Is Valid Request?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call Chatbot API1": {
+      "main": [
+        [
+          {
+            "node": "Send Slack Response1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Direct Message?": {
+      "main": [
+        [
+          {
+            "node": "Direct",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Mention",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mention": {
+      "main": [
+        [
+          {
+            "node": "Call Chatbot API1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Direct": {
+      "main": [
+        [
+          {
+            "node": "Call Chatbot API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Direct1": {
+      "main": [
+        [
+          {
+            "node": "Call Chatbot API2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call Chatbot API2": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If not a bot": {
+      "main": [
+        [
+          {
+            "node": "Format Request",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "No Operation, do nothing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Slack Response": {
+      "main": [
+        [
+          {
+            "node": "Add Queries & Responses",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Add Queries & Responses": {
+      "main": [
+        []
+      ]
+    },
+    "Under construction": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "createdAt": "2025-03-24T09:21:47.521Z",
+  "id": "BSzcBCWoGEbv2307",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Knowledge Bot - FastApi",
+  "nodes": [
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "requestData",
+              "value": "={{ $json.body }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Format Request",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        -640,
+        300
+      ],
+      "id": "b5459bfc-59eb-4ea0-a071-8398b33847f9"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "knowledge",
+        "options": {
+          "ignoreBots": false
+        }
+      },
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        -1340,
+        400
+      ],
+      "id": "9dc40400-f2bc-4f21-b283-2af161d6fa30",
+      "webhookId": "9c2c018b-0c4e-47aa-a3b3-d969f38c78a4"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{$json.requestData !== undefined}}",
+              "value2": true
+            }
+          ]
+        }
+      },
+      "name": "Is Valid Request?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        -420,
+        300
+      ],
+      "id": "c8aeb926-92cf-43a9-8e17-405ee52761e0"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.requestData.type }}",
+              "value2": "url_verification"
+            }
+          ]
+        }
+      },
+      "name": "Is Challenge?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        -200,
+        200
+      ],
+      "id": "1e2a608f-33b7-439d-a1a3-4f7d4051ae14"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=http://192.168.20.70:8081/chat",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "query",
+              "value": "={{ $json.query }}"
+            },
+            {
+              "name": "user_id",
+              "value": "={{ $json.user_id }}"
+            },
+            {
+              "name": "session_id",
+              "value": "={{ $json.session_id }}"
+            },
+            {
+              "name": "stream",
+              "value": "false"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Call Chatbot API",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [
+        460,
+        200
+      ],
+      "id": "81f301b1-7ed2-4c39-a3c0-f4c0460054b7",
+      "alwaysOutputData": false,
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "channel": "={{ $('Format Request').item.json.requestData.event.channel }}",
+        "text": "={{ $('Call Chatbot API').item.json.response.content }}",
+        "otherOptions": {
+          "mrkdwn": true
+        },
+        "attachments": []
+      },
+      "name": "Send Slack Response",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 1,
+      "position": [
+        680,
+        200
+      ],
+      "id": "5a8b2c9e-c362-4abf-8e4b-2319642cb8e7",
+      "credentials": {
+        "slackApi": {
+          "id": "AEq4vJ003HpIV8va",
+          "name": "Slack Knowledge Bot"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "name": "Invalid Request",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        -200,
+        400
+      ],
+      "id": "e9f41555-9791-41ea-ae71-ffd258efb753"
+    },
+    {
+      "parameters": {
+        "options": {
+          "responseCode": 200,
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-type",
+                "value": "text/plain"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        240,
+        0
+      ],
+      "id": "9c9dd1dd-a507-4c09-bb45-ebdf47a1fcce",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "56a4d752-3cc1-4c26-98a3-eff8247aaae0",
+              "name": "",
+              "value": "={{ $json.requestData.challenge }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        20,
+        100
+      ],
+      "id": "c3aad7ab-5543-4cd1-9e24-bd441fd89f87",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=http://192.168.20.70:8082/chat",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "query",
+              "value": "={{ $json.query }}"
+            },
+            {
+              "name": "user_id",
+              "value": "={{ $json.user_id }}"
+            },
+            {
+              "name": "session_id",
+              "value": "={{ $json.session_id }}"
+            },
+            {
+              "name": "stream",
+              "value": "false"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Call Chatbot API1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [
+        460,
+        400
+      ],
+      "id": "1e66dc80-ffec-48b6-a96c-86b20ff92ddd"
+    },
+    {
+      "parameters": {
+        "channel": "={{ $('Format Request').item.json.requestData.event.channel }}",
+        "text": "={{ $json.response.content }}",
+        "otherOptions": {},
+        "attachments": []
+      },
+      "name": "Send Slack Response1",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 1,
+      "position": [
+        680,
+        400
+      ],
+      "id": "3e17879e-1d10-4fdf-9981-730c0166000b",
+      "credentials": {
+        "slackApi": {
+          "id": "AEq4vJ003HpIV8va",
+          "name": "Slack Knowledge Bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.requestData.event.type }}",
+              "value2": "message"
+            }
+          ]
+        }
+      },
+      "name": "Is Direct Message?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        20,
+        300
+      ],
+      "id": "78e6afd9-7a7d-45f0-8115-f5db5982e960"
+    },
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "query",
+              "value": "={{ $json.requestData.event.blocks[0].elements[0].elements[1].text }}"
+            },
+            {
+              "name": "user_id",
+              "value": "={{ $json.requestData.event.blocks[0].elements[0].elements[0].user_id }}"
+            },
+            {
+              "name": "session_id",
+              "value": "={{ $json.requestData.event_id }}"
+            }
+          ],
+          "boolean": [
+            {
+              "name": "stream"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Mention",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        240,
+        400
+      ],
+      "id": "20afb42b-c3a7-4a98-97d7-8c1dc321b4a7"
+    },
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "query",
+              "value": "={{ $json.requestData.event.blocks[0].elements[0].elements[0].text }}"
+            },
+            {
+              "name": "user_id",
+              "value": "={{ $json.requestData.event.user }}"
+            },
+            {
+              "name": "session_id",
+              "value": "={{ $json.requestData.event_id }}"
+            },
+            {
+              "name": "channel_id"
+            }
+          ],
+          "boolean": [
+            {
+              "name": "stream"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Direct",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        240,
+        200
+      ],
+      "id": "00aaa3c4-fbc0-4114-8089-8ec2fa04c3ff"
+    },
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "query",
+              "value": "={{ $json.chatInput }}"
+            },
+            {
+              "name": "user_id",
+              "value": "={{ $json.action }}"
+            },
+            {
+              "name": "session_id",
+              "value": "={{ $json.sessionId }}"
+            },
+            {
+              "name": "channel_id"
+            }
+          ],
+          "boolean": [
+            {
+              "name": "stream"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Direct1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        -1080,
+        760
+      ],
+      "id": "875220e0-8427-4965-ab71-8cecd2f4d3c4"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=http://192.168.20.70:8082/chat",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "query",
+              "value": "={{ $json.query }}"
+            },
+            {
+              "name": "user_id",
+              "value": "={{ $json.user_id }}"
+            },
+            {
+              "name": "session_id",
+              "value": "={{ $json.session_id }}"
+            },
+            {
+              "name": "stream",
+              "value": "false"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Call Chatbot API2",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [
+        -860,
+        760
+      ],
+      "id": "3ba9ea21-8848-4ab8-9074-2dddf3fa6f13"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "6a1f6abd-497d-4a0b-abba-f67706b32fd6",
+              "name": "",
+              "value": "={{ $json.response.content }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -640,
+        760
+      ],
+      "id": "1d7deb3b-da56-4d03-8ed9-65ba5dde80c7",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "b7457277-ce5a-444d-a04c-b43adb27b812",
+              "leftValue": "={{ $json.body.event.bot_id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notExists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -860,
+        400
+      ],
+      "id": "7de77ade-fd46-4827-96d9-cb7cf630a521",
+      "name": "If not a bot"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        -640,
+        500
+      ],
+      "id": "395dc751-6271-4547-8eea-7e4682898f7c",
+      "name": "No Operation, do nothing"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1E3_6x2VBuFkdu2DzFzsTUwGhDFErG98wfWMAEZTus24",
+          "mode": "list",
+          "cachedResultName": "Q Knowledge Base Slackbot Queries - Fast Api",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1E3_6x2VBuFkdu2DzFzsTUwGhDFErG98wfWMAEZTus24/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Q Knowledge Base Q&A",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1E3_6x2VBuFkdu2DzFzsTUwGhDFErG98wfWMAEZTus24/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Response": "={{ $('Call Chatbot API').item.json.response.content }}",
+            "Query": "={{ $('Direct').item.json.query }}",
+            "Time": "={{$now}}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Query",
+              "displayName": "Query",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Response",
+              "displayName": "Response",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Time",
+              "displayName": "Time",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1260,
+        200
+      ],
+      "id": "8a2b2e06-3177-4322-96de-eb7526e7b2eb",
+      "name": "Add Queries & Responses",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "FtlTep04mtONOydH",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "channel": "={{ $('Format Request').item.json.requestData.event.channel }}",
+        "text": "=🚧 Oops! We have a problem with the API 🙏",
+        "otherOptions": {
+          "mrkdwn": true
+        },
+        "attachments": []
+      },
+      "name": "Error",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 1,
+      "position": [
+        680,
+        -40
+      ],
+      "id": "aa2b3744-b885-416f-8e37-1df8e9f29239",
+      "credentials": {
+        "slackApi": {
+          "id": "AEq4vJ003HpIV8va",
+          "name": "Slack Knowledge Bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "channel": "={{ $('Format Request').item.json.requestData.event.channel }}",
+        "text": "=🚧 Oops! We’re currently under construction.\nPlease try again a bit later – we’ll be back soon! 🙏",
+        "otherOptions": {
+          "mrkdwn": true
+        },
+        "attachments": []
+      },
+      "name": "Under construction",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 1,
+      "position": [
+        680,
+        -240
+      ],
+      "id": "1d0ae522-f367-44ee-a2f6-c101a7906b39",
+      "credentials": {
+        "slackApi": {
+          "id": "AEq4vJ003HpIV8va",
+          "name": "Slack Knowledge Bot"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "repo_name": "n8n-backup-zm",
+  "repo_owner": "zlatkomq",
+  "repo_path": "",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-03-28T12:51:57.041Z",
+      "updatedAt": "2025-03-28T12:51:57.041Z",
+      "id": "zAqBHJiX4svNrPVZ",
+      "name": "Knowledge Base"
+    }
+  ],
+  "triggerCount": 1,
+  "updatedAt": "2025-07-10T20:02:20.945Z",
+  "versionId": "f77bd292-60a7-4763-8580-13878604f936"
+}
