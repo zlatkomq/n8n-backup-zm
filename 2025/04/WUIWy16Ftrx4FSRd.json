@@ -1,0 +1,232 @@
+{
+  "active": false,
+  "connections": {
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Embed question - ollama1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Search for question in faq1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embed question - ollama1": {
+      "main": [
+        [
+          {
+            "node": "Elasticsearch1 old",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Elasticsearch1 old": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-04-01T10:49:05.238Z",
+  "id": "WUIWy16Ftrx4FSRd",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "elastic retriever",
+  "nodes": [
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "query_text"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -380,
+        60
+      ],
+      "id": "b5e1de8f-e2dc-4d42-992f-a8381f0a49af",
+      "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "ee903657-2fab-4237-907f-03de83954d8b",
+              "name": "embedding",
+              "value": "={{ $json.embeddings }}",
+              "type": "array"
+            },
+            {
+              "id": "2bf2cdb5-0495-47a7-b85d-b781f864b22b",
+              "name": "query",
+              "value": "={{ $('When chat message received').item.json.chatInput }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        120,
+        -180
+      ],
+      "id": "2735c7a8-555b-4d40-a73c-26fdce59d416",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://192.168.20.70:11434/api/embed",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"nomic-embed-text:latest\",\n  \"input\": [\"{{ $json.query_text }}\"]\n}",
+        "options": {}
+      },
+      "id": "28804d0b-232e-40f5-8a09-48cc58e7a687",
+      "name": "Embed question - ollama",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -120,
+        -180
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://192.168.20.70:9204/dev-vs-2_nomic_embed_text_latest/_search",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "elasticsearchApi",
+        "sendHeaders": true,
+        "specifyHeaders": "json",
+        "jsonHeaders": "={\n  \"Content-Type\": \"application/json\"\n}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"size\": 5,\n  \"query\": {\n    \"bool\": {\n      \"should\": [\n        {\n          \"match\": {\n            \"text\": \"{{ $json.query }}\"\n          }\n        }\n      ],\n      \"minimum_should_match\": 1\n    }\n  },\n  \"knn\": {\n    \"field\": \"vector\",\n    \"query_vector\": [{{ $('Embed question - ollama').item.json.embeddings }}],\n    \"k\": 5,\n    \"num_candidates\": 100\n  }\n}",
+        "options": {
+          "allowUnauthorizedCerts": false
+        }
+      },
+      "id": "d5ca8a21-b887-46a6-b1f8-6c58268cf06a",
+      "name": "Search for question in faq1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        400,
+        -180
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5a6b9304-12d0-44a2-abfa-4827baa20589",
+              "name": "",
+              "value": "={{ $json.text }}",
+              "type": "string"
+            },
+            {
+              "id": "7b1823bb-af92-4b84-96d1-85d61bd702f5",
+              "name": "metadata.book_name",
+              "value": "={{ $json.metadata.book_name }}",
+              "type": "string"
+            },
+            {
+              "id": "383bed98-065c-4cff-8d21-cd8883584130",
+              "name": "metadata.link",
+              "value": "={{ $json.metadata.link }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        540,
+        60
+      ],
+      "id": "c3e0c9ab-8969-4a1c-8538-2307c502e81b",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://192.168.20.70:11434/api/embed",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"nomic-embed-text:latest\",\n  \"input\": [\"{{ $json.query_text }}\"]\n}",
+        "options": {}
+      },
+      "id": "4bc10d7e-4b72-4d33-9269-44ec649ea57c",
+      "name": "Embed question - ollama1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        40,
+        60
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "indexId": "dev-vs-3_nomic_embed_text_latest",
+        "limit": 4,
+        "options": {
+          "query": "={\n  \"knn\": {\n    \"field\": \"vector\",\n    \"query_vector\": [{{ $json.embeddings }}],\n    \"k\": 4,\n    \"num_candidates\": 4\n  },\n  \"fields\": [\"text\", \"metadata\"],\n  \"_source\": true,\n  \"query\": {\n    \"bool\": {\n      \"filter\": [\n        {\n          \"exists\": {\n            \"field\": \"text\"\n          }\n        }\n      ]\n    }\n  },\n  \"size\": 4\n}"
+        }
+      },
+      "type": "n8n-nodes-base.elasticsearch",
+      "typeVersion": 1,
+      "position": [
+        300,
+        60
+      ],
+      "id": "c58ced8c-1b68-4137-8dd8-9f3fbd5bd5a6",
+      "name": "Elasticsearch1 old"
+    }
+  ],
+  "pinData": {},
+  "repo_name": "n8n-backup-zm",
+  "repo_owner": "zlatkomq",
+  "repo_path": "",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-04-01T10:49:05.238Z",
+  "versionId": "1134293f-1047-4807-b110-9eeebefd2351"
+}
