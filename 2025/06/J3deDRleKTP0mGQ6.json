@@ -276,11 +276,6 @@
           }
         ]
       ]
-    },
-    "Get a page": {
-      "main": [
-        []
-      ]
     }
   },
   "createdAt": "2025-06-18T08:56:39.210Z",
@@ -1025,8 +1020,7 @@
       ],
       "id": "3e087f09-a1e9-4a21-9ea2-bb5ac59cf165",
       "name": "Start RFP Analysis",
-      "webhookId": "663a2e7d-35dd-4241-8890-97393732bb42",
-      "disabled": true
+      "webhookId": "663a2e7d-35dd-4241-8890-97393732bb42"
     },
     {
       "parameters": {
@@ -1139,25 +1133,6 @@
     },
     {
       "parameters": {
-        "resource": "page"
-      },
-      "type": "n8n-nodes-base.googleSlides",
-      "typeVersion": 2,
-      "position": [
-        2592,
-        384
-      ],
-      "id": "638a6e23-7d99-4ee6-ac72-0384f693041a",
-      "name": "Get a page",
-      "credentials": {
-        "googleSlidesOAuth2Api": {
-          "id": "MGYKLk02BvihRKyy",
-          "name": "Google Slides account"
-        }
-      }
-    },
-    {
-      "parameters": {
         "operation": "replaceText",
         "presentationId": "1p4sm-9e1G0F21DYyaGgeNPp0GaSzaTylWZz0ZyS78N4",
         "textUi": {
@@ -1197,6 +1172,15 @@
     "executionOrder": "v1",
     "callerPolicy": "workflowsFromSameOwner"
   },
+  "shared": [
+    {
+      "createdAt": "2025-06-18T08:56:39.210Z",
+      "updatedAt": "2025-06-18T08:56:39.210Z",
+      "role": "workflow:owner",
+      "workflowId": "J3deDRleKTP0mGQ6",
+      "projectId": "NM7VZoSXkcKo262s"
+    }
+  ],
   "staticData": null,
   "tags": [
     {
@@ -1206,7 +1190,7 @@
       "name": "Estimation Tool"
     }
   ],
-  "triggerCount": 1,
-  "updatedAt": "2025-07-10T10:03:54.340Z",
-  "versionId": "b109a94b-2a3b-47ae-9e33-2f195075b114"
+  "triggerCount": 2,
+  "updatedAt": "2025-08-27T11:13:08.162Z",
+  "versionId": "91dbf8d7-c305-46fd-955b-e93a222f6216"
 }
