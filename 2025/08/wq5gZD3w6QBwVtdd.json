@@ -1,0 +1,148 @@
+{
+  "active": false,
+  "connections": {
+    "Start": {
+      "main": [
+        [
+          {
+            "node": "Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Config": {
+      "main": [
+        [
+          {
+            "node": "Return",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-08-12T09:26:15.337Z",
+  "id": "wq5gZD3w6QBwVtdd",
+  "isArchived": false,
+  "meta": null,
+  "name": "My Sub-workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "mode": "manual",
+        "duplicateItem": false,
+        "assignments": {
+          "assignments": [
+            {
+              "id": "8f6d1741-772f-462a-811f-4c334185e4f0",
+              "name": "repo_owner",
+              "type": "string",
+              "value": "=zlatkomq"
+            },
+            {
+              "id": "8cac215c-4fd7-422f-9fd2-6b2d1e5e0383",
+              "name": "repo_name",
+              "type": "string",
+              "value": "=n8n-backup-zm"
+            },
+            {
+              "id": "eee305e9-4164-462a-86bd-80f0d58a31ae",
+              "name": "repo_path",
+              "type": "string",
+              "value": "="
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "include": "all",
+        "options": {}
+      },
+      "id": "a5544811-c4b4-499b-b6ca-36b498379e0e",
+      "name": "Config",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        224,
+        640
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "8674724c-1569-42a8-9ab9-75f3c643f342",
+              "name": "repo_owner",
+              "value": "={{ $json.repo_owner }}",
+              "type": "string"
+            },
+            {
+              "id": "ea701a1a-37ee-4acb-94e2-0f6fb42a5c7c",
+              "name": "repo_name",
+              "value": "={{ $json.repo_name }}",
+              "type": "string"
+            },
+            {
+              "id": "955c25ad-6f65-4bd7-b80e-0750ad6eaef3",
+              "name": "repo_path",
+              "value": "={{ $json.repo_path }}",
+              "type": "string"
+            },
+            {
+              "id": "013acac7-80d0-4c7b-aafd-29153e61b42a",
+              "name": "id",
+              "value": "={{ $json.id }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        432,
+        640
+      ],
+      "id": "b77c49df-4b63-4969-a2ee-1512bdf4a765",
+      "name": "Return"
+    },
+    {
+      "id": "1788f489-b7e8-4d5e-b965-741af473b50a",
+      "typeVersion": 1.1,
+      "name": "Start",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "position": [
+        16,
+        640
+      ],
+      "parameters": {
+        "inputSource": "passthrough"
+      }
+    }
+  ],
+  "pinData": null,
+  "repo_name": "n8n-backup-zm",
+  "repo_owner": "zlatkomq",
+  "repo_path": "",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-08-12T09:26:15.337Z",
+      "updatedAt": "2025-08-12T09:26:15.337Z",
+      "role": "workflow:owner",
+      "workflowId": "wq5gZD3w6QBwVtdd",
+      "projectId": "NM7VZoSXkcKo262s"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-08-12T09:26:15.337Z",
+  "versionId": "8933892d-9a6d-4e91-8016-7daa64694c62"
+}
