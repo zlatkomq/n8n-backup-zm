@@ -243,39 +243,14 @@
           }
         ]
       ]
-    },
-    "Matrix": {
-      "main": [
-        []
-      ]
-    },
-    "Wait": {
-      "main": [
-        [
-          {
-            "node": "Matrix1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Wait1": {
-      "main": [
-        [
-          {
-            "node": "Matrix2",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
     }
   },
   "createdAt": "2025-07-23T07:47:53.897Z",
   "id": "t5Cask58N1SviLXB",
   "isArchived": false,
-  "meta": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
   "name": "Github Backup",
   "nodes": [
     {
@@ -750,79 +725,6 @@
           "name": "n8n account"
         }
       }
-    },
-    {
-      "parameters": {
-        "roomId": "!hbTNpEmMmmtKbzBqdr:matrix.org",
-        "text": "=Starting Workflow Backup [{{ $execution.id }}]"
-      },
-      "type": "n8n-nodes-base.matrix",
-      "typeVersion": 1,
-      "position": [
-        -272,
-        -16
-      ],
-      "id": "4fa52d58-5693-460f-bb02-622420d27e14",
-      "name": "Matrix",
-      "disabled": true
-    },
-    {
-      "parameters": {
-        "roomId": "!hbTNpEmMmmtKbzBqdr:matrix.org",
-        "text": "=Done Workflow Backup [{{ $execution.id }}]"
-      },
-      "type": "n8n-nodes-base.matrix",
-      "typeVersion": 1,
-      "position": [
-        -672,
-        32
-      ],
-      "id": "8908dd7d-0b4e-4e99-be42-3ecd5e6fb038",
-      "name": "Matrix1",
-      "executeOnce": true
-    },
-    {
-      "parameters": {
-        "roomId": "!hbTNpEmMmmtKbzBqdr:matrix.org",
-        "text": "=Failed Workflow Backup [{{ $execution.id }}]"
-      },
-      "type": "n8n-nodes-base.matrix",
-      "typeVersion": 1,
-      "position": [
-        -672,
-        240
-      ],
-      "id": "0f289388-71c4-4a24-9d05-c7a068b299c9",
-      "name": "Matrix2",
-      "executeOnce": true
-    },
-    {
-      "parameters": {
-        "amount": 2
-      },
-      "type": "n8n-nodes-base.wait",
-      "typeVersion": 1.1,
-      "position": [
-        -848,
-        32
-      ],
-      "id": "e8c4e759-12c2-4524-b9a7-b42762b0d399",
-      "name": "Wait",
-      "webhookId": "1e86242c-c317-4f2d-a510-95dfc65d4612"
-    },
-    {
-      "parameters": {
-        "amount": 2
-      },
-      "type": "n8n-nodes-base.wait",
-      "typeVersion": 1.1,
-      "position": [
-        -848,
-        240
-      ],
-      "id": "ee0f2396-e4b7-4980-ae19-a6c151a8f0d1",
-      "name": "Wait1",
-      "webhookId": "1e86242c-c317-4f2d-a510-95dfc65d4612"
     }
   ],
   "pinData": {},
@@ -832,9 +734,18 @@
   "settings": {
     "executionOrder": "v1"
   },
+  "shared": [
+    {
+      "createdAt": "2025-07-23T07:47:53.897Z",
+      "updatedAt": "2025-07-23T07:47:53.897Z",
+      "role": "workflow:owner",
+      "workflowId": "t5Cask58N1SviLXB",
+      "projectId": "NM7VZoSXkcKo262s"
+    }
+  ],
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-08-12T09:13:35.394Z",
-  "versionId": "30bc5205-43fa-4940-a21b-8825c1664828"
+  "updatedAt": "2025-08-12T09:24:36.564Z",
+  "versionId": "b5c9e73e-acb3-4193-a701-3c9b5eaef01a"
 }
