@@ -2012,13 +2012,11 @@
       "parameters": {
         "model": {
           "__rl": true,
-          "value": "gpt-4.1-mini",
+          "value": "gpt-5-mini",
           "mode": "list",
-          "cachedResultName": "gpt-4.1-mini"
+          "cachedResultName": "gpt-5-mini"
         },
-        "options": {
-          "temperature": 0.1
-        }
+        "options": {}
       },
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1.2,
@@ -2344,14 +2342,11 @@
       "parameters": {
         "model": {
           "__rl": true,
-          "value": "gpt-4.1-mini",
+          "value": "gpt-5-mini",
           "mode": "list",
-          "cachedResultName": "gpt-4.1-mini"
+          "cachedResultName": "gpt-5-mini"
         },
-        "options": {
-          "maxTokens": 10000,
-          "temperature": 0.1
-        }
+        "options": {}
       },
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1.2,
@@ -2837,13 +2832,11 @@
       "parameters": {
         "model": {
           "__rl": true,
-          "value": "gpt-4.1-mini",
+          "value": "gpt-5-mini",
           "mode": "list",
-          "cachedResultName": "gpt-4.1-mini"
+          "cachedResultName": "gpt-5-mini"
         },
-        "options": {
-          "temperature": 0.1
-        }
+        "options": {}
       },
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1.2,
@@ -3008,13 +3001,11 @@
       "parameters": {
         "model": {
           "__rl": true,
-          "value": "gpt-4.1",
+          "value": "gpt-5",
           "mode": "list",
-          "cachedResultName": "gpt-4.1"
+          "cachedResultName": "gpt-5"
         },
-        "options": {
-          "temperature": 0.1
-        }
+        "options": {}
       },
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1.2,
@@ -3136,13 +3127,11 @@
       "parameters": {
         "model": {
           "__rl": true,
-          "value": "gpt-4.1",
+          "value": "gpt-5",
           "mode": "list",
-          "cachedResultName": "gpt-4.1"
+          "cachedResultName": "gpt-5"
         },
-        "options": {
-          "temperature": 0.3
-        }
+        "options": {}
       },
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1.2,
@@ -4609,6 +4598,15 @@
     "callerPolicy": "workflowsFromSameOwner",
     "errorWorkflow": "052VdzVIz9bFK2dw"
   },
+  "shared": [
+    {
+      "createdAt": "2025-04-19T16:17:47.392Z",
+      "updatedAt": "2025-04-19T16:17:47.392Z",
+      "role": "workflow:owner",
+      "workflowId": "dLQ3YMriH1FIT9te",
+      "projectId": "NM7VZoSXkcKo262s"
+    }
+  ],
   "staticData": null,
   "tags": [
     {
@@ -4619,6 +4617,6 @@
     }
   ],
   "triggerCount": 2,
-  "updatedAt": "2025-08-11T16:44:48.900Z",
-  "versionId": "16bf7017-7a43-4f71-af43-f2320ffc112b"
+  "updatedAt": "2025-08-27T11:15:07.658Z",
+  "versionId": "cb810dc3-8896-437e-ad76-f2769ac6d6c9"
 }
