@@ -1,0 +1,73 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-08-27T08:26:23.626Z",
+  "id": "3KLDpYIMSw3ezleO",
+  "isArchived": true,
+  "meta": null,
+  "name": "POC_TEST",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "38df3506-c7ae-4611-8468-12e6fbf11d7e",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://eo90dfde6j3sqdv.m.pipedream.net",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"data\": \"DOING POST json data\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        208,
+        0
+      ],
+      "id": "327ae86e-d9d5-4d65-b7ac-8867a998a623",
+      "name": "HTTP Request"
+    }
+  ],
+  "pinData": {},
+  "repo_name": "n8n-backup-zm",
+  "repo_owner": "zlatkomq",
+  "repo_path": "",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-08-27T08:26:23.626Z",
+      "updatedAt": "2025-08-27T08:26:23.626Z",
+      "role": "workflow:owner",
+      "workflowId": "3KLDpYIMSw3ezleO",
+      "projectId": "hlNkEWAlDmmc5iQw"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-08-27T11:47:45.500Z",
+  "versionId": "d623c143-822f-4bdc-b613-bbd672cf753a"
+}
