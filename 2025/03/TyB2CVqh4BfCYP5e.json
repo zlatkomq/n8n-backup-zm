@@ -758,9 +758,9 @@
       "parameters": {
         "model": {
           "__rl": true,
-          "value": "/models/qwen3_235b_a22b_2507_fp8",
+          "value": "qwen3-coder-30b-fp8",
           "mode": "list",
-          "cachedResultName": "/models/qwen3_235b_a22b_2507_fp8"
+          "cachedResultName": "qwen3-coder-30b-fp8"
         },
         "options": {
           "temperature": 0.2
@@ -862,6 +862,15 @@
   "settings": {
     "executionOrder": "v1"
   },
+  "shared": [
+    {
+      "createdAt": "2025-03-27T10:10:38.137Z",
+      "updatedAt": "2025-03-27T10:10:38.137Z",
+      "role": "workflow:owner",
+      "workflowId": "TyB2CVqh4BfCYP5e",
+      "projectId": "NM7VZoSXkcKo262s"
+    }
+  ],
   "staticData": null,
   "tags": [
     {
@@ -872,6 +881,6 @@
     }
   ],
   "triggerCount": 2,
-  "updatedAt": "2025-08-04T20:21:29.649Z",
-  "versionId": "573a6074-8949-49bd-997b-407d912be723"
+  "updatedAt": "2025-08-12T09:49:10.957Z",
+  "versionId": "12dfd5c8-38da-4211-be5a-11c2aaf853ac"
 }
