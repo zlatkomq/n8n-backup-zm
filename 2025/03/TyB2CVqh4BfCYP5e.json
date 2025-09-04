@@ -758,9 +758,9 @@
       "parameters": {
         "model": {
           "__rl": true,
-          "value": "qwen3-coder-30b-fp8",
+          "value": "qwen3-coder-30b-32k",
           "mode": "list",
-          "cachedResultName": "qwen3-coder-30b-fp8"
+          "cachedResultName": "qwen3-coder-30b-32k"
         },
         "options": {
           "temperature": 0.2
@@ -769,8 +769,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1.2,
       "position": [
-        1776,
-        288
+        1792,
+        320
       ],
       "id": "49bc7ec6-2a78-4de5-b1b3-311220eb1d56",
       "name": "VLLM",
@@ -881,6 +881,6 @@
     }
   ],
   "triggerCount": 2,
-  "updatedAt": "2025-08-12T09:49:10.957Z",
-  "versionId": "12dfd5c8-38da-4211-be5a-11c2aaf853ac"
+  "updatedAt": "2025-09-02T11:02:42.071Z",
+  "versionId": "120b0994-09c2-4f3b-8c49-e9da6b0b5b64"
 }
