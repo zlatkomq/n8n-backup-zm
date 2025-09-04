@@ -393,13 +393,7 @@
     },
     "OpenAI Chat Model": {
       "ai_languageModel": [
-        [
-          {
-            "node": "NonFunctional Requirements",
-            "type": "ai_languageModel",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "Prepare Context6": {
@@ -642,13 +636,7 @@
     },
     "OpenAI Chat Model6": {
       "ai_languageModel": [
-        [
-          {
-            "node": "Combine Requirements",
-            "type": "ai_languageModel",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "Structured Output Parser": {
@@ -766,13 +754,7 @@
     },
     "GPT 4.1 Mini4": {
       "ai_languageModel": [
-        [
-          {
-            "node": "Effort Estimation",
-            "type": "ai_languageModel",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "Code2": {
@@ -1539,6 +1521,39 @@
           }
         ]
       ]
+    },
+    "OpenAI Chat Model4": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "NonFunctional Requirements",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model7": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Combine Requirements",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model8": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Effort Estimation",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2025-04-19T16:17:47.392Z",
@@ -1763,11 +1778,13 @@
       "parameters": {
         "model": {
           "__rl": true,
-          "value": "gpt-5",
+          "value": "gpt-4.1",
           "mode": "list",
-          "cachedResultName": "gpt-5"
+          "cachedResultName": "gpt-4.1"
         },
-        "options": {}
+        "options": {
+          "temperature": 0.1
+        }
       },
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1.2,
@@ -2012,11 +2029,13 @@
       "parameters": {
         "model": {
           "__rl": true,
-          "value": "gpt-5-mini",
+          "value": "gpt-4.1-mini",
           "mode": "list",
-          "cachedResultName": "gpt-5-mini"
+          "cachedResultName": "gpt-4.1-mini"
         },
-        "options": {}
+        "options": {
+          "temperature": 0.1
+        }
       },
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1.2,
@@ -2351,8 +2370,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1.2,
       "position": [
-        1232,
-        3792
+        896,
+        3808
       ],
       "id": "6c3a7238-70b1-49bb-a7df-5de84ee2dfd4",
       "name": "OpenAI Chat Model",
@@ -4587,6 +4606,87 @@
       ],
       "id": "108b3e0e-01fd-4e3f-b9c4-1558662badf8",
       "name": "Get Platforms"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4.1-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4.1-mini"
+        },
+        "options": {
+          "temperature": 0.1
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        1216,
+        3952
+      ],
+      "id": "b8875f56-56cc-4f95-b2d2-a0cc94551c6d",
+      "name": "OpenAI Chat Model4",
+      "credentials": {
+        "openAiApi": {
+          "id": "M8xqWvEC6mH6LNuk",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4.1-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4.1-mini"
+        },
+        "options": {
+          "temperature": 0.1
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        2128,
+        3936
+      ],
+      "id": "93aed889-0cf9-41eb-98d9-f8547df26db4",
+      "name": "OpenAI Chat Model7",
+      "credentials": {
+        "openAiApi": {
+          "id": "M8xqWvEC6mH6LNuk",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4.1-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4.1-mini"
+        },
+        "options": {
+          "temperature": 0.1
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        512,
+        4704
+      ],
+      "id": "ed186d61-a419-49b1-b8d1-541ac313c3fd",
+      "name": "OpenAI Chat Model8",
+      "credentials": {
+        "openAiApi": {
+          "id": "M8xqWvEC6mH6LNuk",
+          "name": "OpenAi account"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -4617,6 +4717,6 @@
     }
   ],
   "triggerCount": 2,
-  "updatedAt": "2025-08-27T11:15:07.658Z",
-  "versionId": "cb810dc3-8896-437e-ad76-f2769ac6d6c9"
+  "updatedAt": "2025-09-02T12:23:41.127Z",
+  "versionId": "16610ecd-e774-4a4c-9beb-1ea6502152b8"
 }
