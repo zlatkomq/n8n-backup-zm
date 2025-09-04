@@ -69,13 +69,7 @@
     },
     "Postgres Chat Memory": {
       "ai_memory": [
-        [
-          {
-            "node": "RAG AI Agent",
-            "type": "ai_memory",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "Edit Fields": {
@@ -113,13 +107,7 @@
     },
     "Ollama Chat Model": {
       "ai_languageModel": [
-        [
-          {
-            "node": "RAG AI Agent",
-            "type": "ai_languageModel",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "get 384 embeds": {
@@ -135,10 +123,21 @@
     },
     "OpenAI Chat Model": {
       "ai_languageModel": [
-        []
+        [
+          {
+            "node": "RAG AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
       ]
     },
     "Anthropic Chat Model": {
+      "ai_languageModel": [
+        []
+      ]
+    },
+    "VLLM": {
       "ai_languageModel": [
         []
       ]
@@ -384,7 +383,7 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
       "typeVersion": 1,
       "position": [
-        -352,
+        -416,
         96
       ],
       "id": "68071ca8-c889-460d-a876-6aa3db69a3d2",
@@ -454,17 +453,17 @@
       "parameters": {
         "model": {
           "__rl": true,
-          "value": "/models/llama4_scout",
+          "value": "gpt-4o-mini",
           "mode": "list",
-          "cachedResultName": "/models/llama4_scout"
+          "cachedResultName": "gpt-4o-mini"
         },
         "options": {}
       },
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1.2,
       "position": [
-        -224,
-        96
+        -240,
+        64
       ],
       "id": "911ac2df-2be8-4f8a-ba1a-248f75341e78",
       "name": "OpenAI Chat Model",
@@ -499,6 +498,33 @@
           "name": "Anthropic account 2"
         }
       }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "qwen3-coder-30b-fp8",
+          "mode": "list",
+          "cachedResultName": "qwen3-coder-30b-fp8"
+        },
+        "options": {
+          "temperature": 0.2
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        624,
+        96
+      ],
+      "id": "d4ff222d-b9d3-4f49-ac46-820ff46d8934",
+      "name": "VLLM",
+      "credentials": {
+        "openAiApi": {
+          "id": "8CvuVJ8cItZcxDOX",
+          "name": "OpenAi account 2"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -520,6 +546,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-08-07T12:31:30.316Z",
-  "versionId": "80f35356-afdd-4533-8d9c-b00df5e5a59e"
+  "updatedAt": "2025-08-27T13:50:11.858Z",
+  "versionId": "a4dd9057-73ba-4f68-b3c0-d00f2ff0d068"
 }
