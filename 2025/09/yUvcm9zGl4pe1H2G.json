@@ -1,0 +1,515 @@
+{
+  "active": false,
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "PreparePrompts1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Embedding": {
+      "main": [
+        [
+          {
+            "node": "Semantic Query",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        []
+      ]
+    },
+    "Anthropic Chat Model": {
+      "ai_languageModel": [
+        []
+      ]
+    },
+    "VLLM": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Generate Response",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare output": {
+      "main": [
+        [
+          {
+            "node": "Rerank",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "PreparePrompts": {
+      "main": [
+        [
+          {
+            "node": "Generate Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "VLLM1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Prepare Query",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "PreparePrompts1": {
+      "main": [
+        [
+          {
+            "node": "Prepare Query",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Response": {
+      "main": [
+        []
+      ]
+    },
+    "Prepare Query": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Generate Embedding",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model1": {
+      "ai_languageModel": [
+        []
+      ]
+    },
+    "Semantic Query": {
+      "main": [
+        [
+          {
+            "node": "Prepare output",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-09-01T10:34:01.079Z",
+  "id": "yUvcm9zGl4pe1H2G",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Resourcing",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -736,
+        -400
+      ],
+      "id": "51ca9f1d-6a2e-4634-aa22-8a58e8dc947a",
+      "name": "When chat message received",
+      "webhookId": "4c1b54ba-d7f3-4459-a20d-e6827cc0df32"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://192.168.20.70:11434/api/embeddings",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "model",
+              "value": "nomic-embed-text"
+            },
+            {
+              "name": "prompt",
+              "value": "={{ $json.denseQueryText }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "9e0b5ad6-9a38-4aa4-99f3-447fd7d01209",
+      "name": "Generate Embedding",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        272,
+        -400
+      ]
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4.1-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4.1-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -272,
+        32
+      ],
+      "id": "f884d351-e24e-4508-b2e3-32a35b9f687c",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "8CvuVJ8cItZcxDOX",
+          "name": "OpenAi account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "claude-3-5-sonnet-20241022",
+          "mode": "list",
+          "cachedResultName": "Claude Sonnet 3.5 (New)"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [
+        -288,
+        -176
+      ],
+      "id": "3fd12aad-ef77-4e4e-a7f8-763f44acfb26",
+      "name": "Anthropic Chat Model",
+      "credentials": {
+        "anthropicApi": {
+          "id": "BVejEoXr4J9auxgo",
+          "name": "Anthropic account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "qwen3-coder-30b-32k",
+          "mode": "list",
+          "cachedResultName": "qwen3-coder-30b-32k"
+        },
+        "options": {
+          "temperature": 0.1
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        1696,
+        -176
+      ],
+      "id": "9cb5e07f-f507-4664-b1e6-9bdbd6573afc",
+      "name": "VLLM",
+      "credentials": {
+        "openAiApi": {
+          "id": "09tIxrZPXx1gwPgx",
+          "name": "vllm"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const chatInput = $('When chat message received').first().json.chatInput\nconst contextForPrompt = $input.first().json.contextCandidatesMd\n\nconst systemPrompt = \"You are an AI assistant that helps pick employees for tasks and projects. Use ONLY the candidate snippets provided below.  Do NOT invent skills or industries. If a candidate clearly misses a must-have, you may omit them. Return a concise, useful answer.\";\n\n// 3. Define the user prompt\nconst userPrompt = `USER REQUEST:\n${chatInput}\n\nCANDIDATE SNIPPETS (already sorted by semantic relevance; DO NOT change order):\n${contextForPrompt}\n\nINSTRUCTIONS:\n- Keep candidate order as-is.\n- For each included candidate, show:\n  • name (required)\n  id\n  employment_type\n  • role/section and seniority (if present in the snippet)\n  • 2–4 directly relevant skills/tech terms mentioned in the snippet\n  • 1–2 relevant industries/domains from the snippet that match the request\n  • A 2-line rationale grounded in the snippet (quote short phrases if helpful)\n- Prefer 3–5 candidates unless fewer obviously match.\n- If none match the must-haves, say so briefly.\n\nFORMAT:\nProvide a short paragraph summary, then a bullet list of candidates. If there no valid candidates, do not show them.\n`;\n\nreturn {\n  json: {\n    userPrompt,\n    systemPrompt: systemPrompt\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1520,
+        -400
+      ],
+      "id": "f4bc4d1a-82b6-4814-bad6-ab59deada463",
+      "name": "PreparePrompts"
+    },
+    {
+      "parameters": {
+        "jsCode": "// n8n Function node — Supabase rows -> JSONL + Markdown (order preserved, no rerank)\n// Outputs:\n//   - contextCandidatesJsonl : one-JSON-object-per-line (best for GPT-5)\n//   - contextCandidatesMd    : fenced YAML-like blocks (prompt-friendly Markdown)\n//\n// Optional inputs via incoming item (json):\n//   MAX_TOTAL        : cap candidates (default 10)\n//   CHARS_PER_TEXT   : truncate long bios/snippets (default 1200)\n\nconst MAX_TOTAL = $json.MAX_TOTAL ?? 10;\nconst CHARS_PER_TEXT = $json.CHARS_PER_TEXT ?? 1200;\n\n// Helpers\nfunction splitList(v) {\n  if (!v || typeof v !== 'string') return [];\n  return v.split(',').map(s => s.trim()).filter(Boolean);\n}\nfunction esc(str) {\n  return String(str ?? '').replace(/\"/g, '\\\\\"');\n}\nfunction quoteList(arr) {\n  return `[${arr.map(x => `\"${esc(x)}\"`).join(', ')}]`;\n}\n\n// 1) Gather rows from upstream nodes\nconst incoming = await $input.all();\nlet rows = [];\nif (incoming.length === 1 && Array.isArray(incoming[0].json)) {\n  rows = incoming[0].json;\n} else if (incoming.length === 1 && Array.isArray(incoming[0].json.data)) {\n  rows = incoming[0].json.data;\n} else if (incoming.length === 0 && Array.isArray($json.rows)) {\n  rows = $json.rows;\n} else {\n  rows = incoming.map(i => i.json);\n}\nif (!Array.isArray(rows)) throw new Error('Expected an array of Supabase rows.');\n\n// 2) Preserve received order (assumed already sorted by similarity)\nrows = rows.slice(0, MAX_TOTAL);\n\n// 3) Build JSONL + Markdown\nconst jsonlLines = [];\nconst mdBlocks = [];\n\nrows.forEach((r, i) => {\n  const rank = i + 1;\n  const textRaw = String(r.embedding_convo_text ?? '').replace(/\\s+/g, ' ').trim();\n  const text = textRaw.length > CHARS_PER_TEXT ? textRaw.slice(0, CHARS_PER_TEXT) + '…' : textRaw;\n\n  const industries = splitList(r.industry);\n  const skillsSenior = splitList(r.skills_senior);\n  const skillsMedium = splitList(r.skills_medium);\n  const skillsJunior = splitList(r.skills_junior);\n  const similarity = typeof r.similarity === 'number' ? Number(r.similarity) : null;\n\n  // JSONL (machine-friendly for GPT-5)\n  jsonlLines.push(JSON.stringify({\n    rank,\n    id: r.id ?? null,\n    name: r.name ?? null,\n    role: r.section ?? null,\n    seniority: r.seniority ?? null,\n    employment_type: r.employment_type ?? null,\n    industries,\n    skills: {\n      senior: skillsSenior,\n      medium: skillsMedium,\n      junior: skillsJunior,\n    },\n    similarity,\n    text,\n    notes: r.notes ?? null,\n    certs: r.certs ?? null,\n  }));\n\n  // Markdown (prompt-friendly, fenced YAML-ish per candidate)\n  const md = [\n    '```candidate',\n    `rank: ${rank}`,\n    `id: \"${esc(r.id ?? '')}\"`,\n    `name: \"${esc(r.name ?? '')}\"`,\n    `role: \"${esc(r.section ?? '')}\"`,\n    `seniority: \"${esc(r.seniority ?? '')}\"`,\n    `employment_type: \"${esc(r.employment_type ?? '')}\"`,\n    `similarity: ${similarity === null ? 'null' : similarity.toFixed(3)}`,\n    `industries: ${quoteList(industries)}`,\n    'skills:',\n    `  senior: ${quoteList(skillsSenior)}`,\n    `  medium: ${quoteList(skillsMedium)}`,\n    `  junior: ${quoteList(skillsJunior)}`,\n    `notes: \"${esc(r.notes ?? '')}\"`,\n    `certs: \"${esc(r.certs ?? '')}\"`,\n    `text: \"${esc(text)}\"`,\n    '```',\n  ].join('\\n');\n\n  mdBlocks.push(md);\n});\n\n// 4) Output\nreturn [{\n  json: {\n    contextCandidatesJsonl: jsonlLines.join('\\n'),\n    contextCandidatesMd: mdBlocks.join('\\n\\n')\n  }\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        848,
+        -400
+      ],
+      "id": "2fcb910e-8199-48ef-9624-5eab36e1d070",
+      "name": "Prepare output"
+    },
+    {
+      "parameters": {
+        "jsCode": "// n8n Function node — Supabase rows -> JSONL string for LLM (order preserved, no rerank)\nconst MAX_TOTAL = $json.MAX_TOTAL ?? 10;       // cap how many candidates to pass on\nconst CHARS_PER_TEXT = $json.CHARS_PER_TEXT ?? 1200; // truncate long bios/snippets\n\n// Helper: split CSV-like strings safely\nfunction splitList(v) {\n  if (!v || typeof v !== 'string') return [];\n  return v.split(',').map(s => s.trim()).filter(Boolean);\n}\n\n// 1) Gather rows from upstream nodes\nconst incoming = await $input.all();\nlet rows = [];\nif (incoming.length === 1 && Array.isArray(incoming[0].json)) {\n  rows = incoming[0].json;\n} else if (incoming.length === 1 && Array.isArray(incoming[0].json.data)) {\n  rows = incoming[0].json.data;\n} else if (incoming.length === 0 && Array.isArray($json.rows)) {\n  rows = $json.rows;\n} else {\n  rows = incoming.map(i => i.json);\n}\nif (!Array.isArray(rows)) throw new Error('Expected an array of Supabase rows.');\n\n// 2) Preserve the order you received (assumed already sorted by similarity)\nrows = rows.slice(0, MAX_TOTAL);\n\n// 3) Build compact JSON objects per candidate\nconst lines = rows.map((r, i) => {\n  const rank = i + 1;\n  const textRaw = String(r.embedding_convo_text ?? '').replace(/\\s+/g, ' ').trim();\n  const text = textRaw.length > CHARS_PER_TEXT ? textRaw.slice(0, CHARS_PER_TEXT) + '…' : textRaw;\n\n  const obj = {\n    rank,                                   // keep original order\n    id: r.id ?? null,\n    name: r.name ?? null,\n    role: r.section ?? null,\n    seniority: r.seniority ?? null,\n    employment_type: r.employment_type ?? null,\n    industries: splitList(r.industry),\n    skills: {\n      senior: splitList(r.skills_senior),\n      medium: splitList(r.skills_medium),\n      junior: splitList(r.skills_junior),\n    },\n    similarity: typeof r.similarity === 'number' ? Number(r.similarity) : null,\n    text,                                   // trimmed narrative snippet\n    notes: r.notes ?? null,\n    certs: r.certs ?? null\n  };\n\n  return JSON.stringify(obj);\n});\n\n// 4) Output single item with the JSONL block\nreturn [{\n  json: {\n    contextCandidatesJsonl: lines.join('\\n')\n  }\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        672,
+        176
+      ],
+      "id": "b4bbdb0e-f552-4bd4-aae5-99b15ec89e3f",
+      "name": "Prepare output1"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "qwen3-coder-30b-32k",
+          "mode": "list",
+          "cachedResultName": "qwen3-coder-30b-32k"
+        },
+        "options": {
+          "temperature": 0.1
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -512,
+        -176
+      ],
+      "id": "40251d25-bdad-486e-a49e-a9d816743fcb",
+      "name": "VLLM1",
+      "credentials": {
+        "openAiApi": {
+          "id": "09tIxrZPXx1gwPgx",
+          "name": "vllm"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const chatInput = $('When chat message received').first().json.chatInput\n\nconst systemPrompt = \"Extract staffing constraints from the user's request. Be strict and literal.Return ONLY compact JSON, no prose.\";\n\n// 3. Define the user prompt\nconst userPrompt = `TEXT:\n${chatInput}\n\nReturn JSON with this schema:\n{\n  \"must\": {\n    \"roles\": [string],\n    \"skills\": [string],\n    \"seniority\": [string],          // e.g., \"Senior 1\", \"Senior\"\n    \"industries\": [string],         // e.g., \"Fintech\", \"Banking\"\n    \"certs\": [string],              // e.g., \"PSM I\", \"AWS SA\"\n    \"employment_type\": [string],    // e.g., \"Employee\", \"Contractor\",\n    \"notes_contains\": [string],\n    \"exclude\": { \"skills\":[string], \"industries\":[string], \"terms\":[string] }\n  },\n  \"prefer\": {\n    \"skills\": [string],\n    \"industries\": [string],\n    \"certs\": [string],\n    \"notes_contains\": [string]\n  },\n  \"raw_terms\": [string]\n}\n`;\n\nreturn {\n  json: {\n    userPrompt,\n    systemPrompt: systemPrompt\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -496,
+        -400
+      ],
+      "id": "93ac3faa-1966-4380-9216-5594aa1cced8",
+      "name": "PreparePrompts1"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.userPrompt }}",
+        "messages": {
+          "messageValues": [
+            {
+              "message": "={{ $json.systemPrompt }}"
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        1776,
+        -400
+      ],
+      "id": "739dd4f8-2347-4878-bdbf-40b770ac75b2",
+      "name": "Generate Response"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.userPrompt }}",
+        "messages": {
+          "messageValues": [
+            {
+              "message": "={{ $json.systemPrompt }}"
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        -288,
+        -400
+      ],
+      "id": "d66226ee-b866-41a3-8101-5c6dfb334b3a",
+      "name": "Prepare Query"
+    },
+    {
+      "parameters": {
+        "jsCode": "// n8n Function — clean constraints JSON (string in .text) -> prompt-friendly texts\n// Outputs:\n//  - denseQueryText : \"Role, Seniority, Skills..., Industries..., Certs..., EmploymentType\"\n//  - skillText      : compact skills/role text (useful for 2-embedding AND or reranker)\n//  - domainText     : compact domain/industry/certs text (same reason)\n//  - sqlFilters     : simple filters you can pass to a filtered Supabase RPC\n//  - must, prefer   : pass-through parsed constraints\n//  - debug          : tokens used\n\nfunction arr(x) {\n  if (!x) return [];\n  if (Array.isArray(x)) return x;\n  return [x];\n}\nfunction normList(vs) {\n  return [...new Set(arr(vs)\n    .map(v => String(v || '').trim())\n    .filter(v => v.length > 0))];\n}\nfunction joinNonEmpty(parts, sep=', ') {\n  return parts.filter(Boolean).join(sep);\n}\n\n// 1) Read input\nconst incoming = await $input.all();\nif (!incoming.length) throw new Error('No input items.');\nlet raw = incoming[0].json?.text;\nif (typeof raw !== 'string' || !raw.trim()) {\n  raw = String(incoming[0].json ?? '');\n}\n\n// 2) Parse JSON\nlet parsed;\ntry { parsed = JSON.parse(raw); }\ncatch (e) { throw new Error('Invalid JSON in `text`: ' + e.message); }\n\nconst must   = parsed.must   || {};\nconst prefer = parsed.prefer || {};\n\n// 3) Normalize lists\nconst roles           = normList(must.roles);\nconst skillsMust      = normList(must.skills);\nconst seniorityList   = normList(must.seniority);          // may be empty\nconst industriesMust  = normList(must.industries);\nconst certsMust       = normList(must.certs);\nconst empTypes        = normList(must.employment_type);\nconst notesContains   = normList(must.notes_contains);\nconst excludeSkills   = normList(must?.exclude?.skills);\nconst excludeInd      = normList(must?.exclude?.industries);\nconst excludeTerms    = normList(must?.exclude?.terms);\n\n// 4) Optional tiny synonym nudges (edit to your taxonomy)\nfunction expandIndustries(list) {\n  const extra = [];\n  const set = new Set(list.map(s => s.toLowerCase()));\n  if (set.has('finance') || set.has('fintech') || set.has('banking')) {\n    extra.push('Fintech', 'Banking', 'Payments');\n  }\n  return normList([...list, ...extra]);\n}\nconst industriesExpanded = expandIndustries(industriesMust);\n\n// 5) Build tokens for the embedding query\nconst tokens = [\n  ...roles,\n  ...seniorityList,\n  ...skillsMust,\n  ...industriesExpanded,\n  ...certsMust,\n  ...empTypes,\n  ...notesContains\n];\n\n// 6) Clean tokens (remove empties/nulls) and compose strings\nconst cleanTokens = normList(tokens);\nconst denseQueryText = joinNonEmpty(cleanTokens);\n\n// Also split into two concise texts (useful for 2-vector AND or reranker):\nconst skillText  = joinNonEmpty([...roles, ...seniorityList, ...skillsMust]);\nconst domainText = joinNonEmpty([...industriesExpanded, ...certsMust, ...empTypes]);\n\n// 7) Prepare simple SQL prefilters you can pass to a filtered RPC\nconst sqlFilters = {\n  roles,                        // match against `section` or role column\n  seniority_prefix: seniorityList[0] || null, // e.g., \"Senior\"\n  industries: industriesMust,   // original (non-expanded) for strict matching\n  employment_types: empTypes,\n  required_certs: certsMust,\n  notes_contains: notesContains,\n  exclude: {\n    skills: excludeSkills,\n    industries: excludeInd,\n    terms: excludeTerms\n  }\n};\n\n// 8) Output\nreturn [{\n  json: {\n    denseQueryText,   // e.g. \"Python Developer, Senior, Python, Finance, Fintech, Banking, GDPR, Contractor\"\n    skillText,        // e.g. \"Python Developer, Senior, Python\"\n    domainText,       // e.g. \"Finance, Fintech, Banking, GDPR, Contractor\"\n    must,\n    prefer,\n    sqlFilters,\n    debug: { cleanTokens }\n  }\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        64,
+        -400
+      ],
+      "id": "1d1da77a-0540-48fc-af8d-0fa7b1c45587",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4.1-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4.1-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        1936,
+        -176
+      ],
+      "id": "1d0e9500-a22b-4a27-ab73-9ecd9c97f3d9",
+      "name": "OpenAI Chat Model1",
+      "credentials": {
+        "openAiApi": {
+          "id": "8CvuVJ8cItZcxDOX",
+          "name": "OpenAi account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://192.168.20.70:8020/v1/rerank",
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "{   \"model\": \"tomaarsen/Qwen3-Reranker-4B-seq-cls\",   \"query\": \"Senior Python developer with agriculture experience; contractor\",   \"documents\": [     \"Backend - Python, Senior 1, Contractor; Django; Agriculture project 2023–2024\",     \"Mid Python dev, employee; fintech only\",     \"Senior Data Engineer (PySpark); contractor; agriculture ETL 2021\"   ],   \"top_n\": 3,   \"return_documents\": true }",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1104,
+        -464
+      ],
+      "id": "b92c7506-6d48-4011-913c-48eeb800ed10",
+      "name": "Rerank"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://192.168.20.70:8443/rest/v1/rpc/match_ganttic_resources",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "supabaseApi",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "query_embedding",
+              "value": "={{ $json.embedding }}"
+            },
+            {
+              "name": "similarity_threshold",
+              "value": "0.3"
+            },
+            {
+              "name": "match_count",
+              "value": "50"
+            }
+          ]
+        },
+        "options": {
+          "allowUnauthorizedCerts": true
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        576,
+        -400
+      ],
+      "id": "096b7a2a-f73d-4ff8-872f-016d011f4786",
+      "name": "Semantic Query",
+      "credentials": {
+        "supabaseApi": {
+          "id": "Vbtfas1bVCzZ2Wde",
+          "name": "Supabase account 2"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "repo_name": "n8n-backup-zm",
+  "repo_owner": "zlatkomq",
+  "repo_path": "",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-09-01T10:34:01.079Z",
+      "updatedAt": "2025-09-01T10:34:01.079Z",
+      "role": "workflow:owner",
+      "workflowId": "yUvcm9zGl4pe1H2G",
+      "projectId": "NM7VZoSXkcKo262s"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-09-04T10:25:37.993Z",
+  "versionId": "60c2cc01-dfe6-4fbe-8987-eefa3c7c4309"
+}
