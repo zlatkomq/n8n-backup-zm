@@ -23,17 +23,6 @@
         ]
       ]
     },
-    "Retrieve Company Website Crawl Data": {
-      "main": [
-        [
-          {
-            "node": "Generate Company Dossier",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Create Array Containing Field Data": {
       "main": [
         [
@@ -60,7 +49,7 @@
       "main": [
         [
           {
-            "node": "Retrieve Company Website Crawl Data",
+            "node": "Retrieve Company Website Crawl Data1",
             "type": "main",
             "index": 0
           }
@@ -400,6 +389,46 @@
           }
         ]
       ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait For Scrape Completion",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Retrieve Company Website Crawl Data1": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate": {
+      "main": [
+        [
+          {
+            "node": "Generate Company Dossier",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2025-07-09T13:43:16.823Z",
@@ -413,7 +442,7 @@
     {
       "parameters": {
         "mode": "raw",
-        "jsonOutput": "{\n  \"PEOPLE_DATA_LABS_X_API_KEY\": \"e979db8811b2d6c1763534d070e1461708aac3d9681322f1ba4603bffec4cfa9\",\n  \"FIRECRAWL_API_URL\": \"https://api.firecrawl.dev/v1/crawl\",\n  \"FIRECRAWL_API_AUTHORIZATION\": \"Bearer fc-ab62895dc07b462281bfb9e76716c499\",\n  \"PDFCO_API_URL\": \"https://api.pdf.co/v1/pdf/edit/add\",\n  \"PDFCO_API_AUTHORIZATION\": \"evan@kubeshop.io_x1qrIPb3ghBJGqdzn2SEyNHGX4xz4x19DDNxA5GJ9R1NB7HruzGUwUhIVuvnTHlv\",\n  \"ADOBE_API_URL\": \"https://pdf-services-ew1.adobe.io/operation/documentgeneration\",\n  \"ADOBE_API_AUTHORIZATION\": \"\",\n    \"ADOBE_API_API_KEY\": \"dcbc23ee180e4b739d547b01dd482342\",\n  \"PERPLEXITY_API_URL\": \"https://api.perplexity.ai/chat/completions\",\n  \"PERPLEXITY_API_AUTHORIZATION\": \"Bearer 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\",\n  \"SUPABASE_STORAGE_API_URL\": \"https://jvshsliprfblgvxxbgcp.supabase.co/storage/v1\",\n  \"SUPABASE_API_AUTHORIZATION\": \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp2c2hzbGlwcmZibGd2eHhiZ2NwIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcyODI0NTgxNywiZXhwIjoyMDQzODIxODE3fQ.K1c6ZGxR0wiINpTW9EF77Klcs7Bb9-yUCixJ0WKeD1s\",\n  \"RUBRIC_VERSION\": \"V6\"\n}\n",
+        "jsonOutput": "{\n  \"PEOPLE_DATA_LABS_X_API_KEY\": \"e979db8811b2d6c1763534d070e1461708aac3d9681322f1ba4603bffec4cfa9\",\n  \"FIRECRAWL_API_URL\": \"https://api.firecrawl.dev/v1/crawl\",\n  \"FIRECRAWL_API_AUTHORIZATION\": \"Bearer fc-ab62895dc07b462281bfb9e76716c499\",\n  \"PDFCO_API_URL\": \"https://api.pdf.co/v1/pdf/edit/add\",\n  \"PDFCO_API_AUTHORIZATION\": \"kpendic@gmail.com_4ZnFAQa1QuJeAycKVLQWJjVQd8wDZXdEoQ07qm6vXXCPCk4fftuu7AnSX951BhMv\",\n  \"ADOBE_API_URL\": \"https://pdf-services-ew1.adobe.io/operation/documentgeneration\",\n  \"ADOBE_API_AUTHORIZATION\": \"\",\n    \"ADOBE_API_API_KEY\": \"dcbc23ee180e4b739d547b01dd482342\",\n  \"PERPLEXITY_API_URL\": \"https://api.perplexity.ai/chat/completions\",\n  \"PERPLEXITY_API_AUTHORIZATION\": \"Bearer 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\",\n  \"SUPABASE_STORAGE_API_URL\": \"https://jvshsliprfblgvxxbgcp.supabase.co/storage/v1\",\n  \"SUPABASE_API_AUTHORIZATION\": \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp2c2hzbGlwcmZibGd2eHhiZ2NwIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcyODI0NTgxNywiZXhwIjoyMDQzODIxODE3fQ.K1c6ZGxR0wiINpTW9EF77Klcs7Bb9-yUCixJ0WKeD1s\",\n  \"RUBRIC_VERSION\": \"V6\"\n}\n",
         "options": {}
       },
       "id": "2683550d-5937-4273-97fa-ea53d220c190",
@@ -454,29 +483,6 @@
     },
     {
       "parameters": {
-        "url": "={{ $('Send Company Website Crawl Request').item.json.url }}",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "Authorization",
-              "value": "={{ $('Set Local Variables').item.json.FIRECRAWL_API_AUTHORIZATION }}"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "cdca2889-3703-42e6-a599-61bdf5b43152",
-      "name": "Retrieve Company Website Crawl Data",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        1888,
-        480
-      ]
-    },
-    {
-      "parameters": {
         "jsCode": "return [\n  {\n    name: \"Cultural And Strategic Posture\",\n    prefix: \"cultural_and_strategic_posture_\"\n  },\n  {\n    name: \"Competency Alignment\",\n    prefix: \"competency_alignment_\"\n  },\n  {\n    name: \"Sector Value Unlock Potential\",\n    prefix: \"sector_value_unlock_potential_\"\n  },\n  {\n    name: \"Sector GenAI Capital Intensity\",\n    prefix: \"sector_genai_capital_intensity_\"\n  },\n  {\n    name: \"GenAI Velocity\",\n    prefix: \"genai_velocity_\"\n  },\n  {\n    name: \"Moat Strength\",\n    prefix: \"moat_strength_\"\n  },\n    {\n    name: \"Market Status\",\n    prefix: \"market_status_\"\n  }\n];"
       },
       "id": "732322dc-61ef-4323-99ce-20f6ed7d6394",
@@ -484,7 +490,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2928,
+        3552,
         480
       ],
       "alwaysOutputData": false
@@ -612,14 +618,14 @@
     },
     {
       "parameters": {
-        "amount": 20
+        "amount": 4
       },
       "id": "54f42f59-06f2-4212-9c0b-297eb12f7a3c",
       "name": "Wait For Scrape Completion",
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        1664,
+        1616,
         480
       ],
       "webhookId": "1ebf0b3b-452c-4970-ae05-ed83cb764e43"
@@ -635,7 +641,7 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
       "typeVersion": 1.2,
       "position": [
-        5392,
+        6016,
         768
       ],
       "credentials": {
@@ -654,7 +660,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        6400,
+        6880,
         480
       ]
     },
@@ -668,7 +674,7 @@
       "type": "n8n-nodes-base.aggregate",
       "typeVersion": 1,
       "position": [
-        4640,
+        5296,
         480
       ]
     },
@@ -721,7 +727,7 @@
       "type": "n8n-nodes-base.aggregate",
       "typeVersion": 1,
       "position": [
-        7008,
+        7632,
         480
       ]
     },
@@ -797,7 +803,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        7696,
+        8320,
         480
       ]
     },
@@ -893,7 +899,7 @@
       "type": "n8n-nodes-base.supabase",
       "typeVersion": 1,
       "position": [
-        3376,
+        4000,
         480
       ],
       "credentials": {
@@ -942,7 +948,7 @@
       "type": "n8n-nodes-base.supabase",
       "typeVersion": 1,
       "position": [
-        4416,
+        5040,
         480
       ],
       "credentials": {
@@ -973,11 +979,11 @@
             },
             {
               "fieldId": "website_content",
-              "fieldValue": "={{ $('Retrieve Company Website Crawl Data').item.json.data[0].markdown }}"
+              "fieldValue": "={{ $('Aggregate').item.json.markdown }}"
             },
             {
               "fieldId": "company_dossier",
-              "fieldValue": "={{ $('Generate Company Dossier').item.json.text }}"
+              "fieldValue": "={{ $('Generate Company Dossier').item.json }}"
             },
             {
               "fieldId": "progress",
@@ -991,7 +997,7 @@
       "type": "n8n-nodes-base.supabase",
       "typeVersion": 1,
       "position": [
-        5920,
+        6544,
         480
       ],
       "credentials": {
@@ -1056,7 +1062,7 @@
       "type": "n8n-nodes-base.supabase",
       "typeVersion": 1,
       "position": [
-        7216,
+        7840,
         480
       ],
       "credentials": {
@@ -1122,7 +1128,7 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
       "typeVersion": 1,
       "position": [
-        2288,
+        2912,
         672
       ],
       "credentials": {
@@ -1151,7 +1157,7 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        4864,
+        5488,
         480
       ]
     },
@@ -1174,7 +1180,7 @@
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
       "position": [
-        9040,
+        9664,
         480
       ],
       "webhookId": "23a56163-119c-453d-9c72-300c612cf245",
@@ -1201,7 +1207,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        7920,
+        8544,
         480
       ]
     },
@@ -1234,7 +1240,7 @@
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.4,
       "position": [
-        6624,
+        7104,
         480
       ],
       "credentials": {
@@ -1380,7 +1386,7 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
       "typeVersion": 1.2,
       "position": [
-        4000,
+        4624,
         672
       ],
       "credentials": {
@@ -1399,7 +1405,7 @@
       "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
       "typeVersion": 1.2,
       "position": [
-        4224,
+        4848,
         656
       ]
     },
@@ -1430,7 +1436,7 @@
       "type": "n8n-nodes-base.supabase",
       "typeVersion": 1,
       "position": [
-        2720,
+        3344,
         480
       ],
       "credentials": {
@@ -1467,7 +1473,7 @@
       "type": "n8n-nodes-base.supabase",
       "typeVersion": 1,
       "position": [
-        5056,
+        5680,
         480
       ],
       "credentials": {
@@ -1480,14 +1486,14 @@
     {
       "parameters": {
         "promptType": "define",
-        "text": "=You are tasked with creating a concise yet comprehensive executive summary focusing on a company's AI and GenAI capabilities and positioning. Use the provided data to craft a summary that follows these guidelines:\n\nFormatting and Style:\n\nAim for a single paragraph of 5-7 sentences. Limit to 200-250 charecters at the most.\nUse a formal, objective tone that balances positive achievements with growth areas.\nEmploy precise language and industry-specific terms where appropriate.\nEnsure a logical flow from the opening score to future potential.\nDifferentiate between general AI and GenAI if relevant.\n\nScore Interpretation: \n| Range | Grade | Interpretation |\n|-------|-------|----------------|\n| 90-100 | GenAI Trailblazers | Pioneering new GenAI technologies and reshaping industries |\n| 76-89 | GenAI Innovators | Implementing advanced GenAI solutions across multiple business areas |\n| 51-75 | GenAI Adapters | Actively incorporating GenAI solutions in specific areas |\n| 26-50 | GenAI Explorers | Experimenting with GenAI in limited capacities |\n| 0-25 | GenAI Laggards | Minimal engagement with GenAI technologies |.\n\nRespondly on with your executive summary as text and nothing else. \n\nBelow are the results of the evaluation for the company you are to write about: \n\nCompany: {{ $json.company }}\nWebsite: {{ $json.website }}\n\nGenAI Velocity Score: {{ $json.genai_v_score }}\nGenAI Velocity Note: {{ $json.genai_v_note }}\n\nMoat Strength Score: {{ $json.moat_strength_score }}\nMoat Strength Note: {{ $json.moat_strength_note }}\n\nCulture & Strategic Posture Score: {{ $json.c_and_p_score }}\nCulture & Strategic Posture Note: {{ $json.c_and_p_note }}\n\nCompetency Alignment Score: {{ $json.ca_score }}\nCompetency Alignment Note: {{ $json.ca_note }}\n\nSector Value Unlock Potential Score: {{ $json.svu_score }}\nSector Value Unlock Potential Note: {{ $json.svu_note }}\n\nSector Capital Intensity Score: {{ $json.sci_score }}\nSector Capital Intensity Note: {{ $json.sci_note }}\n\nMarket Status Score: {{ $json.market_status_score }}\nMarket Status Note: {{ $json.market_status_note }}\n"
+        "text": "=You are tasked with creating a concise yet comprehensive executive summary focusing on a company's AI and GenAI capabilities and positioning. Use the provided data to craft a summary that follows these guidelines:\n\nFormatting and Style:\n\nAim for a single paragraph of 5-7 sentences. Limit to 200-250 charecters at the most.\nUse a formal, objective tone that balances positive achievements with growth areas.\nEmploy precise language and industry-specific terms where appropriate.\nEnsure a logical flow from the opening score to future potential.\nDifferentiate between general AI and GenAI if relevant.\n\nScore Interpretation: \n| Range | Grade | Interpretation |\n|-------|-------|----------------|\n| 90-100 | GenAI Trailblazers | Pioneering new GenAI technologies and reshaping industries |\n| 76-89 | GenAI Innovators | Implementing advanced GenAI solutions across multiple business areas |\n| 51-75 | GenAI Adapters | Actively incorporating GenAI solutions in specific areas |\n| 26-50 | GenAI Explorers | Experimenting with GenAI in limited capacities |\n| 0-25 | GenAI Laggards | Minimal engagement with GenAI technologies |.\n\nRespondly on with your executive summary as text and nothing else. \n\nBelow are the results of the evaluation for the company you are to write about: \n\nCompany: {{ $json.company }}\nWebsite: {{ $json.website }}\n\nGenAI Velocity Score: {{ $json.genai_velocity_score }}\nGenAI Velocity Note: {{ $json.genai_velocity_note }}\n\nMoat Strength Score: {{ $json.moat_strength_score }}\nMoat Strength Note: {{ $json.moat_strength_note }}\n\nCulture & Strategic Posture Score: {{ $json.cultural_and_strategic_posture_score }}\nCulture & Strategic Posture Note: {{ $json.cultural_and_strategic_posture_note }}\n\nCompetency Alignment Score: {{ $json.competency_alignment_score }}\nCompetency Alignment Note: {{ $json.competency_alignment_note }}\n\nSector Value Unlock Potential Score: {{ $json.sector_value_unlock_potential_score }}\nSector Value Unlock Potential Note: {{ $json.sector_value_unlock_potential_note }}\n\nSector Capital Intensity Score: {{ $json.sector_genai_capital_intensity_score }}\nSector Capital Intensity Note: {{ $json.sector_genai_capital_intensity_note }}\n\nMarket Status Score: {{ $json.market_status_score }}\nMarket Status Note: {{ $json.market_status_note }}\n"
       },
       "id": "67ffb790-5a93-4661-8221-1c7eb0812732",
       "name": "Generate Executive Summary",
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.4,
       "position": [
-        5568,
+        6192,
         480
       ]
     },
@@ -1498,7 +1504,7 @@
             {
               "id": "d62f02e1-55b8-48fc-ae75-a163d0d72772",
               "name": "prompt",
-              "value": "=Input Data:\n1. Company Dossier: {{ $('Generate Company Dossier').item.json.text }}\n2. Research Rubric: {{ $json.name }}\n3. Rubric Description: {{ $json.rubric_objective }}\n4. Research Grading Scale: {{ $json.rubric_grading_scale }}\n   \nTask Instructions:\n1. Review the company dossier thoroughly.\n2. Follow the research rubric and its description meticulously.\n3. Conduct supplementary research to address information gaps.\n4. Compile findings into a structured fact sheet.\n\nOutput Guidelines:\n- Format: \"[Company Name] Fact Sheet\"\n- Structure: Numbered sections (as per rubric), bullet points for facts\n- Content: Factual, objective, up-to-date information\n- Citations: Include for all additional research\n- Length: Aim for 2 pages of data dense facts \n\nSpecial Considerations:\n- Conflicting Information: Present all versions with respective sources\n- Unavailable Information: Clearly state \"Information not available\" in the relevant section\n- Uncertainty: Use phrases like \"According to [source], potentially...\" for less certain information",
+              "value": "=Input Data:\n1. Company Dossier: {{ $('Generate Company Dossier').item.json.text }}\n2. Research Rubric: {{ $json.name }}\n3. Rubric Description: {{ $json.description }}\n4. Research Grading Scale: {{ $json.grading_scale }}\n   \nTask Instructions:\n1. Review the company dossier thoroughly.\n2. Follow the research rubric and its description meticulously.\n3. Conduct supplementary research to address information gaps.\n4. Compile findings into a structured fact sheet.\n\nOutput Guidelines:\n- Format: \"[Company Name] Fact Sheet\"\n- Structure: Numbered sections (as per rubric), bullet points for facts\n- Content: Factual, objective, up-to-date information\n- Citations: Include for all additional research\n- Length: Aim for 2 pages of data dense facts \n\nSpecial Considerations:\n- Conflicting Information: Present all versions with respective sources\n- Unavailable Information: Clearly state \"Information not available\" in the relevant section\n- Uncertainty: Use phrases like \"According to [source], potentially...\" for less certain information",
               "type": "string"
             }
           ]
@@ -1510,7 +1516,7 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        3600,
+        4224,
         480
       ]
     },
@@ -1522,7 +1528,7 @@
         "messages": {
           "messageValues": [
             {
-              "message": "=You are an AI assistant tasked with evaluating a company based on the provided information and rubric. Your response should be a JSON object with two items: 1. \"{{ $('Get Supabase Record Based On Name').item.json.name.toLowerCase().split(' ').join('_') }}_score\": A number from 1 to 5 based on the rubric below (only round integer). 2. \"{{ $('Get Supabase Record Based On Name').item.json.name.toLowerCase().split(' ').join('_') }}_justification\": A description of 200 - 300 characters that justifies the score articulately and taking into account all the data and the guidelines of the rubric.\n\nYour output should be a valid JSON object structured like the following:\n\n```\n{ \n  \"{{ $('Create Array Containing Field Data').item.json.prefix }}score\": \"number\",\n  \"{{ $('Create Array Containing Field Data').item.json.prefix }}note\": \"string\",\n  \"{{ $('Create Array Containing Field Data').item.json.prefix }}summary\": \"string\"\n}\n```\n\nRubric Name: {{ $('Get Supabase Record Based On Name').item.json.name }}\nRubric Description: {{ $('Get Supabase Record Based On Name').item.json.rubric_objective }}\nRubric Grading Scale: {{ $('Get Supabase Record Based On Name').item.json.rubric_grading_scale }}"
+              "message": "=You are an AI assistant tasked with evaluating a company based on the provided information and rubric. Your response should be a JSON object with two items: 1. \"{{ $('Get Supabase Record Based On Name').item.json.name.toLowerCase().split(' ').join('_') }}_score\": A number from 1 to 5 based on the rubric below (only round integer). 2. \"{{ $('Get Supabase Record Based On Name').item.json.name.toLowerCase().split(' ').join('_') }}_justification\": A description of 200 - 300 characters that justifies the score articulately and taking into account all the data and the guidelines of the rubric.\n\nYour output should be a valid JSON object structured like the following:\n\n```\n{ \n  \"{{ $('Create Array Containing Field Data').item.json.prefix }}score\": \"number\",\n  \"{{ $('Create Array Containing Field Data').item.json.prefix }}note\": \"string\",\n  \"{{ $('Create Array Containing Field Data').item.json.prefix }}summary\": \"string\"\n}\n```\n\nRubric Name: {{ $('Get Supabase Record Based On Name').item.json.name }}\nRubric Description: {{ $('Get Supabase Record Based On Name').item.json.description }}\nRubric Grading Scale: {{ $('Get Supabase Record Based On Name').item.json.grading_scale }}"
             }
           ]
         }
@@ -1532,7 +1538,7 @@
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.4,
       "position": [
-        4048,
+        4672,
         480
       ]
     },
@@ -1570,22 +1576,22 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        3824,
+        4448,
         480
       ]
     },
     {
       "parameters": {
         "promptType": "define",
-        "text": "=Compile a comprehensive, data-dense fact sheet about the target company using their website content and provided additional data. The fact sheet should be highly detailed, presented in a bullet-point format, and include information that might be relevant to the GenAI Resilience Index Scorecard criteria. \\nData Sources\\n\\nCOMPANY WEBSITE CONTENT:\\nWebsite content: {{ $ifEmpty($json.data[0].markdown, \"\") }}\\n\\nCOMPANY DATA:\\nwebsite: {{ $ifEmpty($('Update Supabase Record To Include Company').item.json.website, \"\") }}\\nsize: {{ $ifEmpty($('Search For Company On People Data Labs').item.json.size, \"\") }}\\nindustry: {{ $ifEmpty($('Search For Company On People Data Labs').item.json.industry, \"\") }} {{ $ifEmpty($('Search For Company On People Data Labs').item.json.tags, \"\") }} {{ $ifEmpty($('Search For Company On People Data Labs').item.json.sic[0].industry_group, \"\") }}\\ndescription: {{ $ifEmpty($('Search For Company On People Data Labs').item.json.summary, \"\") }}\\nfounded: {{ $ifEmpty($('Search For Company On People Data Labs').item.json.founded, \"\") }}\\nheadquarters_city: {{ $ifEmpty($('Search For Company On People Data Labs').item.json.location.name, \"\") }}\\nemployees_count: {{ $ifEmpty($('Search For Company On People Data Labs').item.json.employee_count, \"\") }}\\n\\n\\n\\n\\nOutput Guidelines\\n\\nFormat the fact sheet as a series of detailed bullet points.\\nOrganize information into the following categories, which align with the GenAI Resilience Index Scorecard criteria:\\n\\nAI and Technology Integration\\nCompany Strengths and Market Position\\nTechnical Competencies and Expertise\\nCompany Culture and Strategic Direction\\nIndustry and Sector Information\\n\\n\\nInclude as much factual data as possible, prioritizing specificity and quantitative information where available.\\nFor each piece of information, indicate its source (website content or additional data).\\nCollect all relevant information without making any judgments or assessments about the company's performance or potential scores.\\n\\nInformation to Collect (for each category)\\nAI and Technology Integration\\n\\nAny mentions of AI, machine learning, or generative AI in products or services\\nDetails about AI-related projects, initiatives, or partnerships\\nInformation about the company's technology stack or digital transformation efforts\\n\\nCompany Strengths and Market Position\\n\\nData on market share or industry ranking\\nInformation about unique selling points or competitive advantages\\nDetails about product lines, services, or solutions offered\\nAny data on customer base, retention, or satisfaction\\n\\nTechnical Competencies and Expertise\\n\\nInformation about the company's R&D efforts\\nDetails on technical capabilities or specializations\\nAny mentions of patents, innovations, or proprietary technologies\\nInformation about the technical background of leadership or key employees\\n\\nCompany Culture and Strategic Direction\\n\\nStatements from leadership about company vision or future direction\\nAny mentions of AI or technology in the company's strategy\\nInformation about company values, culture, or workplace initiatives\\nDetails about recent organizational changes or new strategic focuses\\n\\nIndustry and Sector Information\\n\\nData on the company's industry or sector\\nInformation about industry trends, challenges, or opportunities\\nAny sector-specific AI or technology adoption data\\nDetails about regulatory environment or industry standards related to AI\\n\\nSpecial Instructions\\n\\nCollect all relevant information without attempting to analyze or interpret its significance for GenAI resilience.\\nIf you encounter conflicting information, include all versions and cite the sources.\\nFor any key areas where information is missing or unclear, explicitly note this in the fact sheet.\\nUse phrases like \\\"According to the company website...\\\" or \\\"Based on provided data...\\\" to clarify sources.\\nIf you identify implied information, clearly label it as such.\\n\\nFinal Notes\\n\\nAim for exhaustive detail while maintaining clarity and organization.\\nInclude all potentially relevant information, even if its significance isn't immediately apparent.\\nYour role is solely to compile and present information, not to analyze or draw conclusions.\\nEnsure that the fact sheet provides a comprehensive foundation for subsequent analysis by others.\\n\\nPlease proceed with creating the comprehensive fact sheet based on these instructions and the provided data."
+        "text": "=Compile a comprehensive, data-dense fact sheet about the target company using their website content and provided additional data. The fact sheet should be highly detailed, presented in a bullet-point format, and include information that might be relevant to the GenAI Resilience Index Scorecard criteria. \\nData Sources\\n\\nCOMPANY WEBSITE CONTENT:\\nWebsite content: {{ $ifEmpty($json.markdown[0], \"\") }}\\n\\nCOMPANY DATA:\\nwebsite: {{ $ifEmpty($('Update Supabase Record To Include Company').item.json.website, \"\") }}\\nsize: {{ $ifEmpty($('Search For Company On People Data Labs').item.json.size, \"\") }}\\nindustry: {{ $ifEmpty($('Search For Company On People Data Labs').item.json.industry, \"\") }} {{ $ifEmpty($('Search For Company On People Data Labs').item.json.tags, \"\") }} {{ $ifEmpty($('Search For Company On People Data Labs').item.json.sic[0].industry_group, \"\") }}\\ndescription: {{ $ifEmpty($('Search For Company On People Data Labs').item.json.summary, \"\") }}\\nfounded: {{ $ifEmpty($('Search For Company On People Data Labs').item.json.founded, \"\") }}\\nheadquarters_city: {{ $ifEmpty($('Search For Company On People Data Labs').item.json.location.name, \"\") }}\\nemployees_count: {{ $ifEmpty($('Search For Company On People Data Labs').item.json.employee_count, \"\") }}\\n\\n\\n\\n\\nOutput Guidelines\\n\\nFormat the fact sheet as a series of detailed bullet points.\\nOrganize information into the following categories, which align with the GenAI Resilience Index Scorecard criteria:\\n\\nAI and Technology Integration\\nCompany Strengths and Market Position\\nTechnical Competencies and Expertise\\nCompany Culture and Strategic Direction\\nIndustry and Sector Information\\n\\n\\nInclude as much factual data as possible, prioritizing specificity and quantitative information where available.\\nFor each piece of information, indicate its source (website content or additional data).\\nCollect all relevant information without making any judgments or assessments about the company's performance or potential scores.\\n\\nInformation to Collect (for each category)\\nAI and Technology Integration\\n\\nAny mentions of AI, machine learning, or generative AI in products or services\\nDetails about AI-related projects, initiatives, or partnerships\\nInformation about the company's technology stack or digital transformation efforts\\n\\nCompany Strengths and Market Position\\n\\nData on market share or industry ranking\\nInformation about unique selling points or competitive advantages\\nDetails about product lines, services, or solutions offered\\nAny data on customer base, retention, or satisfaction\\n\\nTechnical Competencies and Expertise\\n\\nInformation about the company's R&D efforts\\nDetails on technical capabilities or specializations\\nAny mentions of patents, innovations, or proprietary technologies\\nInformation about the technical background of leadership or key employees\\n\\nCompany Culture and Strategic Direction\\n\\nStatements from leadership about company vision or future direction\\nAny mentions of AI or technology in the company's strategy\\nInformation about company values, culture, or workplace initiatives\\nDetails about recent organizational changes or new strategic focuses\\n\\nIndustry and Sector Information\\n\\nData on the company's industry or sector\\nInformation about industry trends, challenges, or opportunities\\nAny sector-specific AI or technology adoption data\\nDetails about regulatory environment or industry standards related to AI\\n\\nSpecial Instructions\\n\\nCollect all relevant information without attempting to analyze or interpret its significance for GenAI resilience.\\nIf you encounter conflicting information, include all versions and cite the sources.\\nFor any key areas where information is missing or unclear, explicitly note this in the fact sheet.\\nUse phrases like \\\"According to the company website...\\\" or \\\"Based on provided data...\\\" to clarify sources.\\nIf you identify implied information, clearly label it as such.\\n\\nFinal Notes\\n\\nAim for exhaustive detail while maintaining clarity and organization.\\nInclude all potentially relevant information, even if its significance isn't immediately apparent.\\nYour role is solely to compile and present information, not to analyze or draw conclusions.\\nEnsure that the fact sheet provides a comprehensive foundation for subsequent analysis by others.\\n\\nPlease proceed with creating the comprehensive fact sheet based on these instructions and the provided data."
       },
       "id": "f3578229-8fbb-4412-b997-3401345b9739",
       "name": "Generate Company Dossier",
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.4,
       "position": [
-        2336,
-        480
+        2704,
+        464
       ],
       "alwaysOutputData": false,
       "onError": "continueRegularOutput"
@@ -1725,6 +1731,101 @@
         544,
         1168
       ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://eo90dfde6j3sqdv.m.pipedream.net",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"data\": \"DOING POST json data\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2000,
+        1824
+      ],
+      "id": "a688f375-595c-4744-be5b-b6790b07a49f",
+      "name": "PIPEDREAM"
+    },
+    {
+      "parameters": {
+        "url": "={{ $('Send Company Website Crawl Request').item.json.url }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "={{ $('Set Local Variables').item.json.FIRECRAWL_API_AUTHORIZATION }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "8317b614-d290-4329-b122-e3f8ed810a1e",
+      "name": "Retrieve Company Website Crawl Data1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1792,
+        480
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "4ed70e62-06f7-40db-af13-d398db429857",
+              "leftValue": "={{ $json.status }}",
+              "rightValue": "completed",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1952,
+        480
+      ],
+      "id": "d2f3c4d1-33c8-4e28-bf7e-8892ea5f699f",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "fieldsToAggregate": {
+          "fieldToAggregate": [
+            {
+              "fieldToAggregate": "data[0].markdown"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        2416,
+        464
+      ],
+      "id": "4d8f7092-e70a-4400-803a-91500ff83fbb",
+      "name": "Aggregate"
     }
   ],
   "pinData": {
@@ -1732,8 +1833,18 @@
       {
         "json": {
           "id": "04ed224c-3ea4-4e02-a887-b29cec67d03c",
-          "website": "https://www.snickers.com/",
+          "website": "ganttic.com",
           "email": "kpendic@gmail.com"
+        }
+      }
+    ],
+    "On form submission": [
+      {
+        "json": {
+          "Enter tld": "openai.com",
+          "Your email address to send raport": "kpendic@gmail.com",
+          "submittedAt": "2025-09-01T11:42:34.999-04:00",
+          "formMode": "production"
         }
       }
     ]
@@ -1756,6 +1867,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-07-31T14:37:40.910Z",
-  "versionId": "cf9d1cc3-479f-4dc8-8d0b-644e192e908a"
+  "updatedAt": "2025-09-03T07:22:38.893Z",
+  "versionId": "3b894a60-68f8-4f41-b1f4-80647512b5cb"
 }
