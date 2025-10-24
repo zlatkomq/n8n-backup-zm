@@ -27,22 +27,6 @@
       "main": [
         [
           {
-            "node": "Generate Facts Vectors",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "Merge VECTORS and Resources",
-            "type": "main",
-            "index": 1
-          }
-        ]
-      ]
-    },
-    "Merge VECTORS and Resources": {
-      "main": [
-        [
-          {
             "node": "Resources - INSERT",
             "type": "main",
             "index": 0
@@ -123,72 +107,78 @@
         ]
       ]
     },
-    "Generate Facts Vectors": {
-      "main": [
-        [
-          {
-            "node": "Generate Convo Vectors",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "Merge Item with Fact Vectors",
-            "type": "main",
-            "index": 1
-          }
-        ]
-      ]
-    },
-    "Generate Convo Vectors": {
-      "main": [
-        [
-          {
-            "node": "Generate Both Vectors",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "Merge Item with Convo Vectors",
-            "type": "main",
-            "index": 1
-          }
-        ]
-      ]
-    },
-    "Generate Both Vectors": {
-      "main": [
-        [
-          {
-            "node": "Merge Item with Fact Vectors",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Merge Item with Fact Vectors": {
-      "main": [
-        [
-          {
-            "node": "Merge Item with Convo Vectors",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Merge Item with Convo Vectors": {
-      "main": [
-        [
-          {
-            "node": "Merge VECTORS and Resources",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Code": {
+      "main": [
+        []
+      ]
+    },
+    "VLLM1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Prepare Convo Text",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "PreparePrompt1": {
+      "main": [
+        [
+          {
+            "node": "Prepare Convo Text",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get many rows": {
+      "main": [
+        [
+          {
+            "node": "PreparePrompt1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Convo Text": {
+      "main": [
+        [
+          {
+            "node": "Update a row",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get many rows1": {
+      "main": [
+        [
+          {
+            "node": "Generate Convo Vectors1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Convo Vectors1": {
+      "main": [
+        [
+          {
+            "node": "Update a row1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update a row": {
       "main": [
         []
       ]
@@ -197,7 +187,9 @@
   "createdAt": "2025-03-28T06:40:37.771Z",
   "id": "AJ7uWBwYrUxp7CUA",
   "isArchived": false,
-  "meta": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
   "name": "PAGGINATE_RESOURCES",
   "nodes": [
     {
@@ -253,7 +245,7 @@
               "fieldValue": "={{ $('Process Resources').item.json.skills_senior }}"
             },
             {
-              "fieldId": "industry",
+              "fieldId": "industries",
               "fieldValue": "={{ $('Process Resources').item.json.industry }}"
             },
             {
@@ -317,28 +309,12 @@
               "fieldValue": "={{ $json.note }}"
             },
             {
-              "fieldId": "embedding_full",
-              "fieldValue": "={{ $json.embedding_2 }}"
+              "fieldId": "role",
+              "fieldValue": "={{ $json.role }}"
             },
             {
-              "fieldId": "embedding_facts",
-              "fieldValue": "={{ $json.embedding_2_1 }}"
-            },
-            {
-              "fieldId": "embedding_convo",
-              "fieldValue": "={{ $json.embedding_1_1 }}"
-            },
-            {
-              "fieldId": "full_payload",
-              "fieldValue": "={{ $json.full_payload }}"
-            },
-            {
-              "fieldId": "embedding_convo_text",
-              "fieldValue": "={{ $json.embedding_convo_text }}"
-            },
-            {
-              "fieldId": "embedding_facts_text",
-              "fieldValue": "={{ $json.embedding_facts_text }}"
+              "fieldId": "primary_skill",
+              "fieldValue": "={{ $json.primary_skill }}"
             }
           ]
         }
@@ -346,8 +322,8 @@
       "type": "n8n-nodes-base.supabase",
       "typeVersion": 1,
       "position": [
-        384,
-        608
+        1056,
+        0
       ],
       "id": "56be2cc1-dea7-47ce-93d5-4969f6517e4a",
       "name": "Resources - INSERT",
@@ -360,7 +336,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Process resources\nconst item = items[0];\nconst resources = item.json.items || [];\n\nreturn resources.map(resource => {\n  // skills senior\n  const skills_senior = [];\n  const ssFields = resource.dataFields?.multiSelect?.find(t => t.id === '124830');\n  if (ssFields?.values) {\n      ssFields.values.forEach(v => {\n          if (v.readableValue && !skills_senior.includes(v.readableValue)) {\n              skills_senior.push(v.readableValue);\n          }\n      });\n  }\n  // skills midium\n  const skills_medium = [];\n  const smFields = resource.dataFields?.multiSelect?.find(t => t.id === '124831');\n  if (smFields?.values) {\n      smFields.values.forEach(v => {\n          if (v.readableValue && !skills_medium.includes(v.readableValue)) {\n              skills_medium.push(v.readableValue);\n          }\n      });\n  }\n\n  // skills junior\n  const skills_junior = [];\n  const sjFields = resource.dataFields?.multiSelect?.find(t => t.id === '124832');\n  if (sjFields?.values) {\n      sjFields.values.forEach(v => {\n          if (v.readableValue && !skills_junior.includes(v.readableValue)) {\n              skills_junior.push(v.readableValue);\n          }\n      });\n  }\n\n  // get certs\n  const certs = [];\n  const certFields = resource.dataFields?.multiSelect?.find(t => t.id === '126853');\n  if (certFields?.values) {\n      certFields.values.forEach(v => {\n          if (v.readableValue && !certs.includes(v.readableValue)) {\n              certs.push(v.readableValue);\n          }\n      });\n  }\n  \n  // Extract industries\n  const industriesarr = [];\n  const industryField = resource.dataFields?.multiSelect?.find(ms => \n      ms.readableValue === 'Industry Expertise'\n  );\n  if (industryField?.values) {\n    industryField.values.forEach(v => {\n      if (v.readableValue) {\n        industriesarr.push(v.readableValue);\n      }\n    });\n  }\n\n  // Get description\n  const descField = resource.dataFields?.texts?.find(t => t.id === '121631');\n  let description = descField?.text ?? '';\n\n  // Get notes\n  const noteField = resource.dataFields?.texts?.find(t => t.id === '123740');\n  let note = noteField?.text ?? '';\n\n\n  // Get Section\n  const secField = resource.dataFields.listValues?.find(t => t.id === '114287');\n  let section = secField?.readableValue ?? '';\n\n  // Get seniority\n  const senField = resource.dataFields?.listValues?.find(t => t.id === '115797')\n  let seniority = senField?.readableValue ?? '';\n\n  // Get team\n  const teamField = resource.dataFields?.listValues?.find(t => t.id === '120128')\n  let team = teamField?.readableValue ?? '';\n  \n  // Get department\n  const departmentField = resource.dataFields?.listValues?.find(t => t.id === '124673')\n  let department = departmentField?.readableValue ?? '';\n  \n  // Get vertical\n  const verticalField = resource.dataFields?.listValues?.find(t => t.id === '124674')\n  let vertical = verticalField?.readableValue ?? '';\n  \n  // Get coe_manager\n  const coe_managerField = resource.dataFields?.listValues?.find(t => t.id === '124407')\n  let coe_manager = coe_managerField?.readableValue ?? '';\n  \n  // Get el\n  const elField = resource.dataFields?.listValues?.find(t => t.id === '124300')\n  let el = elField?.readableValue ?? '';\n  \n  // Get eh\n  const ehField = resource.dataFields?.listValues?.find(t => t.id === '124301')\n  let eh = ehField?.readableValue ?? '';\n  \n  // Get director\n  const directorField = resource.dataFields?.listValues?.find(t => t.id === '124302')\n  let director = directorField?.readableValue ?? '';\n  \n  // Get employment_type\n  const employment_typeField = resource.dataFields?.listValues?.find(t => t.id === '124741')\n  let employment_type = employment_typeField?.readableValue ?? '';\n\n\n  /**\n   * Zlatko import for post processing and embed prep\n   */\n\n  // Extract all available fields from the input\n  const resourceId = resource.id;\n  const resourceName = resource.name;\n  const technicalDomain = section;\n  const globalSeniority = seniority;\n  const coeManager = coe_manager;\n  const engineeringLead = el;\n  const engineeringHead = eh;\n  const employmentType = employment_type;\n  const skillSeniorLevel = skills_senior.join(\", \") || \"\";\n  const skillMidLevel = skills_medium.join(\", \") || \"\"\n  const skillJuniorLevel = skills_junior.join(\", \") || \"\";\n  const industryExpertise = industriesarr.join(\", \") || \"\";\n  const domainKnowledge = description;\n  const certificates = certs.join(\", \") || \"\";\n    \n\n      // Universal parser function that handles parentheses, brackets, and quoted text\n    const smartParse = (textString) => {\n        if (!textString) return [];\n        \n        const results = [];\n        let currentItem = '';\n        let insideParentheses = 0;  // Track nested parentheses\n        let insideBrackets = 0;     // Track nested brackets\n        let insideQuotes = false;   // Track quoted text\n        \n        // Process character by character\n        for (let i = 0; i < textString.length; i++) {\n            const char = textString[i];\n            \n            // Handle different states\n            if (char === '(') {\n                insideParentheses++;\n                currentItem += char;\n            } else if (char === ')') {\n                insideParentheses = Math.max(0, insideParentheses - 1); // Guard against mismatched parentheses\n                currentItem += char;\n            } else if (char === '[') {\n                insideBrackets++;\n                currentItem += char;\n            } else if (char === ']') {\n                insideBrackets = Math.max(0, insideBrackets - 1); // Guard against mismatched brackets\n                currentItem += char;\n            } else if (char === '\"' || char === \"'\") {\n                insideQuotes = !insideQuotes;\n                currentItem += char;\n            } else if (char === ',' && !insideParentheses && !insideBrackets && !insideQuotes) {\n                // Only split on commas when not inside special characters\n                results.push(currentItem.trim());\n                currentItem = '';\n            } else {\n                currentItem += char;\n            }\n        }\n        \n        // Add the last item if there is one\n        if (currentItem.trim()) {\n            results.push(currentItem.trim());\n        }\n        \n        // Post-processing: Handle special formats and clean up\n        return results\n            .map(item => {\n                // Clean up quote marks if they balance at beginning/end\n                if ((item.startsWith('\"') && item.endsWith('\"')) || \n                    (item.startsWith(\"'\") && item.endsWith(\"'\"))) {\n                    item = item.slice(1, -1).trim();\n                }\n                \n                // Remove any trailing dots or punctuation\n                return item.replace(/[.,;]+$/, '').trim();\n            })\n            .filter(Boolean);\n    };\n    \n    // Clean and standardize a skill/domain string\n    const cleanField = (text) => {\n        if (!text) return text;\n        \n        // Remove redundant whitespace\n        text = text.replace(/\\s+/g, ' ').trim();\n        \n        // Standardize common variations (could be expanded based on your data)\n        const standardizations = {\n            'Javascript': 'JavaScript',\n            'React.js': 'React',\n            'React.JS': 'React',\n            'ReactJS': 'React',\n            'Node.js': 'Node.js',\n            'NodeJS': 'Node.js',\n            'Artificial Intelligence': 'AI',\n            'Machine Learning': 'ML',\n            '.NET Core': '.NET Core',\n            '.Net Core': '.NET Core',\n            'Devops': 'DevOps',\n            'CI/CD': 'CI/CD',\n            'CI / CD': 'CI/CD',\n            'Front-end': 'Frontend',\n            'Front end': 'Frontend',\n            'Back-end': 'Backend',\n            'Back end': 'Backend',\n            'Next.js': 'Next.js',\n            'NextJS': 'Next.js',\n            'Vue.js': 'Vue.js',\n            'VueJS': 'Vue.js',\n            'Express.js': 'Express',\n            'ExpressJS': 'Express'\n        };\n        \n        // Apply standardizations\n        Object.keys(standardizations).forEach(key => {\n            // Use word boundaries for more precise replacement\n            const regex = new RegExp(`\\\\b${key}\\\\b`, 'gi');\n            text = text.replace(regex, standardizations[key]);\n        });\n        \n        return text;\n    };\n    \n    // Extract role category from technical domain\n    const extractRoleCategory = (technicalDomain) => {\n        if (!technicalDomain) return \"Other\";\n        \n        const domainLower = technicalDomain.toLowerCase();\n        \n        // Map technical domains to general role categories\n        if (domainLower === 'ba' || domainLower.includes('business analyst')) {\n            return 'Business Analyst';\n        }\n        if (domainLower === 'pm' || domainLower.includes('project manager')) {\n            return 'Project Manager';\n        }\n        if (domainLower === 'po' || domainLower.includes('product owner')) {\n            return 'Product Owner';\n        }\n        if (domainLower === 'sa' || domainLower.includes('solution architect')) {\n            return 'Solution Architect';\n        }\n        if (domainLower.includes('frontend') || domainLower === 'fe' || \n            domainLower.includes('react') || domainLower.includes('angular') || \n            domainLower.includes('vue') || domainLower.includes('slice')) {\n            return 'Frontend Developer';\n        }\n        if (domainLower.includes('backend') || domainLower === 'be' || \n            domainLower.includes('java') || domainLower.includes('php') || \n            domainLower.includes('python') || domainLower.includes('.net') || \n            domainLower.includes('node') || domainLower.includes('ruby') ||\n            domainLower.includes('cms')) {\n            return 'Backend Developer';\n        }\n        if (domainLower.includes('fullstack') || domainLower === 'fs' || \n            domainLower.includes('full stack') || domainLower.includes('full-stack')) {\n            return 'Full Stack Developer';\n        }\n        if (domainLower.includes('mobile') || domainLower.includes('android') || \n            domainLower.includes('ios') || domainLower.includes('flutter') || \n            domainLower.includes('react native')) {\n            return 'Mobile Developer';\n        }\n        if (domainLower.includes('devops') || domainLower.includes('sre') || \n            domainLower.includes('infrastructure') || domainLower.includes('cloud')) {\n            return 'DevOps Engineer';\n        }\n        if (domainLower === 'qa' || domainLower.includes('test') || \n            domainLower.includes('quality')) {\n            return 'QA Engineer';\n        }\n        if (domainLower.includes('data') || domainLower.includes('bi') || \n            domainLower.includes('business intelligence')) {\n            return 'Data Engineer';\n        }\n        if (domainLower === 'data science' || domainLower.includes('ml') || domainLower.includes('ai') || \n            domainLower.includes('machine learning') || domainLower.includes('data science')) {\n            return 'AI/ML Engineer';\n        }\n        if (domainLower.includes('design') || domainLower.includes('ux') || domainLower.includes('ui')) {\n            return 'UI/UX Designer';\n        }\n        if (domainLower.includes('support')) {\n            return 'Support Engineer';\n        }\n        \n        // Return the original technical domain if no mapping found\n        return technicalDomain;\n    };\n    \n    // Extract additional technical skills from domain knowledge\n    const extractTechnicalDetails = (domainKnowledge) => {\n        if (!domainKnowledge) return { tools: [], technologies: [], methodologies: [] };\n        \n        // Common tools, technologies and methodologies to look for\n        const tools = [\n            'Jira', 'Confluence', 'Azure DevOps', 'GitHub', 'GitLab', 'Bitbucket',\n            'Jenkins', 'TeamCity', 'Travis CI', 'CircleCI', 'Bamboo',\n            'Slack', 'Microsoft Teams', 'Asana', 'Trello', 'Monday',\n            'Figma', 'Sketch', 'Adobe XD', 'InVision', 'Zeplin',\n            'Power BI', 'Tableau', 'Looker', 'Grafana', 'Kibana',\n            'Postman', 'Swagger', 'SonarQube', 'Selenium', 'BPMN', 'UML',\n            'Axure', 'Adobe Photoshop', 'Adobe Illustrator', 'InDesign'\n        ];\n        \n        const technologies = [\n            'React', 'Angular', 'Vue', 'Next.js', 'Nuxt', 'Svelte',\n            'Node.js', 'Express', 'Django', 'Flask', 'Spring Boot', 'Laravel', 'ASP.NET',\n            'MongoDB', 'PostgreSQL', 'MySQL', 'SQL Server', 'Oracle', 'DynamoDB', 'Cassandra',\n            'Docker', 'Kubernetes', 'AWS', 'Azure', 'GCP', 'Terraform', 'Ansible', 'Puppet',\n            'TensorFlow', 'PyTorch', 'Keras', 'scikit-learn', 'pandas', 'NumPy',\n            'Hadoop', 'Spark', 'Kafka', 'Airflow', 'Databricks',\n            'REST', 'GraphQL', 'SOAP', 'API', 'Microservices', 'ERP', 'CRM',\n            'Firebase', 'Cognito', 'Auth0', 'Mobile banking', 'Payment gateway'\n        ];\n        \n        const methodologies = [\n            'Agile', 'Scrum', 'Kanban', 'SAFe', 'Waterfall', 'Lean', 'DevOps',\n            'CI/CD', 'TDD', 'BDD', 'DDD', 'Microservices', 'Serverless',\n            'User research', 'Design thinking', 'User-centered design',\n            'Data modeling', 'ETL', 'Data warehousing', 'OLAP',\n            'Product discovery', 'User story mapping', 'Requirements elicitation',\n            'Business analysis', 'Product ownership', 'Continuous integration'\n        ];\n        \n        // Extract matches\n        const findMatches = (text, terms) => {\n            const matches = [];\n            const lowerText = text.toLowerCase();\n            \n            terms.forEach(term => {\n                if (lowerText.includes(term.toLowerCase())) {\n                    matches.push(term);\n                }\n            });\n            \n            return [...new Set(matches)]; // Remove duplicates\n        };\n        \n        return {\n            tools: findMatches(domainKnowledge, tools),\n            technologies: findMatches(domainKnowledge, technologies),\n            methodologies: findMatches(domainKnowledge, methodologies)\n        };\n    };\n    \n    // Determine seniority level based on Global Seniority \n    const determineSeniorityLevel = (globalSeniority) => {\n        // If global seniority is not available, return unknown\n        if (!globalSeniority) return \"Unknown\";\n        \n        const seniorityLower = globalSeniority.toLowerCase();\n        \n        if (seniorityLower.includes('senior')) {\n            // Extract number if available (e.g., \"Senior 2\" -> 2)\n            const seniorityNum = seniorityLower.match(/\\d+/);\n            if (seniorityNum) {\n                return `Senior ${seniorityNum[0]}`;\n            }\n            return \"Senior\";\n        }\n        \n        if (seniorityLower.includes('mid')) {\n            // Extract number if available (e.g., \"Mid 2\" -> 2)\n            const midNum = seniorityLower.match(/\\d+/);\n            if (midNum) {\n                return `Mid ${midNum[0]}`;\n            }\n            return \"Mid\";\n        }\n        \n        if (seniorityLower.includes('junior')) {\n            // Extract number if available (e.g., \"Junior 2\" -> 2)\n            const juniorNum = seniorityLower.match(/\\d+/);\n            if (juniorNum) {\n                return `Junior ${juniorNum[0]}`;\n            }\n            return \"Junior\";\n        }\n        \n        if (seniorityLower.includes('head')) {\n            return \"Head\";\n        }\n        \n        if (seniorityLower.includes('manager')) {\n            return \"Manager\";\n        }\n        \n        // Return original if no mapping\n        return globalSeniority;\n    };\n    \n    // Determine if the person is a manager or lead\n    const isLeadOrManager = (globalSeniority, engineeringLead, coeManager) => {\n        if (!globalSeniority && !engineeringLead && !coeManager) return false;\n        \n        // Check if global seniority indicates management position\n        if (globalSeniority && (\n            globalSeniority.toLowerCase().includes('manager') ||\n            globalSeniority.toLowerCase().includes('head')\n        )) {\n            return true;\n        }\n        \n        // Check if they are listed as engineering lead for anyone\n        if (engineeringLead && engineeringLead === resourceName) {\n            return true;\n        }\n        \n        // Check if they are listed as COE manager for anyone\n        if (coeManager && coeManager === resourceName) {\n            return true;\n        }\n        \n        return false;\n    };\n    \n    // Create skills arrays\n    const skills = {\n        senior: smartParse(skillSeniorLevel).map(cleanField),\n        mid: smartParse(skillMidLevel).map(cleanField),\n        junior: smartParse(skillJuniorLevel).map(cleanField)\n    };\n    \n    // Extract all skills for quick access and filtering\n    const allSkills = [\n        ...skills.senior.map(skill => ({ skill, level: 'senior' })),\n        ...skills.mid.map(skill => ({ skill, level: 'mid' })),\n        ...skills.junior.map(skill => ({ skill, level: 'junior' }))\n    ];\n    \n    // Get flat list of skills\n    const flatSkills = allSkills.map(s => s.skill);\n    \n    // Extract technical details from domain knowledge\n    const technicalDetails = extractTechnicalDetails(domainKnowledge);\n    \n    // Add extracted technical details to all_skills if not already present\n    technicalDetails.tools.forEach(tool => {\n        if (!flatSkills.includes(tool)) {\n            flatSkills.push(tool);\n        }\n    });\n    \n    technicalDetails.technologies.forEach(tech => {\n        if (!flatSkills.includes(tech)) {\n            flatSkills.push(tech);\n        }\n    });\n    \n    technicalDetails.methodologies.forEach(method => {\n        if (!flatSkills.includes(method)) {\n            flatSkills.push(method);\n        }\n    });\n    \n    // Determine primary skill areas based on skills\n    const identifyPrimarySkillAreas = (allSkills) => {\n        const skillGroups = {\n            'Frontend': ['React', 'Angular', 'Vue', 'JavaScript', 'TypeScript', 'HTML', 'CSS', 'SASS', 'LESS', 'Redux', 'Next.js'],\n            'Backend': ['Java', 'Spring', 'Python', 'Django', 'FastAPI', 'PHP', 'Laravel', 'Symfony', 'C#', '.NET', 'Node.js', 'Express', 'Ruby', 'Rails'],\n            'Database': ['SQL', 'PostgreSQL', 'MySQL', 'MongoDB', 'DynamoDB', 'Elasticsearch', 'Redis', 'Cassandra'],\n            'DevOps': ['Docker', 'Kubernetes', 'AWS', 'Azure', 'GCP', 'CI/CD', 'Jenkins', 'Terraform', 'Ansible'],\n            'Mobile': ['Android', 'iOS', 'Swift', 'Kotlin', 'Flutter', 'React Native'],\n            'AI/ML': ['TensorFlow', 'PyTorch', 'ML', 'AI', 'NLP', 'Computer Vision', 'Data Science'],\n            'Testing': ['QA', 'Selenium', 'Cypress', 'Jest', 'Testing', 'TDD', 'BDD', 'JUnit', 'PyTest'],\n            'Management': ['Agile', 'Scrum', 'Kanban', 'Project Management', 'Product Management', 'JIRA', 'Business Analysis'],\n            'Design': ['UI', 'UX', 'Figma', 'Sketch', 'Adobe XD', 'Photoshop', 'Illustrator']\n        };\n        \n        // Count occurrences of skills in each area\n        const areaScores = {};\n        Object.keys(skillGroups).forEach(area => {\n            areaScores[area] = 0;\n            skillGroups[area].forEach(skill => {\n                allSkills.forEach(userSkill => {\n                    if (userSkill.toLowerCase().includes(skill.toLowerCase())) {\n                        areaScores[area]++;\n                    }\n                });\n            });\n        });\n        \n        // Return areas with at least one skill match, sorted by score\n        const matchedAreas = Object.keys(areaScores)\n            .filter(area => areaScores[area] > 0)\n            .sort((a, b) => areaScores[b] - areaScores[a]);\n        \n        return matchedAreas;\n    };\n    \n    // Get role category from technical domain\n    const roleCategory = extractRoleCategory(technicalDomain);\n    \n    // Get seniority level\n    const seniorityLevel = determineSeniorityLevel(globalSeniority);\n    \n    // Check if the person is a lead or manager\n    const isLeadOrManagerRole = isLeadOrManager(globalSeniority, engineeringLead, coeManager);\n    \n    // Get primary skill areas\n    const primarySkillAreas = identifyPrimarySkillAreas(flatSkills);\n    \n    // Parse industries\n    const industries = smartParse(industryExpertise).map(cleanField);\n    \n    // Parse certificates\n    const certificatesList = smartParse(certificates).map(cleanField);\n    \n    // Extract organizational structure\n    const orgStructure = {\n        team: team,\n        department: department,\n        vertical: vertical,\n        reports_to: {\n            engineering_lead: engineeringLead !== resourceName ? engineeringLead : null,\n            coe_manager: coeManager,\n            engineering_head: engineeringHead,\n            director: director\n        },\n        is_lead_or_manager: isLeadOrManagerRole\n    };\n    \n    // Build natural language descriptions for better LLM understanding\n    \n    // 1. Role description\n    let roleDescription = `${resourceName} is a ${roleCategory}`;\n    if (globalSeniority) {\n        roleDescription += ` with ${globalSeniority} seniority`;\n    }\n    if (isLeadOrManagerRole) {\n        roleDescription += ` in a leadership position`;\n    }\n    if (primarySkillAreas.length > 0) {\n        roleDescription += ` specializing in ${primarySkillAreas.slice(0, 2).join(' and ')}`;\n    }\n    roleDescription += `.`;\n    \n    // 2. Skills description\n    let skillsDescription = \"\";\n    \n    if (skills.senior.length > 0) {\n        skillsDescription += `Has senior-level expertise in ${skills.senior.join(', ')}.`;\n    }\n    \n    if (skills.mid.length > 0) {\n        skillsDescription += ` Proficient in ${skills.mid.join(', ')}.`;\n    }\n    \n    if (skills.junior.length > 0) {\n        skillsDescription += ` Also familiar with ${skills.junior.join(', ')}.`;\n    }\n    \n    // 3. Industry description\n    let industryDescription = \"\";\n    if (industries.length > 0) {\n        industryDescription = `Has experience in the following industries: ${industries.join(', ')}.`;\n    }\n    \n    // 4. Organizational context\n    let orgDescription = \"\";\n    if (team || department || vertical) {\n        orgDescription = `Works in ${team || 'the company'}`;\n        if (department) {\n            orgDescription += `, part of ${department}`;\n        }\n        if (vertical) {\n            orgDescription += ` within the ${vertical} vertical`;\n        }\n        orgDescription += '.';\n    }\n    \n    // 5. Management chain\n    let managementDescription = \"\";\n    if (coeManager || engineeringLead || engineeringHead || director) {\n        const managers = [];\n        if (engineeringLead && engineeringLead !== resourceName) managers.push(`Engineering Lead: ${engineeringLead}`);\n        if (coeManager) managers.push(`COE Manager: ${coeManager}`);\n        if (engineeringHead) managers.push(`Engineering Head: ${engineeringHead}`);\n        if (director) managers.push(`Director: ${director}`);\n        \n        if (managers.length > 0) {\n            managementDescription = `Reports to ${managers.join(', ')}.`;\n        }\n    }\n    \n    // 6. Domain knowledge, technical tools and certificates\n    let expertiseDescription = \"\";\n    \n    if (technicalDetails.tools.length > 0 || \n        technicalDetails.technologies.length > 0 || \n        technicalDetails.methodologies.length > 0) {\n        \n        if (technicalDetails.tools.length > 0) {\n            expertiseDescription += `Experienced with tools: ${technicalDetails.tools.join(', ')}. `;\n        }\n        \n        if (technicalDetails.technologies.length > 0) {\n            expertiseDescription += `Familiar with technologies: ${technicalDetails.technologies.join(', ')}. `;\n        }\n        \n        if (technicalDetails.methodologies.length > 0) {\n            expertiseDescription += `Follows methodologies: ${technicalDetails.methodologies.join(', ')}. `;\n        }\n    }\n    \n    if (domainKnowledge) {\n        expertiseDescription += `Domain knowledge: ${domainKnowledge} `;\n    }\n    \n    if (certificatesList.length > 0) {\n        expertiseDescription += `Holds certifications in: ${certificatesList.join(', ')}.`;\n    }\n    \n    // 7. Create conversation-friendly search text\n    // This is optimized for natural language questions to the LLM\n    const conversationText = `\n    ${roleDescription}\n    ${skillsDescription}\n    ${industryDescription}\n    ${orgDescription}\n    ${managementDescription}\n    ${expertiseDescription}\n    ${note ? 'Additional info: ' + note : ''}\n    `.trim();\n    \n    // 8. Create structured embedding text (for vector search)\n    const structuredParts = [];\n    \n    // Start with name, technical domain and role category\n    structuredParts.push(`${technicalDomain}, ${roleCategory}, ${globalSeniority}, ${employment_type}`);\n    \n    // Add team info\n    // if (team || department || vertical) {\n    //     structuredParts.push(`Organization: ${vertical || ''} | ${department || ''} | ${team || ''}`);\n    // }\n    \n    // Add management\n    // if (coeManager || engineeringLead || engineeringHead || director) {\n    //     structuredParts.push(`Management: ${engineeringLead !== resourceName ? engineeringLead : ''} | ${coeManager} | ${engineeringHead} | ${director}`);\n    // }\n    \n    // Add primary skill areas\n    if (primarySkillAreas.length > 0) {\n        structuredParts.push(`${primarySkillAreas.join(', ')}`);\n    }\n    \n    // Add skills by level\n    if (skills.senior.length > 0) {\n        structuredParts.push(`${skills.senior.join(', ')}`);\n    }\n    \n    if (skills.mid.length > 0) {\n        structuredParts.push(`${skills.mid.join(', ')}`);\n    }\n    \n    if (skills.junior.length > 0) {\n        structuredParts.push(`${skills.junior.join(', ')}`);\n    }\n    \n    // Add industries\n    if (industries.length > 0) {\n        structuredParts.push(`${industries.join(', ')}`);\n    }\n    \n    // Add extracted tools and technologies\n    if (technicalDetails.tools.length > 0) {\n        structuredParts.push(`${technicalDetails.tools.join(', ')}`);\n    }\n    \n    if (technicalDetails.technologies.length > 0) {\n        structuredParts.push(`${technicalDetails.technologies.join(', ')}`);\n    }\n    \n    if (technicalDetails.methodologies.length > 0) {\n        structuredParts.push(`${technicalDetails.methodologies.join(', ')}`);\n    }\n    \n    // Add certificates\n    if (certificatesList.length > 0) {\n        structuredParts.push(`${certificatesList.join(', ')}`);\n    }\n    \n    // Add miscellaneous notes if present\n    if (note && note.trim()) {\n        structuredParts.push(`${note}`);\n    }\n    \n    // Join with pipe separator\n    const structuredText = structuredParts.filter(Boolean).join(', ');\n    \n    // Full text for embedding combines structured and natural language\n    const textToEmbed = `${structuredText} | ${conversationText}`;\n  \n  \n  return {\n    json: {\n        id: resource.id,\n        name: resource.name,\n        skills_senior: skills_senior.join(\", \") || \"\",\n        skills_medium: skills_medium.join(\", \") || \"\",\n        skills_junior: skills_junior.join(\", \") || \"\",\n        industry: industries.join(\", \") || \"\",\n        description: description,\n        section: section,\n        seniority: seniority,\n        team:team,\n        department:department,\n        vertical:vertical,\n        coe_manager:coe_manager,\n        el:el,\n        eh:eh,\n        director:director,\n        employment_type:employment_type,\n        certs: certs.join(\", \") || \"\",\n        note: note,\n        embedding_facts_text: structuredText,\n        embedding_convo_text: conversationText,\n        full_payload: resource\n        // embedding_text: embeddingText,\n    }\n  };\n});"
+        "jsCode": "// Process resources\nconst item = items[0];\nconst resources = item.json.items || [];\n\nreturn resources.map(resource => {\n  // skills senior\n  const skills_senior = [];\n  const ssFields = resource.dataFields?.multiSelect?.find(t => t.id === '124830');\n  if (ssFields?.values) {\n      ssFields.values.forEach(v => {\n          if (v.readableValue && !skills_senior.includes(v.readableValue)) {\n              skills_senior.push(v.readableValue);\n          }\n      });\n  }\n  // skills midium\n  const skills_medium = [];\n  const smFields = resource.dataFields?.multiSelect?.find(t => t.id === '124831');\n  if (smFields?.values) {\n      smFields.values.forEach(v => {\n          if (v.readableValue && !skills_medium.includes(v.readableValue)) {\n              skills_medium.push(v.readableValue);\n          }\n      });\n  }\n\n  // skills junior\n  const skills_junior = [];\n  const sjFields = resource.dataFields?.multiSelect?.find(t => t.id === '124832');\n  if (sjFields?.values) {\n      sjFields.values.forEach(v => {\n          if (v.readableValue && !skills_junior.includes(v.readableValue)) {\n              skills_junior.push(v.readableValue);\n          }\n      });\n  }\n\n  // get certs\n  const certs = [];\n  const certFields = resource.dataFields?.multiSelect?.find(t => t.id === '126853');\n  if (certFields?.values) {\n      certFields.values.forEach(v => {\n          if (v.readableValue && !certs.includes(v.readableValue)) {\n              certs.push(v.readableValue);\n          }\n      });\n  }\n  \n  // Extract industries\n  const industriesarr = [];\n  const industryField = resource.dataFields?.multiSelect?.find(ms => \n      ms.readableValue === 'Industry Expertise'\n  );\n  if (industryField?.values) {\n    industryField.values.forEach(v => {\n      if (v.readableValue) {\n        industriesarr.push(v.readableValue);\n      }\n    });\n  }\n\n  // Get description\n  const descField = resource.dataFields?.texts?.find(t => t.id === '121631');\n  let description = descField?.text ?? '';\n\n  // Get notes\n  const noteField = resource.dataFields?.texts?.find(t => t.id === '123740');\n  let note = noteField?.text ?? '';\n\n\n  // Get Section\n  const secField = resource.dataFields.listValues?.find(t => t.id === '114287');\n  let section = secField?.readableValue ?? '';\n\n  const roleField = resource.dataFields.listValues?.find(t => t.id === '114312');\n  let role = roleField?.readableValue ?? '';\n\n  const primary_skill_field = resource.dataFields.listValues?.find(t => t.id === '121223');\n  let primary_skill = primary_skill_field?.readableValue ?? '';\n\n  // Get seniority\n  const senField = resource.dataFields?.listValues?.find(t => t.id === '115797')\n  let seniority = senField?.readableValue ?? '';\n\n  // Get team\n  const teamField = resource.dataFields?.listValues?.find(t => t.id === '120128')\n  let team = teamField?.readableValue ?? '';\n  \n  // Get department\n  const departmentField = resource.dataFields?.listValues?.find(t => t.id === '124673')\n  let department = departmentField?.readableValue ?? '';\n  \n  // Get vertical\n  const verticalField = resource.dataFields?.listValues?.find(t => t.id === '124674')\n  let vertical = verticalField?.readableValue ?? '';\n  \n  // Get coe_manager\n  const coe_managerField = resource.dataFields?.listValues?.find(t => t.id === '124407')\n  let coe_manager = coe_managerField?.readableValue ?? '';\n  \n  // Get el\n  const elField = resource.dataFields?.listValues?.find(t => t.id === '124300')\n  let el = elField?.readableValue ?? '';\n  \n  // Get eh\n  const ehField = resource.dataFields?.listValues?.find(t => t.id === '124301')\n  let eh = ehField?.readableValue ?? '';\n  \n  // Get director\n  const directorField = resource.dataFields?.listValues?.find(t => t.id === '124302')\n  let director = directorField?.readableValue ?? '';\n  \n  // Get employment_type\n  const employment_typeField = resource.dataFields?.listValues?.find(t => t.id === '124741')\n  let employment_type = employment_typeField?.readableValue ?? '';\n\n\n  /**\n   * Zlatko import for post processing and embed prep\n   */\n\n  // Extract all available fields from the input\n  const resourceId = resource.id;\n  const resourceName = resource.name;\n  const technicalDomain = section;\n  const globalSeniority = seniority;\n  const coeManager = coe_manager;\n  const engineeringLead = el;\n  const engineeringHead = eh;\n  const employmentType = employment_type;\n  const skillSeniorLevel = skills_senior.join(\", \") || \"\";\n  const skillMidLevel = skills_medium.join(\", \") || \"\"\n  const skillJuniorLevel = skills_junior.join(\", \") || \"\";\n  const industryExpertise = industriesarr.join(\", \") || \"\";\n  const domainKnowledge = description;\n  const certificates = certs.join(\", \") || \"\";\n    \n\n      // Universal parser function that handles parentheses, brackets, and quoted text\n    const smartParse = (textString) => {\n        if (!textString) return [];\n        \n        const results = [];\n        let currentItem = '';\n        let insideParentheses = 0;  // Track nested parentheses\n        let insideBrackets = 0;     // Track nested brackets\n        let insideQuotes = false;   // Track quoted text\n        \n        // Process character by character\n        for (let i = 0; i < textString.length; i++) {\n            const char = textString[i];\n            \n            // Handle different states\n            if (char === '(') {\n                insideParentheses++;\n                currentItem += char;\n            } else if (char === ')') {\n                insideParentheses = Math.max(0, insideParentheses - 1); // Guard against mismatched parentheses\n                currentItem += char;\n            } else if (char === '[') {\n                insideBrackets++;\n                currentItem += char;\n            } else if (char === ']') {\n                insideBrackets = Math.max(0, insideBrackets - 1); // Guard against mismatched brackets\n                currentItem += char;\n            } else if (char === '\"' || char === \"'\") {\n                insideQuotes = !insideQuotes;\n                currentItem += char;\n            } else if (char === ',' && !insideParentheses && !insideBrackets && !insideQuotes) {\n                // Only split on commas when not inside special characters\n                results.push(currentItem.trim());\n                currentItem = '';\n            } else {\n                currentItem += char;\n            }\n        }\n        \n        // Add the last item if there is one\n        if (currentItem.trim()) {\n            results.push(currentItem.trim());\n        }\n        \n        // Post-processing: Handle special formats and clean up\n        return results\n            .map(item => {\n                // Clean up quote marks if they balance at beginning/end\n                if ((item.startsWith('\"') && item.endsWith('\"')) || \n                    (item.startsWith(\"'\") && item.endsWith(\"'\"))) {\n                    item = item.slice(1, -1).trim();\n                }\n                \n                // Remove any trailing dots or punctuation\n                return item.replace(/[.,;]+$/, '').trim();\n            })\n            .filter(Boolean);\n    };\n    \n    const cleanField = (text) => {\n    if (!text) return text;\n    \n    // Remove redundant whitespace\n    text = text.replace(/\\s+/g, ' ').trim();\n    \n    // Only include entries that actually need standardization\n    const standardizations = {\n        // JavaScript variations\n        'Javascript': 'JavaScript',\n        'JS': 'JavaScript',\n        'TS': 'TypeScript',\n        'React.js': 'React',\n        'React.JS': 'React',\n        'ReactJS': 'React',\n        'NextJS': 'Next.js',\n        'VueJS': 'Vue.js',\n        'Vue3': 'Vue.js',\n        'AngularJS': 'Angular',\n        'NodeJS': 'Node.js',\n        'ExpressJS': 'Express',\n        'NestJS': 'Nest.js',\n        'NuxtJS': 'Nuxt.js',\n        \n        // Python variations\n        'Python3': 'Python',\n        'Fast API': 'FastAPI',\n        'Pandas': 'pandas',\n        'NumPy': 'numpy',\n        'Scikit-learn': 'scikit-learn',\n        'sklearn': 'scikit-learn',\n        'Pytest': 'pytest',\n        'PyTest': 'pytest',\n        \n        // Java variations\n        'J2EE': 'Java EE',\n        'SpringBoot': 'Spring Boot',\n        \n        // .NET variations\n        '.Net': '.NET',\n        'DotNet': '.NET',\n        'CSharp': 'C#',\n        'C sharp': 'C#',\n        'ASP.Net': 'ASP.NET',\n        'EF Core': 'Entity Framework Core',\n        \n        // PHP variations\n        'WP': 'WordPress',\n        \n        // Ruby variations\n        'Rails': 'Ruby on Rails',\n        'RoR': 'Ruby on Rails',\n        \n        // Go variations\n        'Golang': 'Go',\n        'Go lang': 'Go',\n        'Rust lang': 'Rust',\n        \n        // Mobile variations\n        'Obj-C': 'Objective-C',\n        \n        // Database variations\n        'Postgres': 'PostgreSQL',\n        'Mongo': 'MongoDB',\n        'Elastic': 'Elasticsearch',\n        'Oracle DB': 'Oracle',\n        'MSSQL': 'SQL Server',\n        'MS SQL': 'SQL Server',\n        \n        // Cloud variations\n        'Amazon Web Services': 'AWS',\n        'Microsoft Azure': 'Azure',\n        'Google Cloud': 'GCP',\n        'Google Cloud Platform': 'GCP',\n        'K8s': 'Kubernetes',\n        'Argo CD': 'ArgoCD',\n        'ELK': 'ELK Stack',\n        \n        // AI/ML variations\n        'Artificial Intelligence': 'AI',\n        'Machine Learning': 'ML',\n        'Natural Language Processing': 'NLP',\n        'HuggingFace': 'Hugging Face',\n        'Large Language Models': 'LLM',\n        'Lang Chain': 'LangChain',\n        'Vector DB': 'Vector Database',\n        \n        // Data variations\n        'Apache Spark': 'Spark',\n        'Apache Kafka': 'Kafka',\n        'Apache Airflow': 'Airflow',\n        'Apache Hadoop': 'Hadoop',\n        'Apache Flink': 'Flink',\n        'Apache NiFi': 'NiFi',\n        \n        // Architecture variations\n        'Service Oriented Architecture': 'SOA',\n        'RESTful': 'REST',\n        'WebSockets': 'WebSocket',\n        'Event Driven': 'Event-Driven',\n        'Domain Driven Design': 'DDD',\n        'Test Driven Development': 'TDD',\n        'Behavior Driven Development': 'BDD',\n        'CI / CD': 'CI/CD',\n        'Devops': 'DevOps',\n        \n        // UI/UX variations\n        'UI/UX': 'UI/UX',\n        \n        // General variations\n        'Front-end': 'Frontend',\n        'Front end': 'Frontend',\n        'Back-end': 'Backend',\n        'Back end': 'Backend',\n        'Fullstack': 'Full Stack',\n        'Full-stack': 'Full Stack',\n        'Full stack': 'Full Stack',\n        'APIs': 'API',\n        \n        // Automation variations\n        'N8N': 'n8n',\n        'AzureLogicApps': 'Azure Logic Apps',\n        'Azure LogicApps': 'Azure Logic Apps',\n        'Integromat': 'Make',\n      \n        // AI-specific (from your actual data: \"AI - LLM\", \"AI - RAG\")\n        'Generative AI': 'GenAI',\n        'Gen AI': 'GenAI',\n        'Prompting': 'Prompt Engineering', // already clean\n        'LLMs': 'LLM',\n        'Langsmith': 'LangSmith',\n        'Vector Database': 'VectorDB',\n        'Vector DB': 'VectorDB',\n        'embeddings': 'Embeddings',\n\n        // Data Science tools (from description field)\n        'pandas': 'pandas', // already lowercase\n        'geopandas': 'GeoPandas',\n        'matplotlib': 'Matplotlib',\n        'seaborn': 'Seaborn',\n        'plotly': 'Plotly',\n        'boosting/bagging': 'Boosting/Bagging',\n\n        // Missing framework variations\n        'fast-api': 'FastAPI',\n\n        // Missing cloud/tools\n        'gitlab': 'GitLab',\n        'Git Lab': 'GitLab',\n\n        // Certifications (common variations)\n        'Certificate AWS': 'AWS Certified',\n        'Certificate Azure': 'Azure Certified',\n        'AWS Cert': 'AWS Certified',\n        'Azure Cert': 'Azure Certified'\n    };\n    \n    // Apply standardizations\n    Object.keys(standardizations).forEach(key => {\n        const regex = new RegExp(`\\\\b${key}\\\\b`, 'gi');\n        text = text.replace(regex, standardizations[key]);\n    });\n    \n    return text;\n};\n    \n    const extractRoleCategory = (technicalDomain) => {\n    if (!technicalDomain) return \"Other\";\n    \n    const domainLower = technicalDomain.toLowerCase().trim();\n    \n    // Direct mappings for common abbreviations\n    const directMappings = {\n        'ba': 'Business Analyst',\n        'pm': 'Project Manager',\n        'po': 'Product Owner',\n        'sa': 'Solution Architect',\n        'qa': 'QA Engineer',\n        'fe': 'Frontend Developer',\n        'be': 'Backend Developer',\n        'fs': 'Full Stack Developer',\n        'do': 'DevOps Engineer',\n        'de': 'Data Engineer',\n        'ds': 'Data Scientist',\n        'ml': 'ML Engineer',\n        'ai': 'AI Engineer',\n        'ux': 'UX Designer',\n        'ui': 'UI Designer',\n        'se': 'Support Engineer',\n        'pe': 'Presales Engineer',\n        'ta': 'Technical Architect',\n        'tl': 'Tech Lead',\n        'em': 'Engineering Manager',\n        'sm': 'Scrum Master'\n    };\n    \n    // Check direct mappings first\n    if (directMappings[domainLower]) {\n        return directMappings[domainLower];\n    }\n    \n    // Then check for keyword matches\n    if (domainLower.includes('business analyst')) return 'Business Analyst';\n    if (domainLower.includes('project manager')) return 'Project Manager';\n    if (domainLower.includes('product owner')) return 'Product Owner';\n    if (domainLower.includes('solution architect')) return 'Solution Architect';\n    \n    if (domainLower.includes('frontend') || \n        domainLower.includes('react') || \n        domainLower.includes('angular') || \n        domainLower.includes('vue') || \n        domainLower.includes('slice')) {\n        return 'Frontend Developer';\n    }\n    \n    if (domainLower.includes('backend') || \n        domainLower.includes('java') || \n        domainLower.includes('php') || \n        domainLower.includes('python') || \n        domainLower.includes('.net') || \n        domainLower.includes('node') || \n        domainLower.includes('ruby') ||\n        domainLower.includes('cms')) {\n        return 'Backend Developer';\n    }\n    \n    if (domainLower.includes('fullstack') || \n        domainLower.includes('full stack') || \n        domainLower.includes('full-stack')) {\n        return 'Full Stack Developer';\n    }\n    \n    if (domainLower.includes('mobile') || \n        domainLower.includes('android') || \n        domainLower.includes('ios') || \n        domainLower.includes('flutter') || \n        domainLower.includes('react native')) {\n        return 'Mobile Developer';\n    }\n    \n    if (domainLower.includes('devops') || \n        domainLower.includes('sre') || \n        domainLower.includes('infrastructure') || \n        domainLower.includes('cloud')) {\n        return 'DevOps Engineer';\n    }\n    \n    if (domainLower.includes('test') || \n        domainLower.includes('quality')) {\n        return 'QA Engineer';\n    }\n    \n    if (domainLower.includes('data scientist') || \n        domainLower.includes('data science')) {\n        return 'Data Scientist';\n    }\n    \n    if (domainLower.includes('data') || \n        domainLower.includes('bi') || \n        domainLower.includes('business intelligence')) {\n        return 'Data Engineer';\n    }\n    \n    if (domainLower.includes('machine learning') || \n        domainLower.includes('ai engineer')) {\n        return 'AI/ML Engineer';\n    }\n    \n    if (domainLower.includes('design') || \n        domainLower.includes('ux') || \n        domainLower.includes('ui')) {\n        return 'UI/UX Designer';\n    }\n    \n    if (domainLower.includes('support')) {\n        return 'Support Engineer';\n    }\n    \n    if (domainLower.includes('presales') || \n        domainLower.includes('pre-sales')) {\n        return 'Presales Engineer';\n    }\n    \n    // Return the original if no mapping found\n    return technicalDomain;\n};\n    \nconst extractTechnicalDetails = (domainKnowledge) => {\n    if (!domainKnowledge) return { tools: [], technologies: [], methodologies: [] };\n    \n    // Expanded based on your actual data\n    const tools = [\n        // Project Management & Collaboration\n        'Jira', 'Confluence', 'Azure DevOps', 'GitHub', 'GitLab', 'Bitbucket',\n        'Slack', 'Microsoft Teams', 'Asana', 'Trello', 'Monday', 'Notion', 'Linear',\n        \n        // CI/CD & DevOps Tools\n        'Jenkins', 'TeamCity', 'Travis CI', 'CircleCI', 'Bamboo', 'GitHub Actions',\n        'ArgoCD', 'Terraform', 'Ansible', 'Puppet', 'Chef', 'Helm',\n        \n        // Design Tools\n        'Figma', 'Sketch', 'Adobe XD', 'InVision', 'Zeplin', 'Framer',\n        'Axure', 'Adobe Photoshop', 'Adobe Illustrator', 'InDesign',\n        \n        // Analytics & Monitoring\n        'Power BI', 'Tableau', 'Looker', 'Grafana', 'Kibana', 'Datadog',\n        'New Relic', 'Splunk', 'Prometheus', 'ELK Stack',\n        \n        // Testing & Development Tools\n        'Postman', 'Swagger', 'SonarQube', 'Selenium', 'Cypress', 'Jest',\n        'VS Code', 'IntelliJ', 'Eclipse', 'Xcode', 'Android Studio',\n        \n        // Documentation & Modeling\n        'BPMN', 'UML', 'Draw.io', 'Lucidchart', 'Miro', 'Mural'\n    ];\n    \n    const technologies = [\n        // Frontend\n        'React', 'Angular', 'Vue', 'Next.js', 'Nuxt', 'Svelte', 'jQuery',\n        'Bootstrap', 'Tailwind', 'Material UI', 'Ant Design',\n        \n        // Backend\n        'Node.js', 'Express', 'Django', 'Flask', 'FastAPI', 'Spring Boot', \n        'Laravel', 'Symfony', 'ASP.NET', 'Ruby on Rails', 'Gin', 'Echo',\n        \n        // Databases\n        'MongoDB', 'PostgreSQL', 'MySQL', 'SQL Server', 'Oracle', 'Redis',\n        'DynamoDB', 'Cassandra', 'Neo4j', 'Elasticsearch', 'Supabase', 'Firebase',\n        \n        // Cloud & Infrastructure\n        'Docker', 'Kubernetes', 'AWS', 'Azure', 'GCP', 'Vercel', 'Netlify',\n        'CloudFlare', 'DigitalOcean', 'Heroku',\n        \n        // AI/ML - Based on your actual data\n        'TensorFlow', 'PyTorch', 'Keras', 'scikit-learn', 'pandas', 'NumPy',\n        'Hugging Face', 'HuggingFace', 'LangChain', 'Langchain', 'OpenAI',\n        'Anthropic', 'Gemini', 'LLM', 'RAG', 'Stable Diffusion',\n        'matplotlib', 'seaborn', 'plotly', 'geopandas', 'scipy',\n        'boosting', 'bagging', 'XGBoost', 'LightGBM',\n        \n        // Data Engineering\n        'Hadoop', 'Spark', 'Kafka', 'Airflow', 'Databricks', 'Snowflake',\n        'dbt', 'Flink', 'Storm', 'Beam',\n        \n        // APIs & Architecture\n        'REST', 'GraphQL', 'SOAP', 'gRPC', 'WebSocket', 'Microservices',\n        'API Gateway', 'Service Mesh', 'Event-Driven',\n        \n        // Mobile\n        'React Native', 'Flutter', 'Swift', 'Kotlin', 'Xamarin', 'Ionic',\n        \n        // Other\n        'Blockchain', 'Web3', 'Solidity', 'Smart Contracts',\n        'ERP', 'CRM', 'Salesforce', 'SAP', 'ServiceNow',\n        'Payment Gateway', 'Stripe', 'PayPal', 'Square'\n    ];\n    \n    const methodologies = [\n        // Development Methodologies\n        'Agile', 'Scrum', 'Kanban', 'SAFe', 'Waterfall', 'Lean', 'XP',\n        'DevOps', 'DevSecOps', 'GitOps', 'MLOps', 'DataOps',\n        \n        // Development Practices\n        'CI/CD', 'TDD', 'BDD', 'DDD', 'SOLID', 'Clean Code', 'Clean Architecture',\n        'Pair Programming', 'Code Review', 'Continuous Integration',\n        'Continuous Deployment', 'Blue-Green Deployment', 'Canary Deployment',\n        \n        // Architecture Patterns\n        'Microservices', 'Serverless', 'Event-Driven', 'CQRS', 'Event Sourcing',\n        'Hexagonal Architecture', 'Onion Architecture', 'MVC', 'MVP', 'MVVM',\n        \n        // Design & Research\n        'User Research', 'Design Thinking', 'User-Centered Design', 'Design Sprint',\n        'A/B Testing', 'Usability Testing', 'Persona Development',\n        \n        // Data Practices\n        'Data Modeling', 'ETL', 'ELT', 'Data Warehousing', 'OLAP', 'OLTP',\n        'Data Lake', 'Data Mesh', 'Data Governance',\n        \n        // Product & Business\n        'Product Discovery', 'User Story Mapping', 'Requirements Elicitation',\n        'Business Analysis', 'Product Ownership', 'Stakeholder Management',\n        'OKRs', 'KPIs', 'Roadmapping'\n    ];\n    \n    // Improved matching function - case insensitive but preserves original case\n    const findMatches = (text, terms) => {\n        const matches = [];\n        const lowerText = text.toLowerCase();\n        \n        terms.forEach(term => {\n            // Use word boundaries for more accurate matching\n            const regex = new RegExp(`\\\\b${term.toLowerCase()}\\\\b`, 'i');\n            if (regex.test(lowerText)) {\n                matches.push(term);\n            }\n        });\n        \n        return [...new Set(matches)]; // Remove duplicates\n    };\n    \n    return {\n        tools: findMatches(domainKnowledge, tools),\n        technologies: findMatches(domainKnowledge, technologies),\n        methodologies: findMatches(domainKnowledge, methodologies)\n    };\n};\n    \n    // Determine seniority level based on Global Seniority \n    const determineSeniorityLevel = (globalSeniority) => {\n        // If global seniority is not available, return unknown\n        if (!globalSeniority) return \"Unknown\";\n        \n        const seniorityLower = globalSeniority.toLowerCase();\n        \n        if (seniorityLower.includes('senior')) {\n            // Extract number if available (e.g., \"Senior 2\" -> 2)\n            const seniorityNum = seniorityLower.match(/\\d+/);\n            if (seniorityNum) {\n                return `Senior ${seniorityNum[0]}`;\n            }\n            return \"Senior\";\n        }\n        \n        if (seniorityLower.includes('mid')) {\n            // Extract number if available (e.g., \"Mid 2\" -> 2)\n            const midNum = seniorityLower.match(/\\d+/);\n            if (midNum) {\n                return `Mid ${midNum[0]}`;\n            }\n            return \"Mid\";\n        }\n        \n        if (seniorityLower.includes('junior')) {\n            // Extract number if available (e.g., \"Junior 2\" -> 2)\n            const juniorNum = seniorityLower.match(/\\d+/);\n            if (juniorNum) {\n                return `Junior ${juniorNum[0]}`;\n            }\n            return \"Junior\";\n        }\n        \n        if (seniorityLower.includes('head')) {\n            return \"Head\";\n        }\n        \n        if (seniorityLower.includes('manager')) {\n            return \"Manager\";\n        }\n        \n        // Return original if no mapping\n        return globalSeniority;\n    };\n    \n    // Determine if the person is a manager or lead\n    const isLeadOrManager = (globalSeniority, engineeringLead, coeManager) => {\n        if (!globalSeniority && !engineeringLead && !coeManager) return false;\n        \n        // Check if global seniority indicates management position\n        if (globalSeniority && (\n            globalSeniority.toLowerCase().includes('manager') ||\n            globalSeniority.toLowerCase().includes('head')\n        )) {\n            return true;\n        }\n        \n        // Check if they are listed as engineering lead for anyone\n        if (engineeringLead && engineeringLead === resourceName) {\n            return true;\n        }\n        \n        // Check if they are listed as COE manager for anyone\n        if (coeManager && coeManager === resourceName) {\n            return true;\n        }\n        \n        return false;\n    };\n    \n    // Create skills arrays\n    const skills = {\n        senior: smartParse(skillSeniorLevel).map(cleanField),\n        mid: smartParse(skillMidLevel).map(cleanField),\n        junior: smartParse(skillJuniorLevel).map(cleanField)\n    };\n    \n    // Extract all skills for quick access and filtering\n    const allSkills = [\n        ...skills.senior.map(skill => ({ skill, level: 'senior' })),\n        ...skills.mid.map(skill => ({ skill, level: 'mid' })),\n        ...skills.junior.map(skill => ({ skill, level: 'junior' }))\n    ];\n    \n    // Get flat list of skills\n    const flatSkills = allSkills.map(s => s.skill);\n    \n    // Extract technical details from domain knowledge\n    const technicalDetails = extractTechnicalDetails(domainKnowledge);\n    \n    // Add extracted technical details to all_skills if not already present\n    technicalDetails.tools.forEach(tool => {\n        if (!flatSkills.includes(tool)) {\n            flatSkills.push(tool);\n        }\n    });\n    \n    technicalDetails.technologies.forEach(tech => {\n        if (!flatSkills.includes(tech)) {\n            flatSkills.push(tech);\n        }\n    });\n    \n    technicalDetails.methodologies.forEach(method => {\n        if (!flatSkills.includes(method)) {\n            flatSkills.push(method);\n        }\n    });\n    \nconst identifyPrimarySkillAreas = (allSkills) => {\n    const skillGroups = {\n        'Frontend': [\n            'JS - React', 'JS - Angular', 'JS - Vue', 'JS - Next', 'JS - Nuxt',\n            'React', 'Angular', 'Vue', 'JavaScript', 'TypeScript', \n            'HTML', 'CSS', 'Web - HTML/CSS', 'Web Slice/CSS/HTML',\n            'SASS', 'LESS', 'Redux', 'Next.js', 'Tailwind', 'Bootstrap'\n        ],\n        'Backend': [\n            'Java - Spring Boot', 'Java - J2EE', 'Python - Django', 'Python - Flask', \n            'Python - FastAPI', 'PHP - Laravel', 'PHP - Symfony', 'Ruby - Rails',\n            'C# - .NET Core', 'C# - .NET Framework', 'Node - Express', 'Node - Nest',\n            'GO - gin', 'GO - beego', 'Java', 'Spring', 'Python', 'Django', \n            'PHP', 'Laravel', 'C#', '.NET', 'Node.js', 'Express', 'Ruby', 'Rails'\n        ],\n        'CMS': [\n            'CMS - WordPress', 'CMS - Drupal', 'CMS - Craft', 'CMS - Strapi',\n            'WordPress', 'Drupal', 'Magento', 'WooCommerce'\n        ],\n        'Database': [\n            'SQL', 'PostgreSQL', 'MySQL', 'MongoDB', 'DynamoDB', \n            'Elasticsearch', 'Redis', 'Cassandra', 'Oracle', 'Supabase',\n            'DB - PostgreSQL', 'DB - MySQL', 'DB - MongoDB'\n        ],\n        'DevOps': [\n            'DevOps - AWS', 'DevOps - Azure', 'DevOps - CI/CD', 'DevOps - Linux',\n            'DevOps - Docker', 'DevOps - Kubernetes', 'Docker', 'Kubernetes', \n            'AWS', 'Azure', 'GCP', 'CI/CD', 'Jenkins', 'Terraform', 'Ansible'\n        ],\n        'Mobile': [\n            'Android', 'iOS', 'Flutter', 'React Native', 'Swift', 'Kotlin',\n            'Kotlin - Spring Boot', 'C# - Unity', 'Xamarin'\n        ],\n        'AI/ML': [\n            'AI - LLM', 'AI - RAG', 'AI - Prompting', 'AI - GenAI', 'AI - NLP',\n            'AI - Data Prep', 'AI - n8n', 'Python - DataScience', 'Python - ML',\n            'TensorFlow', 'PyTorch', 'ML', 'AI', 'NLP', 'Computer Vision', \n            'Data Science', 'Data Scientist', 'Hugging Face', 'LangChain'\n        ],\n        'Testing': [\n            'QA - Automated', 'QA - Manual', 'QA - Functional', 'QA - Non-functional',\n            'QA', 'Selenium', 'Cypress', 'Jest', 'Testing', 'TDD', 'BDD', \n            'JUnit', 'PyTest', 'Postman'\n        ],\n        'Management': [\n            'Project Management', 'Product Owner', 'Business Analysis',\n            'Solution Architect', 'Agile', 'Scrum', 'Kanban', \n            'JIRA', 'Confluence'\n        ],\n        'Design': [\n            'Design - UI', 'Design - UX', 'UI', 'UX', 'Figma', 'Sketch', \n            'Adobe XD', 'Photoshop', 'Illustrator', 'Zeplin'\n        ],\n        'Data': [\n            'Data Engineer', 'Data Engineering', 'Python - DataEngineering',\n            'ETL', 'Spark', 'Kafka', 'Airflow', 'Databricks', 'BigQuery'\n        ]\n    };\n    \n    // Count occurrences - exact match or contains\n    const areaScores = {};\n    Object.keys(skillGroups).forEach(area => {\n        areaScores[area] = 0;\n        skillGroups[area].forEach(skill => {\n            allSkills.forEach(userSkill => {\n                // Exact match first\n                if (userSkill === skill) {\n                    areaScores[area] += 2; // Higher weight for exact match\n                }\n                // Then check if contains (for partial matches)\n                else if (userSkill.toLowerCase().includes(skill.toLowerCase()) || \n                         skill.toLowerCase().includes(userSkill.toLowerCase())) {\n                    areaScores[area]++;\n                }\n            });\n        });\n    });\n    \n    // Return areas with at least one skill match, sorted by score\n    const matchedAreas = Object.keys(areaScores)\n        .filter(area => areaScores[area] > 0)\n        .sort((a, b) => areaScores[b] - areaScores[a]);\n    \n    return matchedAreas;\n};\n    \n    // Get role category from technical domain\n    const roleCategory = extractRoleCategory(technicalDomain);\n    \n    // Get seniority level\n    const seniorityLevel = determineSeniorityLevel(globalSeniority);\n    \n    // Check if the person is a lead or manager\n    const isLeadOrManagerRole = isLeadOrManager(globalSeniority, engineeringLead, coeManager);\n    \n    // Get primary skill areas\n    const primarySkillAreas = identifyPrimarySkillAreas(flatSkills);\n    \n    // Parse industries\n    const industries = smartParse(industryExpertise).map(cleanField);\n    \n    // Parse certificates\n    const certificatesList = smartParse(certificates).map(cleanField);\n    \n    // Extract organizational structure\n    const orgStructure = {\n        team: team,\n        department: department,\n        vertical: vertical,\n        reports_to: {\n            engineering_lead: engineeringLead !== resourceName ? engineeringLead : null,\n            coe_manager: coeManager,\n            engineering_head: engineeringHead,\n            director: director\n        },\n        is_lead_or_manager: isLeadOrManagerRole\n    };\n    \n    // Build natural language descriptions for better LLM understanding\n    \n    // 1. Role description\n    let roleDescription = `${resourceName} is a ${roleCategory}`;\n    if (globalSeniority) {\n        roleDescription += ` with ${globalSeniority} seniority`;\n    }\n    if (isLeadOrManagerRole) {\n        roleDescription += ` in a leadership position`;\n    }\n    if (primarySkillAreas.length > 0) {\n        roleDescription += ` specializing in ${primarySkillAreas.slice(0, 2).join(' and ')}`;\n    }\n    roleDescription += `.`;\n    \n    // 2. Skills description\n    let skillsDescription = \"\";\n    \n    if (skills.senior.length > 0) {\n        skillsDescription += `Has senior-level expertise in ${skills.senior.join(', ')}.`;\n    }\n    \n    if (skills.mid.length > 0) {\n        skillsDescription += ` Proficient in ${skills.mid.join(', ')}.`;\n    }\n    \n    if (skills.junior.length > 0) {\n        skillsDescription += ` Also familiar with ${skills.junior.join(', ')}.`;\n    }\n    \n    // 3. Industry description\n    let industryDescription = \"\";\n    if (industries.length > 0) {\n        industryDescription = `Has experience in the following industries: ${industries.join(', ')}.`;\n    }\n    \n    // 4. Organizational context\n    let orgDescription = \"\";\n    if (team || department || vertical) {\n        orgDescription = `Works in ${team || 'the company'}`;\n        if (department) {\n            orgDescription += `, part of ${department}`;\n        }\n        if (vertical) {\n            orgDescription += ` within the ${vertical} vertical`;\n        }\n        orgDescription += '.';\n    }\n    \n    // 5. Management chain\n    let managementDescription = \"\";\n    if (coeManager || engineeringLead || engineeringHead || director) {\n        const managers = [];\n        if (engineeringLead && engineeringLead !== resourceName) managers.push(`Engineering Lead: ${engineeringLead}`);\n        if (coeManager) managers.push(`COE Manager: ${coeManager}`);\n        if (engineeringHead) managers.push(`Engineering Head: ${engineeringHead}`);\n        if (director) managers.push(`Director: ${director}`);\n        \n        if (managers.length > 0) {\n            managementDescription = `Reports to ${managers.join(', ')}.`;\n        }\n    }\n    \n    // 6. Domain knowledge, technical tools and certificates\n    let expertiseDescription = \"\";\n    \n    if (technicalDetails.tools.length > 0 || \n        technicalDetails.technologies.length > 0 || \n        technicalDetails.methodologies.length > 0) {\n        \n        if (technicalDetails.tools.length > 0) {\n            expertiseDescription += `Experienced with tools: ${technicalDetails.tools.join(', ')}. `;\n        }\n        \n        if (technicalDetails.technologies.length > 0) {\n            expertiseDescription += `Familiar with technologies: ${technicalDetails.technologies.join(', ')}. `;\n        }\n        \n        if (technicalDetails.methodologies.length > 0) {\n            expertiseDescription += `Follows methodologies: ${technicalDetails.methodologies.join(', ')}. `;\n        }\n    }\n    \n    if (domainKnowledge) {\n        expertiseDescription += `Domain knowledge: ${domainKnowledge} `;\n    }\n    \n    if (certificatesList.length > 0) {\n        expertiseDescription += `Holds certifications in: ${certificatesList.join(', ')}.`;\n    }\n    \n    // 7. Create conversation-friendly search text\n    // This is optimized for natural language questions to the LLM\n    const conversationText = `\n    ${roleDescription}\n    ${skillsDescription}\n    ${industryDescription}\n    ${orgDescription}\n    ${managementDescription}\n    ${expertiseDescription}\n    ${note ? 'Additional info: ' + note : ''}\n    `.trim();\n    \n    // 8. Create structured embedding text (for vector search)\n    const structuredParts = [];\n    \n    // Start with name, technical domain and role category\n    structuredParts.push(`${technicalDomain}, ${roleCategory}, ${globalSeniority}, ${employment_type}`);\n    \n    // Add team info\n    // if (team || department || vertical) {\n    //     structuredParts.push(`Organization: ${vertical || ''} | ${department || ''} | ${team || ''}`);\n    // }\n    \n    // Add management\n    // if (coeManager || engineeringLead || engineeringHead || director) {\n    //     structuredParts.push(`Management: ${engineeringLead !== resourceName ? engineeringLead : ''} | ${coeManager} | ${engineeringHead} | ${director}`);\n    // }\n    \n    // Add primary skill areas\n    if (primarySkillAreas.length > 0) {\n        structuredParts.push(`${primarySkillAreas.join(', ')}`);\n    }\n    \n    // Add skills by level\n    if (skills.senior.length > 0) {\n        structuredParts.push(`${skills.senior.join(', ')}`);\n    }\n    \n    if (skills.mid.length > 0) {\n        structuredParts.push(`${skills.mid.join(', ')}`);\n    }\n    \n    if (skills.junior.length > 0) {\n        structuredParts.push(`${skills.junior.join(', ')}`);\n    }\n    \n    // Add industries\n    if (industries.length > 0) {\n        structuredParts.push(`${industries.join(', ')}`);\n    }\n    \n    // Add extracted tools and technologies\n    if (technicalDetails.tools.length > 0) {\n        structuredParts.push(`${technicalDetails.tools.join(', ')}`);\n    }\n    \n    if (technicalDetails.technologies.length > 0) {\n        structuredParts.push(`${technicalDetails.technologies.join(', ')}`);\n    }\n    \n    if (technicalDetails.methodologies.length > 0) {\n        structuredParts.push(`${technicalDetails.methodologies.join(', ')}`);\n    }\n    \n    // Add certificates\n    if (certificatesList.length > 0) {\n        structuredParts.push(`${certificatesList.join(', ')}`);\n    }\n    \n    // Add miscellaneous notes if present\n    if (note && note.trim()) {\n        structuredParts.push(`${note}`);\n    }\n    \n    // Join with pipe separator\n    const structuredText = structuredParts.filter(Boolean).join(', ');\n    \n    // Full text for embedding combines structured and natural language\n    const textToEmbed = `${structuredText} | ${conversationText}`;\n  \n  \n  return {\n    json: {\n        id: resourceId,\n        name: resourceName,\n        role: role,\n        primary_skill: primary_skill,\n        section: section,\n        skills_senior: skills_senior,\n        skills_medium: skills_medium,\n        skills_junior: skills_junior,\n        industry: industries,\n        description: description,\n        seniority: seniority,\n        team:team,\n        department:department,\n        vertical:vertical,\n        coe_manager:coe_manager,\n        el:el,\n        eh:eh,\n        director:director,\n        employment_type:employment_type,\n        certs: certs,\n        note: note,\n        // embedding_text: embeddingText,\n    }\n  };\n});"
       },
       "id": "c34705b4-bf63-4900-bd46-0c11e1ee8ab9",
       "name": "Process Resources",
@@ -370,21 +346,6 @@
         768,
         0
       ]
-    },
-    {
-      "parameters": {
-        "mode": "combine",
-        "combinationMode": "mergeByPosition",
-        "options": {}
-      },
-      "id": "d8f4da4e-f636-411e-ae3f-8140b5c7f5da",
-      "name": "Merge VECTORS and Resources",
-      "type": "n8n-nodes-base.merge",
-      "position": [
-        1568,
-        352
-      ],
-      "typeVersion": 2
     },
     {
       "parameters": {
@@ -423,7 +384,7 @@
       "name": "Set Res Page",
       "type": "n8n-nodes-base.set",
       "position": [
-        240,
+        256,
         0
       ],
       "typeVersion": 1,
@@ -444,8 +405,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 1,
       "position": [
-        688,
-        608
+        1328,
+        0
       ],
       "id": "b8c23789-7aa9-4219-82ad-6349d17bf6a0"
     },
@@ -465,8 +426,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 1,
       "position": [
-        528,
-        240
+        1872,
+        -16
       ],
       "id": "db04279c-1162-45bd-99fa-70dd7c86669c"
     },
@@ -477,8 +438,8 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        224,
-        240
+        1648,
+        -16
       ],
       "id": "38c0b236-33d1-4abe-a5a5-b904dc4e2569",
       "name": "Wait Res",
@@ -489,8 +450,8 @@
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        -416,
-        112
+        -240,
+        0
       ],
       "id": "4a3c02c7-0b53-4247-a47a-6ccf72b4e3ea",
       "name": "When clicking ‘Test workflow’"
@@ -502,164 +463,11 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1280,
-        768
+        1648,
+        -176
       ],
       "id": "f751ef92-938f-45ec-b713-c4db73471ddc",
       "name": "Code"
-    },
-    {
-      "parameters": {
-        "method": "POST",
-        "url": "http://192.168.20.70:11434/api/embeddings",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "Content-Type",
-              "value": "application/json"
-            }
-          ]
-        },
-        "sendBody": true,
-        "bodyParameters": {
-          "parameters": [
-            {
-              "name": "model",
-              "value": "nomic-embed-text"
-            },
-            {
-              "name": "prompt",
-              "value": "={{ $json.embedding_facts_text }}"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "d406a135-4969-4d84-b341-ebc56d7fc405",
-      "name": "Generate Facts Vectors",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.1,
-      "position": [
-        1248,
-        0
-      ]
-    },
-    {
-      "parameters": {
-        "method": "POST",
-        "url": "http://192.168.20.70:11434/api/embeddings",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "Content-Type",
-              "value": "application/json"
-            }
-          ]
-        },
-        "sendBody": true,
-        "bodyParameters": {
-          "parameters": [
-            {
-              "name": "model",
-              "value": "nomic-embed-text"
-            },
-            {
-              "name": "prompt",
-              "value": "={{ $('Process Resources').item.json.embedding_convo_text }}"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "d461fa7e-c17e-431d-a969-28f033c3614f",
-      "name": "Generate Convo Vectors",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.1,
-      "position": [
-        1600,
-        0
-      ]
-    },
-    {
-      "parameters": {
-        "method": "POST",
-        "url": "http://192.168.20.70:11434/api/embeddings",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "Content-Type",
-              "value": "application/json"
-            }
-          ]
-        },
-        "sendBody": true,
-        "bodyParameters": {
-          "parameters": [
-            {
-              "name": "model",
-              "value": "nomic-embed-text"
-            },
-            {
-              "name": "prompt",
-              "value": "={{ $('Process Resources').item.json.embedding_facts_text }} | {{ $('Process Resources').item.json.embedding_convo_text }}"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "466c3c23-75f8-4c90-9d89-bee7cfc7e44b",
-      "name": "Generate Both Vectors",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.1,
-      "position": [
-        912,
-        320
-      ]
-    },
-    {
-      "parameters": {
-        "mode": "combine",
-        "combinationMode": "mergeByPosition",
-        "options": {
-          "clashHandling": {
-            "values": {
-              "resolveClash": "addSuffix"
-            }
-          }
-        }
-      },
-      "id": "d971e0bf-b765-41d6-ab5b-9c9ddba61eee",
-      "name": "Merge Item with Fact Vectors",
-      "type": "n8n-nodes-base.merge",
-      "position": [
-        1888,
-        432
-      ],
-      "typeVersion": 2
-    },
-    {
-      "parameters": {
-        "mode": "combine",
-        "combinationMode": "mergeByPosition",
-        "options": {
-          "clashHandling": {
-            "values": {
-              "resolveClash": "addSuffix"
-            }
-          }
-        }
-      },
-      "id": "362862cc-6dee-4616-99fc-5bde32302ef5",
-      "name": "Merge Item with Convo Vectors",
-      "type": "n8n-nodes-base.merge",
-      "position": [
-        2160,
-        528
-      ],
-      "typeVersion": 2
     },
     {
       "parameters": {
@@ -670,8 +478,237 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        832,
-        -160
+        -1664,
+        -256
+      ]
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "qwen3-coder-30b-32k",
+          "mode": "list",
+          "cachedResultName": "qwen3-coder-30b-32k"
+        },
+        "options": {
+          "temperature": 0.1
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        880,
+        1376
+      ],
+      "id": "67c93070-1ac6-403b-bf5d-13ae90b98e4d",
+      "name": "VLLM1",
+      "credentials": {
+        "openAiApi": {
+          "id": "8CvuVJ8cItZcxDOX",
+          "name": "vllm"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "const employee_record = $json.embedding_convo_text\n\nconst systemPrompt = `You are an expert at transforming employee metadata into semantic search-optimized text. Your task is to convert structured employee profiles into natural language text that works perfectly with embedding models like nomic-embed-text.\n\nTRANSFORMATION RULES:\n1. Always start with \"search_document:\" prefix\n2. Write in natural, flowing sentences - never use bullet points or lists\n3. Break long content into 2-3 well-structured sentences (avoid single sentences over 150 words)\n4. Group related technologies and skills together semantically\n5. Eliminate all redundancy and repetition\n6. Use professional narrative tone\n7. Preserve all original information while improving readability\n8. Cluster similar skills (e.g., \"Python Django and Flask development\" instead of \"Python - Django, Python - Flask\")\n9. Convert technical abbreviations to full terms when helpful for search\n10. Place related concepts near each other for better semantic relationships\n\nSTRUCTURE TEMPLATE:\n- First sentence: Lead with name, role, seniority, and primary expertise areas\n- Second sentence: Detail technical skills and technologies, grouped logically\n- Third sentence (if needed): Include industry experience and organizational context\n\nOPTIMAL SENTENCE FLOW:\n- Keep individual sentences under 50 words when possible\n- Ensure smooth transitions between sentences\n- Group related technical concepts within the same sentence\n- Place organizational context at the end\n\nOUTPUT FORMAT: 1-4 natural language sentences starting with \"search_document:\"`;\n\n// 3. Define the user prompt\nconst userPrompt = `Transform this employee profile into semantic search-optimized text: ${employee_record}`;\n\nreturn {\n  json: {\n    userPrompt,\n    systemPrompt: systemPrompt\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        672,
+        1168
+      ],
+      "id": "74a02293-f7c8-4746-b897-b0382186d61a",
+      "name": "PreparePrompt1"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "ganttic_api_resources",
+        "returnAll": true
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        288,
+        1168
+      ],
+      "id": "455f2a50-0492-4231-a4a8-6edfa02c701b",
+      "name": "Get many rows",
+      "credentials": {
+        "supabaseApi": {
+          "id": "Vbtfas1bVCzZ2Wde",
+          "name": "Supabase account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "tableId": "ganttic_api_resources",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "id",
+              "condition": "eq",
+              "keyValue": "={{ $('Get many rows').item.json.id }}"
+            }
+          ]
+        },
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "embedding_convo_text",
+              "fieldValue": "={{ $json.text }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        1296,
+        1168
+      ],
+      "id": "e2801271-b929-4231-bb3d-dc7618afed8b",
+      "name": "Update a row",
+      "credentials": {
+        "supabaseApi": {
+          "id": "Vbtfas1bVCzZ2Wde",
+          "name": "Supabase account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.userPrompt }}",
+        "messages": {
+          "messageValues": [
+            {
+              "message": "={{ $json.systemPrompt }}"
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        880,
+        1168
+      ],
+      "id": "73d0f967-c0ed-460c-a4e3-b72984798b7e",
+      "name": "Prepare Convo Text"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "ganttic_api_resources",
+        "returnAll": true
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        288,
+        1616
+      ],
+      "id": "476d7526-43c2-4a7a-be81-28fb329dff0b",
+      "name": "Get many rows1",
+      "credentials": {
+        "supabaseApi": {
+          "id": "Vbtfas1bVCzZ2Wde",
+          "name": "Supabase account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://192.168.20.70:11434/api/embeddings",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "model",
+              "value": "nomic-embed-text"
+            },
+            {
+              "name": "prompt",
+              "value": "={{ $json.embedding_convo_text }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "22633948-c000-4d4d-b7f1-7138c30d19dc",
+      "name": "Generate Convo Vectors1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        544,
+        1616
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "tableId": "ganttic_api_resources",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "id",
+              "condition": "eq",
+              "keyValue": "={{ $('Get many rows1').item.json.id }}"
+            }
+          ]
+        },
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "embedding_convo",
+              "fieldValue": "={{ $json.embedding }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        928,
+        1616
+      ],
+      "id": "a60e9cb9-ef19-49b6-aa1a-0acf4baed1df",
+      "name": "Update a row1",
+      "credentials": {
+        "supabaseApi": {
+          "id": "Vbtfas1bVCzZ2Wde",
+          "name": "Supabase account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Process resources\nconst item = items[0];\nconst resources = item.json.items || [];\n\nreturn resources.map(resource => {\n  // skills senior\n  const skills_senior = [];\n  const ssFields = resource.dataFields?.multiSelect?.find(t => t.id === '124830');\n  if (ssFields?.values) {\n      ssFields.values.forEach(v => {\n          if (v.readableValue && !skills_senior.includes(v.readableValue)) {\n              skills_senior.push(v.readableValue);\n          }\n      });\n  }\n  // skills midium\n  const skills_medium = [];\n  const smFields = resource.dataFields?.multiSelect?.find(t => t.id === '124831');\n  if (smFields?.values) {\n      smFields.values.forEach(v => {\n          if (v.readableValue && !skills_medium.includes(v.readableValue)) {\n              skills_medium.push(v.readableValue);\n          }\n      });\n  }\n\n  // skills junior\n  const skills_junior = [];\n  const sjFields = resource.dataFields?.multiSelect?.find(t => t.id === '124832');\n  if (sjFields?.values) {\n      sjFields.values.forEach(v => {\n          if (v.readableValue && !skills_junior.includes(v.readableValue)) {\n              skills_junior.push(v.readableValue);\n          }\n      });\n  }\n\n  // get certs\n  const certs = [];\n  const certFields = resource.dataFields?.multiSelect?.find(t => t.id === '126853');\n  if (certFields?.values) {\n      certFields.values.forEach(v => {\n          if (v.readableValue && !certs.includes(v.readableValue)) {\n              certs.push(v.readableValue);\n          }\n      });\n  }\n  \n  // Extract industries\n  const industriesarr = [];\n  const industryField = resource.dataFields?.multiSelect?.find(ms => \n      ms.readableValue === 'Industry Expertise'\n  );\n  if (industryField?.values) {\n    industryField.values.forEach(v => {\n      if (v.readableValue) {\n        industriesarr.push(v.readableValue);\n      }\n    });\n  }\n\n  // Get description\n  const descField = resource.dataFields?.texts?.find(t => t.id === '121631');\n  let description = descField?.text ?? '';\n\n  // Get notes\n  const noteField = resource.dataFields?.texts?.find(t => t.id === '123740');\n  let note = noteField?.text ?? '';\n\n\n  // Get Section\n  const secField = resource.dataFields.listValues?.find(t => t.id === '114287');\n  let section = secField?.readableValue ?? '';\n\n  // Get seniority\n  const senField = resource.dataFields?.listValues?.find(t => t.id === '115797')\n  let seniority = senField?.readableValue ?? '';\n\n  // Get team\n  const teamField = resource.dataFields?.listValues?.find(t => t.id === '120128')\n  let team = teamField?.readableValue ?? '';\n  \n  // Get department\n  const departmentField = resource.dataFields?.listValues?.find(t => t.id === '124673')\n  let department = departmentField?.readableValue ?? '';\n  \n  // Get vertical\n  const verticalField = resource.dataFields?.listValues?.find(t => t.id === '124674')\n  let vertical = verticalField?.readableValue ?? '';\n  \n  // Get coe_manager\n  const coe_managerField = resource.dataFields?.listValues?.find(t => t.id === '124407')\n  let coe_manager = coe_managerField?.readableValue ?? '';\n  \n  // Get el\n  const elField = resource.dataFields?.listValues?.find(t => t.id === '124300')\n  let el = elField?.readableValue ?? '';\n  \n  // Get eh\n  const ehField = resource.dataFields?.listValues?.find(t => t.id === '124301')\n  let eh = ehField?.readableValue ?? '';\n  \n  // Get director\n  const directorField = resource.dataFields?.listValues?.find(t => t.id === '124302')\n  let director = directorField?.readableValue ?? '';\n  \n  // Get employment_type\n  const employment_typeField = resource.dataFields?.listValues?.find(t => t.id === '124741')\n  let employment_type = employment_typeField?.readableValue ?? '';\n\n\n  /**\n   * Zlatko import for post processing and embed prep\n   */\n\n  // Extract all available fields from the input\n  const resourceId = resource.id;\n  const resourceName = resource.name;\n  const technicalDomain = section;\n  const globalSeniority = seniority;\n  const coeManager = coe_manager;\n  const engineeringLead = el;\n  const engineeringHead = eh;\n  const employmentType = employment_type;\n  const skillSeniorLevel = skills_senior.join(\", \") || \"\";\n  const skillMidLevel = skills_medium.join(\", \") || \"\"\n  const skillJuniorLevel = skills_junior.join(\", \") || \"\";\n  const industryExpertise = industriesarr.join(\", \") || \"\";\n  const domainKnowledge = description;\n  const certificates = certs.join(\", \") || \"\";\n    \n\n      // Universal parser function that handles parentheses, brackets, and quoted text\n    const smartParse = (textString) => {\n        if (!textString) return [];\n        \n        const results = [];\n        let currentItem = '';\n        let insideParentheses = 0;  // Track nested parentheses\n        let insideBrackets = 0;     // Track nested brackets\n        let insideQuotes = false;   // Track quoted text\n        \n        // Process character by character\n        for (let i = 0; i < textString.length; i++) {\n            const char = textString[i];\n            \n            // Handle different states\n            if (char === '(') {\n                insideParentheses++;\n                currentItem += char;\n            } else if (char === ')') {\n                insideParentheses = Math.max(0, insideParentheses - 1); // Guard against mismatched parentheses\n                currentItem += char;\n            } else if (char === '[') {\n                insideBrackets++;\n                currentItem += char;\n            } else if (char === ']') {\n                insideBrackets = Math.max(0, insideBrackets - 1); // Guard against mismatched brackets\n                currentItem += char;\n            } else if (char === '\"' || char === \"'\") {\n                insideQuotes = !insideQuotes;\n                currentItem += char;\n            } else if (char === ',' && !insideParentheses && !insideBrackets && !insideQuotes) {\n                // Only split on commas when not inside special characters\n                results.push(currentItem.trim());\n                currentItem = '';\n            } else {\n                currentItem += char;\n            }\n        }\n        \n        // Add the last item if there is one\n        if (currentItem.trim()) {\n            results.push(currentItem.trim());\n        }\n        \n        // Post-processing: Handle special formats and clean up\n        return results\n            .map(item => {\n                // Clean up quote marks if they balance at beginning/end\n                if ((item.startsWith('\"') && item.endsWith('\"')) || \n                    (item.startsWith(\"'\") && item.endsWith(\"'\"))) {\n                    item = item.slice(1, -1).trim();\n                }\n                \n                // Remove any trailing dots or punctuation\n                return item.replace(/[.,;]+$/, '').trim();\n            })\n            .filter(Boolean);\n    };\n    \n    // Clean and standardize a skill/domain string\n    const cleanField = (text) => {\n        if (!text) return text;\n        \n        // Remove redundant whitespace\n        text = text.replace(/\\s+/g, ' ').trim();\n        \n        // Standardize common variations (could be expanded based on your data)\n        const standardizations = {\n            'Javascript': 'JavaScript',\n            'React.js': 'React',\n            'React.JS': 'React',\n            'ReactJS': 'React',\n            'Node.js': 'Node.js',\n            'NodeJS': 'Node.js',\n            'Artificial Intelligence': 'AI',\n            'Machine Learning': 'ML',\n            '.NET Core': '.NET Core',\n            '.Net Core': '.NET Core',\n            'Devops': 'DevOps',\n            'CI/CD': 'CI/CD',\n            'CI / CD': 'CI/CD',\n            'Front-end': 'Frontend',\n            'Front end': 'Frontend',\n            'Back-end': 'Backend',\n            'Back end': 'Backend',\n            'Next.js': 'Next.js',\n            'NextJS': 'Next.js',\n            'Vue.js': 'Vue.js',\n            'VueJS': 'Vue.js',\n            'Express.js': 'Express',\n            'ExpressJS': 'Express'\n        };\n        \n        // Apply standardizations\n        Object.keys(standardizations).forEach(key => {\n            // Use word boundaries for more precise replacement\n            const regex = new RegExp(`\\\\b${key}\\\\b`, 'gi');\n            text = text.replace(regex, standardizations[key]);\n        });\n        \n        return text;\n    };\n    \n    // Extract role category from technical domain\n    const extractRoleCategory = (technicalDomain) => {\n        if (!technicalDomain) return \"Other\";\n        \n        const domainLower = technicalDomain.toLowerCase();\n        \n        // Map technical domains to general role categories\n        if (domainLower === 'ba' || domainLower.includes('business analyst')) {\n            return 'Business Analyst';\n        }\n        if (domainLower === 'pm' || domainLower.includes('project manager')) {\n            return 'Project Manager';\n        }\n        if (domainLower === 'po' || domainLower.includes('product owner')) {\n            return 'Product Owner';\n        }\n        if (domainLower === 'sa' || domainLower.includes('solution architect')) {\n            return 'Solution Architect';\n        }\n        if (domainLower.includes('frontend') || domainLower === 'fe' || \n            domainLower.includes('react') || domainLower.includes('angular') || \n            domainLower.includes('vue') || domainLower.includes('slice')) {\n            return 'Frontend Developer';\n        }\n        if (domainLower.includes('backend') || domainLower === 'be' || \n            domainLower.includes('java') || domainLower.includes('php') || \n            domainLower.includes('python') || domainLower.includes('.net') || \n            domainLower.includes('node') || domainLower.includes('ruby') ||\n            domainLower.includes('cms')) {\n            return 'Backend Developer';\n        }\n        if (domainLower.includes('fullstack') || domainLower === 'fs' || \n            domainLower.includes('full stack') || domainLower.includes('full-stack')) {\n            return 'Full Stack Developer';\n        }\n        if (domainLower.includes('mobile') || domainLower.includes('android') || \n            domainLower.includes('ios') || domainLower.includes('flutter') || \n            domainLower.includes('react native')) {\n            return 'Mobile Developer';\n        }\n        if (domainLower.includes('devops') || domainLower.includes('sre') || \n            domainLower.includes('infrastructure') || domainLower.includes('cloud')) {\n            return 'DevOps Engineer';\n        }\n        if (domainLower === 'qa' || domainLower.includes('test') || \n            domainLower.includes('quality')) {\n            return 'QA Engineer';\n        }\n        if (domainLower.includes('data') || domainLower.includes('bi') || \n            domainLower.includes('business intelligence')) {\n            return 'Data Engineer';\n        }\n        if (domainLower === 'data science' || domainLower.includes('ml') || domainLower.includes('ai') || \n            domainLower.includes('machine learning') || domainLower.includes('data science')) {\n            return 'AI/ML Engineer';\n        }\n        if (domainLower.includes('design') || domainLower.includes('ux') || domainLower.includes('ui')) {\n            return 'UI/UX Designer';\n        }\n        if (domainLower.includes('support')) {\n            return 'Support Engineer';\n        }\n        \n        // Return the original technical domain if no mapping found\n        return technicalDomain;\n    };\n    \n    // Extract additional technical skills from domain knowledge\n    const extractTechnicalDetails = (domainKnowledge) => {\n        if (!domainKnowledge) return { tools: [], technologies: [], methodologies: [] };\n        \n        // Common tools, technologies and methodologies to look for\n        const tools = [\n            'Jira', 'Confluence', 'Azure DevOps', 'GitHub', 'GitLab', 'Bitbucket',\n            'Jenkins', 'TeamCity', 'Travis CI', 'CircleCI', 'Bamboo',\n            'Slack', 'Microsoft Teams', 'Asana', 'Trello', 'Monday',\n            'Figma', 'Sketch', 'Adobe XD', 'InVision', 'Zeplin',\n            'Power BI', 'Tableau', 'Looker', 'Grafana', 'Kibana',\n            'Postman', 'Swagger', 'SonarQube', 'Selenium', 'BPMN', 'UML',\n            'Axure', 'Adobe Photoshop', 'Adobe Illustrator', 'InDesign'\n        ];\n        \n        const technologies = [\n            'React', 'Angular', 'Vue', 'Next.js', 'Nuxt', 'Svelte',\n            'Node.js', 'Express', 'Django', 'Flask', 'Spring Boot', 'Laravel', 'ASP.NET',\n            'MongoDB', 'PostgreSQL', 'MySQL', 'SQL Server', 'Oracle', 'DynamoDB', 'Cassandra',\n            'Docker', 'Kubernetes', 'AWS', 'Azure', 'GCP', 'Terraform', 'Ansible', 'Puppet',\n            'TensorFlow', 'PyTorch', 'Keras', 'scikit-learn', 'pandas', 'NumPy',\n            'Hadoop', 'Spark', 'Kafka', 'Airflow', 'Databricks',\n            'REST', 'GraphQL', 'SOAP', 'API', 'Microservices', 'ERP', 'CRM',\n            'Firebase', 'Cognito', 'Auth0', 'Mobile banking', 'Payment gateway'\n        ];\n        \n        const methodologies = [\n            'Agile', 'Scrum', 'Kanban', 'SAFe', 'Waterfall', 'Lean', 'DevOps',\n            'CI/CD', 'TDD', 'BDD', 'DDD', 'Microservices', 'Serverless',\n            'User research', 'Design thinking', 'User-centered design',\n            'Data modeling', 'ETL', 'Data warehousing', 'OLAP',\n            'Product discovery', 'User story mapping', 'Requirements elicitation',\n            'Business analysis', 'Product ownership', 'Continuous integration'\n        ];\n        \n        // Extract matches\n        const findMatches = (text, terms) => {\n            const matches = [];\n            const lowerText = text.toLowerCase();\n            \n            terms.forEach(term => {\n                if (lowerText.includes(term.toLowerCase())) {\n                    matches.push(term);\n                }\n            });\n            \n            return [...new Set(matches)]; // Remove duplicates\n        };\n        \n        return {\n            tools: findMatches(domainKnowledge, tools),\n            technologies: findMatches(domainKnowledge, technologies),\n            methodologies: findMatches(domainKnowledge, methodologies)\n        };\n    };\n    \n    // Determine seniority level based on Global Seniority \n    const determineSeniorityLevel = (globalSeniority) => {\n        // If global seniority is not available, return unknown\n        if (!globalSeniority) return \"Unknown\";\n        \n        const seniorityLower = globalSeniority.toLowerCase();\n        \n        if (seniorityLower.includes('senior')) {\n            // Extract number if available (e.g., \"Senior 2\" -> 2)\n            const seniorityNum = seniorityLower.match(/\\d+/);\n            if (seniorityNum) {\n                return `Senior ${seniorityNum[0]}`;\n            }\n            return \"Senior\";\n        }\n        \n        if (seniorityLower.includes('mid')) {\n            // Extract number if available (e.g., \"Mid 2\" -> 2)\n            const midNum = seniorityLower.match(/\\d+/);\n            if (midNum) {\n                return `Mid ${midNum[0]}`;\n            }\n            return \"Mid\";\n        }\n        \n        if (seniorityLower.includes('junior')) {\n            // Extract number if available (e.g., \"Junior 2\" -> 2)\n            const juniorNum = seniorityLower.match(/\\d+/);\n            if (juniorNum) {\n                return `Junior ${juniorNum[0]}`;\n            }\n            return \"Junior\";\n        }\n        \n        if (seniorityLower.includes('head')) {\n            return \"Head\";\n        }\n        \n        if (seniorityLower.includes('manager')) {\n            return \"Manager\";\n        }\n        \n        // Return original if no mapping\n        return globalSeniority;\n    };\n    \n    // Determine if the person is a manager or lead\n    const isLeadOrManager = (globalSeniority, engineeringLead, coeManager) => {\n        if (!globalSeniority && !engineeringLead && !coeManager) return false;\n        \n        // Check if global seniority indicates management position\n        if (globalSeniority && (\n            globalSeniority.toLowerCase().includes('manager') ||\n            globalSeniority.toLowerCase().includes('head')\n        )) {\n            return true;\n        }\n        \n        // Check if they are listed as engineering lead for anyone\n        if (engineeringLead && engineeringLead === resourceName) {\n            return true;\n        }\n        \n        // Check if they are listed as COE manager for anyone\n        if (coeManager && coeManager === resourceName) {\n            return true;\n        }\n        \n        return false;\n    };\n    \n    // Create skills arrays\n    const skills = {\n        senior: smartParse(skillSeniorLevel).map(cleanField),\n        mid: smartParse(skillMidLevel).map(cleanField),\n        junior: smartParse(skillJuniorLevel).map(cleanField)\n    };\n    \n    // Extract all skills for quick access and filtering\n    const allSkills = [\n        ...skills.senior.map(skill => ({ skill, level: 'senior' })),\n        ...skills.mid.map(skill => ({ skill, level: 'mid' })),\n        ...skills.junior.map(skill => ({ skill, level: 'junior' }))\n    ];\n    \n    // Get flat list of skills\n    const flatSkills = allSkills.map(s => s.skill);\n    \n    // Extract technical details from domain knowledge\n    const technicalDetails = extractTechnicalDetails(domainKnowledge);\n    \n    // Add extracted technical details to all_skills if not already present\n    technicalDetails.tools.forEach(tool => {\n        if (!flatSkills.includes(tool)) {\n            flatSkills.push(tool);\n        }\n    });\n    \n    technicalDetails.technologies.forEach(tech => {\n        if (!flatSkills.includes(tech)) {\n            flatSkills.push(tech);\n        }\n    });\n    \n    technicalDetails.methodologies.forEach(method => {\n        if (!flatSkills.includes(method)) {\n            flatSkills.push(method);\n        }\n    });\n    \n    // Determine primary skill areas based on skills\n    const identifyPrimarySkillAreas = (allSkills) => {\n        const skillGroups = {\n            'Frontend': ['React', 'Angular', 'Vue', 'JavaScript', 'TypeScript', 'HTML', 'CSS', 'SASS', 'LESS', 'Redux', 'Next.js'],\n            'Backend': ['Java', 'Spring', 'Python', 'Django', 'FastAPI', 'PHP', 'Laravel', 'Symfony', 'C#', '.NET', 'Node.js', 'Express', 'Ruby', 'Rails'],\n            'Database': ['SQL', 'PostgreSQL', 'MySQL', 'MongoDB', 'DynamoDB', 'Elasticsearch', 'Redis', 'Cassandra'],\n            'DevOps': ['Docker', 'Kubernetes', 'AWS', 'Azure', 'GCP', 'CI/CD', 'Jenkins', 'Terraform', 'Ansible'],\n            'Mobile': ['Android', 'iOS', 'Swift', 'Kotlin', 'Flutter', 'React Native'],\n            'AI/ML': ['TensorFlow', 'PyTorch', 'ML', 'AI', 'NLP', 'Computer Vision', 'Data Science'],\n            'Testing': ['QA', 'Selenium', 'Cypress', 'Jest', 'Testing', 'TDD', 'BDD', 'JUnit', 'PyTest'],\n            'Management': ['Agile', 'Scrum', 'Kanban', 'Project Management', 'Product Management', 'JIRA', 'Business Analysis'],\n            'Design': ['UI', 'UX', 'Figma', 'Sketch', 'Adobe XD', 'Photoshop', 'Illustrator']\n        };\n        \n        // Count occurrences of skills in each area\n        const areaScores = {};\n        Object.keys(skillGroups).forEach(area => {\n            areaScores[area] = 0;\n            skillGroups[area].forEach(skill => {\n                allSkills.forEach(userSkill => {\n                    if (userSkill.toLowerCase().includes(skill.toLowerCase())) {\n                        areaScores[area]++;\n                    }\n                });\n            });\n        });\n        \n        // Return areas with at least one skill match, sorted by score\n        const matchedAreas = Object.keys(areaScores)\n            .filter(area => areaScores[area] > 0)\n            .sort((a, b) => areaScores[b] - areaScores[a]);\n        \n        return matchedAreas;\n    };\n    \n    // Get role category from technical domain\n    const roleCategory = extractRoleCategory(technicalDomain);\n    \n    // Get seniority level\n    const seniorityLevel = determineSeniorityLevel(globalSeniority);\n    \n    // Check if the person is a lead or manager\n    const isLeadOrManagerRole = isLeadOrManager(globalSeniority, engineeringLead, coeManager);\n    \n    // Get primary skill areas\n    const primarySkillAreas = identifyPrimarySkillAreas(flatSkills);\n    \n    // Parse industries\n    const industries = smartParse(industryExpertise).map(cleanField);\n    \n    // Parse certificates\n    const certificatesList = smartParse(certificates).map(cleanField);\n    \n    // Extract organizational structure\n    const orgStructure = {\n        team: team,\n        department: department,\n        vertical: vertical,\n        reports_to: {\n            engineering_lead: engineeringLead !== resourceName ? engineeringLead : null,\n            coe_manager: coeManager,\n            engineering_head: engineeringHead,\n            director: director\n        },\n        is_lead_or_manager: isLeadOrManagerRole\n    };\n    \n    // Build natural language descriptions for better LLM understanding\n    \n    // 1. Role description\n    let roleDescription = `${resourceName} is a ${roleCategory}`;\n    if (globalSeniority) {\n        roleDescription += ` with ${globalSeniority} seniority`;\n    }\n    if (isLeadOrManagerRole) {\n        roleDescription += ` in a leadership position`;\n    }\n    if (primarySkillAreas.length > 0) {\n        roleDescription += ` specializing in ${primarySkillAreas.slice(0, 2).join(' and ')}`;\n    }\n    roleDescription += `.`;\n    \n    // 2. Skills description\n    let skillsDescription = \"\";\n    \n    if (skills.senior.length > 0) {\n        skillsDescription += `Has senior-level expertise in ${skills.senior.join(', ')}.`;\n    }\n    \n    if (skills.mid.length > 0) {\n        skillsDescription += ` Proficient in ${skills.mid.join(', ')}.`;\n    }\n    \n    if (skills.junior.length > 0) {\n        skillsDescription += ` Also familiar with ${skills.junior.join(', ')}.`;\n    }\n    \n    // 3. Industry description\n    let industryDescription = \"\";\n    if (industries.length > 0) {\n        industryDescription = `Has experience in the following industries: ${industries.join(', ')}.`;\n    }\n    \n    // 4. Organizational context\n    let orgDescription = \"\";\n    if (team || department || vertical) {\n        orgDescription = `Works in ${team || 'the company'}`;\n        if (department) {\n            orgDescription += `, part of ${department}`;\n        }\n        if (vertical) {\n            orgDescription += ` within the ${vertical} vertical`;\n        }\n        orgDescription += '.';\n    }\n    \n    // 5. Management chain\n    let managementDescription = \"\";\n    if (coeManager || engineeringLead || engineeringHead || director) {\n        const managers = [];\n        if (engineeringLead && engineeringLead !== resourceName) managers.push(`Engineering Lead: ${engineeringLead}`);\n        if (coeManager) managers.push(`COE Manager: ${coeManager}`);\n        if (engineeringHead) managers.push(`Engineering Head: ${engineeringHead}`);\n        if (director) managers.push(`Director: ${director}`);\n        \n        if (managers.length > 0) {\n            managementDescription = `Reports to ${managers.join(', ')}.`;\n        }\n    }\n    \n    // 6. Domain knowledge, technical tools and certificates\n    let expertiseDescription = \"\";\n    \n    if (technicalDetails.tools.length > 0 || \n        technicalDetails.technologies.length > 0 || \n        technicalDetails.methodologies.length > 0) {\n        \n        if (technicalDetails.tools.length > 0) {\n            expertiseDescription += `Experienced with tools: ${technicalDetails.tools.join(', ')}. `;\n        }\n        \n        if (technicalDetails.technologies.length > 0) {\n            expertiseDescription += `Familiar with technologies: ${technicalDetails.technologies.join(', ')}. `;\n        }\n        \n        if (technicalDetails.methodologies.length > 0) {\n            expertiseDescription += `Follows methodologies: ${technicalDetails.methodologies.join(', ')}. `;\n        }\n    }\n    \n    if (domainKnowledge) {\n        expertiseDescription += `Domain knowledge: ${domainKnowledge} `;\n    }\n    \n    if (certificatesList.length > 0) {\n        expertiseDescription += `Holds certifications in: ${certificatesList.join(', ')}.`;\n    }\n    \n    // 7. Create conversation-friendly search text\n    // This is optimized for natural language questions to the LLM\n    const conversationText = `\n    ${roleDescription}\n    ${skillsDescription}\n    ${industryDescription}\n    ${orgDescription}\n    ${managementDescription}\n    ${expertiseDescription}\n    ${note ? 'Additional info: ' + note : ''}\n    `.trim();\n    \n    // 8. Create structured embedding text (for vector search)\n    const structuredParts = [];\n    \n    // Start with name, technical domain and role category\n    structuredParts.push(`${technicalDomain}, ${roleCategory}, ${globalSeniority}, ${employment_type}`);\n    \n    // Add team info\n    // if (team || department || vertical) {\n    //     structuredParts.push(`Organization: ${vertical || ''} | ${department || ''} | ${team || ''}`);\n    // }\n    \n    // Add management\n    // if (coeManager || engineeringLead || engineeringHead || director) {\n    //     structuredParts.push(`Management: ${engineeringLead !== resourceName ? engineeringLead : ''} | ${coeManager} | ${engineeringHead} | ${director}`);\n    // }\n    \n    // Add primary skill areas\n    if (primarySkillAreas.length > 0) {\n        structuredParts.push(`${primarySkillAreas.join(', ')}`);\n    }\n    \n    // Add skills by level\n    if (skills.senior.length > 0) {\n        structuredParts.push(`${skills.senior.join(', ')}`);\n    }\n    \n    if (skills.mid.length > 0) {\n        structuredParts.push(`${skills.mid.join(', ')}`);\n    }\n    \n    if (skills.junior.length > 0) {\n        structuredParts.push(`${skills.junior.join(', ')}`);\n    }\n    \n    // Add industries\n    if (industries.length > 0) {\n        structuredParts.push(`${industries.join(', ')}`);\n    }\n    \n    // Add extracted tools and technologies\n    if (technicalDetails.tools.length > 0) {\n        structuredParts.push(`${technicalDetails.tools.join(', ')}`);\n    }\n    \n    if (technicalDetails.technologies.length > 0) {\n        structuredParts.push(`${technicalDetails.technologies.join(', ')}`);\n    }\n    \n    if (technicalDetails.methodologies.length > 0) {\n        structuredParts.push(`${technicalDetails.methodologies.join(', ')}`);\n    }\n    \n    // Add certificates\n    if (certificatesList.length > 0) {\n        structuredParts.push(`${certificatesList.join(', ')}`);\n    }\n    \n    // Add miscellaneous notes if present\n    if (note && note.trim()) {\n        structuredParts.push(`${note}`);\n    }\n    \n    // Join with pipe separator\n    const structuredText = structuredParts.filter(Boolean).join(', ');\n    \n    // Full text for embedding combines structured and natural language\n    const textToEmbed = `${structuredText} | ${conversationText}`;\n  \n  \n  return {\n    json: {\n        id: resource.id,\n        name: resource.name,\n        skills_senior: skills_senior.join(\", \") || \"\",\n        skills_medium: skills_medium.join(\", \") || \"\",\n        skills_junior: skills_junior.join(\", \") || \"\",\n        industry: industries.join(\", \") || \"\",\n        description: description,\n        section: section,\n        seniority: seniority,\n        team:team,\n        department:department,\n        vertical:vertical,\n        coe_manager:coe_manager,\n        el:el,\n        eh:eh,\n        director:director,\n        employment_type:employment_type,\n        certs: certs.join(\", \") || \"\",\n        note: note,\n        embedding_facts_text: structuredText,\n        embedding_convo_text: conversationText,\n        full_payload: resource\n        // embedding_text: embeddingText,\n    }\n  };\n});"
+      },
+      "id": "e7d8fb4c-e66e-45d6-a109-835ad08bfd95",
+      "name": "Process Resources2",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        784,
+        -496
       ]
     }
   ],
@@ -701,6 +738,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2025-09-03T09:21:39.009Z",
-  "versionId": "04e62d7b-064b-4fac-b84b-b878482bb893"
+  "updatedAt": "2025-09-22T07:12:16.993Z",
+  "versionId": "3d6b7c70-caa2-43ea-95a1-ed8b8b651783"
 }
