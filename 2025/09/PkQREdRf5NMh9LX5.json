@@ -1,0 +1,891 @@
+{
+  "active": true,
+  "connections": {
+    "Get many deals in HubSpot": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Hubspot",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create an engagement in HubSpot": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Hubspot",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search contacts in HubSpot": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Hubspot",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a company in HubSpot": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Hubspot",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Many Companies": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Hubspot",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update a company in HubSpot": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Hubspot",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create or update a contact in HubSpot": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Hubspot",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get many engagements in HubSpot": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Hubspot",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get many tickets in HubSpot": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Hubspot",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a ticket in HubSpot": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Hubspot",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a deal in HubSpot": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Hubspot",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Delete a company in HubSpot": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Hubspot",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Delete a contact in HubSpot": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Hubspot",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Delete a deal in HubSpot": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Hubspot",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Delete an engagement in HubSpot": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Hubspot",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Delete a ticket in HubSpot": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Hubspot",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Connect Contact To Company": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Hubspot",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a Note": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Hubspot",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Connect Note To Company": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Hubspot",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Connect Note To Contact": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Hubspot",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-09-24T07:41:59.629Z",
+  "id": "PkQREdRf5NMh9LX5",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "MCP_Hubspot",
+  "nodes": [
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "deal",
+        "operation": "getAll",
+        "returnAll": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Return_All', ``, 'boolean') }}",
+        "filters": {
+          "includeAssociations": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Include_Associations', ``, 'boolean') }}",
+          "properties": [
+            "amount",
+            "dealname",
+            "dealtype",
+            "hubspot_owner_id",
+            "description",
+            "notes_last_updated"
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.hubspotTool",
+      "typeVersion": 2.2,
+      "position": [
+        -320,
+        720
+      ],
+      "id": "fff6e7a7-0cae-4f1d-beb3-ed46b9e2aba0",
+      "name": "Get many deals in HubSpot",
+      "credentials": {
+        "hubspotOAuth2Api": {
+          "id": "bjy4PGxwwdDJQ5Ud",
+          "name": "HubSpot account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "engagement",
+        "type": "email",
+        "metadata": {},
+        "additionalFields": {
+          "associations": {
+            "companyIds": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Company_IDs', ``, 'string') }}",
+            "contactIds": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Contact_IDs', ``, 'string') }}",
+            "dealIds": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Deals_IDs', ``, 'string') }}",
+            "ownerId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Owner_ID', ``, 'number') }}",
+            "ticketIds": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Ticket_IDs', ``, 'string') }}"
+          }
+        }
+      },
+      "type": "n8n-nodes-base.hubspotTool",
+      "typeVersion": 2.2,
+      "position": [
+        -64,
+        736
+      ],
+      "id": "80a0196a-063a-450d-9540-4c9e8a6b2a33",
+      "name": "Create an engagement in HubSpot",
+      "credentials": {
+        "hubspotOAuth2Api": {
+          "id": "bjy4PGxwwdDJQ5Ud",
+          "name": "HubSpot account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "operation": "search",
+        "returnAll": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Return_All', ``, 'boolean') }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.hubspotTool",
+      "typeVersion": 2.2,
+      "position": [
+        -800,
+        208
+      ],
+      "id": "307e6d32-9eba-4601-82bd-1df72321f931",
+      "name": "Search contacts in HubSpot",
+      "credentials": {
+        "hubspotOAuth2Api": {
+          "id": "bjy4PGxwwdDJQ5Ud",
+          "name": "HubSpot account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "company",
+        "name": "={{ $fromAI('company_name') }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.hubspotTool",
+      "typeVersion": 2.2,
+      "position": [
+        -624,
+        576
+      ],
+      "id": "39c08816-18be-4e27-a282-a90d908037eb",
+      "name": "Create a company in HubSpot",
+      "credentials": {
+        "hubspotOAuth2Api": {
+          "id": "bjy4PGxwwdDJQ5Ud",
+          "name": "HubSpot account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "path": "hubspot/sse"
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpTrigger",
+      "typeVersion": 2,
+      "position": [
+        -336,
+        -112
+      ],
+      "id": "c94cfc40-9d25-4368-8ad7-8ad3f066ca1d",
+      "name": "MCP Hubspot",
+      "webhookId": "***Secret***"
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "company",
+        "operation": "getAll",
+        "returnAll": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Return_All', ``, 'boolean') }}",
+        "options": {
+          "propertiesCollection": {
+            "propertiesValues": {
+              "properties": [
+                "name",
+                "domain",
+                "description"
+              ]
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.hubspotTool",
+      "typeVersion": 2.1,
+      "position": [
+        -832,
+        640
+      ],
+      "id": "ced1e546-8be5-4bdc-b748-d98775e51481",
+      "name": "Get Many Companies",
+      "credentials": {
+        "hubspotOAuth2Api": {
+          "id": "bjy4PGxwwdDJQ5Ud",
+          "name": "HubSpot account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "company",
+        "operation": "update",
+        "companyId": {
+          "__rl": true,
+          "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Company_to_Update', ``, 'string') }}",
+          "mode": "id"
+        },
+        "updateFields": {
+          "aboutUs": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('About_Us', ``, 'string') }}",
+          "annualRevenue": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Annual_Revenue', ``, 'number') }}",
+          "city": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('City', ``, 'string') }}",
+          "closeDate": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Close_Date', ``, 'string') }}",
+          "companyDomainName": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Company_Domain_Name', ``, 'string') }}",
+          "companyOwner": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Company_Owner', ``, 'string') }}",
+          "twitterBio": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Twitter_Bio', ``, 'string') }}",
+          "websiteUrl": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Website_URL', ``, 'string') }}"
+        }
+      },
+      "type": "n8n-nodes-base.hubspotTool",
+      "typeVersion": 2.2,
+      "position": [
+        -688,
+        672
+      ],
+      "id": "b7349cdd-9a80-4501-8088-bbf8e006f844",
+      "name": "Update a company in HubSpot",
+      "credentials": {
+        "hubspotOAuth2Api": {
+          "id": "bjy4PGxwwdDJQ5Ud",
+          "name": "HubSpot account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "email": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Email', ``, 'string') }}",
+        "additionalFields": {},
+        "options": {}
+      },
+      "type": "n8n-nodes-base.hubspotTool",
+      "typeVersion": 2.2,
+      "position": [
+        -688,
+        288
+      ],
+      "id": "85b7e76b-bff0-4006-bc84-5a58f4400588",
+      "name": "Create or update a contact in HubSpot",
+      "credentials": {
+        "hubspotOAuth2Api": {
+          "id": "bjy4PGxwwdDJQ5Ud",
+          "name": "HubSpot account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Contacts",
+        "height": 304,
+        "width": 360,
+        "color": 5
+      },
+      "id": "bd31019c-25f2-446f-a1b8-699b33cc106f",
+      "name": "Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -848,
+        128
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## Companies",
+        "height": 384,
+        "width": 360,
+        "color": 3
+      },
+      "id": "efec5917-e024-42f5-98ef-fa6634281ac3",
+      "name": "Note2",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -848,
+        464
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## Deals",
+        "height": 304,
+        "width": 296,
+        "color": 2
+      },
+      "id": "033e4848-b500-4edd-a8ba-cb404a0a7fbc",
+      "name": "Note3",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -480,
+        592
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## Engagement\n",
+        "height": 272,
+        "width": 328
+      },
+      "id": "8e79ac37-98cc-4214-9a62-7b98efef61e7",
+      "name": "Note4",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -96,
+        656
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## Tickets\n",
+        "height": 304,
+        "width": 328,
+        "color": 7
+      },
+      "id": "6413d47d-b675-4532-b94c-86f21e3f141f",
+      "name": "Note5",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        256,
+        592
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "engagement",
+        "operation": "getAll",
+        "returnAll": ""
+      },
+      "type": "n8n-nodes-base.hubspotTool",
+      "typeVersion": 2.2,
+      "position": [
+        64,
+        768
+      ],
+      "id": "fc59bfe0-8bce-420d-8ea2-10061cfcbc72",
+      "name": "Get many engagements in HubSpot",
+      "credentials": {
+        "hubspotOAuth2Api": {
+          "id": "bjy4PGxwwdDJQ5Ud",
+          "name": "HubSpot account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "ticket",
+        "operation": "getAll",
+        "returnAll": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Return_All', ``, 'boolean') }}",
+        "additionalFields": {
+          "properties": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Ticket_Properties_to_Include', ``, 'string') }}"
+        }
+      },
+      "type": "n8n-nodes-base.hubspotTool",
+      "typeVersion": 2.2,
+      "position": [
+        304,
+        736
+      ],
+      "id": "77ccef26-f65e-4fb6-b7e1-df24e751586a",
+      "name": "Get many tickets in HubSpot",
+      "credentials": {
+        "hubspotOAuth2Api": {
+          "id": "bjy4PGxwwdDJQ5Ud",
+          "name": "HubSpot account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "ticket",
+        "pipelineId": "0",
+        "stageId": "1",
+        "ticketName": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Ticket_Name', ``, 'string') }}",
+        "additionalFields": {
+          "associatedCompanyIds": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Company_Names_or_IDs', ``, 'string') }}",
+          "associatedContactIds": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Contact_Names_or_IDs', ``, 'string') }}"
+        }
+      },
+      "type": "n8n-nodes-base.hubspotTool",
+      "typeVersion": 2.2,
+      "position": [
+        448,
+        672
+      ],
+      "id": "caa15fde-0fd3-4757-8928-412209e81003",
+      "name": "Create a ticket in HubSpot",
+      "credentials": {
+        "hubspotOAuth2Api": {
+          "id": "bjy4PGxwwdDJQ5Ud",
+          "name": "HubSpot account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "deal",
+        "stage": "contractsent",
+        "additionalFields": {
+          "associatedVids": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Associated_Vid_Names_or_IDs', ``, 'string') }}",
+          "dealName": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Deal_Name', ``, 'string') }}"
+        }
+      },
+      "type": "n8n-nodes-base.hubspotTool",
+      "typeVersion": 2.2,
+      "position": [
+        -448,
+        704
+      ],
+      "id": "080fa768-a7e6-47ea-a1c9-48b3d785f3e7",
+      "name": "Create a deal in HubSpot",
+      "credentials": {
+        "hubspotOAuth2Api": {
+          "id": "bjy4PGxwwdDJQ5Ud",
+          "name": "HubSpot account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "company",
+        "operation": "delete",
+        "companyId": {
+          "__rl": true,
+          "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Company_to_Delete', ``, 'string') }}",
+          "mode": "id"
+        }
+      },
+      "type": "n8n-nodes-base.hubspotTool",
+      "typeVersion": 2.2,
+      "position": [
+        -736,
+        544
+      ],
+      "id": "e3f20dec-2a21-4451-8210-af97982d9e5c",
+      "name": "Delete a company in HubSpot",
+      "credentials": {
+        "hubspotOAuth2Api": {
+          "id": "bjy4PGxwwdDJQ5Ud",
+          "name": "HubSpot account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "operation": "delete",
+        "contactId": {
+          "__rl": true,
+          "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Contact_to_Delete', ``, 'string') }}",
+          "mode": "id"
+        }
+      },
+      "type": "n8n-nodes-base.hubspotTool",
+      "typeVersion": 2.2,
+      "position": [
+        -688,
+        176
+      ],
+      "id": "4a772a22-3b1e-4918-8525-2c462417ec33",
+      "name": "Delete a contact in HubSpot",
+      "credentials": {
+        "hubspotOAuth2Api": {
+          "id": "bjy4PGxwwdDJQ5Ud",
+          "name": "HubSpot account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "deal",
+        "operation": "delete",
+        "dealId": {
+          "__rl": true,
+          "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Deal_to_Delete', ``, 'string') }}",
+          "mode": "id"
+        }
+      },
+      "type": "n8n-nodes-base.hubspotTool",
+      "typeVersion": 2.2,
+      "position": [
+        -368,
+        624
+      ],
+      "id": "2bd5f30c-2d00-4877-802c-33219df5e368",
+      "name": "Delete a deal in HubSpot",
+      "credentials": {
+        "hubspotOAuth2Api": {
+          "id": "bjy4PGxwwdDJQ5Ud",
+          "name": "HubSpot account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "engagement",
+        "operation": "delete",
+        "engagementId": {
+          "__rl": true,
+          "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Engagement_to_Delete', ``, 'string') }}",
+          "mode": "id"
+        }
+      },
+      "type": "n8n-nodes-base.hubspotTool",
+      "typeVersion": 2.2,
+      "position": [
+        128,
+        704
+      ],
+      "id": "91c6aab3-a787-421e-8349-f24cd5909542",
+      "name": "Delete an engagement in HubSpot",
+      "credentials": {
+        "hubspotOAuth2Api": {
+          "id": "bjy4PGxwwdDJQ5Ud",
+          "name": "HubSpot account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "ticket",
+        "operation": "delete",
+        "ticketId": {
+          "__rl": true,
+          "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Ticket_to_Delete', ``, 'string') }}",
+          "mode": "id"
+        }
+      },
+      "type": "n8n-nodes-base.hubspotTool",
+      "typeVersion": 2.2,
+      "position": [
+        352,
+        640
+      ],
+      "id": "5b41c1b5-4a68-4ebf-b9f6-ba46d93efbd9",
+      "name": "Delete a ticket in HubSpot",
+      "credentials": {
+        "hubspotOAuth2Api": {
+          "id": "bjy4PGxwwdDJQ5Ud",
+          "name": "HubSpot account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "toolDescription": "Make API request to connect contact to Company",
+        "method": "PUT",
+        "url": "=https://api.hubapi.com/crm/v3/objects/contacts/{{ $fromAI('contact_id') }}/associations/companies/{{ $fromAI('company_id') }}/contact_to_company",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "hubspotOAuth2Api",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequestTool",
+      "typeVersion": 4.2,
+      "position": [
+        -880,
+        336
+      ],
+      "id": "0d04f372-92d6-405d-b191-11d00a0a77fc",
+      "name": "Connect Contact To Company",
+      "credentials": {
+        "hubspotOAuth2Api": {
+          "id": "bjy4PGxwwdDJQ5Ud",
+          "name": "HubSpot account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Notes\n",
+        "height": 352,
+        "width": 344,
+        "color": 4
+      },
+      "id": "43817700-8fdd-45d0-9c6a-5756acd11ec4",
+      "name": "Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        592,
+        368
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "toolDescription": "Make API request to create a note",
+        "method": "POST",
+        "url": "=https://api.hubapi.com/crm/v3/objects/notes",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "hubspotOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n    \"properties\": {\n      \"hs_note_body\": \"{{ $fromAI('note') }}\",\n      \"hs_timestamp\": \"{{ $now.toUTC().toString() }}\"\n    }\n  }",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequestTool",
+      "typeVersion": 4.2,
+      "position": [
+        640,
+        448
+      ],
+      "id": "662fefc6-c15d-4fde-bbd8-09932bcbc8af",
+      "name": "Create a Note",
+      "credentials": {
+        "hubspotOAuth2Api": {
+          "id": "bjy4PGxwwdDJQ5Ud",
+          "name": "HubSpot account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "toolDescription": "Make API request to connect note to Company",
+        "method": "PUT",
+        "url": "=https://api.hubapi.com/crm/v3/objects/notes/{{ $fromAI('note_id') }}/associations/companies/{{ $fromAI('company_id') }}/note_to_company",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "hubspotOAuth2Api",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequestTool",
+      "typeVersion": 4.2,
+      "position": [
+        768,
+        416
+      ],
+      "id": "60be5c8c-9c4b-473d-bc22-380894676cb1",
+      "name": "Connect Note To Company",
+      "credentials": {
+        "hubspotOAuth2Api": {
+          "id": "bjy4PGxwwdDJQ5Ud",
+          "name": "HubSpot account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "toolDescription": "Make API request to connect note to Contact",
+        "method": "PUT",
+        "url": "=https://api.hubapi.com/crm/v3/objects/notes/{{ $fromAI('note_id') }}/associations/contacts/{{ $fromAI('contact_id') }}/note_to_contact",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "hubspotOAuth2Api",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequestTool",
+      "typeVersion": 4.2,
+      "position": [
+        736,
+        560
+      ],
+      "id": "ad6d843b-c28f-4043-b94f-e3138b5a651b",
+      "name": "Connect Note To Contact",
+      "credentials": {
+        "hubspotOAuth2Api": {
+          "id": "bjy4PGxwwdDJQ5Ud",
+          "name": "HubSpot account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "repo_name": "n8n-backup-zm",
+  "repo_owner": "zlatkomq",
+  "repo_path": "",
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-09-24T07:41:59.629Z",
+      "updatedAt": "2025-09-24T07:41:59.629Z",
+      "role": "workflow:owner",
+      "workflowId": "PkQREdRf5NMh9LX5",
+      "projectId": "hlNkEWAlDmmc5iQw"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-10-03T10:18:37.170Z",
+  "versionId": "c0b358ae-d15c-4358-8eb2-21fff1bfc448"
+}
