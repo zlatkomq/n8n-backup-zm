@@ -901,7 +901,7 @@
       "main": [
         [
           {
-            "node": "Filter Empty & Duplicate Chunks",
+            "node": "Final Escaping",
             "type": "main",
             "index": 0
           }
@@ -932,24 +932,12 @@
     },
     "Filter Empty & Duplicate Chunks": {
       "main": [
-        [
-          {
-            "node": "Split Chunks",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "Split Chunks": {
       "main": [
-        [
-          {
-            "node": "Final Escaping",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "Edit Fields": {
@@ -972,18 +960,6 @@
             "index": 0
           }
         ]
-      ]
-    },
-    "Chunker Full": {
-      "main": [
-        [
-          {
-            "node": "Format Output",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        []
       ]
     },
     "Format Output": {
@@ -1434,7 +1410,7 @@
       "main": [
         [
           {
-            "node": "Chunker Full",
+            "node": "Chunker Full1",
             "type": "main",
             "index": 0
           }
@@ -1506,11 +1482,6 @@
         ]
       ]
     },
-    "LLama4Scout": {
-      "ai_languageModel": [
-        []
-      ]
-    },
     "Get Platforms": {
       "main": [
         [
@@ -1553,6 +1524,27 @@
             "index": 0
           }
         ]
+      ]
+    },
+    "Chunker Full1": {
+      "main": [
+        [
+          {
+            "node": "Format Output",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "vllm": {
+      "ai_languageModel": [
+        []
+      ]
+    },
+    "RFP Upload": {
+      "main": [
+        []
       ]
     }
   },
@@ -1710,7 +1702,7 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
       "typeVersion": 1.3,
       "position": [
-        -3392,
+        -3552,
         3760
       ],
       "id": "860cecd1-317b-411f-9966-f94e3ffe1561",
@@ -1778,13 +1770,11 @@
       "parameters": {
         "model": {
           "__rl": true,
-          "value": "gpt-4.1",
+          "value": "gpt-4.1-mini",
           "mode": "list",
-          "cachedResultName": "gpt-4.1"
+          "cachedResultName": "gpt-4.1-mini"
         },
-        "options": {
-          "temperature": 0.1
-        }
+        "options": {}
       },
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1.2,
@@ -3328,7 +3318,7 @@
         "nodeCredentialType": "elasticsearchApi",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "{\n  \"mappings\": {\n    \"dynamic\": \"strict\",\n    \"properties\": {\n      \"chunk_id\": {\n        \"type\": \"keyword\"\n      },\n      \"section_title\": {\n        \"type\": \"text\",\n        \"fields\": {\n          \"keyword\": { \"type\": \"keyword\" }\n        }\n      },\n      \"text\": {\n        \"type\": \"text\",\n        \"analyzer\": \"standard\"\n      },\n      \"metadata\": {\n        \"type\": \"object\",\n        \"dynamic\": \"strict\",\n        \"properties\": {\n          \"content_type\": { \"type\": \"keyword\" },\n          \"pages\":        { \"type\": \"integer\" },\n          \"chunk_index\":  { \"type\": \"integer\" }\n        }\n      },\n      \"embeddings\": {\n        \"type\":       \"dense_vector\",\n        \"dims\":       768,\n        \"index\":      true,\n        \"similarity\": \"cosine\"\n      }\n    }\n  }\n}\n",
+        "jsonBody": "{\n  \"mappings\": {\n    \"dynamic\": \"strict\",\n    \"properties\": {\n      \"chunk_id\": {\n        \"type\": \"keyword\",\n        \"doc_values\": true\n      },\n      \"section_title\": {\n        \"type\": \"text\",\n        \"fields\": {\n          \"keyword\": { \"type\": \"keyword\" }\n        }\n      },\n      \"text\": {\n        \"type\": \"text\",\n        \"analyzer\": \"standard\"\n      },\n      \"metadata\": {\n        \"type\": \"object\",\n        \"dynamic\": \"strict\",\n        \"properties\": {\n          \"content_type\": { \n            \"type\": \"keyword\" \n          },\n          \"heading_path\": { \n            \"type\": \"text\",\n            \"fields\": {\n              \"keyword\": { \"type\": \"keyword\" }\n            }\n          },\n          \"pages\": { \n            \"type\": \"integer\"\n          },\n          \"has_table_structure\": { \n            \"type\": \"boolean\" \n          },\n          \"doc_items_count\": { \n            \"type\": \"integer\" \n          },\n          \"chunk_index\": {\n            \"type\": \"integer\"\n          }\n        }\n      },\n      \"full_metadata\": {\n        \"type\": \"object\",\n        \"enabled\": false\n      },\n      \"embeddings\": {\n        \"type\": \"dense_vector\",\n        \"dims\": 768,\n        \"index\": true,\n        \"similarity\": \"cosine\"\n      }\n    }\n  }\n}",
         "options": {}
       },
       "type": "n8n-nodes-base.httpRequest",
@@ -3374,8 +3364,18 @@
         "method": "POST",
         "url": "http://192.168.20.70:11434/api/embed",
         "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "={\n  \"model\": \"nomic-embed-text:latest\",\n  \"input\": [\"{{ $input.item.json.text}}\"]\n}",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "model",
+              "value": "nomic-embed-text:latest"
+            },
+            {
+              "name": "input",
+              "value": "={{ $json.text }}"
+            }
+          ]
+        },
         "options": {}
       },
       "id": "c19117b5-c974-4704-97cc-12b5619c2f32",
@@ -3383,8 +3383,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -816,
-        2224
+        -1424,
+        2400
       ]
     },
     {
@@ -3395,7 +3395,7 @@
       "typeVersion": 2,
       "position": [
         -1264,
-        2064
+        2160
       ],
       "id": "57852fd1-8597-40f5-b2cf-a79df9a75e39",
       "name": "Remove TOC",
@@ -3403,13 +3403,13 @@
     },
     {
       "parameters": {
-        "jsCode": "/**\n * Sanitizes chunk text to ensure compatibility with Nomic embedding API\n * This function deals with \"smart\" characters, quotes, and other problematic elements\n * Preserves existing chunk_index values\n * \n * @returns {Array} - The processed items\n */\nfunction sanitizeChunksForEmbedding() {\n  // Get input data\n  const items = $input.all();\n  const outputItems = [];\n  \n  // Process each item\n  for (const item of items) {\n    // Handle different possible input formats\n    let chunks;\n    \n    if (Array.isArray(item.json)) {\n      // If item.json is already an array of chunks\n      chunks = item.json;\n    } else if (item.json.chunks && Array.isArray(item.json.chunks)) {\n      // If chunks are in a property called 'chunks'\n      chunks = item.json.chunks;\n    } else {\n      // If the item itself is a single chunk\n      chunks = [item.json];\n    }\n    \n    // Track chunk indices per section for chunks without existing chunk_index\n    const sectionIndices = {};\n    \n    // Sanitize each chunk\n    const sanitizedChunks = chunks.map(chunk => {\n      // Create a new object to avoid modifying the original\n      const sanitizedChunk = { ...chunk };\n      \n      // Sanitize the main text field if it exists\n      if (sanitizedChunk.text) {\n        sanitizedChunk.text = sanitizeText(sanitizedChunk.text);\n      }\n      \n      // Sanitize the embedding text field if it exists\n      if (sanitizedChunk.text_to_embed) {\n        sanitizedChunk.text_to_embed = sanitizeText(sanitizedChunk.text_to_embed);\n      }\n      \n      // Sanitize section title if it exists\n      if (sanitizedChunk.section_title) {\n        sanitizedChunk.section_title = sanitizeText(sanitizedChunk.section_title);\n      }\n      \n      // Ensure vector_metadata exists\n      if (!sanitizedChunk.vector_metadata) {\n        sanitizedChunk.vector_metadata = {};\n      }\n      \n      // IMPORTANT CHANGE: Only set chunk_index if it doesn't already exist\n      if (sanitizedChunk.vector_metadata.chunk_index === undefined) {\n        // Initialize or get the current section's index tracker\n        const sectionKey = sanitizedChunk.section_title || 'default';\n        if (sectionIndices[sectionKey] === undefined) {\n          sectionIndices[sectionKey] = 0;\n        }\n        \n        // Populate chunk_index in vector_metadata\n        sanitizedChunk.vector_metadata.chunk_index = sectionIndices[sectionKey];\n        \n        // If this is a split chunk and already has part_index, don't increment the section index\n        // Otherwise, increment for the next chunk with the same section\n        if (!sanitizedChunk.vector_metadata.is_split || \n            (sanitizedChunk.vector_metadata.is_split && sanitizedChunk.vector_metadata.part_index === 0)) {\n          sectionIndices[sectionKey]++;\n        }\n      }\n      \n      return sanitizedChunk;\n    });\n    \n    // Return in the same format as received\n    if (Array.isArray(item.json)) {\n      outputItems.push({ json: sanitizedChunks });\n    } else if (item.json.chunks && Array.isArray(item.json.chunks)) {\n      outputItems.push({\n        json: {\n          ...item.json,\n          chunks: sanitizedChunks\n        }\n      });\n    } else {\n      // Return processed single chunk\n      outputItems.push({ json: sanitizedChunks[0] });\n    }\n  }\n  \n  return outputItems;\n}\n\n/**\n * Sanitizes text by replacing special characters and ensuring JSON compatibility\n * @param {string} text - Text to sanitize\n * @returns {string} - Sanitized text\n */\nfunction sanitizeText(text) {\n  if (!text) return '';\n  \n  // Remove wrapping quotes if present\n  let sanitized = text;\n  if ((text.startsWith('\"') && text.endsWith('\"')) || \n      (text.startsWith('\"') && text.endsWith('\"'))) {\n    sanitized = text.substring(1, text.length - 1);\n  }\n  \n // Replace smart/curly quotes with straight quotes\n  sanitized = sanitized\n    .replace(/[\\u2018\\u2019]/g, \"'\") // Replace single smart quotes\n    .replace(/[\\u201C\\u201D]/g, '\"') // Replace double smart quotes\n    \n    // Remove invisible control characters\n    .replace(/[\\u0000-\\u001F\\u007F-\\u009F\\u2000-\\u200F\\u2028-\\u202F]/g, ' ')\n    \n    // Replace other problematic characters\n    .replace(/[\\u2013\\u2014]/g, '-') // Replace em dash and en dash\n    .replace(/\\u2026/g, '...') // Replace ellipsis\n    .replace(/\\u00A0/g, ' ') // Replace non-breaking space\n    \n    // Special handling for bullet points and other list markers\n    .replace(/[\\u2022\\u2023\\u25E6\\u2043\\u2219]/g, '*') // Convert bullets to asterisks\n    \n    // Normalize whitespace (remove multiple spaces, tabs, etc.)\n    .replace(/\\s+/g, ' ')\n    // Trim leading and trailing whitespace\n    .replace(/\"/g, '\\\\\"')\n    // Handle other special characters that might cause issues in JSON\n    //.replace(/\\\\/g, '\\\\\\\\')\n    .replace(/\\f/g, '\\\\f')\n    .replace(/\\n/g, '\\\\n')\n    .replace(/\\r/g, '\\\\r')\n    .replace(/\\t/g, '\\\\t')\n    .trim();\n  \n  return sanitized;\n}\n\n// Execute the function and return the result\nreturn sanitizeChunksForEmbedding();"
+        "jsCode": "/**\n * Minimal, safe hygiene for embedding payloads.\n * - No manual JSON escaping\n * - Removes control chars (except \\n and \\t)\n * - Normalizes Unicode and whitespace\n * - Preserves existing indices\n */\n\nfunction normalizeText(s) {\n  if (!s) return \"\";\n  if (typeof s.normalize === \"function\") s = s.normalize(\"NFKC\"); // Unicode normalize\n  s = s.replace(/\\u00A0/g, ' ');                                  // NBSP -> space\n  s = s.replace(/[\\u0000-\\u0008\\u000B\\u000C\\u000E-\\u001F\\u007F-\\u009F]/g, ' '); // rm control (keep \\t,\\n)\n  s = s.replace(/\\r\\n?/g, '\\n');                                   // CRLF -> LF\n  s = s.replace(/[ \\t]+/g, ' ');                                   // collapse spaces/tabs\n  s = s.replace(/\\n{3,}/g, '\\n\\n');                                // limit consecutive newlines\n  return s.trim();\n}\n\nconst items = $input.all();\nconst out = [];\n\nfor (const item of items) {\n  let chunks;\n  if (Array.isArray(item.json)) chunks = item.json;\n  else if (Array.isArray(item.json?.chunks)) chunks = item.json.chunks;\n  else chunks = [item.json];\n\n  const sanitized = chunks.map((c) => {\n    const copy = { ...c };\n    if (copy.text != null) copy.text = normalizeText(copy.text);\n    if (copy.text_to_embed != null) copy.text_to_embed = normalizeText(copy.text_to_embed);\n    if (copy.section_title != null) copy.section_title = normalizeText(copy.section_title);\n\n    // keep source-of-truth indices; don't invent new ones here\n    if (!copy.vector_metadata) copy.vector_metadata = {};\n    if (copy.chunk_index != null && copy.vector_metadata.chunk_index == null) {\n      copy.vector_metadata.chunk_index = copy.chunk_index;\n    }\n    return copy;\n  });\n\n  if (Array.isArray(item.json)) out.push({ json: sanitized });\n  else if (Array.isArray(item.json?.chunks)) out.push({ json: { ...item.json, chunks: sanitized } });\n  else out.push({ json: sanitized[0] });\n}\n\nreturn out;\n"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -1264,
-        2224
+        -1088,
+        2160
       ],
       "id": "5c3c3ea7-5e4c-4ca7-bdb4-572b7460775e",
       "name": "Final Escaping"
@@ -3426,8 +3426,8 @@
       "type": "n8n-nodes-base.elasticsearch",
       "typeVersion": 1,
       "position": [
-        -816,
-        2464
+        -1424,
+        2640
       ],
       "id": "3268dfbc-218a-4266-ba10-b56183383db4",
       "name": "Add To Index",
@@ -3445,8 +3445,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -1088,
-        2064
+        208,
+        1840
       ],
       "id": "947d7869-a17a-43d7-a610-22201a54ef6e",
       "name": "Filter Empty & Duplicate Chunks"
@@ -3458,8 +3458,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -1424,
-        2224
+        416,
+        1776
       ],
       "id": "bc34ddc6-0187-4c78-ac60-deaff5cd8ad6",
       "name": "Split Chunks"
@@ -3497,6 +3497,12 @@
               "name": "embeddings",
               "value": "={{ $json.embedding }}",
               "type": "array"
+            },
+            {
+              "id": "000d4ad8-6153-4457-9de5-350bfb7c2cb5",
+              "name": "full_metadata",
+              "value": "={{ $('Final Escaping').item.json.full_metadata }}",
+              "type": "string"
             }
           ]
         },
@@ -3505,8 +3511,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -464,
-        2224
+        -1072,
+        2400
       ],
       "id": "e40fd51a-8dca-4897-93e8-4b3dbe001c6b",
       "name": "Edit Fields"
@@ -3519,64 +3525,21 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -640,
-        2224
+        -1248,
+        2400
       ],
       "id": "55d9e07c-db62-4679-97f0-62b84c0c655a",
       "name": "Embedding Isolated"
     },
     {
       "parameters": {
-        "method": "POST",
-        "url": "http://192.168.20.70:8878/parse/file",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "accept",
-              "value": "application/json"
-            },
-            {
-              "name": "Authorization",
-              "value": "Bearer dev-key"
-            }
-          ]
-        },
-        "sendBody": true,
-        "contentType": "multipart-form-data",
-        "bodyParameters": {
-          "parameters": [
-            {
-              "name": "data",
-              "value": "{\"chunk_document\":true,\"max_tokens_per_chunk\":7000,\"optimize_pdf\":true}"
-            },
-            {
-              "parameterType": "formBinaryData",
-              "name": "file",
-              "inputDataFieldName": "data"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        -1728,
-        2160
-      ],
-      "id": "f3ebfc8f-ce23-4a9b-bcaa-d7c912d6723a",
-      "name": "Chunker Full"
-    },
-    {
-      "parameters": {
-        "jsCode": "const slug = s => (s ?? \"\").toLowerCase()\n  .replace(/[^a-z0-9]+/g, '_')\n  .replace(/^_|_$/g, '')\n  .slice(0, 50);\n\nconst final = ($input.first()?.json?.data?.chunks ?? []).map((c, i) => {\n  const sectionTitle = c?.section_title ?? \"\";\n  const text = c?.text ?? \"\";\n  const chunkIndex = c?.chunk_index ?? \"\";\n\n  const chunkId = `${slug(sectionTitle)}_${i}`;\n  const metadata = {\n    ...(c?.metadata ?? {}),\n    chunk_index: chunkIndex\n  };\n\n  // Remove heading_path if it exists\n  if (\"heading_path\" in metadata) {\n    delete metadata.heading_path;\n  }\n\n  return {\n    section_title: sectionTitle,\n    chunk_id: chunkId,\n    text: text,\n    metadata: metadata\n  };\n});\n\nreturn final.map(j => ({ json: j }));\n"
+        "jsCode": "const slug = s => (s ?? \"\").toLowerCase()\n  .replace(/[^a-z0-9]+/g, '_')\n  .replace(/^_|_$/g, '')\n  .slice(0, 50);\n\nconst final = ($input.first()?.json?.data?.chunks ?? []).map((c, i) => {\n  const sectionTitle = c?.section_title ?? \"\";\n  const text = c?.text ?? \"\";\n  const chunkIndex = c?.chunk_index ?? \"\";\n\n  const chunkId = `${slug(sectionTitle)}_${i}`;\n  const metadata = {\n    ...(c?.metadata ?? {}),\n    chunk_index: chunkIndex\n  };\n  const full_metadata = c.full_metadata;\n\n  // Remove heading_path if it exists\n  //if (\"heading_path\" in metadata) {\n    //delete metadata.heading_path;\n // }\n\n  return {\n    section_title: sectionTitle,\n    chunk_id: chunkId,\n    text: text,\n    metadata: metadata,\n    full_metadata:full_metadata\n  };\n});\n\nreturn final.map(j => ({ json: j }));\n"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
         -1424,
-        2064
+        2160
       ],
       "id": "48f8d152-339e-4e29-9202-cb7d8966bb8a",
       "name": "Format Output"
@@ -3683,8 +3646,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -464,
-        2464
+        -1072,
+        2640
       ],
       "id": "59f77291-68d2-42f1-874f-aad0dde5f6e1",
       "name": "SSE - Document Preparation"
@@ -3696,8 +3659,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -640,
-        2464
+        -1248,
+        2640
       ],
       "id": "a1e3aa07-996a-4693-9918-bbd88a16a13a",
       "name": "Prepare for frontend"
@@ -4566,31 +4529,6 @@
     },
     {
       "parameters": {
-        "model": {
-          "__rl": true,
-          "value": "/models/qwen3_coder_30b_a3b",
-          "mode": "list",
-          "cachedResultName": "/models/qwen3_coder_30b_a3b"
-        },
-        "options": {}
-      },
-      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
-      "typeVersion": 1.2,
-      "position": [
-        -3520,
-        3760
-      ],
-      "id": "a226710b-7d1e-40ed-99c5-8107add08775",
-      "name": "LLama4Scout",
-      "credentials": {
-        "openAiApi": {
-          "id": "09tIxrZPXx1gwPgx",
-          "name": "vllm"
-        }
-      }
-    },
-    {
-      "parameters": {
         "promptType": "define",
         "text": "={{ $json.userPrompt }}",
         "hasOutputParser": true,
@@ -4687,9 +4625,253 @@
           "name": "OpenAi account"
         }
       }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://192.168.20.74:8878/parse/file",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            },
+            {
+              "name": "Authorization",
+              "value": "Bearer dev-key"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "parameterType": "formBinaryData",
+              "name": "file",
+              "inputDataFieldName": "data"
+            },
+            {
+              "name": "optimize_pdf",
+              "value": "false"
+            },
+            {
+              "name": "enable_chunking",
+              "value": "true"
+            },
+            {
+              "name": "max_tokens_per_chunk",
+              "value": "2048"
+            },
+            {
+              "name": "merge_peers",
+              "value": "true"
+            },
+            {
+              "name": "include_full_metadata",
+              "value": "true"
+            },
+            {
+              "name": "embedding_model",
+              "value": "nomic-ai/nomic-embed-text-v1.5"
+            },
+            {
+              "name": "serialize_tables",
+              "value": "true"
+            }
+          ]
+        },
+        "options": {
+          "response": {}
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1712,
+        2160
+      ],
+      "id": "43563f86-91df-48c8-b0d4-a50a2e4c2035",
+      "name": "Chunker Full1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://192.168.20.70:8878/parse/file",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            },
+            {
+              "name": "Authorization",
+              "value": "Bearer dev-key"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "data",
+              "value": "{\"chunk_document\":true,\"max_tokens_per_chunk\":7000,\"optimize_pdf\":true}"
+            },
+            {
+              "parameterType": "formBinaryData",
+              "name": "file",
+              "inputDataFieldName": "data"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        176,
+        1664
+      ],
+      "id": "ae21cd99-0857-4f97-bca9-8da0c5467ff0",
+      "name": "Chunker Full2"
+    },
+    {
+      "parameters": {
+        "method": "PUT",
+        "url": "={{ $json.elasticsearchUrl }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "elasticsearchApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"mappings\": {\n    \"dynamic\": \"strict\",\n    \"properties\": {\n      \"chunk_id\": {\n        \"type\": \"keyword\"\n      },\n      \"section_title\": {\n        \"type\": \"text\",\n        \"fields\": {\n          \"keyword\": { \"type\": \"keyword\" }\n        }\n      },\n      \"text\": {\n        \"type\": \"text\",\n        \"analyzer\": \"standard\"\n      },\n      \"metadata\": {\n        \"type\": \"object\",\n        \"dynamic\": \"strict\",\n        \"properties\": {\n          \"content_type\": { \"type\": \"keyword\" },\n          \"pages\":        { \"type\": \"integer\" },\n          \"chunk_index\":  { \"type\": \"integer\" }\n        }\n      },\n      \"embeddings\": {\n        \"type\":       \"dense_vector\",\n        \"dims\":       768,\n        \"index\":      true,\n        \"similarity\": \"cosine\"\n      }\n    }\n  }\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -2800,
+        2384
+      ],
+      "id": "ac9159d8-0d36-4823-9667-ccafaf1e0f58",
+      "name": "Create index - Elastic Search1",
+      "credentials": {
+        "elasticsearchApi": {
+          "id": "wwaILZtoajWrVXwt",
+          "name": "Elasticsearch account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "/**\n * Sanitizes chunk text to ensure compatibility with Nomic embedding API\n * This function deals with \"smart\" characters, quotes, and other problematic elements\n * Preserves existing chunk_index values\n * \n * @returns {Array} - The processed items\n */\nfunction sanitizeChunksForEmbedding() {\n  // Get input data\n  const items = $input.all();\n  const outputItems = [];\n  \n  // Process each item\n  for (const item of items) {\n    // Handle different possible input formats\n    let chunks;\n    \n    if (Array.isArray(item.json)) {\n      // If item.json is already an array of chunks\n      chunks = item.json;\n    } else if (item.json.chunks && Array.isArray(item.json.chunks)) {\n      // If chunks are in a property called 'chunks'\n      chunks = item.json.chunks;\n    } else {\n      // If the item itself is a single chunk\n      chunks = [item.json];\n    }\n    \n    // Track chunk indices per section for chunks without existing chunk_index\n    const sectionIndices = {};\n    \n    // Sanitize each chunk\n    const sanitizedChunks = chunks.map(chunk => {\n      // Create a new object to avoid modifying the original\n      const sanitizedChunk = { ...chunk };\n      \n      // Sanitize the main text field if it exists\n      if (sanitizedChunk.text) {\n        sanitizedChunk.text = sanitizeText(sanitizedChunk.text);\n      }\n      \n      // Sanitize the embedding text field if it exists\n      if (sanitizedChunk.text_to_embed) {\n        sanitizedChunk.text_to_embed = sanitizeText(sanitizedChunk.text_to_embed);\n      }\n      \n      // Sanitize section title if it exists\n      if (sanitizedChunk.section_title) {\n        sanitizedChunk.section_title = sanitizeText(sanitizedChunk.section_title);\n      }\n      \n      // Ensure vector_metadata exists\n      if (!sanitizedChunk.vector_metadata) {\n        sanitizedChunk.vector_metadata = {};\n      }\n      \n      // IMPORTANT CHANGE: Only set chunk_index if it doesn't already exist\n      if (sanitizedChunk.vector_metadata.chunk_index === undefined) {\n        // Initialize or get the current section's index tracker\n        const sectionKey = sanitizedChunk.section_title || 'default';\n        if (sectionIndices[sectionKey] === undefined) {\n          sectionIndices[sectionKey] = 0;\n        }\n        \n        // Populate chunk_index in vector_metadata\n        sanitizedChunk.vector_metadata.chunk_index = sectionIndices[sectionKey];\n        \n        // If this is a split chunk and already has part_index, don't increment the section index\n        // Otherwise, increment for the next chunk with the same section\n        if (!sanitizedChunk.vector_metadata.is_split || \n            (sanitizedChunk.vector_metadata.is_split && sanitizedChunk.vector_metadata.part_index === 0)) {\n          sectionIndices[sectionKey]++;\n        }\n      }\n      \n      return sanitizedChunk;\n    });\n    \n    // Return in the same format as received\n    if (Array.isArray(item.json)) {\n      outputItems.push({ json: sanitizedChunks });\n    } else if (item.json.chunks && Array.isArray(item.json.chunks)) {\n      outputItems.push({\n        json: {\n          ...item.json,\n          chunks: sanitizedChunks\n        }\n      });\n    } else {\n      // Return processed single chunk\n      outputItems.push({ json: sanitizedChunks[0] });\n    }\n  }\n  \n  return outputItems;\n}\n\n/**\n * Sanitizes text by replacing special characters and ensuring JSON compatibility\n * @param {string} text - Text to sanitize\n * @returns {string} - Sanitized text\n */\nfunction sanitizeText(text) {\n  if (!text) return '';\n  \n  // Remove wrapping quotes if present\n  let sanitized = text;\n  if ((text.startsWith('\"') && text.endsWith('\"')) || \n      (text.startsWith('\"') && text.endsWith('\"'))) {\n    sanitized = text.substring(1, text.length - 1);\n  }\n  \n // Replace smart/curly quotes with straight quotes\n  sanitized = sanitized\n    .replace(/[\\u2018\\u2019]/g, \"'\") // Replace single smart quotes\n    .replace(/[\\u201C\\u201D]/g, '\"') // Replace double smart quotes\n    \n    // Remove invisible control characters\n    .replace(/[\\u0000-\\u001F\\u007F-\\u009F\\u2000-\\u200F\\u2028-\\u202F]/g, ' ')\n    \n    // Replace other problematic characters\n    .replace(/[\\u2013\\u2014]/g, '-') // Replace em dash and en dash\n    .replace(/\\u2026/g, '...') // Replace ellipsis\n    .replace(/\\u00A0/g, ' ') // Replace non-breaking space\n    \n    // Special handling for bullet points and other list markers\n    .replace(/[\\u2022\\u2023\\u25E6\\u2043\\u2219]/g, '*') // Convert bullets to asterisks\n    \n    // Normalize whitespace (remove multiple spaces, tabs, etc.)\n    .replace(/\\s+/g, ' ')\n    // Trim leading and trailing whitespace\n    .replace(/\"/g, '\\\\\"')\n    // Handle other special characters that might cause issues in JSON\n    //.replace(/\\\\/g, '\\\\\\\\')\n    .replace(/\\f/g, '\\\\f')\n    .replace(/\\n/g, '\\\\n')\n    .replace(/\\r/g, '\\\\r')\n    .replace(/\\t/g, '\\\\t')\n    .trim();\n  \n  return sanitized;\n}\n\n// Execute the function and return the result\nreturn sanitizeChunksForEmbedding();"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        80,
+        1840
+      ],
+      "id": "83e8301b-e958-4fd7-b52e-9e808a375cdd",
+      "name": "Final Escaping1"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "qwen3-coder-30b-32k",
+          "mode": "list",
+          "cachedResultName": "qwen3-coder-30b-32k"
+        },
+        "options": {
+          "responseFormat": "json_object",
+          "temperature": 0.1
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -3408,
+        3760
+      ],
+      "id": "8bc84054-1f96-446b-a201-b3eae9f45e6c",
+      "name": "vllm",
+      "credentials": {
+        "openAiApi": {
+          "id": "09tIxrZPXx1gwPgx",
+          "name": "vllm"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "ibm-granite/granite-docling-258M",
+          "mode": "list",
+          "cachedResultName": "ibm-granite/granite-docling-258M"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -4000,
+        3824
+      ],
+      "id": "aafe98f1-9082-45e5-a77a-d2eb96f4c746",
+      "name": "Granite VLM",
+      "credentials": {
+        "openAiApi": {
+          "id": "brOJKQDPVam7TIKg",
+          "name": "Granite VLM"
+        }
+      }
     }
   ],
-  "pinData": {},
+  "pinData": {
+    "Start RFP Analysis": [
+      {
+        "json": {
+          "headers": {
+            "host": "infinite-wasp-terminally.ngrok-free.app",
+            "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+            "content-length": "246",
+            "accept": "*/*",
+            "accept-encoding": "gzip, deflate, br, zstd",
+            "accept-language": "en-GB,en-US;q=0.9,en;q=0.8,hr;q=0.7",
+            "content-type": "application/json",
+            "origin": "https://et.q.agency",
+            "priority": "u=1, i",
+            "referer": "https://et.q.agency/",
+            "sec-ch-ua": "\"Google Chrome\";v=\"141\", \"Not?A_Brand\";v=\"8\", \"Chromium\";v=\"141\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"macOS\"",
+            "sec-fetch-dest": "empty",
+            "sec-fetch-mode": "cors",
+            "sec-fetch-site": "cross-site",
+            "x-forwarded-for": "213.186.16.164",
+            "x-forwarded-host": "infinite-wasp-terminally.ngrok-free.app",
+            "x-forwarded-proto": "https"
+          },
+          "params": {},
+          "query": {},
+          "body": {
+            "sessionId": "idr98qgem4",
+            "md5": "b7e09636c884c12a9e70981ed22e6579",
+            "fileName": "Watanya.pdf",
+            "date": "2025-10-14 07:50:17",
+            "link": "https://drive.google.com/uc?id=1RV1lACaKeIn7Q3bN8ePxUL4SQKzool0n&export=download",
+            "indexName": "rfp-watanya-b7e09636"
+          },
+          "webhookUrl": "https://infinite-wasp-terminally.ngrok-free.app/webhook/rfp-analyse",
+          "executionMode": "production"
+        }
+      }
+    ]
+  },
   "repo_name": "n8n-backup-zm",
   "repo_owner": "zlatkomq",
   "repo_path": "",
@@ -4717,6 +4899,6 @@
     }
   ],
   "triggerCount": 2,
-  "updatedAt": "2025-09-02T12:23:41.127Z",
-  "versionId": "16610ecd-e774-4a4c-9beb-1ea6502152b8"
+  "updatedAt": "2025-10-21T15:02:47.360Z",
+  "versionId": "65f1cd44-048c-473c-abb5-e2da1deecc7d"
 }
