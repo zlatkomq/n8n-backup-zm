@@ -1,0 +1,234 @@
+{
+  "active": false,
+  "connections": {
+    "Remove TOC": {
+      "main": [
+        [
+          {
+            "node": "Final Escaping",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Output": {
+      "main": [
+        [
+          {
+            "node": "Remove TOC",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Chunker Full1": {
+      "main": [
+        [
+          {
+            "node": "Format Output",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Chunker Full1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Final Escaping": {
+      "main": [
+        [
+          {
+            "node": "Final Escaping1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-10-20T12:49:28.945Z",
+  "id": "aKpGZQLxTLr3FkPY",
+  "isArchived": false,
+  "meta": null,
+  "name": "Testing docling",
+  "nodes": [
+    {
+      "parameters": {
+        "jsCode": "const input = $input.all().map(item => item.json);\n\n// Normalize and test against known patterns\nfunction isTOC(title) {\n  if (!title || typeof title !== 'string') return false;\n\n  const normalized = title\n    .toLowerCase()\n    .replace(/[^a-z0-9]/g, ' ') // replace punctuation with space\n    .replace(/\\s+/g, ' ')       // collapse spaces\n    .trim();\n\n  const tocKeywords = [\n    'table of contents',\n    'table of content',\n    'contents',\n    'toc'\n  ];\n\n  return tocKeywords.some(keyword => normalized.includes(keyword));\n}\n\n// Filter out chunks where the title suggests it's TOC\nconst filtered = input.filter(chunk => {\n  const title = chunk.section_title || chunk.text || '';\n  return !isTOC(title);\n});\n\nreturn filtered.map(chunk => ({ json: chunk }));\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        448,
+        0
+      ],
+      "id": "661e3f76-4036-4758-96f0-83cd9c2faa5f",
+      "name": "Remove TOC",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "jsCode": "/**\n * Minimal, safe hygiene for embedding payloads.\n * - No manual JSON escaping\n * - Removes control chars (except \\n and \\t)\n * - Normalizes Unicode and whitespace\n * - Preserves existing indices\n */\n\nfunction normalizeText(s) {\n  if (!s) return \"\";\n  if (typeof s.normalize === \"function\") s = s.normalize(\"NFKC\"); // Unicode normalize\n  s = s.replace(/\\u00A0/g, ' ');                                  // NBSP -> space\n  s = s.replace(/[\\u0000-\\u0008\\u000B\\u000C\\u000E-\\u001F\\u007F-\\u009F]/g, ' '); // rm control (keep \\t,\\n)\n  s = s.replace(/\\r\\n?/g, '\\n');                                   // CRLF -> LF\n  s = s.replace(/[ \\t]+/g, ' ');                                   // collapse spaces/tabs\n  s = s.replace(/\\n{3,}/g, '\\n\\n');                                // limit consecutive newlines\n  return s.trim();\n}\n\nconst items = $input.all();\nconst out = [];\n\nfor (const item of items) {\n  let chunks;\n  if (Array.isArray(item.json)) chunks = item.json;\n  else if (Array.isArray(item.json?.chunks)) chunks = item.json.chunks;\n  else chunks = [item.json];\n\n  const sanitized = chunks.map((c) => {\n    const copy = { ...c };\n    if (copy.text != null) copy.text = normalizeText(copy.text);\n    if (copy.text_to_embed != null) copy.text_to_embed = normalizeText(copy.text_to_embed);\n    if (copy.section_title != null) copy.section_title = normalizeText(copy.section_title);\n\n    // keep source-of-truth indices; don't invent new ones here\n    if (!copy.vector_metadata) copy.vector_metadata = {};\n    if (copy.chunk_index != null && copy.vector_metadata.chunk_index == null) {\n      copy.vector_metadata.chunk_index = copy.chunk_index;\n    }\n    return copy;\n  });\n\n  if (Array.isArray(item.json)) out.push({ json: sanitized });\n  else if (Array.isArray(item.json?.chunks)) out.push({ json: { ...item.json, chunks: sanitized } });\n  else out.push({ json: sanitized[0] });\n}\n\nreturn out;\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        624,
+        0
+      ],
+      "id": "8b0abac0-d539-4a6c-b11b-ef2e2c5cdec7",
+      "name": "Final Escaping"
+    },
+    {
+      "parameters": {
+        "jsCode": "const slug = s => (s ?? \"\").toLowerCase()\n  .replace(/[^a-z0-9]+/g, '_')\n  .replace(/^_|_$/g, '')\n  .slice(0, 50);\n\nconst final = ($input.first()?.json?.data?.chunks ?? []).map((c, i) => {\n  const sectionTitle = c?.section_title ?? \"\";\n  const text = c?.text ?? \"\";\n  const chunkIndex = c?.chunk_index ?? \"\";\n\n  const chunkId = `${slug(sectionTitle)}_${i}`;\n  const metadata = {\n    ...(c?.metadata ?? {}),\n    chunk_index: chunkIndex\n  };\n  const full_metadata = c.full_metadata;\n\n  // Remove heading_path if it exists\n  //if (\"heading_path\" in metadata) {\n    //delete metadata.heading_path;\n // }\n\n  return {\n    section_title: sectionTitle,\n    chunk_id: chunkId,\n    text: text,\n    metadata: metadata,\n    full_metadata:full_metadata\n  };\n});\n\nreturn final.map(j => ({ json: j }));\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        288,
+        0
+      ],
+      "id": "78f7a31d-28f5-4222-aab1-ab95c32906a6",
+      "name": "Format Output"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://192.168.20.74:8878/parse/file",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            },
+            {
+              "name": "Authorization",
+              "value": "Bearer dev-key"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "parameterType": "formBinaryData",
+              "name": "file",
+              "inputDataFieldName": "data"
+            },
+            {
+              "name": "optimize_pdf",
+              "value": "false"
+            },
+            {
+              "name": "enable_chunking",
+              "value": "true"
+            },
+            {
+              "name": "max_tokens_per_chunk",
+              "value": "2048"
+            },
+            {
+              "name": "merge_peers",
+              "value": "true"
+            },
+            {
+              "name": "include_full_metadata",
+              "value": "false"
+            },
+            {
+              "name": "embedding_model",
+              "value": "nomic-ai/nomic-embed-text-v1.5"
+            },
+            {
+              "name": "serialize_tables",
+              "value": "true"
+            }
+          ]
+        },
+        "options": {
+          "response": {}
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "673a88de-8d00-4e81-a670-2ae6d194e59d",
+      "name": "Chunker Full1"
+    },
+    {
+      "parameters": {
+        "formTitle": "rfp",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "data",
+              "fieldType": "file",
+              "acceptFileTypes": ".pdf"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.3,
+      "position": [
+        -288,
+        0
+      ],
+      "id": "d19e6016-b20b-4052-b121-e15aabbba4ac",
+      "name": "On form submission",
+      "webhookId": "f446b01e-feae-4b8c-b2b7-83754f5d27c7"
+    },
+    {
+      "parameters": {
+        "jsCode": "\nconst newItems = items\n  .map(item => {\n    // ensure metadata path exists\n    const meta = item.json.metadata;\n    if (!meta) {\n      return null;\n    }\n    // check for table structure flag\n    if (meta.has_table_structure === true) {\n      return item;\n    }\n    return null;\n  })\n  .filter(item => item !== null);\n\n// Return filtered items\nreturn newItems;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        880,
+        0
+      ],
+      "id": "71bfb8f1-980f-4400-be85-292388f27f09",
+      "name": "Final Escaping1"
+    }
+  ],
+  "pinData": {},
+  "repo_name": "n8n-backup-zm",
+  "repo_owner": "zlatkomq",
+  "repo_path": "",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-10-20T12:49:28.945Z",
+      "updatedAt": "2025-10-20T12:49:28.945Z",
+      "role": "workflow:owner",
+      "workflowId": "aKpGZQLxTLr3FkPY",
+      "projectId": "NM7VZoSXkcKo262s"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-10-21T15:05:50.247Z",
+  "versionId": "cd378c0f-b97c-418e-b47a-2575b40c1333"
+}
