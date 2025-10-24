@@ -1,0 +1,101 @@
+{
+  "active": false,
+  "connections": {
+    "Download a file in AWS S3": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-09-24T11:44:26.774Z",
+  "id": "qmQuAeJ5Oyg71sdw",
+  "isArchived": true,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "AWS_MCP_server_test",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "aws/sse"
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpTrigger",
+      "typeVersion": 2,
+      "position": [
+        -704,
+        -288
+      ],
+      "id": "882fa77a-9766-4360-8318-73c7ce73076c",
+      "name": "MCP Server Trigger",
+      "webhookId": "b461cca0-48bd-4efa-b276-3dc5c85807c9"
+    },
+    {
+      "parameters": {
+        "bucketName": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Bucket_Name', ``, 'string') }}",
+        "fileKey": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('File_Key', ``, 'string') }}",
+        "binaryPropertyName": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Put_Output_File_in_Field', ``, 'string') }}"
+      },
+      "type": "n8n-nodes-base.awsS3Tool",
+      "typeVersion": 2,
+      "position": [
+        -512,
+        16
+      ],
+      "id": "b8b76161-583c-427a-923e-c351c000e19b",
+      "name": "Download a file in AWS S3",
+      "credentials": {
+        "aws": {
+          "id": "XGUmqRJZczAOGdwO",
+          "name": "AWS account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "bucket",
+        "operation": "getAll"
+      },
+      "type": "n8n-nodes-base.awsS3",
+      "typeVersion": 2,
+      "position": [
+        -224,
+        0
+      ],
+      "id": "8d36f1e9-4349-45c5-b6e2-565bad541aae",
+      "name": "Get many buckets",
+      "credentials": {
+        "aws": {
+          "id": "XGUmqRJZczAOGdwO",
+          "name": "AWS account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "repo_name": "n8n-backup-zm",
+  "repo_owner": "zlatkomq",
+  "repo_path": "",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-09-24T11:44:26.774Z",
+      "updatedAt": "2025-09-24T11:44:26.774Z",
+      "role": "workflow:owner",
+      "workflowId": "qmQuAeJ5Oyg71sdw",
+      "projectId": "hlNkEWAlDmmc5iQw"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-09-25T06:47:58.701Z",
+  "versionId": "88be6590-40f3-4106-ac7e-85773910b408"
+}
