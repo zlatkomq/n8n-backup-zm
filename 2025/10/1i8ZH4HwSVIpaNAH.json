@@ -1,0 +1,1255 @@
+{
+  "active": false,
+  "connections": {
+    "RFP Upload": {
+      "main": [
+        []
+      ]
+    },
+    "Delete Index": {
+      "main": [
+        [
+          {
+            "node": "Create ES Url",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Create ES Url",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embed Chunks": {
+      "main": [
+        [
+          {
+            "node": "Embedding Isolated",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Remove TOC": {
+      "main": [
+        [
+          {
+            "node": "Filter Empty & Duplicate Chunks",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Final Escaping": {
+      "main": [
+        [
+          {
+            "node": "Embed Chunks",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter Empty & Duplicate Chunks": {
+      "main": [
+        [
+          {
+            "node": "Split Chunks",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Chunks": {
+      "main": [
+        [
+          {
+            "node": "Final Escaping",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Add To Index",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embedding Isolated": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Chunker Full": {
+      "main": [
+        [
+          {
+            "node": "Format Output",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Output": {
+      "main": [
+        [
+          {
+            "node": "Remove TOC",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload RFP to Google Drive": {
+      "main": [
+        [
+          {
+            "node": "Crate Index Name",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RFP Upload Web": {
+      "main": [
+        [
+          {
+            "node": "Upload RFP to Google Drive",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MD5": {
+      "main": [
+        [
+          {
+            "node": "Search For File in Sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If already exists": {
+      "main": [
+        [
+          {
+            "node": "Modify file entry",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Add file entry": {
+      "main": [
+        [
+          {
+            "node": "Respond to File Upload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search For File in Sheet": {
+      "main": [
+        [
+          {
+            "node": "If already exists",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Start RFP Analysis": {
+      "main": [
+        [
+          {
+            "node": "Extract FileId",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Crate Index Name": {
+      "main": [
+        [
+          {
+            "node": "Add file entry",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create ES Url": {
+      "main": [
+        [
+          {
+            "node": "Create index - Elastic Search",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create index - Elastic Search": {
+      "main": [
+        [
+          {
+            "node": "Download File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download File": {
+      "main": [
+        [
+          {
+            "node": "Chunker Full",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract FileId": {
+      "main": [
+        [
+          {
+            "node": "Delete Index",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Add To Index": {
+      "main": [
+        [
+          {
+            "node": "SSE - Document Preparation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Replace text in a presentation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-10-05T20:21:46.481Z",
+  "id": "1i8ZH4HwSVIpaNAH",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "RFP Analysis Internal - Ingestion",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "RFP",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "data",
+              "fieldType": "file",
+              "multipleFiles": false,
+              "acceptFileTypes": ".pdf"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "position": [
+        2000,
+        1280
+      ],
+      "id": "7040260d-b7da-496a-8c61-2ee3cdcbc1f1",
+      "name": "RFP Upload",
+      "webhookId": "b2f25112-24ed-41bf-bde4-ed2a9c892d49"
+    },
+    {
+      "parameters": {
+        "method": "PUT",
+        "url": "={{ $json.elasticsearchUrl }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "elasticsearchApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"mappings\": {\n    \"dynamic\": \"strict\",\n    \"properties\": {\n      \"chunk_id\": {\n        \"type\": \"keyword\"\n      },\n      \"section_title\": {\n        \"type\": \"text\",\n        \"fields\": {\n          \"keyword\": { \"type\": \"keyword\" }\n        }\n      },\n      \"text\": {\n        \"type\": \"text\",\n        \"analyzer\": \"standard\"\n      },\n      \"metadata\": {\n        \"type\": \"object\",\n        \"dynamic\": \"strict\",\n        \"properties\": {\n          \"content_type\": { \"type\": \"keyword\" },\n          \"pages\":        { \"type\": \"integer\" },\n          \"chunk_index\":  { \"type\": \"integer\" }\n        }\n      },\n      \"embeddings\": {\n        \"type\":       \"dense_vector\",\n        \"dims\":       768,\n        \"index\":      true,\n        \"similarity\": \"cosine\"\n      }\n    }\n  }\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1312,
+        1120
+      ],
+      "id": "9bf018eb-63be-4835-b819-b42c8f743042",
+      "name": "Create index - Elastic Search",
+      "credentials": {
+        "elasticsearchApi": {
+          "id": "wwaILZtoajWrVXwt",
+          "name": "Elasticsearch account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "index",
+        "operation": "delete",
+        "indexId": "={{ $('Start RFP Analysis').item.json.body.indexName }}"
+      },
+      "type": "n8n-nodes-base.elasticsearch",
+      "typeVersion": 1,
+      "position": [
+        1312,
+        928
+      ],
+      "id": "c801efd2-ac63-469f-b0e4-e7033e7fd311",
+      "name": "Delete Index",
+      "alwaysOutputData": false,
+      "credentials": {
+        "elasticsearchApi": {
+          "id": "wwaILZtoajWrVXwt",
+          "name": "Elasticsearch account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://192.168.20.70:11434/api/embed",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"nomic-embed-text:latest\",\n  \"input\": [\"{{ $input.item.json.text}}\"]\n}",
+        "options": {}
+      },
+      "id": "75fc7921-f979-4f98-bd4e-9c299e2ad6dc",
+      "name": "Embed Chunks",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2912,
+        1072
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.all().map(item => item.json);\n\n// Normalize and test against known patterns\nfunction isTOC(title) {\n  if (!title || typeof title !== 'string') return false;\n\n  const normalized = title\n    .toLowerCase()\n    .replace(/[^a-z0-9]/g, ' ') // replace punctuation with space\n    .replace(/\\s+/g, ' ')       // collapse spaces\n    .trim();\n\n  const tocKeywords = [\n    'table of contents',\n    'table of content',\n    'contents',\n    'toc'\n  ];\n\n  return tocKeywords.some(keyword => normalized.includes(keyword));\n}\n\n// Filter out chunks where the title suggests it's TOC\nconst filtered = input.filter(chunk => {\n  const title = chunk.section_title || chunk.text || '';\n  return !isTOC(title);\n});\n\nreturn filtered.map(chunk => ({ json: chunk }));\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2464,
+        928
+      ],
+      "id": "af04370a-a4b5-4e4a-8842-9e2dc5cba6a6",
+      "name": "Remove TOC"
+    },
+    {
+      "parameters": {
+        "jsCode": "/**\n * Sanitizes chunk text to ensure compatibility with Nomic embedding API\n * This function deals with \"smart\" characters, quotes, and other problematic elements\n * Preserves existing chunk_index values\n * \n * @returns {Array} - The processed items\n */\nfunction sanitizeChunksForEmbedding() {\n  // Get input data\n  const items = $input.all();\n  const outputItems = [];\n  \n  // Process each item\n  for (const item of items) {\n    // Handle different possible input formats\n    let chunks;\n    \n    if (Array.isArray(item.json)) {\n      // If item.json is already an array of chunks\n      chunks = item.json;\n    } else if (item.json.chunks && Array.isArray(item.json.chunks)) {\n      // If chunks are in a property called 'chunks'\n      chunks = item.json.chunks;\n    } else {\n      // If the item itself is a single chunk\n      chunks = [item.json];\n    }\n    \n    // Track chunk indices per section for chunks without existing chunk_index\n    const sectionIndices = {};\n    \n    // Sanitize each chunk\n    const sanitizedChunks = chunks.map(chunk => {\n      // Create a new object to avoid modifying the original\n      const sanitizedChunk = { ...chunk };\n      \n      // Sanitize the main text field if it exists\n      if (sanitizedChunk.text) {\n        sanitizedChunk.text = sanitizeText(sanitizedChunk.text);\n      }\n      \n      // Sanitize the embedding text field if it exists\n      if (sanitizedChunk.text_to_embed) {\n        sanitizedChunk.text_to_embed = sanitizeText(sanitizedChunk.text_to_embed);\n      }\n      \n      // Sanitize section title if it exists\n      if (sanitizedChunk.section_title) {\n        sanitizedChunk.section_title = sanitizeText(sanitizedChunk.section_title);\n      }\n      \n      // Ensure vector_metadata exists\n      if (!sanitizedChunk.vector_metadata) {\n        sanitizedChunk.vector_metadata = {};\n      }\n      \n      // IMPORTANT CHANGE: Only set chunk_index if it doesn't already exist\n      if (sanitizedChunk.vector_metadata.chunk_index === undefined) {\n        // Initialize or get the current section's index tracker\n        const sectionKey = sanitizedChunk.section_title || 'default';\n        if (sectionIndices[sectionKey] === undefined) {\n          sectionIndices[sectionKey] = 0;\n        }\n        \n        // Populate chunk_index in vector_metadata\n        sanitizedChunk.vector_metadata.chunk_index = sectionIndices[sectionKey];\n        \n        // If this is a split chunk and already has part_index, don't increment the section index\n        // Otherwise, increment for the next chunk with the same section\n        if (!sanitizedChunk.vector_metadata.is_split || \n            (sanitizedChunk.vector_metadata.is_split && sanitizedChunk.vector_metadata.part_index === 0)) {\n          sectionIndices[sectionKey]++;\n        }\n      }\n      \n      return sanitizedChunk;\n    });\n    \n    // Return in the same format as received\n    if (Array.isArray(item.json)) {\n      outputItems.push({ json: sanitizedChunks });\n    } else if (item.json.chunks && Array.isArray(item.json.chunks)) {\n      outputItems.push({\n        json: {\n          ...item.json,\n          chunks: sanitizedChunks\n        }\n      });\n    } else {\n      // Return processed single chunk\n      outputItems.push({ json: sanitizedChunks[0] });\n    }\n  }\n  \n  return outputItems;\n}\n\n/**\n * Sanitizes text by replacing special characters and ensuring JSON compatibility\n * @param {string} text - Text to sanitize\n * @returns {string} - Sanitized text\n */\nfunction sanitizeText(text) {\n  if (!text) return '';\n  \n  // Remove wrapping quotes if present\n  let sanitized = text;\n  if ((text.startsWith('\"') && text.endsWith('\"')) || \n      (text.startsWith('\"') && text.endsWith('\"'))) {\n    sanitized = text.substring(1, text.length - 1);\n  }\n  \n // Replace smart/curly quotes with straight quotes\n  sanitized = sanitized\n    .replace(/[\\u2018\\u2019]/g, \"'\") // Replace single smart quotes\n    .replace(/[\\u201C\\u201D]/g, '\"') // Replace double smart quotes\n    \n    // Remove invisible control characters\n    .replace(/[\\u0000-\\u001F\\u007F-\\u009F\\u2000-\\u200F\\u2028-\\u202F]/g, ' ')\n    \n    // Replace other problematic characters\n    .replace(/[\\u2013\\u2014]/g, '-') // Replace em dash and en dash\n    .replace(/\\u2026/g, '...') // Replace ellipsis\n    .replace(/\\u00A0/g, ' ') // Replace non-breaking space\n    \n    // Special handling for bullet points and other list markers\n    .replace(/[\\u2022\\u2023\\u25E6\\u2043\\u2219]/g, '*') // Convert bullets to asterisks\n    \n    // Normalize whitespace (remove multiple spaces, tabs, etc.)\n    .replace(/\\s+/g, ' ')\n    // Trim leading and trailing whitespace\n    .replace(/\"/g, '\\\\\"')\n    // Handle other special characters that might cause issues in JSON\n    //.replace(/\\\\/g, '\\\\\\\\')\n    .replace(/\\f/g, '\\\\f')\n    .replace(/\\n/g, '\\\\n')\n    .replace(/\\r/g, '\\\\r')\n    .replace(/\\t/g, '\\\\t')\n    .trim();\n  \n  return sanitized;\n}\n\n// Execute the function and return the result\nreturn sanitizeChunksForEmbedding();"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2464,
+        1088
+      ],
+      "id": "714b5a18-0a34-4d97-8bb7-374a4fa4054c",
+      "name": "Final Escaping"
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "indexId": "={{ $('Start RFP Analysis').item.json.body.indexName }}",
+        "dataToSend": "autoMapInputData",
+        "inputsToIgnore": "=",
+        "additionalFields": {},
+        "options": {}
+      },
+      "type": "n8n-nodes-base.elasticsearch",
+      "typeVersion": 1,
+      "position": [
+        3424,
+        1072
+      ],
+      "id": "811e379f-f4c6-4015-8c2a-f0e54ef90c8e",
+      "name": "Add To Index",
+      "credentials": {
+        "elasticsearchApi": {
+          "id": "wwaILZtoajWrVXwt",
+          "name": "Elasticsearch account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// n8n Function node\n// Filters out empty / duplicate chunks and adds an incremental `index` starting at 0.\n\nfunction filterEmptyAndDuplicateChunks() {\n  const inputItems   = $input.all();\n  const seenContent  = new Set();\n  const validChunks  = [];\n\n  for (const item of inputItems) {\n    const chunk = item.json;\n\n    /* 1 ── skip empty rows */\n    if (!chunk || !chunk.text || chunk.text.trim() === \"\") continue;\n\n    const titleText   = (chunk.section_title || \"\").trim();\n    const contentText = chunk.text.trim();\n\n    /* 2 ── drop title-only rows */\n    if (contentText === titleText) continue;\n\n    /* 3 ── duplicate detection (normalise whitespace + leading numbers) */\n    const normalized = contentText\n      .replace(/^\\d+(\\.\\d+)*\\s+/gm, \"\")  // remove numbered prefixes\n      .replace(/\\s+/g, \" \")              // collapse whitespace\n      .trim();\n\n    if (seenContent.has(normalized)) continue;\n    seenContent.add(normalized);\n\n    validChunks.push(chunk);\n  }\n\n  /* 4 ── return with incremental index */\n  return validChunks.map((chunk, idx) => ({\n    json: {\n      ...chunk\n    }\n  }));\n}\n\nreturn filterEmptyAndDuplicateChunks();\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2640,
+        928
+      ],
+      "id": "e4ea70cf-8e39-46e2-8d51-afb1eb87af57",
+      "name": "Filter Empty & Duplicate Chunks"
+    },
+    {
+      "parameters": {
+        "jsCode": "/**\n * N8n Function node to split document chunks for optimized Elasticsearch vector search\n * Takes chunks like those extracted from PDF documents and splits them if they exceed token limits\n * while preserving context and section structure\n * \n * @param {Object} items - The input items coming from n8n workflow\n * @returns {Object} - The processed items with optimized chunks for vector search\n */\n\n// Main processing function for n8n Function node\nfunction processDocumentChunks() {\n  // Get input data\n  const items = $input.all();\n  \n  // Configuration (could be made into node parameters in a custom n8n node)\n  const maxTokens = 7000;        // Maximum tokens per chunk\n  const overlapTokens = 50;     // Tokens to overlap between chunks\n  const embeddingField = 'text_to_embed'; // Field for the text to be embedded\n  \n  let outputItems = [];\n  let globalChunkIndex = 0;  // Global counter for chunk indexing\n  \n  // Process each item\n  for (const item of items) {\n    let inputChunks;\n    \n    // Determine input format\n    if (Array.isArray(item.json)) {\n      // If input is already an array of chunks\n      inputChunks = item.json;\n    } else if (item.json.chunks && Array.isArray(item.json.chunks)) {\n      // If chunks are in a property called 'chunks'\n      inputChunks = item.json.chunks;\n    } else {\n      // If the item itself is a single chunk\n      inputChunks = [item.json];\n    }\n    \n    // Process the chunks\n    const processedChunks = splitChunks(inputChunks, maxTokens, overlapTokens, embeddingField, globalChunkIndex);\n    \n    // Update the counter\n    globalChunkIndex += inputChunks.length;\n    \n    // Return in the same format as received\n    if (Array.isArray(item.json)) {\n      outputItems.push({ json: processedChunks });\n    } else if (item.json.chunks) {\n      outputItems.push({\n        json: {\n          ...item.json,\n          chunks: processedChunks\n        }\n      });\n    } else {\n      // Return processed chunks as separate items\n      processedChunks.forEach(chunk => {\n        outputItems.push({ json: chunk });\n      });\n    }\n  }\n  \n  return outputItems;\n}\n\n/**\n * Split chunks if they exceed the token limit\n * @param {Array} chunks - Array of document chunks\n * @param {number} maxTokens - Maximum tokens per chunk\n * @param {number} overlapTokens - Tokens to overlap between chunks\n * @param {string} embeddingField - Field name for embeddings\n * @param {number} startIndex - Starting index for global chunk indexing\n * @returns {Array} - Processed chunks\n */\nfunction splitChunks(chunks, maxTokens, overlapTokens, embeddingField, startIndex = 0) {\n  const result = [];\n  \n  // Process each chunk\n  chunks.forEach((chunk, index) => {\n    const tokenCount = estimateTokens(chunk.text);\n    const actualIndex = startIndex + index;\n    \n    // If chunk is within token limit, add vector fields and keep it as is\n    if (tokenCount <= maxTokens) {\n      result.push({\n        ...chunk,\n        //[embeddingField]: chunk.text, // Add embedding field\n        // vector_metadata: {\n        //   token_count: tokenCount,\n        //   is_split: false,\n        // }\n      });\n      return;\n    }\n    \n    // Need to split the chunk - first try by paragraphs\n    const paragraphs = splitIntoParagraphs(chunk.text);\n    let chunkParts = [];\n    \n    if (paragraphs.length > 1) {\n      // If we have multiple paragraphs, try to group them into chunks\n      chunkParts = groupContentUnits(paragraphs, maxTokens, chunk.section_title);\n    } else {\n      // Otherwise split by sentences\n      const sentences = splitIntoSentences(chunk.text);\n      chunkParts = groupContentUnits(sentences, maxTokens, chunk.section_title);\n    }\n    \n    // Create chunk objects for each part\n    chunkParts.forEach((part, partIndex) => {\n      // Add section title to beginning of parts after the first one\n      const textWithContext = partIndex === 0 \n        ? part\n        : `${chunk.section_title || ''} (continued) ${part}`;\n      \n      result.push({\n        chunk_id: `${chunk.chunk_id}_part${partIndex + 1}`,\n        section_title: chunk.section_title,\n        text: textWithContext,\n        //[embeddingField]: textWithContext, // Field for embedding\n        metadata: {\n          ...chunk.metadata,\n          parent_chunk_id: chunk.chunk_id,\n          is_split_chunk: true,\n          split_part: partIndex + 1,\n          total_parts: chunkParts.length\n        },\n        //vector_metadata: {\n         // token_count: estimateTokens(textWithContext),\n         // is_split: true,\n         // part_index: partIndex\n       // }\n      });\n    });\n  });\n  \n  return result;\n}\n\n/**\n * Group content units (paragraphs or sentences) into chunks of appropriate size\n * @param {Array} units - Content units to group\n * @param {number} maxTokens - Maximum tokens per chunk\n * @param {string} sectionTitle - Section title for context\n * @returns {Array} - Grouped content as chunks\n */\nfunction groupContentUnits(units, maxTokens, sectionTitle) {\n  const chunks = [];\n  let currentChunk = '';\n  let currentTokens = 0;\n  const contextPrefix = sectionTitle ? sectionTitle + ' ' : '';\n  const contextTokens = estimateTokens(contextPrefix);\n  \n  // Account for context in parts after the first\n  const effectiveMaxTokens = maxTokens - contextTokens;\n  \n  units.forEach((unit, index) => {\n    const unitTokens = estimateTokens(unit);\n    \n    // If this unit alone exceeds limits, split it further by words\n    if (unitTokens > effectiveMaxTokens) {\n      if (currentChunk) {\n        chunks.push(currentChunk);\n        currentChunk = '';\n        currentTokens = 0;\n      }\n      \n      // Split large unit by words\n      const words = unit.split(/\\s+/);\n      let tempChunk = '';\n      \n      words.forEach(word => {\n        const wordTokens = estimateTokens(word + ' ');\n        \n        if (currentTokens + wordTokens > effectiveMaxTokens) {\n          if (tempChunk) {\n            chunks.push(tempChunk);\n            tempChunk = word;\n            currentTokens = wordTokens;\n          } else {\n            // Word itself is too big, have to include it anyway\n            tempChunk = word;\n            currentTokens = wordTokens;\n          }\n        } else {\n          tempChunk += (tempChunk ? ' ' : '') + word;\n          currentTokens += wordTokens;\n        }\n      });\n      \n      if (tempChunk) {\n        chunks.push(tempChunk);\n      }\n    }\n    // If adding this unit would exceed max tokens, start a new chunk\n    else if (currentTokens + unitTokens > effectiveMaxTokens) {\n      if (currentChunk) {\n        chunks.push(currentChunk);\n      }\n      currentChunk = unit;\n      currentTokens = unitTokens;\n    } \n    // Add to current chunk\n    else {\n      currentChunk += (currentChunk ? ' ' : '') + unit;\n      currentTokens += unitTokens;\n    }\n  });\n  \n  // Add any remaining content\n  if (currentChunk) {\n    chunks.push(currentChunk);\n  }\n  \n  return chunks;\n}\n\n/**\n * Split text into paragraphs\n * @param {string} text - Input text\n * @returns {Array} - Array of paragraphs\n */\nfunction splitIntoParagraphs(text) {\n  // Split on double newlines or equivalent\n  return text.split(/\\n\\s*\\n|\\r\\n\\s*\\r\\n/).filter(p => p.trim());\n}\n\n/**\n * Split text into sentences\n * @param {string} text - Input text\n * @returns {Array} - Array of sentences\n */\nfunction splitIntoSentences(text) {\n  // Split on sentence-ending punctuation followed by space or end of string\n  return text.split(/(?<=[.!?])\\s+|(?<=[.!?])$/).filter(s => s.trim());\n}\n\n/**\n * Estimate token count for a text string\n * @param {string} text - Text to estimate tokens for\n * @returns {number} - Estimated token count\n */\nfunction estimateTokens(text) {\n  if (!text) return 0;\n  \n  // Simple estimation: roughly 4 characters per token for English\n  // For production, replace with a proper tokenizer matching your embedding model\n  return Math.ceil(text.length / 4);\n}\n\n// Execute the function and return results\nreturn processDocumentChunks();"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2304,
+        1088
+      ],
+      "id": "77070e95-e82b-43aa-8b1c-87904c66eb06",
+      "name": "Split Chunks"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "ab2bedcf-f824-47dd-9e51-00888ee470fa",
+              "name": "chunk_id",
+              "value": "={{ $('Final Escaping').item.json.chunk_id }}",
+              "type": "string"
+            },
+            {
+              "id": "3ad9ad67-06cb-4490-b5c0-d87362a48128",
+              "name": "section_title",
+              "value": "={{ $('Final Escaping').item.json.section_title }}",
+              "type": "string"
+            },
+            {
+              "id": "16c251d1-42c5-45a4-978e-ce91f0e295bb",
+              "name": "text",
+              "value": "={{ $('Final Escaping').item.json.text }}",
+              "type": "string"
+            },
+            {
+              "id": "53121648-9acf-46fb-9027-7898e85865d5",
+              "name": "metadata",
+              "value": "={{ $('Final Escaping').item.json.metadata }}",
+              "type": "object"
+            },
+            {
+              "id": "4f420c43-5c17-474f-b524-9f7a98f9873a",
+              "name": "embeddings",
+              "value": "={{ $json.embedding }}",
+              "type": "array"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        3264,
+        1072
+      ],
+      "id": "6052406c-d3fc-4d9c-8562-d9aee5feb6ef",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "const input = $json;\nreturn {\n  json: {\n    embedding: input.embeddings[0]\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3088,
+        1072
+      ],
+      "id": "dca139ac-f313-40a6-9e13-40f87c5ace65",
+      "name": "Embedding Isolated"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://192.168.20.74:8878/parse/file",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            },
+            {
+              "name": "Authorization",
+              "value": "Bearer dev-key"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "parameterType": "formBinaryData",
+              "name": "file",
+              "inputDataFieldName": "data"
+            },
+            {
+              "name": "optimize_pdf",
+              "value": "true"
+            },
+            {
+              "name": "enable_chunking",
+              "value": "true"
+            },
+            {
+              "name": "max_tokens_per_chunk",
+              "value": "2048"
+            },
+            {
+              "name": "merge_peers",
+              "value": "true"
+            },
+            {
+              "name": "include_full_metadata",
+              "value": "true"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2000,
+        1024
+      ],
+      "id": "6c875c61-4d5e-4675-905e-ef54ec5d5d17",
+      "name": "Chunker Full"
+    },
+    {
+      "parameters": {
+        "jsCode": "const slug = s => (s ?? \"\").toLowerCase()\n  .replace(/[^a-z0-9]+/g, '_')\n  .replace(/^_|_$/g, '')\n  .slice(0, 50);\n\nconst final = ($input.first()?.json?.data?.chunks ?? []).map((c, i) => {\n  const sectionTitle = c?.section_title ?? \"\";\n  const text = c?.text ?? \"\";\n  const chunkIndex = c?.chunk_index ?? \"\";\n\n  const chunkId = `${slug(sectionTitle)}_${i}`;\n  const metadata = {\n    ...(c?.metadata ?? {}),\n    chunk_index: chunkIndex\n  };\n\n  // Remove heading_path if it exists\n  if (\"heading_path\" in metadata) {\n    delete metadata.heading_path;\n  }\n\n  return {\n    section_title: sectionTitle,\n    chunk_id: chunkId,\n    text: text,\n    metadata: metadata\n  };\n});\n\nreturn final.map(j => ({ json: j }));\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2304,
+        928
+      ],
+      "id": "cea57b3a-85d8-46b6-b8f2-7159b407fccf",
+      "name": "Format Output"
+    },
+    {
+      "parameters": {
+        "content": "## Generating JSON with chunks from raw PDF\n\n### Using Chunker on docker.",
+        "height": 380,
+        "width": 300,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1920,
+        848
+      ],
+      "id": "765d1bf2-6342-47a4-8cee-963c0539ece8",
+      "name": "Sticky Note6"
+    },
+    {
+      "parameters": {
+        "content": "## JSON Cleanup & Splitting",
+        "height": 380,
+        "width": 620
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2224,
+        848
+      ],
+      "id": "ef11a960-9266-46ad-9302-0ee5b7cb7b05",
+      "name": "Sticky Note17"
+    },
+    {
+      "parameters": {
+        "content": "## Remove and recreate the index\n",
+        "height": 460,
+        "width": 680,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1248,
+        848
+      ],
+      "id": "afeb4ec7-3dab-4587-bf0c-abda6b5d3b41",
+      "name": "Sticky Note18"
+    },
+    {
+      "parameters": {
+        "inputDataFieldName": "file",
+        "driveId": {
+          "__rl": true,
+          "value": "My Drive",
+          "mode": "list",
+          "cachedResultName": "My Drive",
+          "cachedResultUrl": "https://drive.google.com/drive/my-drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "1C7AyLSHO26Q49PKK0lDXD3adR50ha8NA",
+          "mode": "list",
+          "cachedResultName": "Uploaded RFPs",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/1C7AyLSHO26Q49PKK0lDXD3adR50ha8NA"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        1008,
+        144
+      ],
+      "id": "ea5005fc-f18a-4fa2-895c-28bc866c3065",
+      "name": "Upload RFP to Google Drive",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "OYJ2pu0fWBya0IA6",
+          "name": "Google Drive account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "a764fd99-03dd-443a-93b9-59281ba51c2f",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        720,
+        144
+      ],
+      "id": "73ef08c4-f7a8-4dd9-bcf1-276ac743e341",
+      "name": "RFP Upload Web",
+      "webhookId": "a764fd99-03dd-443a-93b9-59281ba51c2f"
+    },
+    {
+      "parameters": {
+        "binaryData": true,
+        "binaryPropertyName": "file"
+      },
+      "type": "n8n-nodes-base.crypto",
+      "typeVersion": 1,
+      "position": [
+        720,
+        368
+      ],
+      "id": "a714632e-f49c-42bf-a427-6b32208b9ab6",
+      "name": "MD5",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "9a436325-f8ac-491f-99aa-c66f916b471d",
+              "leftValue": "={{$json.Filename === undefined}}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "false",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1104,
+        368
+      ],
+      "id": "aed4b168-35bc-4607-b1a8-818212c9ebce",
+      "name": "If already exists",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1e8eRVEvcmnDiQ9tpS_DdfhbnDvWXz-m2R5Y9P41U9og",
+          "mode": "list",
+          "cachedResultName": "List Of RFPs",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1e8eRVEvcmnDiQ9tpS_DdfhbnDvWXz-m2R5Y9P41U9og/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "RFPs",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1e8eRVEvcmnDiQ9tpS_DdfhbnDvWXz-m2R5Y9P41U9og/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "md5": "={{ $json.md5Checksum }}",
+            "fileName": "={{ $json.name }}",
+            "sessionId": "={{ $('RFP Upload Web').item.json.body.sessionId }}",
+            "date": "={{ new Date().toLocaleString('sv-SE') }}",
+            "link": "={{ $json.webContentLink }}",
+            "indexName": "={{ $json.indexName }}"
+          },
+          "matchingColumns": [
+            "md5"
+          ],
+          "schema": [
+            {
+              "id": "fileName",
+              "displayName": "fileName",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "sessionId",
+              "displayName": "sessionId",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "date",
+              "displayName": "date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "link",
+              "displayName": "link",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "md5",
+              "displayName": "md5",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "indexName",
+              "displayName": "indexName",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        1440,
+        144
+      ],
+      "id": "7598ed9c-3f5c-444d-a0e8-b9f623d6d47b",
+      "name": "Add file entry",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "FtlTep04mtONOydH",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1e8eRVEvcmnDiQ9tpS_DdfhbnDvWXz-m2R5Y9P41U9og",
+          "mode": "list",
+          "cachedResultName": "List Of RFPs",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1e8eRVEvcmnDiQ9tpS_DdfhbnDvWXz-m2R5Y9P41U9og/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "RFPs",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1e8eRVEvcmnDiQ9tpS_DdfhbnDvWXz-m2R5Y9P41U9og/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "SessionId": "={{ $('RFP Upload Web').item.json.body.sessionId }}",
+            "Date": "={{ new Date().toLocaleString('sv-SE') }}",
+            "md5": "={{ $json.md5 }}"
+          },
+          "matchingColumns": [
+            "md5"
+          ],
+          "schema": [
+            {
+              "id": "Filename",
+              "displayName": "Filename",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "SessionId",
+              "displayName": "SessionId",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Date",
+              "displayName": "Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Link",
+              "displayName": "Link",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "md5",
+              "displayName": "md5",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        1328,
+        352
+      ],
+      "id": "6513e7b5-f621-4d00-9f0a-241890b16b87",
+      "name": "Modify file entry",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "FtlTep04mtONOydH",
+          "name": "Google Sheets account"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1e8eRVEvcmnDiQ9tpS_DdfhbnDvWXz-m2R5Y9P41U9og",
+          "mode": "list",
+          "cachedResultName": "List Of RFPs",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1e8eRVEvcmnDiQ9tpS_DdfhbnDvWXz-m2R5Y9P41U9og/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "RFPs",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1e8eRVEvcmnDiQ9tpS_DdfhbnDvWXz-m2R5Y9P41U9og/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "md5",
+              "lookupValue": "={{ $json.md5 }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        928,
+        368
+      ],
+      "id": "f2bf9505-2b18-46a2-8f52-f8bac73737c6",
+      "name": "Search For File in Sheet",
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "FtlTep04mtONOydH",
+          "name": "Google Sheets account"
+        }
+      },
+      "disabled": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        1680,
+        144
+      ],
+      "id": "abfeaa23-7a60-47e5-8253-f9c74bfc97f7",
+      "name": "Respond to File Upload"
+    },
+    {
+      "parameters": {
+        "content": "## RFP Upload to Google Drive",
+        "height": 500,
+        "width": 1340
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        592,
+        48
+      ],
+      "id": "0186fda1-b345-4e37-aa87-39dc6e545c29",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "9683c2a3-b701-4b3e-bea8-f0dc0ad1290b",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        752,
+        928
+      ],
+      "id": "a6d89d3f-7c65-46d6-b2ab-7e945578f3e6",
+      "name": "Start RFP Analysis",
+      "webhookId": "9683c2a3-b701-4b3e-bea8-f0dc0ad1290b",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const fileName = items[0].json.name.toLowerCase()\n  .replace('.pdf', '')\n  .replace(/[^a-z0-9]/g, '-');\nconst indexName = `rfp-${fileName}-${items[0].json.md5Checksum.substring(0, 8)}`;\n\nreturn [{\n  json: {\n    ...items[0].json,\n    indexName: indexName // rfp-tps-8e7b748d\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1248,
+        144
+      ],
+      "id": "20449f7c-6ad0-463f-b8db-64cacd706726",
+      "name": "Crate Index Name"
+    },
+    {
+      "parameters": {
+        "jsCode": "const indexName = $('Start RFP Analysis').first().json.body.indexName;\nif (!indexName) {\n  throw new Error('indexName not found in previous step');\n}\n\nconst elasticUrl = `http://192.168.20.70:9204/${indexName}`;\n\nreturn [{\n  json: {\n    ...items[0].json,\n    elasticsearchUrl: elasticUrl,\n    elasticEndpoint: `${elasticUrl}/_doc`  // For document operations\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1664,
+        928
+      ],
+      "id": "8c4e3c32-1011-4202-9620-0f81d0877e8f",
+      "name": "Create ES Url"
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "={{ $('Extract FileId').item.json.googleFileId }}",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        1504,
+        1504
+      ],
+      "id": "b7b51eff-e0d5-4879-bc45-82cf45ae4a50",
+      "name": "Download File",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "OYJ2pu0fWBya0IA6",
+          "name": "Google Drive account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Extract file ID from the link\nconst link = items[0].json.body.link;\n\n// This regex handles multiple Google Drive URL formats:\n// - https://drive.google.com/uc?id=FILE_ID&export=download\n// - https://drive.google.com/file/d/FILE_ID/view\n// - https://drive.google.com/open?id=FILE_ID\nconst match = link.match(/[?&]id=([a-zA-Z0-9_-]+)|\\/d\\/([a-zA-Z0-9_-]+)/);\nconst fileId = match ? (match[1] || match[2]) : null;\n\nif (!fileId) {\n  throw new Error('Could not extract file ID from link');\n}\n\nreturn [{\n  json: {\n    ...items[0].json.body,\n    googleFileId: fileId  // Will be: 1zkYxLnRpA-NeMAWeT-vzTO6rkl6G4ae7\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1008,
+        928
+      ],
+      "id": "921e56f7-3544-418d-8546-7127b4cac060",
+      "name": "Extract FileId"
+    },
+    {
+      "parameters": {
+        "content": "## Download file\n from GoogleDrive\n",
+        "height": 380,
+        "width": 680,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1248,
+        1344
+      ],
+      "id": "c55481a3-0bdb-46be-9a85-d696f0f94ff0",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://sse-estimation-tool.onrender.com/progress",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"step\": \"document_preparation\",\n  \"title\": \"Step 1: Document Preparation\", \n  \"output\": \"✅ **Document Successfully Processed**\\n**Next Step:** Project information extraction will begin automatically.\",\n  \"sessionId\": \"{{ $('Start RFP Analysis').item.json.body.sessionId }}\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        3648,
+        1072
+      ],
+      "id": "8bdbab49-00dc-4f38-b170-454084ecb00f",
+      "name": "SSE - Document Preparation"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        2272,
+        208
+      ],
+      "id": "230240b6-c627-4f76-9ac8-163190768d72",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "operation": "replaceText",
+        "presentationId": "1p4sm-9e1G0F21DYyaGgeNPp0GaSzaTylWZz0ZyS78N4",
+        "textUi": {
+          "textValues": [
+            {
+              "pageObjectIds": [
+                "g2cdde7dbd32_0_1584"
+              ],
+              "text": "testing",
+              "replaceText": "bla"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSlides",
+      "typeVersion": 2,
+      "position": [
+        2592,
+        192
+      ],
+      "id": "e8831dc5-8fbc-4f10-b3c2-55c343bded48",
+      "name": "Replace text in a presentation",
+      "credentials": {
+        "googleSlidesOAuth2Api": {
+          "id": "MGYKLk02BvihRKyy",
+          "name": "Google Slides account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://192.168.20.70:8878/parse/file",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            },
+            {
+              "name": "Authorization",
+              "value": "Bearer dev-key"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "data",
+              "value": "{\"chunk_document\":true,\"max_tokens_per_chunk\":7000,\"optimize_pdf\":true}"
+            },
+            {
+              "parameterType": "formBinaryData",
+              "name": "file",
+              "inputDataFieldName": "data"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2000,
+        672
+      ],
+      "id": "d73781df-0954-4ea1-9453-acd95cd3a212",
+      "name": "Chunker Full1"
+    }
+  ],
+  "pinData": {},
+  "repo_name": "n8n-backup-zm",
+  "repo_owner": "zlatkomq",
+  "repo_path": "",
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-10-05T20:21:46.481Z",
+      "updatedAt": "2025-10-05T20:21:46.481Z",
+      "role": "workflow:owner",
+      "workflowId": "1i8ZH4HwSVIpaNAH",
+      "projectId": "NM7VZoSXkcKo262s"
+    }
+  ],
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-04-24T10:59:44.979Z",
+      "updatedAt": "2025-04-24T10:59:44.979Z",
+      "id": "qEREEA2JvunvA9Nv",
+      "name": "Estimation Tool"
+    }
+  ],
+  "triggerCount": 3,
+  "updatedAt": "2025-10-10T11:10:27.457Z",
+  "versionId": "8dadc14b-8a46-40ad-b90b-a3ceca15c983"
+}
