@@ -12,17 +12,6 @@
         ]
       ]
     },
-    "Send Company Website Crawl Request": {
-      "main": [
-        [
-          {
-            "node": "Wait For Scrape Completion",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Create Array Containing Field Data": {
       "main": [
         [
@@ -39,17 +28,6 @@
         [
           {
             "node": "Update Supabase Record To Include Company",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Wait For Scrape Completion": {
-      "main": [
-        [
-          {
-            "node": "Retrieve Company Website Crawl Data1",
             "type": "main",
             "index": 0
           }
@@ -126,7 +104,7 @@
       "main": [
         [
           {
-            "node": "Send Company Website Crawl Request",
+            "node": "Send Company Website Crawl Request1",
             "type": "main",
             "index": 0
           }
@@ -390,40 +368,44 @@
         ]
       ]
     },
-    "If": {
-      "main": [
-        [
-          {
-            "node": "Aggregate",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Wait For Scrape Completion",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Retrieve Company Website Crawl Data1": {
-      "main": [
-        [
-          {
-            "node": "If",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Aggregate": {
       "main": [
         [
           {
             "node": "Generate Company Dossier",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Company Website Crawl Request1": {
+      "main": [
+        [
+          {
+            "node": "Wait For Scrape Completion1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait For Scrape Completion1": {
+      "main": [
+        [
+          {
+            "node": "Retrieve Company Website Crawl Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Retrieve Company Website Crawl Data": {
+      "main": [
+        [
+          {
+            "node": "Aggregate",
             "type": "main",
             "index": 0
           }
@@ -451,33 +433,6 @@
       "typeVersion": 3.4,
       "position": [
         560,
-        480
-      ]
-    },
-    {
-      "parameters": {
-        "method": "POST",
-        "url": "={{ $('Set Local Variables').item.json.FIRECRAWL_API_URL }}",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "Authorization",
-              "value": "={{ $('Set Local Variables').item.json.FIRECRAWL_API_AUTHORIZATION }}"
-            }
-          ]
-        },
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "={\n  \"scrapeOptions\": {\n    \"onlyMainContent\": true,\n    \"formats\": [\n      \"markdown\"\n    ],\n    \"includeTags\": [],\n    \"excludeTags\": [],\n    \"waitFor\": 10000\n  },\n  \"allowExternalLinks\": false,\n  \"allowBackwardLinks\": false,\n  \"limit\": 20,\n  \"ignoreSitemap\": true,\n  \"maxDepth\": 4,\n  \"excludePaths\": [\n    \"blog/*\",\n    \"search/*\",\n    \"contact/*\",\n    \"articles/*\",\n    \"posts/*\"\n  ],\n  \"url\": \"{{ $json.website }}\"\n}",
-        "options": {}
-      },
-      "id": "89407785-3f28-4c76-87fe-5af98ca0f41b",
-      "name": "Send Company Website Crawl Request",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        1440,
         480
       ]
     },
@@ -615,20 +570,6 @@
         6304,
         224
       ]
-    },
-    {
-      "parameters": {
-        "amount": 4
-      },
-      "id": "54f42f59-06f2-4212-9c0b-297eb12f7a3c",
-      "name": "Wait For Scrape Completion",
-      "type": "n8n-nodes-base.wait",
-      "typeVersion": 1.1,
-      "position": [
-        1616,
-        480
-      ],
-      "webhookId": "1ebf0b3b-452c-4970-ae05-ed83cb764e43"
     },
     {
       "parameters": {
@@ -1752,63 +1693,6 @@
     },
     {
       "parameters": {
-        "url": "={{ $('Send Company Website Crawl Request').item.json.url }}",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "Authorization",
-              "value": "={{ $('Set Local Variables').item.json.FIRECRAWL_API_AUTHORIZATION }}"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "8317b614-d290-4329-b122-e3f8ed810a1e",
-      "name": "Retrieve Company Website Crawl Data1",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        1792,
-        480
-      ]
-    },
-    {
-      "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict",
-            "version": 2
-          },
-          "conditions": [
-            {
-              "id": "4ed70e62-06f7-40db-af13-d398db429857",
-              "leftValue": "={{ $json.status }}",
-              "rightValue": "completed",
-              "operator": {
-                "type": "string",
-                "operation": "equals",
-                "name": "filter.operator.equals"
-              }
-            }
-          ],
-          "combinator": "and"
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2.2,
-      "position": [
-        1952,
-        480
-      ],
-      "id": "d2f3c4d1-33c8-4e28-bf7e-8892ea5f699f",
-      "name": "If"
-    },
-    {
-      "parameters": {
         "fieldsToAggregate": {
           "fieldToAggregate": [
             {
@@ -1826,6 +1710,70 @@
       ],
       "id": "4d8f7092-e70a-4400-803a-91500ff83fbb",
       "name": "Aggregate"
+    },
+    {
+      "parameters": {
+        "url": "={{ $('Send Company Website Crawl Request1').item.json.url }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "={{ $('Set Local Variables').item.json.FIRECRAWL_API_AUTHORIZATION }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "7d8d3041-ba9c-4121-8f46-3d2f31640fe6",
+      "name": "Retrieve Company Website Crawl Data",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1904,
+        480
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Set Local Variables').item.json.FIRECRAWL_API_URL }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "={{ $('Set Local Variables').item.json.FIRECRAWL_API_AUTHORIZATION }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"scrapeOptions\": {\n    \"onlyMainContent\": true,\n    \"formats\": [\n      \"markdown\"\n    ],\n    \"includeTags\": [],\n    \"excludeTags\": [],\n    \"waitFor\": 10000\n  },\n  \"allowExternalLinks\": false,\n  \"allowBackwardLinks\": false,\n  \"limit\": 20,\n  \"ignoreSitemap\": true,\n  \"maxDepth\": 4,\n  \"excludePaths\": [\n    \"blog/*\",\n    \"search/*\",\n    \"contact/*\",\n    \"articles/*\",\n    \"posts/*\"\n  ],\n  \"url\": \"{{ $json.website }}\"\n}",
+        "options": {}
+      },
+      "id": "0e9617ff-23a1-41a0-8279-59c9f357df9c",
+      "name": "Send Company Website Crawl Request1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1456,
+        480
+      ]
+    },
+    {
+      "parameters": {
+        "amount": 20
+      },
+      "id": "469dc7e7-5bfd-495b-a099-b6f0be98cdd8",
+      "name": "Wait For Scrape Completion1",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1680,
+        480
+      ],
+      "webhookId": "1ebf0b3b-452c-4970-ae05-ed83cb764e43"
     }
   ],
   "pinData": {
@@ -1867,6 +1815,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-09-03T07:22:38.893Z",
-  "versionId": "3b894a60-68f8-4f41-b1f4-80647512b5cb"
+  "updatedAt": "2025-09-04T13:19:48.487Z",
+  "versionId": "b446291b-0a90-4350-b863-479a99f7dd39"
 }
