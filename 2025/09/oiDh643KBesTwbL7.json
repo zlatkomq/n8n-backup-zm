@@ -1,0 +1,953 @@
+{
+  "active": false,
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "ChatInput",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ChatInput": {
+      "main": [
+        [
+          {
+            "node": "Prompt - Fix Typos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prompt - Industries": {
+      "main": [
+        [
+          {
+            "node": "Industries Knob",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Industries Knob": {
+      "main": [
+        [
+          {
+            "node": "Knobs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Employees Regex": {
+      "main": [
+        [
+          {
+            "node": "Senority Regex",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fix Typos": {
+      "main": [
+        [
+          {
+            "node": "Employees Regex",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prompt - Fix Typos": {
+      "main": [
+        [
+          {
+            "node": "Fix Typos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Qwen3 30b": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Fix Typos",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Senority Regex": {
+      "main": [
+        [
+          {
+            "node": "Roles Regex",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute a SQL query": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Generate Response1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "VLLM2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Generate Response1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "VLLM3": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent1": {
+      "main": [
+        [
+          {
+            "node": "Execute a SQL query",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate SQL Query": {
+      "main": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "JSON": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Fix Typos",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Qwen3 30b1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Industries Knob",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "JSON1": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Industries Knob",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Qwen3 30b3": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Skills Knob",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "JSON3": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Skills Knob",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Skills Knob": {
+      "main": [
+        []
+      ]
+    },
+    "Prompt - Skills": {
+      "main": [
+        [
+          {
+            "node": "Skills Knob",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Roles Regex": {
+      "main": [
+        [
+          {
+            "node": "Skills Regex",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Skills Regex": {
+      "main": [
+        [
+          {
+            "node": "Prompt - Industries",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-09-29T11:07:48.915Z",
+  "id": "oiDh643KBesTwbL7",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Resourcing Regex",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -1600,
+        176
+      ],
+      "id": "c52e7c4d-19ab-46ae-9b2f-bb19da6a21c2",
+      "name": "When chat message received",
+      "webhookId": "4c1b54ba-d7f3-4459-a20d-e6827cc0df32"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "999fafa1-c0b1-4710-a1bd-5e9279dc38ab",
+              "name": "chatInput",
+              "value": "={{ $json.chatInput }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1376,
+        176
+      ],
+      "id": "805242f1-d807-4577-a749-bec7a19568c3",
+      "name": "ChatInput"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "claude-opus-4-1-20250805",
+          "mode": "list",
+          "cachedResultName": "Claude Opus 4.1"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [
+        -2560,
+        672
+      ],
+      "id": "afe368ed-b44a-4fe4-9c2b-acb3efb67044",
+      "name": "Anthropic Chat Model1",
+      "credentials": {
+        "anthropicApi": {
+          "id": "BVejEoXr4J9auxgo",
+          "name": "Anthropic account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "endpointUrl": "http://127.0.0.1:5678/mcp/1713cd2c-a44b-483d-a87e-c133a855705e/sse",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
+      "typeVersion": 1.1,
+      "position": [
+        -3248,
+        672
+      ],
+      "id": "81f6f433-bf17-4e65-a152-97c1e9f53d56",
+      "name": "MCP Client"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1RwcE8huvVeBliE_DO4FO30ZYEHAIlhkFr6TlU7qqDtg",
+          "mode": "list",
+          "cachedResultName": "Resourcing Eval",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1RwcE8huvVeBliE_DO4FO30ZYEHAIlhkFr6TlU7qqDtg/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Seniority",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1RwcE8huvVeBliE_DO4FO30ZYEHAIlhkFr6TlU7qqDtg/edit#gid=0"
+        }
+      },
+      "type": "n8n-nodes-base.evaluationTrigger",
+      "typeVersion": 4.6,
+      "position": [
+        -2816,
+        656
+      ],
+      "id": "4f8457cf-71b0-4c37-a234-1a3021ba3a42",
+      "name": "When fetching a dataset row",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "VqBZlK3vKXeQiMtM",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e5a7969a-49e3-47b5-a1ae-b7230bcff45c",
+              "name": "seniorities",
+              "value": "={{ $('Senority Regex').item.json.seniority }}",
+              "type": "array"
+            },
+            {
+              "id": "50b67ca1-499b-43b8-b50d-914652a5ce84",
+              "name": "employment_types",
+              "value": "={{ $('Employees Regex').item.json.employment_type }}",
+              "type": "array"
+            },
+            {
+              "id": "774a1991-80a0-4bed-a6ee-b733d22b035b",
+              "name": "explicit_industries",
+              "value": "={{ $('Industries Knob').item.json.output.explicit_industries }}",
+              "type": "array"
+            },
+            {
+              "id": "4ed7ef0f-4550-4fec-827d-066166a1d93d",
+              "name": "possible_industries",
+              "value": "={{ $('Industries Knob').item.json.output.possible_industries }}",
+              "type": "array"
+            },
+            {
+              "id": "2193066c-8dd2-46e9-925b-53e077beb7b7",
+              "name": "roles",
+              "value": "={{ $('Roles Regex').item.json.roles }}",
+              "type": "array"
+            },
+            {
+              "id": "7fac1eac-fdb8-4e67-b77b-250975a14932",
+              "name": "skills",
+              "value": "={{ $('Skills Regex').item.json.skills }}",
+              "type": "array"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1088,
+        160
+      ],
+      "id": "3fa420d1-b00f-4498-aacb-7cd22a6e790c",
+      "name": "Knobs"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4.1-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -2416,
+        672
+      ],
+      "id": "030a6911-f187-44f2-a87c-26241a55828d",
+      "name": "OpenAI Chat Model1",
+      "credentials": {
+        "openAiApi": {
+          "id": "M8xqWvEC6mH6LNuk",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const chatInput = $('ChatInput').first().json.chatInput;\nconst systemPrompt = \"Extract industries from the request, distinguishing between explicit industry context and possible industry associations. Return JSON.\";\n\nconst userPrompt = `Extract industries from: \"${chatInput}\"\n\nAVAILABLE INDUSTRIES (use EXACTLY as written):\nAgriculture, Automotive, B2B, Banking & Insurance, Big Data, Civil Engineering, Content Distribution, Corporate (HR, Legal, Finance,..), Crypto, Dental, E-commerce, Education, Entertainment & Sports, Fintech, FMCG, Food, Furniture, Government, Healthcare, Hospitality or Travel, Human Resources, IoT, Logistics, Maritime industry, Marketing, Media, Military or Law Enforcement, Pharma, Public Transportation, Publishing, Real Estate, Regulatory, Retail, SaaS, Social Media, Streaming, Telecommunications, White labeling\n\nCLASSIFICATION RULES:\n\nEXPLICIT INDUSTRIES (clear work/project context):\nContext indicators that make it EXPLICIT:\n- \"experience\" / \"background\" / \"expertise\"\n- \"worked in/at/for\" / \"employed by\"\n- \"for [industry] project\" / \"on [industry] project\"\n- \"[industry] client\" / \"[industry] company\"\n- \"X years in [industry]\"\n- \"[industry] sector\" / \"[industry] industry\"\n- Any mention of working FOR or ON something in that industry\n\nPOSSIBLE INDUSTRIES (ambiguous):\n- Job titles alone: \"blockchain developer\", \"SaaS engineer\"\n- Skills/knowledge without work context: \"knows fintech\"\n- Technologies: \"uses healthcare data\"\n\nCRITICAL: \"for [industry] project\" = EXPLICIT (they need someone to work on that industry project)\n\nMAPPINGS:\n- \"fintech/financial technology\" → Fintech, Banking & Insurance\n- \"blockchain/crypto/web3\" → Crypto, Fintech\n- \"healthcare/medical/hospital/pharma\" → Healthcare, Pharma, Dental\n- \"SaaS\" → SaaS, Big Data, IoT\n- \"retail/ecommerce/online store\" → Retail, E-commerce\n- \"government/federal/state/public\" → Government, Regulatory\n\nEXAMPLES:\n\n\"how many poeple who know python we have\"\n→ explicit: [], possible: []\n\n\"for fintech project\"\n→ explicit: [\"Fintech\", \"Banking & Insurance\"], possible: []\n\n\"SaaS developer with fintech experience\"\n→ explicit: [\"Fintech\", \"Banking & Insurance\"], possible: [\"SaaS\"]\n\n\"blockchain developer\"\n→ explicit: [], possible: [\"Crypto\", \"Fintech\"]\n\n\"for healthcare client\"\n→ explicit: [\"Healthcare\", \"Pharma\", \"Dental\"], possible: []\n\n\"retail specialist\"\n→ explicit: [], possible: [\"Retail\", \"E-commerce\"]\n\n\"working on government project\"\n→ explicit: [\"Government\", \"Regulatory\"], possible: []\n`;\n\nreturn {\n  json: {\n    userPrompt,\n    systemPrompt: systemPrompt\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        144,
+        176
+      ],
+      "id": "1b7b0f52-678a-42c2-aeac-a3e227e7f4c7",
+      "name": "Prompt - Industries"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.userPrompt }}",
+        "hasOutputParser": true,
+        "messages": {
+          "messageValues": [
+            {
+              "message": "={{ $json.systemPrompt }}"
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        336,
+        176
+      ],
+      "id": "88096b30-1f45-4fc5-9504-ea818377f5f4",
+      "name": "Industries Knob"
+    },
+    {
+      "parameters": {
+        "jsCode": "const chatInput = $input.first().json.output.cleanInput; // This is now clean text\n\nfunction extractEmploymentType(input) {\n  const text = input.toLowerCase();\n  const types = [];\n  \n  // Check for both singular and plural\n  if (/\\b(employee|employees)\\b/.test(text)) {\n    types.push(\"Employee\");\n  }\n  \n  if (/\\b(contractor|contractors)\\b/.test(text)) {\n    types.push(\"Contractor\");\n  }\n  \n  if (/\\b(student|students)\\b/.test(text)) {\n    types.push(\"Student\");\n  }\n  \n  return types;\n}\n\nconst employment_type = extractEmploymentType(chatInput);\n\nreturn {\n  json: {\n    employment_type: employment_type\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -704,
+        176
+      ],
+      "id": "70604109-0e64-401b-ae8f-b140b3477954",
+      "name": "Employees Regex"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.userPrompt }}",
+        "hasOutputParser": true,
+        "messages": {
+          "messageValues": [
+            {
+              "message": "={{ $json.systemPrompt }}"
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        -1008,
+        176
+      ],
+      "id": "a5793970-9193-42e8-b58a-829b597d4a47",
+      "name": "Fix Typos"
+    },
+    {
+      "parameters": {
+        "jsCode": "const chatInput = $('ChatInput').first().json.chatInput;\nconst systemPrompt = \"Fix typos in this HR/staffing query. Return only corrected text.\";\n\nconst userPrompt = `Correct spelling errors in this staffing query: \"${chatInput}\"\n\nThis is about finding people for employment, so common terms are:\n\nEmployment types:\n- \"emplyee/employe/employeee\" → \"employee/employees\"\n- \"contrsctor/contrctor/contracter\" → \"contractor/contractors\" (freelancer, NOT constructor)\n- \"studnet/stuent/studant\" → \"student/students\"\n\nSeniority levels (keep numbers!):\n- Senior, Senior 1, Senior 2\n- Mid, Mid 1, Mid 2  \n- Junior, Junior 1, Junior 2\n- Novice\n\nCommon typos to fix:\n- \"fiance/finace\" → \"finance\"\n- \"bancking/bankning\" → \"banking\"\n- Words with accidental punctuation: \"hand,ing\" → \"handling\", \"work,ed\" → \"worked\"\n- \"expeirnece/experince\" → \"experience\"\n- \"knowl,edge\" → \"knowledge\"\n\nRules:\n1. Keep ALL numbers exactly where they are\n2. Add spaces if missing: \"1students\" → \"1 students\"\n3. Remove accidental commas/punctuation within words\n4. \"contractor\" is about employment (NOT \"constructor\")\n5. Fix only obvious typos, don't change meaning\n\nOutput only the corrected text:`;\n\nreturn {\n  json: {\n    userPrompt,\n    systemPrompt: systemPrompt\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1184,
+        176
+      ],
+      "id": "c1fc580f-78b3-4849-a750-986a09cc8433",
+      "name": "Prompt - Fix Typos"
+    },
+    {
+      "parameters": {
+        "jsCode": "// n8n Function node\n// Input:  items[i].json.text  -> string containing JSON (possibly with newlines/code fences)\n// Output: items[i].json       -> parsed JSON object (or an _error field if parsing fails)\n\nreturn items.map((item) => {\n  let raw = (item.json?.text ?? '').trim();\n\n  // Strip Markdown code fences if present\n  if (raw.startsWith('```')) {\n    raw = raw.replace(/^```[a-zA-Z]*\\n?/, '').replace(/```$/, '').trim();\n  }\n\n  // If the string has extra wrapping text, try to extract the first JSON object\n  const maybeObj = raw.match(/{[\\s\\S]*}/);\n  if (maybeObj) raw = maybeObj[0];\n\n  try {\n    const parsed = JSON.parse(raw);\n    return { json: parsed };\n  } catch (e) {\n    // Fail gracefully but keep the original input for debugging\n    return { json: { _error: 'JSON parse failed', _message: e.message, _raw: item.json?.text } };\n  }\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -704,
+        -144
+      ],
+      "id": "8e672d47-6875-4c2f-b64f-7a3b4997bf65",
+      "name": "JSON - Clean Text"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "qwen3-coder-30b-32k",
+          "mode": "list",
+          "cachedResultName": "qwen3-coder-30b-32k"
+        },
+        "options": {
+          "responseFormat": "json_object",
+          "temperature": 0
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -1008,
+        368
+      ],
+      "id": "bb593832-0ed8-4326-999f-b952f3ec8670",
+      "name": "Qwen3 30b",
+      "credentials": {
+        "openAiApi": {
+          "id": "09tIxrZPXx1gwPgx",
+          "name": "vllm"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const chatInput = $('Fix Typos').first().json.output.cleanInput; // This is now clean text\n\nfunction extractSeniority(input) {\n  const text = input.toLowerCase();\n  const found = new Set();\n  \n  // Define patterns and their corresponding values\n  const patterns = [\n    // Specific levels (check these first)\n    { pattern: /\\bsenior\\s+2\\b/, values: [\"Senior 2\"] },\n    { pattern: /\\bsenior\\s+1\\b/, values: [\"Senior 1\"] },\n    { pattern: /\\bmid\\s+2\\b/, values: [\"Mid 2\"] },\n    { pattern: /\\bmid\\s+1\\b/, values: [\"Mid 1\"] },\n    { pattern: /\\bmid2\\b/, values: [\"Mid 2\"] },\n    { pattern: /\\bmid1\\b/, values: [\"Mid 1\"] },\n    { pattern: /\\bjunior\\s+2\\b/, values: [\"Junior 2\"] },\n    { pattern: /\\bjunior\\s+1\\b/, values: [\"Junior 1\"] },\n    { pattern: /\\bnovices?\\b/, values: [\"Novice\"] }  // Added s? for plural\n  ];\n  \n  // Check specific patterns first\n  let hasSpecificSenior = false;\n  let hasSpecificMid = false;\n  let hasSpecificJunior = false;\n  \n  for (const { pattern, values } of patterns) {\n    if (pattern.test(text)) {\n      values.forEach(v => found.add(v));\n      if (values[0].startsWith(\"Senior\")) hasSpecificSenior = true;\n      if (values[0].startsWith(\"Mid\")) hasSpecificMid = true;\n      if (values[0].startsWith(\"Junior\")) hasSpecificJunior = true;\n    }\n  }\n  \n  // Check generic terms only if no specific level was found\n  // Now checking for both singular and plural forms\n  if (!hasSpecificSenior && /\\b(senior|seniors)\\b/.test(text)) {\n    found.add(\"Senior 1\");\n    found.add(\"Senior 2\");\n  }\n  \n  if (!hasSpecificMid && /\\b(mid|mids)\\b/.test(text)) {\n    found.add(\"Mid 1\");\n    found.add(\"Mid 2\");\n  }\n  \n  if (!hasSpecificJunior && /\\b(junior|juniors)\\b/.test(text)) {\n    found.add(\"Junior 1\");\n    found.add(\"Junior 2\");\n  }\n  \n  // Also check for common synonyms (if they appear in clean text)\n  if (/\\b(experienced|expert|experts)\\b/.test(text) && !hasSpecificSenior) {\n    found.add(\"Senior 1\");\n    found.add(\"Senior 2\");\n  }\n  \n  if (/\\b(intermediate|intermediates)\\b/.test(text) && !hasSpecificMid) {\n    found.add(\"Mid 1\");\n    found.add(\"Mid 2\");\n  }\n  \n  if (/\\b(entry\\s+level|beginner|beginners)\\b/.test(text) && !hasSpecificJunior) {\n    found.add(\"Junior 1\");\n    found.add(\"Junior 2\");\n  }\n  \n  if (/\\b(intern|interns|trainee|trainees)\\b/.test(text)) {\n    found.add(\"Novice\");\n  }\n  \n  // Convert to array and sort\n  const order = [\"Novice\", \"Junior 1\", \"Junior 2\", \"Mid 1\", \"Mid 2\", \"Senior 1\", \"Senior 2\"];\n  return Array.from(found).sort((a, b) => order.indexOf(a) - order.indexOf(b));\n}\n\nconst seniority = extractSeniority(chatInput);\n\nreturn {\n  json: {\n    seniority: seniority\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -528,
+        176
+      ],
+      "id": "66e5264b-84a5-409c-8c52-961e17b95be4",
+      "name": "Senority Regex"
+    },
+    {
+      "parameters": {
+        "jsCode": "const chatInput = $('ChatInput').first().json.chatInput;\nconst systemPrompt = \"Fix ONLY spelling errors. Preserve all numbers, spacing, and structure. Return ONLY the corrected text.\";\n\nconst userPrompt = `Fix ONLY typos/misspellings in this text. \n\nCRITICAL RULES:\n- Keep ALL numbers exactly where they are (e.g., \"mid 1\" stays \"mid 1\", \"junior 2\" stays \"junior 2\")\n- Do NOT change \"mid 1\" to \"mid level\" or \"mid-level\"\n- Do NOT remove numbers after seniority levels\n- Only fix spelling, nothing else\n- If there's a missing space (like \"1students\"), add the space but keep the number\n\nText: ${chatInput}\n\nReturn the corrected text:`;\n\nreturn {\n  json: {\n    userPrompt,\n    systemPrompt: systemPrompt\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1168,
+        -144
+      ],
+      "id": "9953f19f-ba5d-42ef-bb82-3359f3603f1a",
+      "name": "Prompt - Fix Typos1"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "{{ $json.output }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        1600,
+        624
+      ],
+      "id": "e262219f-aae7-450f-b8fe-0c3d1cc79936",
+      "name": "Execute a SQL query",
+      "credentials": {
+        "postgres": {
+          "id": "wK2pSCG9jTniRU28",
+          "name": "Postgres account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const generateResponsePrompt = (queryResults, originalChat, sqlExecuted) => {\n  \n  const systemPrompt = `You are a helpful HR assistant presenting database query results conversationally.\nBe natural, specific, and helpful. Focus on answering what the user actually asked.\n\nRESPONSE RULES:\n1. Be conversational but professional\n2. Use actual names and numbers from the data\n3. Don't just dump data - interpret and summarize\n4. Highlight important patterns or insights\n5. Keep responses concise but complete\n6. If no results, suggest alternatives\n7. Never mention SQL, databases, or technical details`;\n\n  const userPrompt = `USER ASKED: \"${originalChat}\"\n\nQUERY RESULTS (${queryResults.length} records):\n${JSON.stringify(queryResults.slice(0, 10), null, 2)}\n${queryResults.length > 10 ? `... and ${queryResults.length - 10} more results` : ''}\n\nGENERATE NATURAL RESPONSE:\n\nBased on the user's question and the data, provide a helpful response following these patterns:\n\nFOR COUNTING QUESTIONS (\"how many\"):\n- Give the exact number first\n- Add context if relevant\n- Example: \"You have 12 senior React contractors. Most of them (8) have additional Node.js experience.\"\n\nFOR LISTING QUESTIONS (\"show me\", \"list\", \"who\"):\n- Summarize total found\n- List top/most relevant with details\n- Example: \"I found 5 React Engineers:\n  • Sarah Chen - Senior 1, Employee, expert in React and Next.js\n  • Mike Johnson - Senior 2, Contractor, specializes in React and Node.js\n  [etc.]\"\n\nFOR SEARCHING QUESTIONS (\"find\", \"need\"):\n- Present best matches first\n- Explain why they're good fits\n- Example: \"I found 3 excellent candidates for your project:\n  Robert is your best match - he's a Senior React Engineer with both Healthcare and Finance experience.\"\n\nFOR COMPARISONS (\"best\", \"top\"):\n- Rank and explain criteria\n- Highlight standout qualities\n- Example: \"Your top mobile developer is Alex Kim - they have senior-level expertise in both iOS and Android, plus React Native.\"\n\nFOR ZERO RESULTS:\n- Acknowledge no exact matches\n- Suggest alternatives\n- Example: \"I didn't find any senior Python contractors, but you have 3 senior Python employees who might be available, or 2 mid-level Python contractors who could work.\"\n\nFOR BREAKDOWN/ANALYSIS:\n- Provide clear categories\n- Show distribution\n- Example: \"Your team breakdown: \n  - 15 Seniors (45%)\n  - 10 Mid-level (30%)\n  - 8 Juniors (25%)\"\n\nIMPORTANT:\n- Use people's actual names from the data\n- Mention specific skills/experience when relevant\n- Be helpful - if the search seems too narrow, mention it\n- Keep a friendly, professional tone\n\nYour response:`;\n\n  return {\n    systemPrompt,\n    userPrompt\n  };\n};\n\n\n// Usage example\nconst sqlPrompt = generateResponsePrompt($input.all(), $('ChatInput').first().json.chatInput, $('AI Agent1').first().json.output);\n\nreturn {\n  \n  json: {\n    sqlPrompt\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1792,
+        624
+      ],
+      "id": "cf2671ab-c0e1-4ca1-840d-80f018d587d2",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "qwen3-coder-30b-32k",
+          "mode": "list",
+          "cachedResultName": "qwen3-coder-30b-32k"
+        },
+        "options": {
+          "temperature": 0.1
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        2032,
+        832
+      ],
+      "id": "131e1bde-5465-4f1e-a916-4c2793efc21f",
+      "name": "VLLM2",
+      "credentials": {
+        "openAiApi": {
+          "id": "09tIxrZPXx1gwPgx",
+          "name": "vllm"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.sqlPrompt.userPrompt }}",
+        "messages": {
+          "messageValues": [
+            {
+              "message": "={{ $json.sqlPrompt.systemPrompt }}"
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        2032,
+        624
+      ],
+      "id": "db73d04f-6b76-4928-9592-89e2d841634f",
+      "name": "Generate Response1"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "qwen3-coder-30b-32k",
+          "mode": "list",
+          "cachedResultName": "qwen3-coder-30b-32k"
+        },
+        "options": {
+          "temperature": 0.1
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        1168,
+        896
+      ],
+      "id": "f6a1bd4b-3b51-4f57-adf1-6c2eb2fe29f3",
+      "name": "VLLM3",
+      "credentials": {
+        "openAiApi": {
+          "id": "09tIxrZPXx1gwPgx",
+          "name": "vllm"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.sqlPrompt.userPrompt }}",
+        "options": {
+          "systemMessage": "=You are a helpful assistant {{ $json.sqlPrompt.systemPrompt }}"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        1216,
+        624
+      ],
+      "id": "2eb1223f-6b5c-4b0a-a6ea-3d47768de84d",
+      "name": "AI Agent1"
+    },
+    {
+      "parameters": {
+        "jsCode": "const generateQueryPrompt = (extractedData, originalChat) => {\n  const systemPrompt = `You are a PostgreSQL query generator for employee database searches.\nGenerate ONLY a single valid SQL statement (end with a semicolon). No prose.\nDATABASE: ganttic_api_resources\nCOLUMNS:\n- id (text)\n- name (text)\n- role (text)\n- seniority (text)\n- employment_type (text)\n- industries (text[])           -- PostgreSQL array\n- skills_senior (text[])        -- PostgreSQL array\n- skills_medium (text[])        -- PostgreSQL array\n- skills_junior (text[])        -- PostgreSQL array\nSTRICT RULES:\n1) Use ONLY values present in EXTRACTED EXACT VALUES (do not invent or normalize).\n3) When checking array membership, use: 'value' = ANY(column_name).\n4) When mixing AND/OR, ALWAYS wrap OR groups in parentheses.\n5) Use only existing columns; do not reference non-existent columns.\n6) Output exactly one SQL query and nothing else, ending with a semicolon.\n- The natural language takes precedence over extracted keywords for interpretation\n- Extracted keywords confirm correct spelling/format of database values\n- But interpret plurality, ranges, and intent from the natural language`;\n  \n  const userPrompt = `NATURAL REQUEST: \"${originalChat}\"\nEXTRACTED EXACT VALUES (trusted canonical values):\n${JSON.stringify(extractedData, null, 2)}\nQUERY TYPE SELECTION:\n- If the natural request implies \"how many\" / \"count\" / \"number of\": use SELECT COUNT(*)\n- If it implies \"list\" / \"show\" / \"who\" / \"find\": use SELECT with fields: name, role, seniority, employment_type, industries\n- If it implies \"all\" / \"everyone\": SELECT * with LIMIT 100\n- If it implies \"best\" / \"top\": SELECT * and ORDER BY a reasonable proxy (e.g., CASE seniority …) DESC, LIMIT 10\n- If it implies \"breakdown\" (e.g., by role/seniority): GROUP BY that field with COUNT(*)\nWHERE CLAUSE CONSTRUCTION (include only if present in EXTRACTED EXACT VALUES):\n- role → role = '<value>'\n- seniority → seniority = '<value>'\n- employment_type → employment_type = '<value>'\n- If skills array is NOT empty → DO NOT use role in WHERE clause\n- If skills array IS empty AND role is provided → use: role = '<value>'\n\nSKILLS HANDLING (include only if skills array present):\n- If the natural request suggests \"expert\"/\"senior level\", check ONLY skills_senior.\n- Otherwise, check ALL three arrays.\n- For a single skill S: \n  - expert-only: 'S' = ANY(skills_senior)\n  - general: ('S' = ANY(skills_senior) OR 'S' = ANY(skills_medium) OR 'S' = ANY(skills_junior))\n- For multiple skills with AND intent: combine each skill condition with AND.\n- For multiple skills with OR intent: combine skill conditions with OR, wrapped in parentheses.\nINDUSTRIES HANDLING (include only if industries array present):\n- For each industry I: 'I' = ANY(industries)\n- Multiple industries with AND intent → AND between them; with OR intent → OR between them (wrap OR group in parentheses).\nOPERATOR PRECEDENCE:\n- AND has higher precedence than OR; wrap any OR groups when combined with AND.\nDEFAULTS:\n- For list/find: add LIMIT 100 unless user clearly asks for a different size.\n- Always terminate the SQL with a semicolon.\nTIE-BREAKERS FOR \"TOP/BEST\" (if requested and no explicit scoring is given):\n- Use seniority weight: CASE WHEN seniority LIKE 'Senior%' THEN 3 WHEN seniority LIKE 'Mid%' THEN 2 ELSE 1 END DESC\n- Then name ASC.\nEXAMPLES (illustrative shape—adapt to provided extracted values):\n-- Example A: \"How many senior contractors with AWS\"\nSELECT COUNT(*) FROM ganttic_api_resources\nWHERE employment_type = 'Contractor'\nAND seniority = 'Senior 1'\nAND ('DevOps - AWS' = ANY(skills_senior) OR 'DevOps - AWS' = ANY(skills_medium) OR 'DevOps - AWS' = ANY(skills_junior));\n-- Example B: \"List Mobile Engineers with Android and Flutter in Healthcare or Pharma\"\nSELECT name, role, seniority, employment_type, industries\nFROM ganttic_api_resources\nWHERE role = 'Mobile Engineer'\nAND ('Android' = ANY(skills_senior) OR 'Android' = ANY(skills_medium) OR 'Android' = ANY(skills_junior))\nAND ('Flutter' = ANY(skills_senior) OR 'Flutter' = ANY(skills_medium) OR 'Flutter' = ANY(skills_junior))\nAND ('Healthcare' = ANY(industries) OR 'Pharma' = ANY(industries))\nLIMIT 100;\nGENERATE THE SQL QUERY NOW (one statement, end with a semicolon):`;\n  return { systemPrompt, userPrompt };\n};\n\n// Usage example\nconst sqlPrompt = generateQueryPrompt(\n  {\n    role: $input.first().json.role,\n    seniority: $input.first().json.seniority,\n    employment_type: $input.first().json.employment_type,\n    industries: $input.first().json.industries,\n    skills: $input.first().json.skills\n  },\n  $('ChatInput').first().json.chatInput\n);\n\nreturn {\n  json: {\n    sqlPrompt\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        992,
+        624
+      ],
+      "id": "e027c44f-5b60-4153-8256-b84a5130f35e",
+      "name": "Generate SQL Query"
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n    \"cleanInput\": \"fixed query\"\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        -864,
+        368
+      ],
+      "id": "2e7d029c-5c00-4be9-94a9-60bb4690c3d1",
+      "name": "JSON"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "qwen3-coder-30b-32k",
+          "mode": "list",
+          "cachedResultName": "qwen3-coder-30b-32k"
+        },
+        "options": {
+          "responseFormat": "json_object",
+          "temperature": 0.1
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        336,
+        384
+      ],
+      "id": "fae502ee-f6b8-4045-b487-61f8d3f2f58d",
+      "name": "Qwen3 30b1",
+      "credentials": {
+        "openAiApi": {
+          "id": "09tIxrZPXx1gwPgx",
+          "name": "vllm"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"explicit_industries\": [\"only if clearly stated\"],\n  \"possible_industries\": [\"inferred/maybe\"]\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        480,
+        384
+      ],
+      "id": "d1de6d72-57bb-46b8-be1e-66e1160004a5",
+      "name": "JSON1"
+    },
+    {
+      "parameters": {
+        "jsCode": "const chatInput = $('ChatInput').first().json.chatInput;\nconst systemPrompt = \"Extract industries from the user's request. Return ONLY a JSON array of industries.\";\n\nconst userPrompt = `Extract industries from: \"${chatInput}\"\n\nAVAILABLE INDUSTRIES (use EXACTLY as written):\nAgriculture, Automotive, B2B, Banking & Insurance, Big Data, Civil Engineering, Content Distribution, Corporate (HR, Legal, Finance,..), Crypto, Dental, E-commerce, Education, Entertainment & Sports, Fintech, FMCG, Food, Furniture, Government, Healthcare, Hospitality or Travel, Human Resources, IoT, Logistics, Maritime industry, Marketing, Media, Military or Law Enforcement, Pharma, Public Transportation, Publishing, Real Estate, Regulatory, Retail, SaaS, Social Media, Streaming, Telecommunications, White labeling\n\nEXTRACTION APPROACH:\n1. Extract industries mentioned in ANY work-related context\n2. Include industries when you see: experience, background, sector, industry, worked, specialist, expert, or any professional context\n3. DO NOT extract from pure job titles without context (e.g., \"SaaS developer\" alone)\n4. When found, return ALL related industries\n\nINCLUSIVE MAPPINGS (return ALL that apply):\n- \"healthcare/health/medical/hospital\" → Healthcare, Pharma, Dental\n- \"finance/financial/fintech/banking\" → Fintech, Banking & Insurance, Corporate (HR, Legal, Finance,..)\n- \"retail/shop/store/commerce\" → Retail, E-commerce\n- \"tech/technology/software\" → SaaS, Big Data, IoT\n- \"government/public/federal\" → Government, Regulatory\n\nEXAMPLES:\n\"data engineer\" → [] (pure job title)\n\"healthcare experience\" → [\"Healthcare\", \"Pharma\", \"Dental\"]\n\"worked in healthcare\" → [\"Healthcare\", \"Pharma\", \"Dental\"] \n\"fintech background\" → [\"Fintech\", \"Banking & Insurance\"]\n\"retail specialist\" → [\"Retail\", \"E-commerce\"]\n\"SaaS developer\" → [] (job title without industry context)\n\"developer with SaaS experience\" → [\"SaaS\", \"Big Data\", \"IoT\"]\n\nBE INCLUSIVE - when in doubt, include the industry. Better to cast a wide net.\n\nReturn JSON array only:`;\n\nreturn {\n  json: {\n    userPrompt,\n    systemPrompt: systemPrompt\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -304,
+        -80
+      ],
+      "id": "8dbc3eda-ca08-4fd2-b53c-64aac41284e0",
+      "name": "Prompt - Industries3"
+    },
+    {
+      "parameters": {
+        "jsCode": "const chatInput = $input.first().json.chatInput;\n\nconst systemPrompt = \"Extract staffing constraints from the user's request. Be strict and literal.Return ONLY compact JSON, no prose.\";\n\n// 3. Define the user prompt\nconst userPrompt = `TEXT:\n${chatInput}\n\nGiven the \"role, job title\" map it to the most appropriate role name from the following list:\n\nAVAILABLE ROLES (use EXACTLY as written):\n- Node.js Engineer\n- Solution Architect\n- .NET Engineer\n- UI/UX Designer\n- PHP Engineer\n- Data Expert\n- Program manager\n- Manager of Frontend Excellence\n- Python Engineer\n- React Engineer\n- Java Engineer\n- Product owner\n- Angular Engineer\n- Ruby Engineer\n- Vue.js Engineer\n- Data Engineer\n- Mobile Engineer\n- Manager of Design Excellence\n- WordPress Engineer\n- QA Engineer\n- Centre of Excellence Head of Technology\n- Project Manager\n- Engineering Lead\n- Manager of Project Management Excellence\n- Technical Support Engineer\n- DevOps Engineer\n- Manager of BA Excellence\n- AI Engineer\n- Business Analyst\n\nEnsure that skills or areas of expertise are not treated as roles. The role should be singular, and it must correspond directly to the job title being classified or searched for.\n\nMAPPING RULES:\n- \"backend developer\" → Check for language mentioned: Python Engineer, Java Engineer, PHP Engineer, Ruby Engineer, Node.js Engineer, .NET Engineer\n- \"frontend developer\" → Check for framework mentioned: React Engineer, Angular Engineer, Vue.js Engineer  \n- \"full stack\" → Pick based on primary skill mentioned, or return null\n- \"mobile\" → Mobile Engineer\n- \"flutter developer\" -> Mobile Engineer\n- \"data scientist\" → Data Expert\n- \"ML\" or \"machine learning\" → AI Engineer\n- \"BA\" → Business Analyst\n- \"PM\" → Project Manager\n- \"PO\" → Product owner\n- \"SA\" → Solution Architect\n- \"QA\" or \"tester\" → QA Engineer\n- \"DevOps\" or \"SRE\" → DevOps Engineer\n- \"support\" → Technical Support Engineer\n- \"designer\" or \"UX\" or \"UI\" → UI/UX Designer\n- \"WordPress\" or \"CMS\" → WordPress Engineer\n\nSENIORITY LEVELS (use EXACTLY as written):\n- Novice\n- Junior 1\n- Junior 2\n- Mid 1\n- Mid 2\n- Senior 1\n- Senior 2\n\nMAPPING RULES FOR SENIORITY:\n- \"junior\" or \"entry level\" or \"beginner\" or \"juniors\" → [\"Junior 1\", \"Junior 2\"]\n- \"mid\" or \"intermediate\" or \"mids\"→ [\"Mid 1\", \"Mid 2\"]\n- \"senior\" or \"experienced\" or \"expert\" or \"seniors\"→ [\"Senior 1\", \"Senior 2\"]\n- If user says specific level like \"Senior 2\", use exactly that [\"Senior 2\"]\n- If no seniority mentioned, return empty\n- When encountering plural forms, return multiple values: \"seniors\" → [\"Senior 1\", \"Senior 2\"]\n\nEMPLOYMENT TYPE (use EXACTLY as written):\n- Employee\n- Contractor\n- Student\n\nMAPPING RULES FOR EMPLOYMENT TYPE:\n- \"contractor\" or \"freelance\" or \"consultant\" or \"contract\" → Contractor\n- \"employee\" or \"full-time\" or \"permanent\" → Employee\n- If not mentioned, return empty\n\nINDUSTRIES (use EXACTLY as written):\n- Agriculture\n- Automotive\n- B2B\n- Banking & Insurance\n- Big Data\n- Civil Engineering\n- Content Distribution\n- Corporate (HR, Legal, Finance,..)\n- Crypto\n- Dental\n- E-commerce\n- Education\n- Entertainment & Sports\n- Fintech\n- FMCG\n- Food\n- Furniture\n- Government\n- Healthcare\n- Hospitality or Travel\n- Human Resources\n- IoT\n- Logistics\n- Maritime industry\n- Marketing\n- Media\n- Military or Law Enforcement\n- Pharma\n- Public Transportation\n- Publishing\n- Real Estate\n- Regulatory\n- Retail\n- SaaS\n- Social Media\n- Streaming\n- Telecommunications\n- White labeling\n\nMAPPING RULES FOR INDUSTRIES:\n- \"finance\" or \"financial\" → Fintech or Banking & Insurance\n- \"health\" or \"medical\" → Healthcare\n- \"pharma\" or \"pharmaceutical\" → Pharma\n- \"retail\" or \"shop\" → Retail\n- \"government\" or \"public sector\" → Government\n- \"telecom\" → Telecommunications\n- \"real estate\" or \"property\" → Real Estate\n- \"education\" or \"academic\" → Education\n- Return array of all mentioned industries\n- If no industry mentioned, return empty array\n\nSKILLS (use EXACTLY as written):\n- Web Slice/CSS/HTML\n- SEO\n- C# - .NET Framework\n- C# - .NET Core\n- C# - Unity\n- GO - beego\n- GO - gin\n- Java - J2EE\n- Java - Spring (Boot)\n- Kotlin - Ktor\n- Kotlin - Spring Boot\n- Kotlin - Micronaut\n- Node.js - Express\n- Node.js - Koa.js\n- Node.js - Meteor\n- Node.js - Nest.js\n- PHP - Laravel\n- PHP - Symfony\n- Python - DS/DE\n- Python - Django\n- Python - Flask\n- Ruby - Rails\n- Ruby - Sintara\n- Business analysis\n- CMS - CraftCMS\n- CMS - Drupal\n- CMS - Strapi\n- CMS - Wordpress\n- Data Scientist\n- Data Engineer\n- Design - UI\n- Design - UX\n- DevOps - AWS\n- DevOps - Azure\n- DevOps - CI/CD\n- DevOps - GCP\n- DevOps - Linux/Unix\n- DevOps - Networking/Security\n- DevOps - Windows\n- Digital Marketing\n- Magento - e-comm\n- Shopify - e-comm\n- Sylius - e-comm\n- WooCommerce - e-comm\n- JS - Angular\n- JS - Next.js\n- JS - React\n- JS - Vue.js\n- Android\n- Flutter\n- iOS\n- ReactNative\n- Presales Engineer\n- Product Owner\n- Product Strategy\n- Project Management\n- QA - Automated testing\n- QA - Functional testing\n- QA - Manual testing\n- QA - Nonfunctional testing\n- Solution Architect\n- Support Engineer\n- AI - Computer Vision\n- AI - Data Management and Preparation\n- AI - Generative AI\n- AI - LLM\n- AI - Machine Learning\n- AI - MLOps & LLMOps\n- AI - N8N\n- AI - Neural Networks\n- AI - Agents\n- AI - NLP\n- AI - Prompt Engineering\n- AI - RAG\n\nMAPPING RULES FOR SKILLS:\n\n- \"wordpress\" → CMS - Wordpress\n- \"AWS\" -> DevOps - AWS\n- \"machine learning\" or \"ML\" → AI - Machine Learning\n- \"LLM\" or \"large language model\" → AI - LLM\n- \"RAG\" or \"retrieval augmented generation\" → AI - RAG\n- \"prompting\" or \"prompt engineering\" → AI - Prompt Engineering\n- DO NOT add skills just because a technology family is mentioned (e.g., \"nodejs\" doesn't mean all Node.js frameworks)\n- Return array of ONLY explicitly mentioned skills\n- If no specific skills mentioned, return empty array\n- Do not imply skills\n\nCRITICAL RULE - DO NOT INFER SKILLS FROM ROLES:\n\nWRONG EXTRACTIONS (DO NOT DO THIS):\nQuery: \"Find Python engineers\"\nWRONG: {\n  \"role\": \"Python Engineer\",\n  \"skills\": [\"Python - Django\", \"Python - Flask\"]  // BAD: INFERRED, NOT MENTIONED\n}\n\nQuery: \"Show React developers\"\nWRONG: {\n  \"role\": \"React Engineer\", \n  \"skills\": [\"JS - React\"]  // BAD: INFERRED, NOT MENTIONED\n}\n\nQuery: \"Mobile developers\"\nWRONG: {\n  \"role\": \"Mobile Engineer\",\n  \"skills\": [\"Android\", \"iOS\", \"Flutter\"]  // BAD :INFERRED, NOT MENTIONED\n}\n\nCORRECT EXTRACTIONS:\nQuery: \"Find Python engineers\"\nCORRECT: {\n  \"role\": \"Python Engineer\",\n  \"skills\": []  // GOOD: EMPTY - no skills explicitly mentioned\n}\n\nQuery: \"Show React developers\"\nCORRECT: {\n  \"role\": \"React Engineer\",\n  \"skills\": []  // GOOD: EMPTY - no skills explicitly mentioned\n}\n\nQuery: \"Python engineers with Django\"\nCORRECT: {\n  \"role\": \"Python Engineer\",\n  \"skills\": [\"Python - Django\"]  // GOOD: Django was explicitly mentioned\n}\n\nQuery: \"React developers who know Next.js\"\nCORRECT: {\n  \"role\": \"React Engineer\",\n  \"skills\": [\"JS - Next.js\"]  // GOOD: Next.js was explicitly mentioned\n}\n\nQuery: \"Someone with AWS experience\"\nCORRECT: {\n  \"role\": \"\",\n  \"skills\": [\"DevOps - AWS\"]  // GOOD: AWS was mentioned, no role specified\n}\n\nQuery: \"Backend developer with Python and Node\"\nCORRECT: {\n  \"role\": \"Python Engineer\",  // or could be Node.js Engineer\n  \"skills\": []  // GOOD: EMPTY - Python/Node are part of role selection, not separate skills\n}\n\nKEY PRINCIPLE:\n- Role defines the job title\n- Skills are ONLY added when explicitly mentioned as additional requirements\n- \"Python engineer\" means someone with the role, NOT someone with Python skills\n- Only extract skills when user says things like:\n  * \"with [skill]\"\n  * \"who knows [skill]\"\n  * \"experience in [skill]\"\n  * \"[skill] expertise\"\n\nPLURAL INTERPRETATION:\n\n- \"developers\" with no specificity → don't assign role\n\nROLE INFERENCE RULES - BE VERY STRICT:\n\nQuery: \"developers who know Django\"\nCORRECT: {\n  \"role\": \"\",  // EMPTY - \"developers\" is generic\n  \"skills\": [\"Python - Django\"]\n}\n\nQuery: \"find someone with React experience\"  \nCORRECT: {\n  \"role\": \"\",  // EMPTY - no role mentioned\n  \"skills\": [\"JS - React\"]\n}\n\nQuery: \"people with AWS\"\nCORRECT: {\n  \"role\": \"\",  // EMPTY - \"people\" is not a role\n  \"skills\": [\"DevOps - AWS\"]\n}\n\nQuery: \"engineers with Kubernetes\"\nCORRECT: {\n  \"role\": \"\",  // EMPTY - \"engineers\" too generic\n  \"skills\": [\"DevOps - CI/CD\"]  // or relevant K8s skill\n}\n\n\nKEY RULE: \nGeneric terms (developers, engineers, someone, people) = NO ROLE\nSpecific terms (Python engineers, React developers) = SET ROLE\n\n\nOR/AND DETECTION:\n- Words \"or\", \"/\" between terms → return array of both\n- Word \"and\" between different categories → separate fields\n- Word \"and\" within same category → return array\n\nReturn JSON with this schema:\n{\n    \"role\": \"string\",              // e.g., \"Node.js Engineer\"\n    \"seniority\": [\"array of seniorities or empty array\"] // e.g., [\"Senior 1, Senior 2\"],\n    \"employment_type\": \"string\" //e.g., Employee/Contractor\n    \"industries\": [\"array of industries or empty array\"],\n    \"skills\": [\"array of skills or empty array\"]\n}\n`;\n\nreturn {\n  json: {\n    userPrompt,\n    systemPrompt: systemPrompt\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        688,
+        -208
+      ],
+      "id": "cee98b01-5390-4a7b-b43e-08e0fc073806",
+      "name": "PreparePrompts - Knobs3"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "qwen3-coder-30b-32k",
+          "mode": "list",
+          "cachedResultName": "qwen3-coder-30b-32k"
+        },
+        "options": {
+          "responseFormat": "json_object",
+          "temperature": 0
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        1424,
+        -144
+      ],
+      "id": "e08c30df-1549-4c3f-bea9-256219cd2957",
+      "name": "Qwen3 30b3",
+      "credentials": {
+        "openAiApi": {
+          "id": "09tIxrZPXx1gwPgx",
+          "name": "vllm"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"skills\": [\"skills, only if explicit\"]\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        1568,
+        -160
+      ],
+      "id": "975da07c-84b5-46be-9229-058e8c2a9f6b",
+      "name": "JSON3"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.userPrompt }}",
+        "hasOutputParser": true,
+        "messages": {
+          "messageValues": [
+            {
+              "message": "={{ $json.systemPrompt }}"
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        1424,
+        -384
+      ],
+      "id": "6fea2e71-cdce-45d1-aa91-9930770b4730",
+      "name": "Skills Knob"
+    },
+    {
+      "parameters": {
+        "jsCode": "const chatInput = $('Fix Typos').first().json.output.cleanInput;\n\nconst systemPrompt = \"Extract technical skills from the user's request. You MUST return ONLY a valid JSON array. Every skill MUST be from the available skills list. Return empty array [] if no skills mentioned.\";\n\nconst userPrompt = `Extract skills from: \"${chatInput}\"\n\nAVAILABLE SKILLS (use EXACTLY as written):\nWeb Slice/CSS/HTML, SEO, C# - .NET Framework, C# - .NET Core, C# - Unity, GO - beego, GO - gin, Java - J2EE, Java - Spring (Boot), Kotlin - Ktor, Kotlin - Spring Boot, Kotlin - Micronaut, Node.js - Express, Node.js - Koa.js, Node.js - Meteor, Node.js - Nest.js, PHP - Laravel, PHP - Symfony, Python - DS/DE, Python - Django, Python - Flask, Ruby - Rails, Ruby - Sintara, Business analysis, CMS - CraftCMS, CMS - Drupal, CMS - Strapi, CMS - Wordpress, Data Scientist, Data Engineer, Design - UI, Design - UX, DevOps - AWS, DevOps - Azure, DevOps - CI/CD, DevOps - GCP, DevOps - Linux/Unix, DevOps - Networking/Security, DevOps - Windows, Digital Marketing, Magento - e-comm, Shopify - e-comm, Sylius - e-comm, WooCommerce - e-comm, JS - Angular, JS - Next.js, JS - React, JS - Vue.js, Android, Flutter, iOS, ReactNative, Presales Engineer, Product Owner, Product Strategy, Project Management, QA - Automated testing, QA - Functional testing, QA - Manual testing, QA - Nonfunctional testing, Solution Architect, Support Engineer, AI - Computer Vision, AI - Data Management and Preparation, AI - Generative AI, AI - LLM, AI - Machine Learning, AI - MLOps & LLMOps, AI - N8N, AI - Neural Networks, AI - Agents, AI - NLP, AI - Prompt Engineering, AI - RAG\n\nEXTRACTION APPROACH:\n1. Extract ONLY specific technologies, frameworks, and tools that are EXPLICITLY mentioned\n2. Skills are mentioned with trigger words: \"with\", \"knows\", \"using\", \"experience in\", \"skilled in\", \"worked with\", \"familiar with\", \"who knows\"\n3. DO NOT extract base technologies that define the role (e.g., \"Python\" in \"Python engineer\" is the role, not a skill)\n4. DO extract specific frameworks/tools even when mentioned alongside a role\n5. Return empty array [] if no specific additional skills are mentioned\n6. NEVER return skills that are not in the AVAILABLE SKILLS list\n\nCRITICAL RULES FOR QWEN3:\n- Role name technologies are NOT skills\n- \"Python engineer\" → [] (Python defines the role, not a separate skill)\n- \"React developer\" → [] (React defines the role, not a separate skill)\n- \"Node.js engineer\" → [] (Node.js defines the role, not a separate skill)\n- \"Mobile developer\" → [] (Mobile is the role category, not a skill)\n- ONLY extract when SPECIFIC frameworks/tools/platforms are mentioned BEYOND the role\n- \"Python engineer with Django\" → [\"Python - Django\"] (Django is specific and additional)\n- \"React developer who knows Next.js\" → [\"JS - Next.js\"] (Next.js is specific and additional)\n- \"Node.js engineer using Express\" → [\"Node.js - Express\"] (Express is specific)\n- \"Mobile developer with Flutter\" → [\"Flutter\"] (Flutter is specific platform)\n- Generic mentions without specifics → []\n- \"Backend developer\" → [] (no specific technology)\n- \"Frontend developer\" → [] (no specific framework)\n- \"DevOps engineer\" → [] (no specific cloud/tool)\n- Specific technology mentions → extract them\n- \"AWS experience\" → [\"DevOps - AWS\"]\n- \"Django and Flask experience\" → [\"Python - Django\", \"Python - Flask\"]\n\nSKILL MAPPINGS (extract when specifically mentioned):\n\nBACKEND FRAMEWORKS:\n- \"django\" → Python - Django\n- \"flask\" → Python - Flask\n- \"fastapi\" → Python - Flask (closest match)\n- \"express/express.js\" → Node.js - Express\n- \"nest/nestjs/nest.js\" → Node.js - Nest.js\n- \"koa/koa.js\" → Node.js - Koa.js\n- \"meteor\" → Node.js - Meteor\n- \"laravel\" → PHP - Laravel\n- \"symfony\" → PHP - Symfony\n- \"rails/ruby on rails/ror\" → Ruby - Rails\n- \"sinatra\" → Ruby - Sintara\n- \"spring boot/spring\" + java context → Java - Spring (Boot)\n- \"spring boot\" + kotlin context → Kotlin - Spring Boot\n- \"j2ee\" → Java - J2EE\n- \"ktor\" → Kotlin - Ktor\n- \"micronaut\" → Kotlin - Micronaut\n- \"beego\" → GO - beego\n- \"gin\" → GO - gin\n- \".net framework\" → C# - .NET Framework\n- \".net core\" → C# - .NET Core\n- \"unity/unity3d\" → C# - Unity\n\nFRONTEND FRAMEWORKS:\n- \"react\" (when additional to role or standalone) → JS - React\n- \"next/nextjs/next.js\" → JS - Next.js\n- \"angular\" → JS - Angular\n- \"vue/vuejs/vue.js\" → JS - Vue.js\n- \"html/css\" → Web Slice/CSS/HTML\n\nCMS PLATFORMS:\n- \"wordpress/wp\" → CMS - Wordpress\n- \"drupal\" → CMS - Drupal\n- \"strapi\" → CMS - Strapi\n- \"craftcms/craft cms\" → CMS - CraftCMS\n\nE-COMMERCE:\n- \"magento\" → Magento - e-comm\n- \"shopify\" → Shopify - e-comm\n- \"woocommerce\" → WooCommerce - e-comm\n- \"sylius\" → Sylius - e-comm\n\nMOBILE PLATFORMS:\n- \"android\" → Android\n- \"ios/swift/objective-c\" → iOS\n- \"flutter\" → Flutter\n- \"react native/reactnative/rn\" → ReactNative\n\nDEVOPS & CLOUD:\n- \"aws/amazon web services\" → DevOps - AWS\n- \"azure/microsoft azure\" → DevOps - Azure\n- \"gcp/google cloud/google cloud platform\" → DevOps - GCP\n- \"ci/cd/cicd/jenkins/github actions/gitlab ci\" → DevOps - CI/CD\n- \"linux/unix/bash\" → DevOps - Linux/Unix\n- \"windows/windows server\" → DevOps - Windows\n- \"networking/security/firewall/vpn\" → DevOps - Networking/Security\n\nAI & MACHINE LEARNING:\n- \"machine learning/ml/scikit\" → AI - Machine Learning\n- \"llm/large language model/gpt/claude\" → AI - LLM\n- \"rag/retrieval augmented generation\" → AI - RAG\n- \"prompt engineering/prompting/prompt design\" → AI - Prompt Engineering\n- \"computer vision/cv/opencv\" → AI - Computer Vision\n- \"generative ai/genai/gen ai\" → AI - Generative AI\n- \"nlp/natural language processing\" → AI - NLP\n- \"mlops/llmops\" → AI - MLOps & LLMOps\n- \"neural networks/deep learning/tensorflow/pytorch\" → AI - Neural Networks\n- \"ai agents/agentic/autonomous agents\" → AI - Agents\n- \"n8n\" → AI - N8N\n- \"data management/data prep/data pipeline\" → AI - Data Management and Preparation\n\nQA & TESTING:\n- \"automated testing/automation/selenium/cypress\" → QA - Automated testing\n- \"manual testing\" → QA - Manual testing\n- \"functional testing\" → QA - Functional testing\n- \"nonfunctional/performance/load testing\" → QA - Nonfunctional testing\n\nDESIGN:\n- \"ui design/user interface design/interface design\" → Design - UI\n- \"ux design/user experience/ux research\" → Design - UX\n\nOTHER:\n- \"seo/search engine optimization\" → SEO\n- \"business analysis/ba/requirements\" → Business analysis\n- \"digital marketing/marketing/sem\" → Digital Marketing\n- \"data science/data analysis\" → Data Scientist\n- \"data engineering/etl\" → Data Engineer\n- \"presales/pre-sales\" → Presales Engineer\n- \"product owner/po\" → Product Owner\n- \"product strategy/product management\" → Product Strategy\n- \"project management/pm/pmp/scrum\" → Project Management\n- \"solution architect/architecture\" → Solution Architect\n- \"support/technical support\" → Support Engineer\n\nEXAMPLES:\n\"Python engineer\" → []\n\"Python engineer with Django\" → [\"Python - Django\"]\n\"Python engineer with Django and Flask\" → [\"Python - Django\", \"Python - Flask\"]\n\"React developer\" → []\n\"React developer who knows Next.js\" → [\"JS - Next.js\"]\n\"Frontend developer\" → []\n\"Frontend developer with React\" → [\"JS - React\"]\n\"Frontend developer with React and Vue\" → [\"JS - React\", \"JS - Vue.js\"]\n\"Backend developer\" → []\n\"Backend developer with Python\" → []\n\"Backend developer using Django\" → [\"Python - Django\"]\n\"Node.js engineer\" → []\n\"Node.js engineer using Express\" → [\"Node.js - Express\"]\n\"Node.js engineer with Express and Nest\" → [\"Node.js - Express\", \"Node.js - Nest.js\"]\n\"Someone with AWS experience\" → [\"DevOps - AWS\"]\n\"DevOps engineer\" → []\n\"DevOps with AWS and Azure\" → [\"DevOps - AWS\", \"DevOps - Azure\"]\n\"Mobile developer\" → []\n\"Mobile developer with Flutter\" → [\"Flutter\"]\n\"iOS developer\" → []\n\"iOS and Android developer\" → [\"iOS\", \"Android\"]\n\"Data scientist\" → []\n\"Data scientist with machine learning\" → [\"AI - Machine Learning\"]\n\"ML engineer\" → []\n\"ML engineer with computer vision and NLP\" → [\"AI - Computer Vision\", \"AI - NLP\"]\n\"QA engineer\" → []\n\"QA with automation experience\" → [\"QA - Automated testing\"]\n\"WordPress developer\" → []\n\"WordPress developer with WooCommerce\" → [\"WooCommerce - e-comm\"]\n\"find me senior contractors in finance\" → []\n\"senior Python developers in finance\" → []\n\"Python developers with Django in healthcare\" → [\"Python - Django\"]\n\"need someone with React and Node.js experience\" → [\"JS - React\", \"Node.js - Express\"]\n\"developers who know AWS\" → [\"DevOps - AWS\"]\n\"full stack with React and Express\" → [\"JS - React\", \"Node.js - Express\"]\n\nIMPORTANT DISTINCTIONS:\n- Role-defining technology is NOT a skill\n- \"Python engineer\" = Python is the role (NOT a skill)\n- \"Python engineer with Django\" = Django is a skill (additional to role)\n- Generic role mention without specifics = no skills\n- \"Frontend developer\" = no skills (too generic)\n- Specific framework mention = extract it\n- \"Frontend with React\" = React is a skill\n- ONLY return skills that exist EXACTLY in the AVAILABLE SKILLS list above\n- NEVER invent or approximate skills\n\nTRIGGER WORDS FOR SKILLS:\nWhen you see these words, extract the technology that follows:\n- \"with\", \"using\", \"knows\", \"who knows\", \"experience in\", \"experienced in\", \"skilled in\", \"worked with\", \"familiar with\", \"background in\"\n\nVALIDATION RULES:\n1. Before returning any skill, verify it exists EXACTLY in the AVAILABLE SKILLS list\n2. If technology is part of the role name (Python engineer, React developer) → DO NOT extract as skill\n3. If technology is mentioned ADDITIONAL to role → DO extract as skill\n4. If no specific technologies mentioned → return []\n5. Generic terms without specifics → return []\n\nBE STRICT - return empty array [] when no explicit additional skills are mentioned beyond the role name. Only extract specific technologies/frameworks/tools from the AVAILABLE SKILLS list.\n\nReturn JSON array only:`;\n\nreturn {\n  json: {\n    userPrompt,\n    systemPrompt: systemPrompt\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1168,
+        -384
+      ],
+      "id": "39048ec9-26f8-4ced-a030-2d6a1506e1e5",
+      "name": "Prompt - Skills"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get the typo-corrected input\nconst cleanInput = $('Fix Typos').first().json.output.cleanInput.toLowerCase();\n\n// Role patterns - map variations to exact role names\n// Using (?:s|es)? to handle plurals: developer/developers, engineer/engineers, etc.\nconst rolePatterns = {\n  // Backend Engineers\n  'Node.js Engineer': /\\bnode(?:\\.?js)?[\\s-]*(?:developers?|engineers?|devs?|engs?)\\b/i,\n  'Python Engineer': /\\bpython[\\s-]*(?:developers?|engineers?|devs?|engs?)\\b/i,\n  'Java Engineer': /\\bjava[\\s-]*(?:developers?|engineers?|devs?|engs?)\\b/i,\n  'PHP Engineer': /\\bphp[\\s-]*(?:developers?|engineers?|devs?|engs?)\\b/i,\n  'Ruby Engineer': /\\bruby[\\s-]*(?:developers?|engineers?|devs?|engs?)\\b/i,\n  '.NET Engineer': /\\b(?:\\.net|dotnet|dot net|c#)[\\s-]*(?:developers?|engineers?|devs?|engs?)\\b/i,\n  \n  // Frontend Engineers\n  'React Engineer': /\\breact(?:\\.?js)?[\\s-]*(?:developers?|engineers?|devs?|engs?)\\b/i,\n  'Angular Engineer': /\\bangular(?:\\.?js)?[\\s-]*(?:developers?|engineers?|devs?|engs?)\\b/i,\n  'Vue.js Engineer': /\\bvue(?:\\.?js)?[\\s-]*(?:developers?|engineers?|devs?|engs?)\\b/i,\n  \n  // Specialized Engineers\n  'Mobile Engineer': /\\b(?:mobile|ios|android|flutter|react native)[\\s-]*(?:developers?|engineers?|devs?|engs?)\\b/i,\n  'WordPress Engineer': /\\b(?:wordpress|wp)[\\s-]*(?:developers?|engineers?|devs?|engs?)\\b/i,\n  'DevOps Engineer': /\\b(?:devops|dev ops|sre|site reliability)[\\s-]*(?:engineers?|engs?)\\b/i,\n  'QA Engineer': /\\b(?:qa|quality assurance|tests?|testers?|testing)[\\s-]*(?:engineers?|engs?|automation)\\b/i,\n  'AI Engineer': /\\b(?:ai|artificial intelligence|ml|machine learning)[\\s-]*(?:engineers?|engs?|developers?)\\b/i,\n  'Data Engineer': /\\bdata[\\s-]*engineers?\\b/i,\n  'Technical Support Engineer': /\\b(?:technical support|support|helpdesks?|help desks?)[\\s-]*(?:engineers?|engs?)\\b/i,\n  \n  // Data & Analysis\n  'Data Expert': /\\bdata[\\s-]*(?:scientists?|analysts?|specialists?|experts?)\\b/i,\n  'Business Analyst': /\\b(?:business analysts?|bas?|business analysis)\\b/i,\n  \n  // Design\n  'UI/UX Designer': /\\b(?:(?:ui|ux|user interface|user experience|product|ui\\/ux|ux\\/ui|web|graphic|visual)[\\s-]*designers?|designers?)\\b/i,\n  \n  // Management & Leadership\n  'Project Manager': /\\b(?:project managers?|pms?|scrum masters?|agile coachs?|agile coaches)\\b/i,\n  'Product owner': /\\b(?:product owners?|pos?|product managers?)\\b/i,\n  'Program manager': /\\bprogram[\\s-]*managers?\\b/i,\n  'Engineering Lead': /\\b(?:engineering leads?|tech leads?|technical leads?|team leads?|lead engineers?)\\b/i,\n  'Solution Architect': /\\b(?:solution architects?|solutions architects?|enterprise architects?|sas?)\\b/i,\n  \n  // Excellence Managers\n  'Manager of Frontend Excellence': /\\b(?:managers? of frontend excellence|frontend excellence managers?|frontend managers?)\\b/i,\n  'Manager of Design Excellence': /\\b(?:managers? of design excellence|design excellence managers?|design managers?)\\b/i,\n  'Manager of Project Management Excellence': /\\b(?:managers? of project management excellence|pm excellence|pmo managers?)\\b/i,\n  'Manager of BA Excellence': /\\b(?:managers? of ba excellence|ba excellence managers?|ba managers?)\\b/i,\n  'Centre of Excellence Head of Technology': /\\b(?:centre of excellence heads?|heads? of technology|ctos?|technology directors?)\\b/i,\n};\n\n// Special patterns for generic terms (with plurals)\nconst genericBackendPattern = /\\bbackends?[\\s-]*(?:developers?|engineers?|devs?|engs?)\\b/i;\nconst genericFrontendPattern = /\\bfrontends?[\\s-]*(?:developers?|engineers?|devs?|engs?)\\b/i;\nconst genericFullStackPattern = /\\bfull[\\s-]*stacks?[\\s-]*(?:developers?|engineers?|devs?|engs?)\\b/i;\n\n// Extract roles\nconst extractedRoles = new Set();\n\n// Check each role pattern\nfor (const [roleName, pattern] of Object.entries(rolePatterns)) {\n  if (pattern.test(cleanInput)) {\n    extractedRoles.add(roleName);\n  }\n}\n\n// Handle generic terms that map to multiple roles\nif (genericBackendPattern.test(cleanInput) && extractedRoles.size === 0) {\n  // Only add if no specific backend role was found\n  extractedRoles.add('Node.js Engineer');\n  extractedRoles.add('Python Engineer');\n  extractedRoles.add('Java Engineer');\n  extractedRoles.add('PHP Engineer');\n}\n\nif (genericFrontendPattern.test(cleanInput) && extractedRoles.size === 0) {\n  // Only add if no specific frontend role was found\n  extractedRoles.add('React Engineer');\n  extractedRoles.add('Angular Engineer');\n  extractedRoles.add('Vue.js Engineer');\n}\n\nif (genericFullStackPattern.test(cleanInput)) {\n  // Full stack can include both frontend and backend\n  extractedRoles.add('React Engineer');\n  extractedRoles.add('Node.js Engineer');\n  extractedRoles.add('Python Engineer');\n}\n\n// Return as array\nreturn {\n  json: {\n    roles: Array.from(extractedRoles)\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -320,
+        176
+      ],
+      "id": "dae89773-8269-4525-995c-47446d6cfe19",
+      "name": "Roles Regex"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get the typo-corrected input\nconst cleanInput = $('Fix Typos').first().json.output.cleanInput.toLowerCase();\n\n// Get extracted roles to avoid duplicating base technologies\nconst extractedRoles = $input.first().json.roles || [];\n\n// Trigger words that indicate a skill mention (not a role)\nconst triggerPattern = /\\b(?:with|knows?|using|experienced? in|skilled? in|worked with|familiar with|background in|proficient in|expertise in|has|have)\\b/i;\n\n// Check if the query has skill trigger words OR no role words\n// If no triggers and no role words, treat technologies as skills\nconst hasTriggers = triggerPattern.test(cleanInput);\nconst hasRoleWords = /\\b(?:developers?|engineers?|devs?|engs?|designer|architect|manager|analyst|owner|lead)\\b/i.test(cleanInput);\n\n// Skill patterns - map mentions to exact skill names\nconst skillPatterns = {\n  // Base Languages (map to all their frameworks)\n  'Python - Django': /\\b(?:python|django)\\b/i,\n  'Python - Flask': /\\b(?:python|flask)\\b/i,\n  'Python - DS/DE': /\\b(?:python|data science|data engineering|pandas|numpy|jupyter)\\b/i,\n  'Node.js - Express': /\\b(?:node(?:\\.?js)?|express(?:\\.js)?)\\b/i,\n  'Node.js - Nest.js': /\\b(?:node(?:\\.?js)?|nest(?:\\.js|js)?)\\b/i,\n  'Node.js - Koa.js': /\\b(?:node(?:\\.?js)?|koa(?:\\.js)?)\\b/i,\n  'Node.js - Meteor': /\\b(?:node(?:\\.?js)?|meteor(?:\\.js)?)\\b/i,\n  'PHP - Laravel': /\\b(?:php|laravel)\\b/i,\n  'PHP - Symfony': /\\b(?:php|symfony)\\b/i,\n  'Ruby - Rails': /\\b(?:ruby|rails|ruby on rails|ror)\\b/i,\n  'Ruby - Sintara': /\\b(?:ruby|sinatra)\\b/i,\n  'Java - Spring (Boot)': /\\b(?:java|spring(?:\\s+boot)?)\\b/i,\n  'Java - J2EE': /\\b(?:java|j2ee)\\b/i,\n  'Kotlin - Spring Boot': /\\b(?:kotlin|kotlin.*spring|spring.*kotlin)\\b/i,\n  'Kotlin - Ktor': /\\b(?:kotlin|ktor)\\b/i,\n  'Kotlin - Micronaut': /\\b(?:kotlin|micronaut)\\b/i,\n  'GO - beego': /\\b(?:go|golang|beego)\\b/i,\n  'GO - gin': /\\b(?:go|golang|gin)\\b/i,\n  'C# - .NET Framework': /\\b(?:c#|csharp|\\.net\\s+framework)\\b/i,\n  'C# - .NET Core': /\\b(?:c#|csharp|\\.net\\s+core)\\b/i,\n  'C# - Unity': /\\b(?:c#|csharp|unity(?:3d)?)\\b/i,\n  \n  // Frontend Frameworks (include base tech)\n  'JS - React': /\\b(?:javascript|js|react(?:\\.js)?)\\b/i,\n  'JS - Next.js': /\\b(?:javascript|js|next(?:\\.js|js)?)\\b/i,\n  'JS - Angular': /\\b(?:javascript|js|typescript|angular(?:\\.js|js)?)\\b/i,\n  'JS - Vue.js': /\\b(?:javascript|js|vue(?:\\.js|js)?)\\b/i,\n  'Web Slice/CSS/HTML': /\\b(?:html|css|html5|css3|sass|scss|less)\\b/i,\n  \n  // CMS Platforms (include \"cms\" keyword)\n  'CMS - Wordpress': /\\b(?:cms|wordpress|wp)\\b/i,\n  'CMS - Drupal': /\\b(?:cms|drupal)\\b/i,\n  'CMS - Strapi': /\\b(?:cms|strapi|headless cms)\\b/i,\n  'CMS - CraftCMS': /\\b(?:cms|craftcms|craft cms)\\b/i,\n  \n  // E-commerce (include \"ecommerce\" keyword)\n  'Magento - e-comm': /\\b(?:ecommerce|e-commerce|magento)\\b/i,\n  'Shopify - e-comm': /\\b(?:ecommerce|e-commerce|shopify)\\b/i,\n  'WooCommerce - e-comm': /\\b(?:ecommerce|e-commerce|woocommerce)\\b/i,\n  'Sylius - e-comm': /\\b(?:ecommerce|e-commerce|sylius)\\b/i,\n  \n  // Mobile (include \"mobile\" keyword)\n  'Android': /\\b(?:mobile|android)\\b/i,\n  'iOS': /\\b(?:mobile|ios|swift|objective-c)\\b/i,\n  'Flutter': /\\b(?:mobile|flutter)\\b/i,\n  'ReactNative': /\\b(?:mobile|react\\s+native)\\b/i,\n  \n  // DevOps & Cloud (include \"devops\" and \"cloud\" keywords)\n  'DevOps - AWS': /\\b(?:devops|cloud|aws|amazon web services)\\b/i,\n  'DevOps - Azure': /\\b(?:devops|cloud|azure|microsoft azure)\\b/i,\n  'DevOps - GCP': /\\b(?:devops|cloud|gcp|google cloud|google cloud platform)\\b/i,\n  'DevOps - CI/CD': /\\b(?:devops|ci\\/cd|cicd|jenkins|github actions|gitlab ci|circleci|travis|continuous integration|continuous deployment)\\b/i,\n  'DevOps - Linux/Unix': /\\b(?:devops|linux|unix|bash|shell)\\b/i,\n  'DevOps - Windows': /\\b(?:devops|windows server|windows)\\b/i,\n  'DevOps - Networking/Security': /\\b(?:devops|networking|security|firewall|vpn|ssl|tls|cybersecurity)\\b/i,\n  \n  // AI & ML (include \"ai\" and \"ml\" base keywords)\n  'AI - Machine Learning': /\\b(?:ai|artificial intelligence|machine learning|ml|scikit-learn|scikit)\\b/i,\n  'AI - LLM': /\\b(?:ai|artificial intelligence|llm|large language model|gpt|claude|llama|language model)\\b/i,\n  'AI - RAG': /\\b(?:ai|rag|retrieval augmented generation|retrieval)\\b/i,\n  'AI - Prompt Engineering': /\\b(?:ai|prompt engineering|prompting|prompt design)\\b/i,\n  'AI - Computer Vision': /\\b(?:ai|computer vision|cv|opencv|image recognition|image processing)\\b/i,\n  'AI - Generative AI': /\\b(?:ai|artificial intelligence|generative ai|genai|gen ai|generative)\\b/i,\n  'AI - NLP': /\\b(?:ai|nlp|natural language processing|language processing|text processing)\\b/i,\n  'AI - MLOps & LLMOps': /\\b(?:ai|mlops|llmops|ml ops|llm ops)\\b/i,\n  'AI - Neural Networks': /\\b(?:ai|neural networks?|deep learning|tensorflow|pytorch|keras)\\b/i,\n  'AI - Agents': /\\b(?:ai|ai agents?|agentic|autonomous agents?)\\b/i,\n  'AI - N8N': /\\b(?:ai|n8n|workflow automation)\\b/i,\n  'AI - Data Management and Preparation': /\\b(?:ai|data (?:management|prep|preparation|pipeline|cleaning|wrangling))\\b/i,\n  \n  // QA (include \"qa\" and \"testing\" base keywords)\n  'QA - Automated testing': /\\b(?:qa|quality assurance|testing|automated? testing|automation|selenium|cypress|playwright|test automation)\\b/i,\n  'QA - Manual testing': /\\b(?:qa|quality assurance|testing|manual testing)\\b/i,\n  'QA - Functional testing': /\\b(?:qa|quality assurance|testing|functional testing)\\b/i,\n  'QA - Nonfunctional testing': /\\b(?:qa|quality assurance|testing|nonfunctional|performance|load|stress) testing\\b/i,\n  \n  // Design (include \"design\" base keyword)\n  'Design - UI': /\\b(?:design|ui design|user interface|interface design|figma|sketch|adobe xd)\\b/i,\n  'Design - UX': /\\b(?:design|ux design|user experience|ux research|usability)\\b/i,\n  \n  // Other\n  'SEO': /\\b(?:seo|search engine optimization)\\b/i,\n  'Business analysis': /\\b(?:business analysis|requirements|user stories)\\b/i,\n  'Digital Marketing': /\\b(?:digital marketing|marketing|sem|social media marketing)\\b/i,\n  'Data Scientist': /\\bdata scienc(?:e|ist)\\b/i,\n  'Data Engineer': /\\bdata engineering\\b/i,\n  'Product Strategy': /\\bproduct strategy\\b/i,\n  'Project Management': /\\b(?:project management|pmp|scrum|agile|kanban)\\b/i,\n  'Presales Engineer': /\\b(?:presales|pre-sales)\\b/i,\n  'Product Owner': /\\bproduct owner\\b/i,\n  'Solution Architect': /\\bsolution architect(?:ure)?\\b/i,\n  'Support Engineer': /\\b(?:technical support|customer support)\\b/i,\n};\n\n// Extract skills\nconst extractedSkills = new Set();\n\n// Strategy:\n// 1. If trigger words present → extract all matching skills\n// 2. If no trigger words BUT no role words → extract skills (skill-only query)\n// 3. If role words present but no triggers → don't extract base tech as skills\n\nif (hasTriggers || (!hasTriggers && !hasRoleWords)) {\n  // Extract skills when triggers present OR when it's a pure skill query\n  for (const [skillName, pattern] of Object.entries(skillPatterns)) {\n    if (pattern.test(cleanInput)) {\n      extractedSkills.add(skillName);\n    }\n  }\n}\n\n// Filter out base technologies that match extracted roles\n// e.g., if role is \"React Engineer\", don't add \"JS - React\" as a skill\nconst roleTechMapping = {\n  'React Engineer': ['JS - React'],\n  'Angular Engineer': ['JS - Angular'],\n  'Vue.js Engineer': ['JS - Vue.js'],\n  'Node.js Engineer': [], // Keep Node frameworks as they're specific\n  'Python Engineer': [], // Keep Python frameworks as they're specific\n  'PHP Engineer': [], // Keep PHP frameworks as they're specific\n  'Ruby Engineer': [], // Keep Ruby frameworks as they're specific\n  'Java Engineer': [], // Keep Java frameworks as they're specific\n  'WordPress Engineer': ['CMS - Wordpress'],\n  'Mobile Engineer': [], // Keep specific mobile platforms\n  'DevOps Engineer': [], // Keep specific DevOps skills\n  'QA Engineer': [], // Keep specific QA skills\n  'AI Engineer': [], // Keep specific AI skills\n  'Data Engineer': [],\n  'UI/UX Designer': ['Design - UI', 'Design - UX'],\n};\n\n// Remove exact role base technologies\nfor (const role of extractedRoles) {\n  const baseTechs = roleTechMapping[role] || [];\n  for (const baseTech of baseTechs) {\n    extractedSkills.delete(baseTech);\n  }\n}\n\n// Return as array\nreturn {\n  json: {\n    skills: Array.from(extractedSkills)\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -96,
+        176
+      ],
+      "id": "4acd357a-50f2-4c24-8c54-c9e52f32afeb",
+      "name": "Skills Regex"
+    }
+  ],
+  "pinData": {},
+  "repo_name": "n8n-backup-zm",
+  "repo_owner": "zlatkomq",
+  "repo_path": "",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-09-29T11:07:48.915Z",
+      "updatedAt": "2025-09-29T11:07:48.915Z",
+      "role": "workflow:owner",
+      "workflowId": "oiDh643KBesTwbL7",
+      "projectId": "NM7VZoSXkcKo262s"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-10-01T22:50:34.163Z",
+  "versionId": "b7a6d45f-41d0-4f34-8e93-fc3c54e61eb3"
+}
