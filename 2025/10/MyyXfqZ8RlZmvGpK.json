@@ -1,0 +1,158 @@
+{
+  "active": true,
+  "connections": {
+    "Project Mapping": {
+      "main": [
+        [
+          {
+            "node": "Teamwork API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Google Calendar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Calendar": {
+      "main": [
+        [
+          {
+            "node": "Project Mapping",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-10-20T13:41:06.807Z",
+  "id": "MyyXfqZ8RlZmvGpK",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Log full-day absence time in Teamwork",
+  "nodes": [
+    {
+      "parameters": {
+        "jsCode": "// CONFIG\nconst tz = 'Europe/Zagreb';\nconst TIMEOFF_PROJECT_ID = 317661;\nconst HOLIDAY_TASK_ID    = 13610964;\nconst SICK_TASK_ID       = 13610965;\n\n// Helpers\nconst isAllDay  = ev => !!(ev.start?.date) && !ev.start?.dateTime;\nconst isOOOType = ev => ev.eventType === 'outOfOffice';\nconst lower     = s => (s || '').toLowerCase();\n\n// Pull all calendar events from previous node\nconst input = await $input.all();\n\n// \"Today\" window in local tz\nconst nowLocal   = new Date(new Date().toLocaleString('en-US', { timeZone: tz }));\nconst todayStart = new Date(nowLocal.getFullYear(), nowLocal.getMonth(), nowLocal.getDate());\nconst todayEndEx = new Date(todayStart.getTime() + 24*60*60*1000);\n\n// Scan only ALL-DAY events that overlap today\nlet timeOffType = null;\nlet timeOffSummary = '';\n\nfor (const { json: ev } of input) {\n  if (!isAllDay(ev)) continue;\n\n  const s = lower(ev.summary);\n  const start = new Date(`${ev.start.date}T00:00:00`);\n  const endEx = new Date(`${ev.end.date}T00:00:00`); // Google all-day end is exclusive\n  const overlapsToday = start < todayEndEx && endEx > todayStart;\n  if (!overlapsToday) continue;\n\n  const isSick    = /(^|\\b)sick(\\b|$)/.test(s);\n  const isHoliday = /(holiday|pto|vacation|annual\\s+leave)/.test(s) || isOOOType(ev);\n\n  if (isSick || isHoliday) {\n    timeOffType = isSick ? 'Sick' : 'Holiday';\n    timeOffSummary = ev.summary || timeOffType;\n    break; // one is enough\n  }\n}\n\n// If we have a match, emit ONE time entry; otherwise emit NOTHING\nif (timeOffType) {\n  const date = todayStart.toLocaleDateString('en-CA', { timeZone: tz }); // YYYY-MM-DD\n  return [\n    {\n      json: {\n        summary   : `${timeOffType} - ${timeOffSummary}`,\n        date,\n        time      : '09:00:00',\n        duration  : 450, // 7h30m\n        projectId : TIMEOFF_PROJECT_ID,\n        taskId    : timeOffType === 'Holiday' ? HOLIDAY_TASK_ID : SICK_TASK_ID,\n        isTimeOff : true\n      }\n    }\n  ];\n}\n\nreturn []; // <- meetings and everything else are ignored, next node won’t run\n"
+      },
+      "name": "Project Mapping",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [
+        432,
+        0
+      ],
+      "id": "b517a7bf-69fd-4f26-a5e1-a322c1919a0a"
+    },
+    {
+      "parameters": {
+        "authentication": "basicAuth",
+        "requestMethod": "POST",
+        "url": "={{ $json.hasTask\n     ? `https://teamwork.q.agency/projects/api/v3/tasks/${$json.taskId}/time.json`\n     : `https://teamwork.q.agency/projects/api/v3/projects/${$json.projectId}/time.json`\n}}\n",
+        "jsonParameters": true,
+        "options": {},
+        "sendBinaryData": "={{ false }}",
+        "bodyParametersJson": "={\n  \"timelog\": {\n    \"description\": \"{{ $json.summary }}\",\n    \"date\": \"{{ $json.date }}\",\n    \"time\": \"{{ $json.time }}\",         \n    \"hours\": {{ Math.floor($json.duration / 60) }},\n    \"minutes\": {{ $json.duration % 60 }},\n    \"isBillable\": false{{ $json.hasTask ? ',\\n       \"taskId\": ' + $json.taskId : '' }}\n  }\n}"
+      },
+      "name": "Teamwork API",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        624,
+        0
+      ],
+      "id": "b1fcc1ba-e877-4282-82f3-d6b52a3fabef",
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "Mo7KyBs7WU7COTqo",
+          "name": "Teamwork credential"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "calendar": {
+          "__rl": true,
+          "value": "anka@q.agency",
+          "mode": "list",
+          "cachedResultName": "anka@q.agency"
+        },
+        "returnAll": true,
+        "timeMin": "={{ $now.minus(12, 'hours') }}",
+        "timeMax": "={{ $now }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.3,
+      "position": [
+        208,
+        0
+      ],
+      "id": "273216a4-86d5-4c65-9d88-83323f1f757c",
+      "name": "Google Calendar",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "G3pdNAEdNtZPwgYF",
+          "name": "Google Calendar account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 18
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "2e9ad005-7900-474a-94c4-6eb23f79729d",
+      "name": "Schedule Trigger"
+    }
+  ],
+  "pinData": {},
+  "repo_name": "n8n-backup-zm",
+  "repo_owner": "zlatkomq",
+  "repo_path": "",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-10-20T13:41:06.807Z",
+      "updatedAt": "2025-10-20T13:41:06.807Z",
+      "role": "workflow:owner",
+      "workflowId": "MyyXfqZ8RlZmvGpK",
+      "projectId": "YbrvtVx5Nzf4nvjB"
+    }
+  ],
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": []
+    }
+  },
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-10-20T13:58:25.523Z",
+  "versionId": "0563bb68-7c40-4090-a100-063d3781c238"
+}
