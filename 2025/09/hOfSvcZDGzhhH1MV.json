@@ -1,0 +1,236 @@
+{
+  "active": false,
+  "connections": {
+    "Get Company": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upsert Contacts": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get many deals in HubSpot": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create an engagement in HubSpot": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search contacts in HubSpot": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-09-23T20:28:30.066Z",
+  "id": "hOfSvcZDGzhhH1MV",
+  "isArchived": true,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "My workflow 4",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## HubSpot MCP srv\n\n- main operator for HubSpot objects",
+        "height": 544,
+        "width": 488,
+        "color": 4
+      },
+      "id": "f14971b9-ae0f-492a-9660-4f54a2d5a347",
+      "name": "Note2",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        544,
+        -304
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "path": "1713cd2c-a44b-483d-a87e-c133a855705e/sse"
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpTrigger",
+      "typeVersion": 2,
+      "position": [
+        624,
+        -160
+      ],
+      "id": "62e65f55-6a9d-4556-8529-461ac5acd20d",
+      "name": "MCP Server Trigger",
+      "webhookId": "***Secret***"
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "company",
+        "operation": "getRecentlyCreatedUpdated",
+        "returnAll": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Return_All', ``, 'boolean') }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.hubspotTool",
+      "typeVersion": 2.1,
+      "position": [
+        848,
+        64
+      ],
+      "id": "29d79edf-4404-47c8-86e6-4ea6cb188feb",
+      "name": "Get Company",
+      "credentials": {
+        "hubspotOAuth2Api": {
+          "id": "bjy4PGxwwdDJQ5Ud",
+          "name": "HubSpot account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "email": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Email', ``, 'string') }}",
+        "additionalFields": {
+          "firstName": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('First_Name', ``, 'string') }}",
+          "lastName": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Last_Name', ``, 'string') }}",
+          "phoneNumber": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Phone_Number', ``, 'string') }}",
+          "workEmail": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Work_Email', ``, 'string') }}"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.hubspotTool",
+      "typeVersion": 2.1,
+      "position": [
+        640,
+        64
+      ],
+      "id": "464666b9-3c9f-4372-abf7-cd3091a87d09",
+      "name": "Upsert Contacts",
+      "credentials": {
+        "hubspotOAuth2Api": {
+          "id": "bjy4PGxwwdDJQ5Ud",
+          "name": "HubSpot account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "deal",
+        "operation": "getAll",
+        "filters": {}
+      },
+      "type": "n8n-nodes-base.hubspotTool",
+      "typeVersion": 2.2,
+      "position": [
+        1056,
+        80
+      ],
+      "id": "6cc755da-d80b-4caa-a980-f7dc64fb5d0e",
+      "name": "Get many deals in HubSpot",
+      "credentials": {
+        "hubspotOAuth2Api": {
+          "id": "bjy4PGxwwdDJQ5Ud",
+          "name": "HubSpot account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "engagement",
+        "type": "email",
+        "metadata": {},
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.hubspotTool",
+      "typeVersion": 2.2,
+      "position": [
+        336,
+        64
+      ],
+      "id": "45a48520-b05c-4b48-98b3-e94166350130",
+      "name": "Create an engagement in HubSpot",
+      "credentials": {
+        "hubspotOAuth2Api": {
+          "id": "bjy4PGxwwdDJQ5Ud",
+          "name": "HubSpot account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "operation": "search",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.hubspotTool",
+      "typeVersion": 2.2,
+      "position": [
+        1200,
+        -48
+      ],
+      "id": "950d3bf1-bed2-4c05-945f-90af4c5b54f9",
+      "name": "Search contacts in HubSpot",
+      "credentials": {
+        "hubspotOAuth2Api": {
+          "id": "bjy4PGxwwdDJQ5Ud",
+          "name": "HubSpot account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "repo_name": "n8n-backup-zm",
+  "repo_owner": "zlatkomq",
+  "repo_path": "",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-09-23T20:28:30.066Z",
+      "updatedAt": "2025-09-23T20:28:30.066Z",
+      "role": "workflow:owner",
+      "workflowId": "hOfSvcZDGzhhH1MV",
+      "projectId": "NM7VZoSXkcKo262s"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-09-23T21:31:23.471Z",
+  "versionId": "3e2c1aa7-64dc-4e28-adc5-dd05e1a62382"
+}
