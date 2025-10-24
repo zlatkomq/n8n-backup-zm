@@ -5,7 +5,7 @@
       "main": [
         [
           {
-            "node": "PreparePrompts1",
+            "node": "ChatInput",
             "type": "main",
             "index": 0
           }
@@ -23,16 +23,6 @@
         ]
       ]
     },
-    "OpenAI Chat Model": {
-      "ai_languageModel": [
-        []
-      ]
-    },
-    "Anthropic Chat Model": {
-      "ai_languageModel": [
-        []
-      ]
-    },
     "VLLM": {
       "ai_languageModel": [
         [
@@ -48,7 +38,7 @@
       "main": [
         [
           {
-            "node": "Rerank",
+            "node": "PreparePrompts",
             "type": "main",
             "index": 0
           }
@@ -70,19 +60,8 @@
       "ai_languageModel": [
         [
           {
-            "node": "Prepare Query",
+            "node": "Prepare Knobs",
             "type": "ai_languageModel",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "PreparePrompts1": {
-      "main": [
-        [
-          {
-            "node": "Prepare Query",
-            "type": "main",
             "index": 0
           }
         ]
@@ -93,18 +72,100 @@
         []
       ]
     },
-    "Prepare Query": {
+    "Semantic Query": {
       "main": [
         [
           {
-            "node": "Code",
+            "node": "Format Documents",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Code": {
+    "Create Rerank Query": {
+      "main": [
+        [
+          {
+            "node": "Rerank - Qwen3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Full Resource Info": {
+      "main": [
+        [
+          {
+            "node": "Prepare output",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Knobs": {
+      "main": [
+        [
+          {
+            "node": "Knobs Formated",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "PreparePrompts - Knobs": {
+      "main": [
+        [
+          {
+            "node": "Prepare Knobs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "VLLM2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Prepare Query",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "PreparePrompts - Query": {
+      "main": [
+        [
+          {
+            "node": "Prepare Query",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Query": {
+      "main": [
+        []
+      ]
+    },
+    "Knobs Formated": {
+      "main": [
+        [
+          {
+            "node": "Generate Reranking Instructions - Soft Prio",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Reranking Instructions - Soft Prio": {
       "main": [
         [
           {
@@ -115,16 +176,33 @@
         ]
       ]
     },
-    "OpenAI Chat Model1": {
-      "ai_languageModel": [
-        []
-      ]
-    },
-    "Semantic Query": {
+    "Format Documents": {
       "main": [
         [
           {
-            "node": "Prepare output",
+            "node": "Create Rerank Query",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Rerank - Qwen3": {
+      "main": [
+        [
+          {
+            "node": "Get Full Resource Info",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ChatInput": {
+      "main": [
+        [
+          {
+            "node": "PreparePrompts - Knobs",
             "type": "main",
             "index": 0
           }
@@ -147,7 +225,7 @@
       "type": "@n8n/n8n-nodes-langchain.chatTrigger",
       "typeVersion": 1.3,
       "position": [
-        -736,
+        -976,
         -400
       ],
       "id": "51ca9f1d-6a2e-4634-aa22-8a58e8dc947a",
@@ -176,7 +254,7 @@
             },
             {
               "name": "prompt",
-              "value": "={{ $json.denseQueryText }}"
+              "value": "={{ $json.finalQuery }}"
             }
           ]
         },
@@ -187,59 +265,9 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        272,
+        576,
         -400
       ]
-    },
-    {
-      "parameters": {
-        "model": {
-          "__rl": true,
-          "value": "gpt-4.1-mini",
-          "mode": "list",
-          "cachedResultName": "gpt-4.1-mini"
-        },
-        "options": {}
-      },
-      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
-      "typeVersion": 1.2,
-      "position": [
-        -272,
-        32
-      ],
-      "id": "f884d351-e24e-4508-b2e3-32a35b9f687c",
-      "name": "OpenAI Chat Model",
-      "credentials": {
-        "openAiApi": {
-          "id": "8CvuVJ8cItZcxDOX",
-          "name": "OpenAi account 2"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "model": {
-          "__rl": true,
-          "value": "claude-3-5-sonnet-20241022",
-          "mode": "list",
-          "cachedResultName": "Claude Sonnet 3.5 (New)"
-        },
-        "options": {}
-      },
-      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
-      "typeVersion": 1.3,
-      "position": [
-        -288,
-        -176
-      ],
-      "id": "3fd12aad-ef77-4e4e-a7f8-763f44acfb26",
-      "name": "Anthropic Chat Model",
-      "credentials": {
-        "anthropicApi": {
-          "id": "BVejEoXr4J9auxgo",
-          "name": "Anthropic account 2"
-        }
-      }
     },
     {
       "parameters": {
@@ -256,8 +284,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1.2,
       "position": [
-        1696,
-        -176
+        2688,
+        -208
       ],
       "id": "9cb5e07f-f507-4664-b1e6-9bdbd6573afc",
       "name": "VLLM",
@@ -270,12 +298,12 @@
     },
     {
       "parameters": {
-        "jsCode": "const chatInput = $('When chat message received').first().json.chatInput\nconst contextForPrompt = $input.first().json.contextCandidatesMd\n\nconst systemPrompt = \"You are an AI assistant that helps pick employees for tasks and projects. Use ONLY the candidate snippets provided below.  Do NOT invent skills or industries. If a candidate clearly misses a must-have, you may omit them. Return a concise, useful answer.\";\n\n// 3. Define the user prompt\nconst userPrompt = `USER REQUEST:\n${chatInput}\n\nCANDIDATE SNIPPETS (already sorted by semantic relevance; DO NOT change order):\n${contextForPrompt}\n\nINSTRUCTIONS:\n- Keep candidate order as-is.\n- For each included candidate, show:\n  • name (required)\n  id\n  employment_type\n  • role/section and seniority (if present in the snippet)\n  • 2–4 directly relevant skills/tech terms mentioned in the snippet\n  • 1–2 relevant industries/domains from the snippet that match the request\n  • A 2-line rationale grounded in the snippet (quote short phrases if helpful)\n- Prefer 3–5 candidates unless fewer obviously match.\n- If none match the must-haves, say so briefly.\n\nFORMAT:\nProvide a short paragraph summary, then a bullet list of candidates. If there no valid candidates, do not show them.\n`;\n\nreturn {\n  json: {\n    userPrompt,\n    systemPrompt: systemPrompt\n  }\n};"
+        "jsCode": "const chatInput = $('When chat message received').first().json.chatInput\nconst contextForPrompt = $input.first().json.llm_context\n\nconst systemPrompt = \"You are an AI assistant that helps pick employees for tasks and projects. Use ONLY the candidate snippets provided below.  Do NOT invent skills or industries. If a candidate clearly misses a must-have, you may omit them. Return a concise, useful answer.\";\n\n// 3. Define the user prompt\nconst userPrompt = `USER REQUEST:\n${chatInput}\n\nINSTRUCTIONS: $('Generate Reranking Instructions - Soft Prio').first().json.instruction\n\nFORMAT:\n- For each included candidate, show:\n  • name (required)\n  id\n  employment_type\n  • role/section and seniority (if present in the snippet)\n  • 2–4 directly relevant skills/tech terms mentioned in the snippet\n  • 1–2 relevant industries/domains from the snippet that match the request\n  • A 2-3 line rationale grounded in the snippet (quote short phrases if helpful)\n- Prefer 3–5 candidates unless fewer obviously match.\n- If none match the must-haves, say so briefly.\nProvide a short paragraph summary, then a bullet list of candidates. If there no valid candidates, do not show them.\n\nCANDIDATE SNIPPETS:\n${contextForPrompt}\n`;\n\nreturn {\n  json: {\n    userPrompt,\n    systemPrompt: systemPrompt\n  }\n};"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1520,
+        2448,
         -400
       ],
       "id": "f4bc4d1a-82b6-4814-bad6-ab59deada463",
@@ -283,29 +311,16 @@
     },
     {
       "parameters": {
-        "jsCode": "// n8n Function node — Supabase rows -> JSONL + Markdown (order preserved, no rerank)\n// Outputs:\n//   - contextCandidatesJsonl : one-JSON-object-per-line (best for GPT-5)\n//   - contextCandidatesMd    : fenced YAML-like blocks (prompt-friendly Markdown)\n//\n// Optional inputs via incoming item (json):\n//   MAX_TOTAL        : cap candidates (default 10)\n//   CHARS_PER_TEXT   : truncate long bios/snippets (default 1200)\n\nconst MAX_TOTAL = $json.MAX_TOTAL ?? 10;\nconst CHARS_PER_TEXT = $json.CHARS_PER_TEXT ?? 1200;\n\n// Helpers\nfunction splitList(v) {\n  if (!v || typeof v !== 'string') return [];\n  return v.split(',').map(s => s.trim()).filter(Boolean);\n}\nfunction esc(str) {\n  return String(str ?? '').replace(/\"/g, '\\\\\"');\n}\nfunction quoteList(arr) {\n  return `[${arr.map(x => `\"${esc(x)}\"`).join(', ')}]`;\n}\n\n// 1) Gather rows from upstream nodes\nconst incoming = await $input.all();\nlet rows = [];\nif (incoming.length === 1 && Array.isArray(incoming[0].json)) {\n  rows = incoming[0].json;\n} else if (incoming.length === 1 && Array.isArray(incoming[0].json.data)) {\n  rows = incoming[0].json.data;\n} else if (incoming.length === 0 && Array.isArray($json.rows)) {\n  rows = $json.rows;\n} else {\n  rows = incoming.map(i => i.json);\n}\nif (!Array.isArray(rows)) throw new Error('Expected an array of Supabase rows.');\n\n// 2) Preserve received order (assumed already sorted by similarity)\nrows = rows.slice(0, MAX_TOTAL);\n\n// 3) Build JSONL + Markdown\nconst jsonlLines = [];\nconst mdBlocks = [];\n\nrows.forEach((r, i) => {\n  const rank = i + 1;\n  const textRaw = String(r.embedding_convo_text ?? '').replace(/\\s+/g, ' ').trim();\n  const text = textRaw.length > CHARS_PER_TEXT ? textRaw.slice(0, CHARS_PER_TEXT) + '…' : textRaw;\n\n  const industries = splitList(r.industry);\n  const skillsSenior = splitList(r.skills_senior);\n  const skillsMedium = splitList(r.skills_medium);\n  const skillsJunior = splitList(r.skills_junior);\n  const similarity = typeof r.similarity === 'number' ? Number(r.similarity) : null;\n\n  // JSONL (machine-friendly for GPT-5)\n  jsonlLines.push(JSON.stringify({\n    rank,\n    id: r.id ?? null,\n    name: r.name ?? null,\n    role: r.section ?? null,\n    seniority: r.seniority ?? null,\n    employment_type: r.employment_type ?? null,\n    industries,\n    skills: {\n      senior: skillsSenior,\n      medium: skillsMedium,\n      junior: skillsJunior,\n    },\n    similarity,\n    text,\n    notes: r.notes ?? null,\n    certs: r.certs ?? null,\n  }));\n\n  // Markdown (prompt-friendly, fenced YAML-ish per candidate)\n  const md = [\n    '```candidate',\n    `rank: ${rank}`,\n    `id: \"${esc(r.id ?? '')}\"`,\n    `name: \"${esc(r.name ?? '')}\"`,\n    `role: \"${esc(r.section ?? '')}\"`,\n    `seniority: \"${esc(r.seniority ?? '')}\"`,\n    `employment_type: \"${esc(r.employment_type ?? '')}\"`,\n    `similarity: ${similarity === null ? 'null' : similarity.toFixed(3)}`,\n    `industries: ${quoteList(industries)}`,\n    'skills:',\n    `  senior: ${quoteList(skillsSenior)}`,\n    `  medium: ${quoteList(skillsMedium)}`,\n    `  junior: ${quoteList(skillsJunior)}`,\n    `notes: \"${esc(r.notes ?? '')}\"`,\n    `certs: \"${esc(r.certs ?? '')}\"`,\n    `text: \"${esc(text)}\"`,\n    '```',\n  ].join('\\n');\n\n  mdBlocks.push(md);\n});\n\n// 4) Output\nreturn [{\n  json: {\n    contextCandidatesJsonl: jsonlLines.join('\\n'),\n    contextCandidatesMd: mdBlocks.join('\\n\\n')\n  }\n}];\n"
+        "jsCode": "/**\n * n8n Function node: Build LLM-friendly context from selected profiles\n *\n * INPUT (items): an array where each item looks like:\n *   {\n *     json: {\n *       profile: { json: { id, name, industry, description, skills_senior, ... , embedding_facts_text, similarity } },\n *       relevance_score?: number, // optional (from reranker)\n *       score?: number            // optional alias\n *     }\n *   }\n *\n * OUTPUT (one item):\n *   {\n *     json: {\n *       llm_context: \"CONTEXT_START\\n...\\nCONTEXT_END\",\n *       candidates: [ ... ] // optional structured echo for debugging or downstream use\n *     }\n *   }\n */\n\nconst MAX_DESC_CHARS = 450; // keep it concise for prompts\nconst MAX_SKILLS = 10;      // limit skills to avoid prompt bloat\n\nfunction collapse(s) {\n  return (s ?? \"\").toString().replace(/\\s+/g, \" \").trim();\n}\n\nfunction truncate(s, n) {\n  s = collapse(s);\n  return s.length > n ? s.slice(0, n - 1) + \"…\" : s;\n}\n\nfunction normSeniority(s) {\n  const t = collapse(s);\n  // Normalize variants like \"Senior 1/2/3\" → \"Senior\"\n  const senior = t.replace(/Senior\\s*\\d+/i, \"Senior\");\n  // You can add more mappings if needed (e.g., \"Med 2\" → \"Mid\")\n  return senior;\n}\n\nfunction listify(csv, limit = Infinity) {\n  const arr = collapse(csv)\n    .split(/\\s*,\\s*/)\n    .filter(Boolean);\n  return limit === Infinity ? arr : arr.slice(0, limit);\n}\n\nfunction uniq(arr) {\n  const seen = new Set();\n  const out = [];\n  for (const v of arr) {\n    const key = v.toLowerCase();\n    if (!seen.has(key)) {\n      seen.add(key);\n      out.push(v);\n    }\n  }\n  return out;\n}\n\nconst items = $input.all();\n\n// Build candidate blocks\nconst blocks = [];\nconst structured = [];\n\nfor (let i = 0; i < items.length; i++) {\n  const root = items[i]?.json ?? {};\n  // Support both shapes: profile.json or plain object\n  const p = root.profile?.json ?? root;\n\n  const id = collapse(p.id);\n  const name = collapse(p.name);\n  const section = collapse(p.section); // e.g., \"SA\" or \"Backend - Python\"\n  const seniority = normSeniority(p.seniority);\n  const employment = collapse(p.employment_type);\n  const industries = listify(p.industry);\n  const skillsSenior = listify(p.skills_senior, MAX_SKILLS);\n  const skillsMedium = listify(p.skills_medium, MAX_SKILLS);\n  const skillsJunior = listify(p.skills_junior, MAX_SKILLS);\n  const skills = uniq([...skillsSenior, ...skillsMedium, ...skillsJunior]).slice(0, MAX_SKILLS);\n\n  const facts = collapse(p.embedding_facts_text);\n  const similarity = p.similarity != null ? Number(p.similarity) : undefined;\n  const rerankScore = root.relevance_score != null ? Number(root.relevance_score)\n                    : (root.score != null ? Number(root.score) : undefined);\n\n  // Keep description short but useful\n  const description = truncate(p.description || p.embedding_convo_text || \"\", MAX_DESC_CHARS);\n\n  // Build a concise, LLM-friendly block\n  const lines = [];\n  lines.push(`Candidate ${i + 1}: ${name} (ID: ${id})`);\n  if (section || seniority || employment) {\n    const parts = [];\n    if (section) parts.push(`Role/Section: ${section}`);\n    if (seniority) parts.push(`Seniority: ${seniority}`);\n    if (employment) parts.push(`Employment: ${employment}`);\n    lines.push(parts.join(\" | \"));\n  }\n  if (skills.length) {\n    lines.push(`Skills: ${skills.join(\"; \")}`);\n  }\n  if (industries.length) {\n    lines.push(`Industries: ${industries.join(\"; \")}`);\n  }\n  if (description) {\n    lines.push(`Summary: ${description}`);\n  }\n  if (facts) {\n    lines.push(`Facts: ${facts}`);\n  }\n  const signals = [];\n  if (typeof rerankScore === \"number\") signals.push(`rerank=${rerankScore.toFixed(3)}`);\n  if (typeof similarity === \"number\") signals.push(`similarity=${similarity.toFixed(3)}`);\n  if (signals.length) {\n    lines.push(`Signals: ${signals.join(\" | \")}`);\n  }\n\n  blocks.push(lines.join(\"\\n\"));\n\n  structured.push({\n    id,\n    name,\n    section,\n    seniority,\n    employment_type: employment,\n    industries,\n    skills,\n    description,\n    facts,\n    similarity,\n    rerank_score: rerankScore,\n  });\n}\n\n// Final context string\nconst llmContext = `CONTEXT_START\n${blocks.join(\"\\n\\n\")}\nCONTEXT_END`;\n\nreturn [\n  {\n    json: {\n      llm_context: llmContext,\n      candidates: structured, // optional; helpful for debugging or UI\n    },\n  },\n];\n"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        848,
+        2240,
         -400
       ],
       "id": "2fcb910e-8199-48ef-9624-5eab36e1d070",
       "name": "Prepare output"
-    },
-    {
-      "parameters": {
-        "jsCode": "// n8n Function node — Supabase rows -> JSONL string for LLM (order preserved, no rerank)\nconst MAX_TOTAL = $json.MAX_TOTAL ?? 10;       // cap how many candidates to pass on\nconst CHARS_PER_TEXT = $json.CHARS_PER_TEXT ?? 1200; // truncate long bios/snippets\n\n// Helper: split CSV-like strings safely\nfunction splitList(v) {\n  if (!v || typeof v !== 'string') return [];\n  return v.split(',').map(s => s.trim()).filter(Boolean);\n}\n\n// 1) Gather rows from upstream nodes\nconst incoming = await $input.all();\nlet rows = [];\nif (incoming.length === 1 && Array.isArray(incoming[0].json)) {\n  rows = incoming[0].json;\n} else if (incoming.length === 1 && Array.isArray(incoming[0].json.data)) {\n  rows = incoming[0].json.data;\n} else if (incoming.length === 0 && Array.isArray($json.rows)) {\n  rows = $json.rows;\n} else {\n  rows = incoming.map(i => i.json);\n}\nif (!Array.isArray(rows)) throw new Error('Expected an array of Supabase rows.');\n\n// 2) Preserve the order you received (assumed already sorted by similarity)\nrows = rows.slice(0, MAX_TOTAL);\n\n// 3) Build compact JSON objects per candidate\nconst lines = rows.map((r, i) => {\n  const rank = i + 1;\n  const textRaw = String(r.embedding_convo_text ?? '').replace(/\\s+/g, ' ').trim();\n  const text = textRaw.length > CHARS_PER_TEXT ? textRaw.slice(0, CHARS_PER_TEXT) + '…' : textRaw;\n\n  const obj = {\n    rank,                                   // keep original order\n    id: r.id ?? null,\n    name: r.name ?? null,\n    role: r.section ?? null,\n    seniority: r.seniority ?? null,\n    employment_type: r.employment_type ?? null,\n    industries: splitList(r.industry),\n    skills: {\n      senior: splitList(r.skills_senior),\n      medium: splitList(r.skills_medium),\n      junior: splitList(r.skills_junior),\n    },\n    similarity: typeof r.similarity === 'number' ? Number(r.similarity) : null,\n    text,                                   // trimmed narrative snippet\n    notes: r.notes ?? null,\n    certs: r.certs ?? null\n  };\n\n  return JSON.stringify(obj);\n});\n\n// 4) Output single item with the JSONL block\nreturn [{\n  json: {\n    contextCandidatesJsonl: lines.join('\\n')\n  }\n}];\n"
-      },
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        672,
-        176
-      ],
-      "id": "b4bbdb0e-f552-4bd4-aae5-99b15ec89e3f",
-      "name": "Prepare output1"
     },
     {
       "parameters": {
@@ -322,8 +337,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1.2,
       "position": [
-        -512,
-        -176
+        -272,
+        -192
       ],
       "id": "40251d25-bdad-486e-a49e-a9d816743fcb",
       "name": "VLLM1",
@@ -336,19 +351,6 @@
     },
     {
       "parameters": {
-        "jsCode": "const chatInput = $('When chat message received').first().json.chatInput\n\nconst systemPrompt = \"Extract staffing constraints from the user's request. Be strict and literal.Return ONLY compact JSON, no prose.\";\n\n// 3. Define the user prompt\nconst userPrompt = `TEXT:\n${chatInput}\n\nReturn JSON with this schema:\n{\n  \"must\": {\n    \"roles\": [string],\n    \"skills\": [string],\n    \"seniority\": [string],          // e.g., \"Senior 1\", \"Senior\"\n    \"industries\": [string],         // e.g., \"Fintech\", \"Banking\"\n    \"certs\": [string],              // e.g., \"PSM I\", \"AWS SA\"\n    \"employment_type\": [string],    // e.g., \"Employee\", \"Contractor\",\n    \"notes_contains\": [string],\n    \"exclude\": { \"skills\":[string], \"industries\":[string], \"terms\":[string] }\n  },\n  \"prefer\": {\n    \"skills\": [string],\n    \"industries\": [string],\n    \"certs\": [string],\n    \"notes_contains\": [string]\n  },\n  \"raw_terms\": [string]\n}\n`;\n\nreturn {\n  json: {\n    userPrompt,\n    systemPrompt: systemPrompt\n  }\n};"
-      },
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        -496,
-        -400
-      ],
-      "id": "93ac3faa-1966-4380-9216-5594aa1cced8",
-      "name": "PreparePrompts1"
-    },
-    {
-      "parameters": {
         "promptType": "define",
         "text": "={{ $json.userPrompt }}",
         "messages": {
@@ -363,90 +365,11 @@
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.7,
       "position": [
-        1776,
+        2688,
         -400
       ],
       "id": "739dd4f8-2347-4878-bdbf-40b770ac75b2",
       "name": "Generate Response"
-    },
-    {
-      "parameters": {
-        "promptType": "define",
-        "text": "={{ $json.userPrompt }}",
-        "messages": {
-          "messageValues": [
-            {
-              "message": "={{ $json.systemPrompt }}"
-            }
-          ]
-        },
-        "batching": {}
-      },
-      "type": "@n8n/n8n-nodes-langchain.chainLlm",
-      "typeVersion": 1.7,
-      "position": [
-        -288,
-        -400
-      ],
-      "id": "d66226ee-b866-41a3-8101-5c6dfb334b3a",
-      "name": "Prepare Query"
-    },
-    {
-      "parameters": {
-        "jsCode": "// n8n Function — clean constraints JSON (string in .text) -> prompt-friendly texts\n// Outputs:\n//  - denseQueryText : \"Role, Seniority, Skills..., Industries..., Certs..., EmploymentType\"\n//  - skillText      : compact skills/role text (useful for 2-embedding AND or reranker)\n//  - domainText     : compact domain/industry/certs text (same reason)\n//  - sqlFilters     : simple filters you can pass to a filtered Supabase RPC\n//  - must, prefer   : pass-through parsed constraints\n//  - debug          : tokens used\n\nfunction arr(x) {\n  if (!x) return [];\n  if (Array.isArray(x)) return x;\n  return [x];\n}\nfunction normList(vs) {\n  return [...new Set(arr(vs)\n    .map(v => String(v || '').trim())\n    .filter(v => v.length > 0))];\n}\nfunction joinNonEmpty(parts, sep=', ') {\n  return parts.filter(Boolean).join(sep);\n}\n\n// 1) Read input\nconst incoming = await $input.all();\nif (!incoming.length) throw new Error('No input items.');\nlet raw = incoming[0].json?.text;\nif (typeof raw !== 'string' || !raw.trim()) {\n  raw = String(incoming[0].json ?? '');\n}\n\n// 2) Parse JSON\nlet parsed;\ntry { parsed = JSON.parse(raw); }\ncatch (e) { throw new Error('Invalid JSON in `text`: ' + e.message); }\n\nconst must   = parsed.must   || {};\nconst prefer = parsed.prefer || {};\n\n// 3) Normalize lists\nconst roles           = normList(must.roles);\nconst skillsMust      = normList(must.skills);\nconst seniorityList   = normList(must.seniority);          // may be empty\nconst industriesMust  = normList(must.industries);\nconst certsMust       = normList(must.certs);\nconst empTypes        = normList(must.employment_type);\nconst notesContains   = normList(must.notes_contains);\nconst excludeSkills   = normList(must?.exclude?.skills);\nconst excludeInd      = normList(must?.exclude?.industries);\nconst excludeTerms    = normList(must?.exclude?.terms);\n\n// 4) Optional tiny synonym nudges (edit to your taxonomy)\nfunction expandIndustries(list) {\n  const extra = [];\n  const set = new Set(list.map(s => s.toLowerCase()));\n  if (set.has('finance') || set.has('fintech') || set.has('banking')) {\n    extra.push('Fintech', 'Banking', 'Payments');\n  }\n  return normList([...list, ...extra]);\n}\nconst industriesExpanded = expandIndustries(industriesMust);\n\n// 5) Build tokens for the embedding query\nconst tokens = [\n  ...roles,\n  ...seniorityList,\n  ...skillsMust,\n  ...industriesExpanded,\n  ...certsMust,\n  ...empTypes,\n  ...notesContains\n];\n\n// 6) Clean tokens (remove empties/nulls) and compose strings\nconst cleanTokens = normList(tokens);\nconst denseQueryText = joinNonEmpty(cleanTokens);\n\n// Also split into two concise texts (useful for 2-vector AND or reranker):\nconst skillText  = joinNonEmpty([...roles, ...seniorityList, ...skillsMust]);\nconst domainText = joinNonEmpty([...industriesExpanded, ...certsMust, ...empTypes]);\n\n// 7) Prepare simple SQL prefilters you can pass to a filtered RPC\nconst sqlFilters = {\n  roles,                        // match against `section` or role column\n  seniority_prefix: seniorityList[0] || null, // e.g., \"Senior\"\n  industries: industriesMust,   // original (non-expanded) for strict matching\n  employment_types: empTypes,\n  required_certs: certsMust,\n  notes_contains: notesContains,\n  exclude: {\n    skills: excludeSkills,\n    industries: excludeInd,\n    terms: excludeTerms\n  }\n};\n\n// 8) Output\nreturn [{\n  json: {\n    denseQueryText,   // e.g. \"Python Developer, Senior, Python, Finance, Fintech, Banking, GDPR, Contractor\"\n    skillText,        // e.g. \"Python Developer, Senior, Python\"\n    domainText,       // e.g. \"Finance, Fintech, Banking, GDPR, Contractor\"\n    must,\n    prefer,\n    sqlFilters,\n    debug: { cleanTokens }\n  }\n}];\n"
-      },
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        64,
-        -400
-      ],
-      "id": "1d1da77a-0540-48fc-af8d-0fa7b1c45587",
-      "name": "Code"
-    },
-    {
-      "parameters": {
-        "model": {
-          "__rl": true,
-          "value": "gpt-4.1-mini",
-          "mode": "list",
-          "cachedResultName": "gpt-4.1-mini"
-        },
-        "options": {}
-      },
-      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
-      "typeVersion": 1.2,
-      "position": [
-        1936,
-        -176
-      ],
-      "id": "1d0e9500-a22b-4a27-ab73-9ecd9c97f3d9",
-      "name": "OpenAI Chat Model1",
-      "credentials": {
-        "openAiApi": {
-          "id": "8CvuVJ8cItZcxDOX",
-          "name": "OpenAi account 2"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "method": "POST",
-        "url": "http://192.168.20.70:8020/v1/rerank",
-        "sendBody": true,
-        "contentType": "raw",
-        "rawContentType": "application/json",
-        "body": "{   \"model\": \"tomaarsen/Qwen3-Reranker-4B-seq-cls\",   \"query\": \"Senior Python developer with agriculture experience; contractor\",   \"documents\": [     \"Backend - Python, Senior 1, Contractor; Django; Agriculture project 2023–2024\",     \"Mid Python dev, employee; fintech only\",     \"Senior Data Engineer (PySpark); contractor; agriculture ETL 2021\"   ],   \"top_n\": 3,   \"return_documents\": true }",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        1104,
-        -464
-      ],
-      "id": "b92c7506-6d48-4011-913c-48eeb800ed10",
-      "name": "Rerank"
     },
     {
       "parameters": {
@@ -478,7 +401,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        576,
+        880,
         -400
       ],
       "id": "096b7a2a-f73d-4ff8-872f-016d011f4786",
@@ -489,6 +412,238 @@
           "name": "Supabase account 2"
         }
       }
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={\n  \"model\": \"tomaarsen/Qwen3-Reranker-4B-seq-cls\",\n  \"query\": {{ JSON.stringify($('Generate Reranking Instructions - Soft Prio').first().json.formattedQuery) }},\n  \"documents\": {{ JSON.stringify($json.formattedDocuments) }},\n  \"top_n\": 10\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1504,
+        -400
+      ],
+      "id": "5619d318-0dc6-4cd4-a7a6-767bb4f9b0de",
+      "name": "Create Rerank Query"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Rerank results\nconst rerank = $input.first().json.results || [];\n\n// Original items array from a previous node (50 full profiles)\nconst originalItems = $('Semantic Query').all()\n// allProfiles should be an array of objects matching the positions in documents[].\n\n// Build enriched list\nconst output = rerank.map(r => {\n  const idx = r.index;\n  const profile = originalItems[idx]; // original full data object\n  return {\n    profile\n  };\n  // return {\n  //   json: {\n  //     id:               profile.json.id,\n  //     name:             profile.json.name,\n  //     industry:         profile.json.industry,\n  //     section:          profile.json.section,\n  //     seniority:        profile.json.seniority,\n  //     employment_type:  profile.json.employment_type,\n  //     skills_senior:    profile.json.skills_senior,\n  //     skills_medium:    profile.json.skills_medium,\n  //     skills_junior:    profile.json.skills_junior,\n  //     embedding_facts_text: profile.json.embedding_facts_text,\n  //     relevance_score:  r.relevance_score\n  //   }\n  // };\n});\n\n// Only return top N (rerank is already sorted)\nreturn output;\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2016,
+        -400
+      ],
+      "id": "155dc0c7-9625-4367-8ba3-3b5cf89b0ae5",
+      "name": "Get Full Resource Info"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.userPrompt }}",
+        "messages": {
+          "messageValues": [
+            {
+              "message": "={{ $json.systemPrompt }}"
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        -272,
+        -400
+      ],
+      "id": "d66226ee-b866-41a3-8101-5c6dfb334b3a",
+      "name": "Prepare Knobs"
+    },
+    {
+      "parameters": {
+        "jsCode": "const chatInput = $input.first().json.chatInput;\n\nconst systemPrompt = \"Extract staffing constraints from the user's request. Be strict and literal.Return ONLY compact JSON, no prose.\";\n\n// 3. Define the user prompt\nconst userPrompt = `TEXT:\n${chatInput}\n\nIf query has \"employee\" or \"contractor\" mentioned, you musth include it in employment_type.\n\nGiven the \"role, job title\" map it to the most appropriate role name from the following list:\n\nAvailable roles:\n- AI Engineer\n- Frontend - Angular\n- Backend - PHP\n- Data Engineer\n- Data Scientist\n- Mobile - Flutter\n- Backend - Java\n- Backend - CMS\n- Backend - .NET\n- DevOps\n- Backend - Ruby\n- Frontend - Vue\n- BA\n- PO\n- Design\n- QA\n- AI\n- Support\n- Backend - Python\n- SA\n- Backend - Node\n- PM\n- Frontend - React\n\nEnsure that skills or areas of expertise are not treated as roles. The role should be singular, and it must correspond directly to the job title being classified or searched for.\n\nReturn JSON with this schema:\n{\n  \"must\": {\n    \"roles\": [string],              // e.g., \"Backend - Python\"\n    \"skills\": [string],             // e.g., \"Stripe, Java, Swift\"\n    \"seniority\": [string],          // e.g., \"Senior 1\", \"Senior\"\n    \"industries\": [string],         // e.g., \"Fintech\", \"Banking\"\n    \"certs\": [string],              // e.g., \"PSM I\", \"AWS SA\"\n    \"employment_type\": [string],    // e.g., \"Employee\", \"Contractor\"\n    \"notes_contains\": [string]      // e.g., \"Upskilled to Java, has preference to AI projects\"\n  },\n}\n`;\n\nreturn {\n  json: {\n    userPrompt,\n    systemPrompt: systemPrompt\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -496,
+        -400
+      ],
+      "id": "93ac3faa-1966-4380-9216-5594aa1cced8",
+      "name": "PreparePrompts - Knobs"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "qwen3-coder-30b-32k",
+          "mode": "list",
+          "cachedResultName": "qwen3-coder-30b-32k"
+        },
+        "options": {
+          "temperature": 0.1
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -864,
+        0
+      ],
+      "id": "77096448-6b3e-4e1e-bfef-276cb95b7c98",
+      "name": "VLLM2",
+      "credentials": {
+        "openAiApi": {
+          "id": "09tIxrZPXx1gwPgx",
+          "name": "vllm"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const chatInput = $('When chat message received').first().json.chatInput\n\nconst systemPrompt = `You are an expert at optimizing search queries for employee semantic search. Transform user queries into professional, comprehensive search terms that will match well with employee profiles.\n\nDo not alter or replace the exact words “employee” or “contractor” if they appear. They must appear verbatim in the final query. If they do not apepear, leave  it blank.\nIf \"certificates\" or \"cert\", \"certs\" are being mentioned, make sure that you leave it.\n\nIf the query is too vague, just pass it trough.\nDo not make things up. Ouput should not be more than 2x the size of the input query.\n\nOPTIMIZATION RULES:\n1. Expand abbreviations and casual terms to professional language\n2. Add relevant synonyms and related technologies\n3. Include appropriate seniority indicators when implied\n4. Use industry-standard terminology\n5. Maintain the user's core intent while enhancing specificity\n6. Focus on skills, roles, experience, and industries\n7. Keep the query natural and searchable\n8. Do not add more than needed, keep it to the point and short.\n9. Do not add anything that is not heavily implied and clear.\n10. Do not add \"employee\" if its not expliciyl mentioined.\n11. Do not add \"certificates\" if its not expliciyl mentioined.\n12. Do not add \"role\" if its not expliciyl clear.\n13. Output must be less than 100 characters\n\nOUTPUT: Optimized search query (do not include \"search_query:\" prefix`;\n\n\n\n// 3. Define the user prompt\nconst userPrompt = `Optimize this search query for finding the best employee matches:\n\nOriginal query: ${chatInput}\n\nProvide an enhanced version that will match better with professional employee profiles.\n`;\n\nreturn {\n  json: {\n    userPrompt,\n    systemPrompt: systemPrompt\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1104,
+        -160
+      ],
+      "id": "ed13cac6-eee6-495e-b21f-f8a78982f30c",
+      "name": "PreparePrompts - Query"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.userPrompt }}",
+        "messages": {
+          "messageValues": [
+            {
+              "message": "={{ $json.systemPrompt }}"
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        -864,
+        -160
+      ],
+      "id": "69585c0a-10bb-4e02-afed-a3f9c2681d9b",
+      "name": "Prepare Query"
+    },
+    {
+      "parameters": {
+        "jsCode": "// n8n Function — clean constraints JSON (string in .text) -> prompt-friendly texts\n// Outputs:\n//  - denseQueryText : \"Role, Seniority, Skills..., Industries..., Certs..., EmploymentType\"\n//  - skillText      : compact skills/role text (useful for 2-embedding AND or reranker)\n//  - domainText     : compact domain/industry/certs text (same reason)\n//  - sqlFilters     : simple filters you can pass to a filtered Supabase RPC\n//  - must, prefer   : pass-through parsed constraints\n//  - debug          : tokens used\n\nfunction arr(x) {\n  if (!x) return [];\n  if (Array.isArray(x)) return x;\n  return [x];\n}\nfunction normList(vs) {\n  return [...new Set(arr(vs)\n    .map(v => String(v || '').trim())\n    .filter(v => v.length > 0))];\n}\nfunction joinNonEmpty(parts, sep=', ') {\n  return parts.filter(Boolean).join(sep);\n}\n\n// 1) Read input\nconst incoming = await $input.all();\nif (!incoming.length) throw new Error('No input items.');\nlet raw = incoming[0].json?.text;\nif (typeof raw !== 'string' || !raw.trim()) {\n  raw = String(incoming[0].json ?? '');\n}\n\n// 2) Parse JSON\nlet parsed;\ntry { parsed = JSON.parse(raw); }\ncatch (e) { throw new Error('Invalid JSON in `text`: ' + e.message); }\n\nconst must   = parsed.must   || {};\n\n// 3) Normalize lists\nconst role           = normList(must.roles);\nconst skills      = normList(must.skills);\nconst seniority   = normList(must.seniority);          // may be empty\nconst industries = normList(must.industries);\nconst certificates       = normList(must.certs);\nconst employmentType        = normList(must.employment_type);\nconst notes   = normList(must.notes_contains);\n\n// 4) Optional tiny synonym nudges (edit to your taxonomy)\nfunction expandIndustries(list) {\n  const extra = [];\n  const set = new Set(list.map(s => s.toLowerCase()));\n  if (set.has('finance') || set.has('fintech') || set.has('banking')) {\n    extra.push('Fintech', 'Banking', 'Payments');\n  }\n  return normList([...list, ...extra]);\n}\nconst industriesExpanded = expandIndustries(industries);\n\nconst prefix = \"search_query\";\nconst userInput = $('ChatInput').first().json.chatInput;\nconst finalQuery = `${prefix}: ${userInput}`;\n\n// 5) Build tokens for the embedding query\nconst tokens = [\n  ...role,\n  ...seniority,\n  ...skills,\n  ...industriesExpanded,\n  ...certificates,\n  ...employmentType,\n  ...notes\n];\n\n// 6) Clean tokens (remove empties/nulls) and compose strings\nconst cleanTokens = normList(tokens);\nconst denseQueryText = joinNonEmpty(cleanTokens);\n\n// 8) Output\nreturn [{\n  json: {\n    finalQuery,\n    denseQueryText,   // e.g. \"Python Developer, Senior, Python, Finance, Fintech, Banking, GDPR, Contractor\"\n    role,\n    seniority,\n    skills,\n    industries,\n    certificates,\n    employmentType,\n    notes,\n  }\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        48,
+        -400
+      ],
+      "id": "1d1da77a-0540-48fc-af8d-0fa7b1c45587",
+      "name": "Knobs Formated"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Generate reranker instruction using structured query knobs\nfunction generateInstructionFromKnobs(queryKnobs) {\n    const knobs = queryKnobs; // Get first (and likely only) knob object\n    \n    let instruction = \"Rank candidates by relevance using this STRICT PRIORITY ORDER: \";\n    \n    // 1. ROLE MATCHING (HIGHEST PRIORITY - MANDATORY)\n    instruction += \"1. ROLE MATCH (CRITICAL - MANDATORY): \";\n    \n    if (knobs.role && knobs.role.length > 0) {\n        const roles = knobs.role.join(\", \");\n        instruction += `ONLY rank candidates with these exact roles: ${roles}. `;\n        \n        // Check if it's a developer role\n        if (knobs.role.some(role => role.toLowerCase().includes(\"developer\") || role.toLowerCase().includes(\"engineer\"))) {\n            instruction += \"EXCLUDE project managers, business analysts, solution architects, QA testers, and non-development roles. \";\n        }\n    } else {\n        instruction += \"Match the role mentioned in the query exactly. \";\n    }\n    \n    // 2. TECHNICAL SKILLS (HIGH PRIORITY)\n    instruction += \"2. TECHNICAL SKILLS (HIGH PRIORITY): \";\n    \n    if (knobs.skills && knobs.skills.length > 0) {\n        const skills = knobs.skills.join(\", \");\n        instruction += `MUST have experience with: ${skills}. `;\n        instruction += \"Technical skill matches are more important than industry, seniority, or employment type. \";\n        \n        // Add any notes about technical background\n        if (knobs.notes && knobs.notes.length > 0) {\n            const technicalNotes = knobs.notes.join(\", \");\n            instruction += `Additional technical context: ${technicalNotes}. `;\n        }\n    } else {\n        instruction += \"Look for relevant technical skills mentioned in the query. \";\n    }\n    \n    // 3. INDUSTRY/DOMAIN (GOOD TO HAVE)\n    instruction += \"3. INDUSTRY DOMAIN (GOOD TO HAVE): \";\n    \n    if (knobs.industries && knobs.industries.length > 0) {\n        const industries = knobs.industries.join(\", \");\n        instruction += `Industry experience in ${industries} is valuable but secondary to role and technical skills. `;\n    } else {\n        instruction += \"Industry experience is a bonus but not critical. \";\n    }\n    \n    // 4. SENIORITY (GOOD TO HAVE)\n    instruction += \"4. SENIORITY (GOOD TO HAVE): \";\n    \n    if (knobs.seniority && knobs.seniority.length > 0) {\n        const seniority = knobs.seniority.join(\", \");\n        instruction += `${seniority} level is preferred but role and technical fit are more important. `;\n    } else {\n        instruction += \"Seniority level is flexible if role and technical skills match. \";\n    }\n    \n    // 5. ADDITIONAL FACTORS (NICE TO HAVE)\n    let additionalFactors = [];\n    \n    if (knobs.certificates && knobs.certificates.length > 0) {\n        additionalFactors.push(`certifications in ${knobs.certificates.join(\", \")}`);\n    }\n    \n    if (knobs.employmentType && knobs.employmentType.length > 0) {\n        additionalFactors.push(`${knobs.employmentType.join(\", \")} employment type`);\n    }\n    \n    if (additionalFactors.length > 0) {\n        instruction += `5. ADDITIONAL FACTORS (NICE TO HAVE): ${additionalFactors.join(\", \")} are bonuses but not requirements. `;\n    }\n    \n    instruction += \"REMEMBER: Role match is MANDATORY, technical skills are critical, everything else is nice-to-have.\";\n    \n    return instruction;\n}\n\n// Get the structured knobs from previous node\nconst queryKnobs = $input.first().json; // Adjust path based on your data structure\n\n// Generate precision instruction\nconst instruction = generateInstructionFromKnobs(queryKnobs);\n\n// Return the instruction along with original data\nreturn {\n    json: {\n        ...($input.first().json), // Keep original data\n        instruction: instruction,\n        finalQuery: queryKnobs.finalQuery\n    }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -672,
+        128
+      ],
+      "id": "afd805d5-2f48-4d9c-9438-8c8732a61449",
+      "name": "Generate Reranking Instructions - Exlude1"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Generate reranker instruction with full dynamic handling for all query types\nfunction generateInstructionFromKnobs(queryKnobs) {\n    const knobs = queryKnobs;\n\n    // Check what information we actually have\n    const hasRole = knobs.role && knobs.role.length > 0;\n    const hasSkills = knobs.skills && knobs.skills.length > 0;\n    const hasIndustries = knobs.industries && knobs.industries.length > 0;\n    const hasCertificates = knobs.certificates && knobs.certificates.length > 0;\n    const hasEmploymentType = knobs.employmentType && knobs.employmentType.length > 0;\n    const hasSeniority = knobs.seniority && knobs.seniority.length > 0;\n    const hasNotes = knobs.notes && knobs.notes.length > 0;\n    \n    // Check if it's a detailed query (has role AND/OR skills)\n    const isDetailedQuery = hasRole || hasSkills;\n    \n    if (!isDetailedQuery) {\n        // Handle broad/specific-criteria queries\n        let instruction = \"Rank candidates using these specific criteria: \";\n        let criteriaCount = 1;\n        let hasCriteria = false;\n        \n        // Employment type\n        if (hasEmploymentType) {\n            instruction += `${criteriaCount}. EMPLOYMENT TYPE: Prioritize ${knobs.employmentType.join(\", \")} candidates. `;\n            criteriaCount++;\n            hasCriteria = true;\n        }\n        \n        // Certificates (HIGH PRIORITY for certificate-only searches)\n        if (hasCertificates) {\n            instruction += `${criteriaCount}. CERTIFICATES (HIGH PRIORITY): Must have ${knobs.certificates.join(\" or \")} certifications. `;\n            criteriaCount++;\n            hasCriteria = true;\n        }\n        \n        // Industry experience\n        if (hasIndustries) {\n            instruction += `${criteriaCount}. INDUSTRY EXPERIENCE: Must have ${knobs.industries.join(\", \")} industry experience. `;\n            criteriaCount++;\n            hasCriteria = true;\n        }\n        \n        // Seniority\n        if (hasSeniority) {\n            instruction += `${criteriaCount}. SENIORITY: Prefer ${knobs.seniority.join(\" or \")} level candidates. `;\n            criteriaCount++;\n            hasCriteria = true;\n        }\n        \n        // Notes (CRITICAL - handles language skills, soft skills, etc.)\n        if (hasNotes) {\n            instruction += `${criteriaCount}. SPECIFIC REQUIREMENTS (HIGH PRIORITY): Must match these criteria: ${knobs.notes.join(\", \")}. `;\n            criteriaCount++;\n            hasCriteria = true;\n        }\n        \n        // Default fallbacks only if we have some criteria\n        if (hasCriteria) {\n            instruction += `${criteriaCount}. ROLE PREFERENCE: Among matching candidates, prefer those with more relevant technical experience. `;\n            criteriaCount++;\n            instruction += `${criteriaCount}. EXPERIENCE LEVEL: Use overall experience as final tie-breaker. `;\n        } else {\n            // Truly empty query\n            instruction = \"Very broad query with no specific criteria. Rank by overall experience and technical competence. \";\n        }\n        \n        return instruction;\n    }\n    \n    // Detailed query logic (has role and/or skills)\n    let instruction = \"Rank candidates using this PRIORITY-BASED ORDER (higher priority ranks first): \";\n    \n    // 1. ROLE MATCHING (FULLY DYNAMIC)\n    instruction += \"1. ROLE PRIORITY (HIGHEST WEIGHT): \";\n    \n    if (hasRole) {\n        if (knobs.role.length === 1) {\n            instruction += `HIGHEST PRIORITY: Exact match for ${knobs.role[0]}. `;\n            instruction += `MEDIUM PRIORITY: Similar or related roles to ${knobs.role[0]}. `;\n            instruction += `LOWER PRIORITY: Roles with transferable skills or experience. `;\n        } else {\n            instruction += `HIGHEST PRIORITY: Exact match for any of these roles: ${knobs.role.join(\", \")}. `;\n            instruction += `MEDIUM PRIORITY: Roles closely related to the requested positions. `;\n            instruction += `LOWER PRIORITY: Roles with transferable skills. `;\n        }\n    }\n    \n    // 2. TECHNICAL SKILLS (FULLY DYNAMIC)\n    instruction += \"2. TECHNICAL SKILLS PRIORITY: \";\n    \n    if (hasSkills) {\n        // Dynamic domain skill detection instead of hardcoded filtering\n        const potentialDomainSkills = hasIndustries ? knobs.industries.map(ind => ind.toLowerCase()) : [];\n        const technicalSkills = knobs.skills.filter(skill => \n            !potentialDomainSkills.includes(skill.toLowerCase())\n        );\n        \n        if (technicalSkills.length > 0) {\n            if (technicalSkills.length === 1) {\n                instruction += `HIGHEST PRIORITY: Strong experience with ${technicalSkills[0]}. `;\n                instruction += `MEDIUM PRIORITY: Some experience with ${technicalSkills[0]} or related technologies. `;\n            } else {\n                instruction += `HIGHEST PRIORITY: Experience with multiple skills: ${technicalSkills.join(\", \")}. `;\n                instruction += `MEDIUM PRIORITY: Experience with some of these skills: ${technicalSkills.join(\", \")}. `;\n            }\n            instruction += `LOWER PRIORITY: Related or transferable technical skills. `;\n        }\n    }\n    \n    // 3. DOMAIN EXPERTISE (DYNAMIC)\n    if (hasIndustries) {\n        instruction += \"3. DOMAIN KNOWLEDGE BONUS: \";\n        instruction += `Add ranking boost for experience in: ${knobs.industries.join(\", \")}. `;\n    }\n    \n    // 4. SENIORITY (DYNAMIC)\n    if (hasSeniority) {\n        instruction += \"4. SENIORITY PREFERENCE: \";\n        instruction += `Prefer ${knobs.seniority.join(\" or \")} level candidates when other factors are similar. `;\n    }\n    \n    // 5. ADDITIONAL FACTORS (FULLY DYNAMIC)\n    let bonusFactors = [];\n    if (hasCertificates) {\n        bonusFactors.push(`${knobs.certificates.join(\", \")} certifications`);\n    }\n    if (hasEmploymentType) {\n        bonusFactors.push(`${knobs.employmentType.join(\", \")} experience`);\n    }\n    if (hasNotes) {\n        bonusFactors.push(`additional requirements: ${knobs.notes.join(\", \")}`);\n    }\n    \n    if (bonusFactors.length > 0) {\n        instruction += `5. BONUS FACTORS: Consider ${bonusFactors.join(\"; \")} as positive factors. `;\n    }\n    \n    instruction += \"RANKING STRATEGY: Prioritize exact matches first, then related/similar candidates, always considering the complete candidate profile.\";\n    \n    return instruction;\n}\n\n// NEW: Format query for Qwen3\nfunction formatQueryForQwen3(originalQuery, instruction) {\n    // Remove search_query prefix\n    const cleanQuery = originalQuery.replace(\"search_query:\", \"\").trim();\n    \n    // Qwen3 template format\n    const prefix = '<|im_start|>system\\nJudge whether the Document meets the requirements based on the Query and the Instruct provided. Note that the answer can only be \"yes\" or \"no\".<|im_end|>\\n<|im_start|>user\\n';\n    \n    const finalInstruction = instruction || \"Given a web search query, retrieve relevant passages that answer the query\";\n    \n    return `${prefix}<Instruct>: ${finalInstruction}\\n<Query>: ${cleanQuery}\\n`;\n}\n\n// Get the structured knobs from previous node\nconst queryKnobs = $input.first().json;\n\n// Generate precision instruction\nconst instruction = generateInstructionFromKnobs(queryKnobs);\n\n// Format query with instruction embedded\nconst formattedQuery = formatQueryForQwen3(queryKnobs.finalQuery, instruction);\n\n// Return the instruction along with original data\nreturn {\n    json: {\n        ...($input.first().json),\n        instruction: instruction,\n        finalQuery: queryKnobs.finalQuery,\n      formattedQuery\n    }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        336,
+        -400
+      ],
+      "id": "4f5947d5-9881-4213-bbac-5ae31a128a58",
+      "name": "Generate Reranking Instructions - Soft Prio"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Extract all incoming items\nconst items = $input.all();\n\nfunction formatDocuments(documents) {\n    const suffix = '<|im_end|>\\n<|im_start|>assistant\\n<think>\\n\\n</think>\\n\\n';\n    return documents.map(doc => `<Document>: ${doc}${suffix}`);\n}\n\n// Collect only the 'embedding_facts_text' from each item\nconst documents = items.map(it => it.json.embedding_convo_text);\nconst formattedDocuments = formatDocuments(documents);\n\n// Build one output item\nreturn [\n  {\n    json: {\n      formattedDocuments\n    }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1232,
+        -400
+      ],
+      "id": "bc2032e0-4eac-4a88-b747-203069975452",
+      "name": "Format Documents"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://192.168.20.70:8020/v1/rerank",
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "={{ $json.toJsonString() }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1792,
+        -400
+      ],
+      "id": "b92c7506-6d48-4011-913c-48eeb800ed10",
+      "name": "Rerank - Qwen3"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "999fafa1-c0b1-4710-a1bd-5e9279dc38ab",
+              "name": "chatInput",
+              "value": "={{ $json.chatInput }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -688,
+        -400
+      ],
+      "id": "63e36f0f-d03a-4a34-9f9f-fadcf186a333",
+      "name": "ChatInput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const chatInput = $('When chat message received').first().json.chatInput\nconst contextForPrompt = $input.first().json.llm_context\n\nconst systemPrompt = \"You are an AI assistant that helps pick employees for tasks and projects. Use ONLY the candidate snippets provided below.  Do NOT invent skills or industries. If a candidate clearly misses a must-have, you may omit them. Return a concise, useful answer.\";\n\n// 3. Define the user prompt\nconst userPrompt = `USER REQUEST:\n${chatInput}\n\nINSTRUCTIONS: $('Generate Reranking Instructions - Soft Prio').first().json.instruction\n\nCANDIDATE SNIPPETS (already sorted by semantic relevance; DO NOT change order):\n${contextForPrompt}\n\nINSTRUCTIONS:\n- Keep candidate order as-is.\n- For each included candidate, show:\n  • name (required)\n  id\n  employment_type\n  • role/section and seniority (if present in the snippet)\n  • 2–4 directly relevant skills/tech terms mentioned in the snippet\n  • 1–2 relevant industries/domains from the snippet that match the request\n  • A 2-line rationale grounded in the snippet (quote short phrases if helpful)\n- Prefer 3–5 candidates unless fewer obviously match.\n- If none match the must-haves, say so briefly.\n\nFORMAT:\nProvide a short paragraph summary, then a bullet list of candidates. If there no valid candidates, do not show them.\n`;\n\nreturn {\n  json: {\n    userPrompt,\n    systemPrompt: systemPrompt\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2512,
+        -608
+      ],
+      "id": "0c2e8ba2-0d94-41ef-9fd3-f5b40072f2bb",
+      "name": "PreparePrompts1"
     }
   ],
   "pinData": {},
@@ -510,6 +665,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-09-04T10:25:37.993Z",
-  "versionId": "60c2cc01-dfe6-4fbe-8987-eefa3c7c4309"
+  "updatedAt": "2025-09-12T13:06:23.105Z",
+  "versionId": "3eb03090-1b97-4b8d-b614-73fdc6649fc9"
 }
