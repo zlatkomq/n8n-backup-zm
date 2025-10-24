@@ -1,0 +1,134 @@
+{
+  "active": false,
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "MCP Client",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Contacts": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-09-23T08:43:54.892Z",
+  "id": "R25aks99CvpRFZpI",
+  "isArchived": true,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "MCP_srv",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -128,
+        -96
+      ],
+      "id": "60909cf6-2e8d-4b36-8cac-7f885754febd",
+      "name": "When chat message received",
+      "webhookId": "1921f0d4-3cc2-4ef6-a83f-3b15b86483b1"
+    },
+    {
+      "parameters": {
+        "path": "ab1b4cc8-8cf2-464e-9d5a-48317b31136a"
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpTrigger",
+      "typeVersion": 2,
+      "position": [
+        544,
+        -144
+      ],
+      "id": "ffb9c027-d302-4afe-9660-57a39b39eabb",
+      "name": "MCP Server Trigger",
+      "webhookId": "ab1b4cc8-8cf2-464e-9d5a-48317b31136a"
+    },
+    {
+      "parameters": {
+        "connectionType": "sse",
+        "operation": "executeTool",
+        "toolName": "call_hubspot",
+        "toolParameters": "={{ $json.chatInput }}"
+      },
+      "type": "n8n-nodes-mcp.mcpClient",
+      "typeVersion": 1,
+      "position": [
+        240,
+        -96
+      ],
+      "id": "583d28d3-625b-4454-aa23-921fbfdee4bc",
+      "name": "MCP Client",
+      "credentials": {
+        "mcpClientSseApi": {
+          "id": "K8JoXGURp4Y0JPZ0",
+          "name": "n8n_mcp_srv"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "email": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Email', ``, 'string') }}",
+        "additionalFields": {
+          "firstName": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('First_Name', ``, 'string') }}",
+          "lastName": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Last_Name', ``, 'string') }}",
+          "phoneNumber": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Phone_Number', ``, 'string') }}",
+          "workEmail": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Work_Email', ``, 'string') }}"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.hubspotTool",
+      "typeVersion": 2.1,
+      "position": [
+        592,
+        64
+      ],
+      "id": "13070021-601a-4ed1-8b0c-8b6dff72dfff",
+      "name": "Contacts",
+      "credentials": {
+        "hubspotOAuth2Api": {
+          "id": "bjy4PGxwwdDJQ5Ud",
+          "name": "HubSpot account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "repo_name": "n8n-backup-zm",
+  "repo_owner": "zlatkomq",
+  "repo_path": "",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-09-23T08:43:54.892Z",
+      "updatedAt": "2025-09-23T08:43:54.892Z",
+      "role": "workflow:owner",
+      "workflowId": "R25aks99CvpRFZpI",
+      "projectId": "hlNkEWAlDmmc5iQw"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 2,
+  "updatedAt": "2025-09-23T09:00:35.159Z",
+  "versionId": "667cf322-aa0a-47bf-a16b-1289d26a3975"
+}
