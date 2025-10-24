@@ -1,0 +1,605 @@
+{
+  "active": true,
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MCP Client": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anthropic Chat Model": {
+      "ai_languageModel": [
+        []
+      ]
+    },
+    "Get many companies in HubSpot": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        []
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        []
+      ]
+    },
+    "VLLM": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get many contacts in HubSpot": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anthropic Chat Model1": {
+      "ai_languageModel": [
+        []
+      ]
+    },
+    "VLLM1": {
+      "ai_languageModel": [
+        []
+      ]
+    },
+    "Create a company in HubSpot1": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Company1": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Company": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Company3": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create or update a contact in HubSpot": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute a SQL query in Postgres": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-09-23T11:39:57.279Z",
+  "id": "DGMllOGftxKNZJhh",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "MCP_chat_test",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -992,
+        48
+      ],
+      "id": "295ead24-aa98-4125-b237-f0a0c567b852",
+      "name": "When chat message received",
+      "webhookId": "0cac9eac-70e8-4318-b8c0-6473d2e44672"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "= {{ $json.chatInput }}",
+        "options": {
+          "systemMessage": "You are an AI assistant integrated with external tools/functions. When you decide a tool should be used, call it using the following JSON structure:\n{\n  \"tool_call\": {\n    \"name\": \"<tool_name>\",\n    \"arguments\": {\n      \"param1\": \"<value>\",\n      \"param2\": \"<value>\"\n    }\n  }\n}\n\nAlways call a tool if it fits the user's request, and do not just explain answers. "
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        -704,
+        48
+      ],
+      "id": "915ed902-6cc5-434c-967b-d5166d4a4cc7",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "endpointUrl": "http://127.0.0.1:5678/mcp/1713cd2c-a44b-483d-a87e-c133a855705e/sse",
+        "serverTransport": "httpStreamable",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
+      "typeVersion": 1.1,
+      "position": [
+        -560,
+        320
+      ],
+      "id": "9985b07d-44c0-49a7-8d78-9f2b13e453b7",
+      "name": "MCP Client"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "claude-3-7-sonnet-20250219",
+          "mode": "list",
+          "cachedResultName": "Claude Sonnet 3.7"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [
+        -1392,
+        400
+      ],
+      "id": "e3824ad1-b737-4b89-8937-c0ebfb9ea742",
+      "name": "Anthropic Chat Model",
+      "credentials": {
+        "anthropicApi": {
+          "id": "BVejEoXr4J9auxgo",
+          "name": "Anthropic account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "company",
+        "operation": "getAll",
+        "limit": 10,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.hubspotTool",
+      "typeVersion": 2.2,
+      "position": [
+        2192,
+        416
+      ],
+      "id": "d5f06445-387f-4dbb-a1e9-a777331986dc",
+      "name": "Get many companies in HubSpot",
+      "credentials": {
+        "hubspotOAuth2Api": {
+          "id": "bjy4PGxwwdDJQ5Ud",
+          "name": "HubSpot account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## HubSpot MCP srv\n\n- main operator for HubSpot objects",
+        "height": 544,
+        "width": 488,
+        "color": 4
+      },
+      "id": "3df4bb9c-a72c-4529-b4f9-21a0f87eb7c5",
+      "name": "Note2",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        672,
+        160
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "path": "1713cd2c-a44b-483d-a87e-c133a855705e/sse"
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpTrigger",
+      "typeVersion": 2,
+      "position": [
+        752,
+        304
+      ],
+      "id": "a74009c0-38e2-4535-ab6e-fa832d46f104",
+      "name": "MCP Server Trigger",
+      "webhookId": "***Secret***"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -944,
+        528
+      ],
+      "id": "e305cbaf-74f2-435d-82f1-56ab16d56591",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "PP3hcBNXmc9tm7oW",
+          "name": "Google Gemini(PaLM) Api account 2 - Q"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "qwen3-coder-30b-32k",
+          "mode": "list",
+          "cachedResultName": "qwen3-coder-30b-32k"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -816,
+        288
+      ],
+      "id": "b7afedd6-428b-4a11-9b48-66785a72ebd9",
+      "name": "VLLM",
+      "credentials": {
+        "openAiApi": {
+          "id": "8CvuVJ8cItZcxDOX",
+          "name": "vllm"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "You have a HubSpot Contacts tool connected. Use it to:\n\nCONTACTS:\n- Create contacts when asked to add/create people\n- Search contacts when asked to find/search people  \n- Update contacts when given new information\n\nCOMPANIES:\n- Create companies when asked to add/create companies/organizations\n- Search companies when asked to find companies\n- Update companies when given new company information\n\nDon't describe what you'll do. Just use the tool and return the results."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        1536,
+        -16
+      ],
+      "id": "72112f7a-0cde-4098-b8b8-15161a9f674c",
+      "name": "AI Agent1"
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "operation": "getAll",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.hubspotTool",
+      "typeVersion": 2.2,
+      "position": [
+        2096,
+        160
+      ],
+      "id": "ed66575d-b992-4067-ba0e-ddba0f979fa1",
+      "name": "Get many contacts in HubSpot",
+      "credentials": {
+        "hubspotOAuth2Api": {
+          "id": "bjy4PGxwwdDJQ5Ud",
+          "name": "HubSpot account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "claude-sonnet-4-20250514",
+          "mode": "list",
+          "cachedResultName": "Claude Sonnet 4"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [
+        704,
+        -16
+      ],
+      "id": "e006bba4-6a8f-4942-b8e1-cabea45eca41",
+      "name": "Anthropic Chat Model1",
+      "credentials": {
+        "anthropicApi": {
+          "id": "BVejEoXr4J9auxgo",
+          "name": "Anthropic account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "qwen3-coder-30b-32k",
+          "mode": "list",
+          "cachedResultName": "qwen3-coder-30b-32k"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        1280,
+        208
+      ],
+      "id": "d7cba55d-dade-471e-900e-3caa03b3309c",
+      "name": "VLLM1",
+      "credentials": {
+        "openAiApi": {
+          "id": "8CvuVJ8cItZcxDOX",
+          "name": "vllm"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "company",
+        "name": "={{ $fromAI('company_name') }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.hubspotTool",
+      "typeVersion": 2.2,
+      "position": [
+        1712,
+        528
+      ],
+      "id": "6996f092-0840-435c-a9dc-62f208846702",
+      "name": "Create a company in HubSpot1",
+      "credentials": {
+        "hubspotOAuth2Api": {
+          "id": "bjy4PGxwwdDJQ5Ud",
+          "name": "HubSpot account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "company",
+        "operation": "get",
+        "companyId": {
+          "__rl": true,
+          "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Company_to_Get', ``, 'string') }}",
+          "mode": "id"
+        },
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.hubspotTool",
+      "typeVersion": 2.1,
+      "position": [
+        1936,
+        576
+      ],
+      "id": "f427a3b9-f355-4bab-98e6-4b06328f9381",
+      "name": "Get Company1",
+      "credentials": {
+        "hubspotOAuth2Api": {
+          "id": "bjy4PGxwwdDJQ5Ud",
+          "name": "HubSpot account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        1408,
+        176
+      ],
+      "id": "142513b9-8f83-48a9-b2e0-e00cdb80ad99",
+      "name": "Google Gemini Chat Model1",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "PP3hcBNXmc9tm7oW",
+          "name": "Google Gemini(PaLM) Api account 2 - Q"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "operation": "get",
+        "contactId": {
+          "__rl": true,
+          "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Contact_to_Get', ``, 'string') }}",
+          "mode": "id"
+        },
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.hubspotTool",
+      "typeVersion": 2.1,
+      "position": [
+        2080,
+        720
+      ],
+      "id": "befc0a82-b0d3-42c6-b701-5c83b7812f71",
+      "name": "Get Company",
+      "credentials": {
+        "hubspotOAuth2Api": {
+          "id": "bjy4PGxwwdDJQ5Ud",
+          "name": "HubSpot account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "deal",
+        "operation": "getAll",
+        "filters": {}
+      },
+      "type": "n8n-nodes-base.hubspotTool",
+      "typeVersion": 2.1,
+      "position": [
+        2272,
+        688
+      ],
+      "id": "6e8876af-8b85-4609-b223-efa5d0e4f42b",
+      "name": "Get Company3",
+      "credentials": {
+        "hubspotOAuth2Api": {
+          "id": "bjy4PGxwwdDJQ5Ud",
+          "name": "HubSpot account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "email": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Email', ``, 'string') }}",
+        "additionalFields": {},
+        "options": {}
+      },
+      "type": "n8n-nodes-base.hubspotTool",
+      "typeVersion": 2.2,
+      "position": [
+        1696,
+        192
+      ],
+      "id": "0dedf614-4395-4008-94aa-2e82a4d7c35b",
+      "name": "Create or update a contact in HubSpot",
+      "credentials": {
+        "hubspotOAuth2Api": {
+          "id": "bjy4PGxwwdDJQ5Ud",
+          "name": "HubSpot account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "{{ $fromAI('query') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgresTool",
+      "typeVersion": 2.6,
+      "position": [
+        880,
+        576
+      ],
+      "id": "ab52275d-fa7f-4d03-99ab-ed10851cd449",
+      "name": "Execute a SQL query in Postgres",
+      "credentials": {
+        "postgres": {
+          "id": "wK2pSCG9jTniRU28",
+          "name": "Postgres account 2"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "repo_name": "n8n-backup-zm",
+  "repo_owner": "zlatkomq",
+  "repo_path": "",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-09-23T11:39:57.279Z",
+      "updatedAt": "2025-09-23T11:39:57.279Z",
+      "role": "workflow:owner",
+      "workflowId": "DGMllOGftxKNZJhh",
+      "projectId": "hlNkEWAlDmmc5iQw"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 2,
+  "updatedAt": "2025-09-25T20:53:46.782Z",
+  "versionId": "b29f5142-35fe-45ef-a406-77577a95b17f"
+}
