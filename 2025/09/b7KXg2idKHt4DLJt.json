@@ -1,0 +1,1215 @@
+{
+  "active": false,
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "ChatInput",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "VLLM1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Seniority Knob",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ChatInput": {
+      "main": [
+        [
+          {
+            "node": "Prompt - Fix Typos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Query": {
+      "main": [
+        []
+      ]
+    },
+    "Execute a SQL query": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Generate Response1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "VLLM2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Generate Response1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        []
+      ]
+    },
+    "VLLM3": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent1": {
+      "main": [
+        [
+          {
+            "node": "Execute a SQL query",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anthropic Chat Model1": {
+      "ai_languageModel": [
+        []
+      ]
+    },
+    "MCP Client": {
+      "ai_tool": [
+        []
+      ]
+    },
+    "Generate SQL Query": {
+      "main": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "PreparePrompts - Knobs3": {
+      "main": [
+        []
+      ]
+    },
+    "Prompt - Seniority": {
+      "main": [
+        [
+          {
+            "node": "Seniority Knob",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When fetching a dataset row": {
+      "main": [
+        []
+      ]
+    },
+    "Evaluation": {
+      "main": [
+        []
+      ]
+    },
+    "Evaluation1": {
+      "main": [
+        []
+      ]
+    },
+    "Prompt - Employment": {
+      "main": [
+        [
+          {
+            "node": "Employment Knob",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "JSON - Seniority": {
+      "main": [
+        [
+          {
+            "node": "Prompt - Employment",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "JSON - Employment Type": {
+      "main": [
+        [
+          {
+            "node": "Prompt - Industries",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "VLLM": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Employment Knob",
+            "type": "ai_languageModel",
+            "index": 0
+          },
+          {
+            "node": "Industries Knob",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Seniority Knob": {
+      "main": [
+        [
+          {
+            "node": "JSON - Seniority",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Employment Knob": {
+      "main": [
+        [
+          {
+            "node": "JSON - Employment Type",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Knobs": {
+      "main": [
+        []
+      ]
+    },
+    "OpenAI Chat Model1": {
+      "ai_languageModel": [
+        []
+      ]
+    },
+    "Prompt - Industries": {
+      "main": [
+        [
+          {
+            "node": "Industries Knob",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Industries Knob": {
+      "main": [
+        [
+          {
+            "node": "JSON - Industries",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "JSON - Industries": {
+      "main": [
+        []
+      ]
+    },
+    "Fix Typos": {
+      "main": [
+        [
+          {
+            "node": "Employees Regex",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prompt - Fix Typos": {
+      "main": [
+        [
+          {
+            "node": "Fix Typos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Qwen3 30b": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Fix Typos",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "JSON - Clean Text": {
+      "main": [
+        []
+      ]
+    },
+    "Employees Regex": {
+      "main": [
+        [
+          {
+            "node": "Senority Regex",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Senority Regex": {
+      "main": [
+        [
+          {
+            "node": "Knobs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Fix Typos",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-09-22T07:19:42.274Z",
+  "id": "b7KXg2idKHt4DLJt",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Resourcing Agent Tools",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -2608,
+        464
+      ],
+      "id": "557f5664-8808-4a06-810a-e802bebf4124",
+      "name": "When chat message received",
+      "webhookId": "4c1b54ba-d7f3-4459-a20d-e6827cc0df32"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "qwen3-coder-30b-32k",
+          "mode": "list",
+          "cachedResultName": "qwen3-coder-30b-32k"
+        },
+        "options": {
+          "temperature": 0.1
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -816,
+        672
+      ],
+      "id": "d28f8e21-7b91-40b5-9e03-20f87762c2a1",
+      "name": "VLLM1",
+      "credentials": {
+        "openAiApi": {
+          "id": "09tIxrZPXx1gwPgx",
+          "name": "vllm"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "999fafa1-c0b1-4710-a1bd-5e9279dc38ab",
+              "name": "chatInput",
+              "value": "={{ $json.chatInput }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -2384,
+        464
+      ],
+      "id": "7ecdc433-5ee2-4eef-8970-76d5d250480b",
+      "name": "ChatInput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Configuration object for scoring weights\nconst SCORING_CONFIG = {\n  skills: {\n    senior: 30,\n    medium: 20,\n    junior: 10\n  },\n  role: 100,\n  seniority: 50,\n  employment: 25,\n  industry: 10 // per matching industry\n};\n\n// Helper function to escape SQL strings\nconst escapeSql = (str) => {\n  if (str === null || str === undefined) return '';\n  return String(str).replace(/'/g, \"''\");\n};\n\n// Helper to safely format array for PostgreSQL\nconst formatArray = (arr) => {\n  if (!arr || !Array.isArray(arr)) return null;\n  return `ARRAY[${arr.map(item => `'${escapeSql(item)}'`).join(',')}]::text[]`;\n};\n\nconst buildRoleQuery = (criteria, config = SCORING_CONFIG) => {\n  const requiredConditions = [];\n  const scoring = [];\n  const debugInfo = [];\n  \n  // Input validation and cleaning\n  const cleanCriteria = {\n    role: criteria?.role ? escapeSql(criteria.role) : null,\n    seniority: criteria?.seniority ? escapeSql(criteria.seniority) : null,\n    employment_type: criteria?.employment_type ? escapeSql(criteria.employment_type) : null,\n    industries: Array.isArray(criteria?.industries) && criteria.industries.length > 0 \n      ? criteria.industries.map(escapeSql) : null,\n    skills: Array.isArray(criteria?.skills) && criteria.skills.length > 0 \n      ? criteria.skills.map(escapeSql) : null,\n    // Optional: Add flexibility for skill matching\n    skillMatchMode: criteria?.skillMatchMode || 'ALL', // 'ALL' or 'ANY'\n    // Optional: Limit results\n    limit: criteria?.limit || 20\n  };\n  \n  debugInfo.push(`Skill match mode: ${cleanCriteria.skillMatchMode}`);\n  \n  // Base query with all fields\n  let sql = `\n    SELECT \n      id,\n      name,\n      role,\n      seniority,\n      employment_type,\n      industries,\n      skills_senior,\n      skills_medium,\n      skills_junior`;\n  \n  // Skills handling with configurable matching\n  if (cleanCriteria.skills) {\n    const skillConditions = [];\n    const skillScoring = [];\n    \n    cleanCriteria.skills.forEach((skill, index) => {\n      const skillCondition = `('${skill}' = ANY(skills_senior) OR '${skill}' = ANY(skills_medium) OR '${skill}' = ANY(skills_junior))`;\n      skillConditions.push(skillCondition);\n      \n      // Individual skill scoring\n      skillScoring.push(`\n        CASE \n          WHEN '${skill}' = ANY(skills_senior) THEN ${config.skills.senior}\n          WHEN '${skill}' = ANY(skills_medium) THEN ${config.skills.medium}\n          WHEN '${skill}' = ANY(skills_junior) THEN ${config.skills.junior}\n          ELSE 0 \n        END`);\n    });\n    \n    // Apply skill matching mode\n    if (cleanCriteria.skillMatchMode === 'ALL') {\n      requiredConditions.push(`(${skillConditions.join(' AND ')})`);\n      debugInfo.push(`Required: ALL of ${cleanCriteria.skills.length} skills`);\n    } else {\n      requiredConditions.push(`(${skillConditions.join(' OR ')})`);\n      debugInfo.push(`Required: ANY of ${cleanCriteria.skills.length} skills`);\n    }\n    \n    scoring.push(...skillScoring);\n  }\n  \n  // Role scoring (optional - not a filter)\n  if (cleanCriteria.role) {\n    scoring.push(`CASE WHEN role = '${cleanCriteria.role}' THEN ${config.role} ELSE 0 END`);\n    debugInfo.push(`Preferred role: ${cleanCriteria.role} (+${config.role} points)`);\n  }\n  \n  // Seniority (required filter + scoring)\n  if (cleanCriteria.seniority) {\n    requiredConditions.push(`seniority = '${cleanCriteria.seniority}'`);\n    scoring.push(`CASE WHEN seniority = '${cleanCriteria.seniority}' THEN ${config.seniority} ELSE 0 END`);\n    debugInfo.push(`Required seniority: ${cleanCriteria.seniority}`);\n  }\n  \n  // Employment type (required filter + scoring)\n  if (cleanCriteria.employment_type) {\n    requiredConditions.push(`employment_type = '${cleanCriteria.employment_type}'`);\n    scoring.push(`CASE WHEN employment_type = '${cleanCriteria.employment_type}' THEN ${config.employment} ELSE 0 END`);\n    debugInfo.push(`Required employment: ${cleanCriteria.employment_type}`);\n  }\n  \n  // Industries (at least one match required + scoring)\n  if (cleanCriteria.industries) {\n    const industriesArray = formatArray(cleanCriteria.industries);\n    requiredConditions.push(`industries && ${industriesArray}`);\n    \n    // Score based on number of matching industries\n    scoring.push(`\n      (SELECT COUNT(*) * ${config.industry} \n       FROM unnest(industries) AS ind \n       WHERE ind = ANY(${industriesArray}))`);\n    debugInfo.push(`Required industries: ${cleanCriteria.industries.join(', ')}`);\n  }\n  \n  // Add scoring column if we have any scoring criteria\n  if (scoring.length > 0) {\n    sql += `,\n      (${scoring.join(' +\\n        ')}) AS total_score`;\n    \n    // Add individual score breakdowns for debugging\n    if (criteria?.debug) {\n      cleanCriteria.skills?.forEach((skill, index) => {\n        sql += `,\n      CASE \n        WHEN '${skill}' = ANY(skills_senior) THEN ${config.skills.senior}\n        WHEN '${skill}' = ANY(skills_medium) THEN ${config.skills.medium}\n        WHEN '${skill}' = ANY(skills_junior) THEN ${config.skills.junior}\n        ELSE 0 \n      END AS score_skill_${index + 1}`;\n      });\n    }\n  }\n  \n  sql += `\n    FROM ganttic_api_resources`;\n  \n  // Add WHERE clause if we have required conditions\n  if (requiredConditions.length > 0) {\n    sql += `\n    WHERE ${requiredConditions.join(' AND ')}`;\n  }\n  \n  // Add ORDER BY and LIMIT\n  sql += `\n    ORDER BY ${scoring.length > 0 ? 'total_score DESC' : 'name ASC'}\n    LIMIT ${cleanCriteria.limit}`;\n  \n  // Return both query and debug info for n8n logging\n  return {\n    query: sql,\n    debug: debugInfo,\n    criteriaUsed: cleanCriteria,\n    scoringConfig: config\n  };\n};\n\n// n8n execution\nconst input = $input.first().json;\n\n// Example of adding configuration override from input\nconst customConfig = input.scoringConfig || SCORING_CONFIG;\n\n// Build the query with optional debug mode\nconst result = buildRoleQuery({\n  ...input,\n  debug: input.debug || false // Set to true to get score breakdowns\n}, customConfig);\n\n// Log for n8n console\nconsole.log('Query built successfully');\nconsole.log('Debug info:', result.debug);\n\nreturn {\n  json: result\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        4864,
+        16
+      ],
+      "id": "53871509-c812-491a-b4fe-563b565f97d6",
+      "name": "Query"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "{{ $json.output }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        3008,
+        64
+      ],
+      "id": "d8bf7f80-e66a-4739-8229-ad7cb4e38d73",
+      "name": "Execute a SQL query",
+      "credentials": {
+        "postgres": {
+          "id": "wK2pSCG9jTniRU28",
+          "name": "Postgres account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const generateResponsePrompt = (queryResults, originalChat, sqlExecuted) => {\n  \n  const systemPrompt = `You are a helpful HR assistant presenting database query results conversationally.\nBe natural, specific, and helpful. Focus on answering what the user actually asked.\n\nRESPONSE RULES:\n1. Be conversational but professional\n2. Use actual names and numbers from the data\n3. Don't just dump data - interpret and summarize\n4. Highlight important patterns or insights\n5. Keep responses concise but complete\n6. If no results, suggest alternatives\n7. Never mention SQL, databases, or technical details`;\n\n  const userPrompt = `USER ASKED: \"${originalChat}\"\n\nQUERY RESULTS (${queryResults.length} records):\n${JSON.stringify(queryResults.slice(0, 10), null, 2)}\n${queryResults.length > 10 ? `... and ${queryResults.length - 10} more results` : ''}\n\nGENERATE NATURAL RESPONSE:\n\nBased on the user's question and the data, provide a helpful response following these patterns:\n\nFOR COUNTING QUESTIONS (\"how many\"):\n- Give the exact number first\n- Add context if relevant\n- Example: \"You have 12 senior React contractors. Most of them (8) have additional Node.js experience.\"\n\nFOR LISTING QUESTIONS (\"show me\", \"list\", \"who\"):\n- Summarize total found\n- List top/most relevant with details\n- Example: \"I found 5 React Engineers:\n  • Sarah Chen - Senior 1, Employee, expert in React and Next.js\n  • Mike Johnson - Senior 2, Contractor, specializes in React and Node.js\n  [etc.]\"\n\nFOR SEARCHING QUESTIONS (\"find\", \"need\"):\n- Present best matches first\n- Explain why they're good fits\n- Example: \"I found 3 excellent candidates for your project:\n  Robert is your best match - he's a Senior React Engineer with both Healthcare and Finance experience.\"\n\nFOR COMPARISONS (\"best\", \"top\"):\n- Rank and explain criteria\n- Highlight standout qualities\n- Example: \"Your top mobile developer is Alex Kim - they have senior-level expertise in both iOS and Android, plus React Native.\"\n\nFOR ZERO RESULTS:\n- Acknowledge no exact matches\n- Suggest alternatives\n- Example: \"I didn't find any senior Python contractors, but you have 3 senior Python employees who might be available, or 2 mid-level Python contractors who could work.\"\n\nFOR BREAKDOWN/ANALYSIS:\n- Provide clear categories\n- Show distribution\n- Example: \"Your team breakdown: \n  - 15 Seniors (45%)\n  - 10 Mid-level (30%)\n  - 8 Juniors (25%)\"\n\nIMPORTANT:\n- Use people's actual names from the data\n- Mention specific skills/experience when relevant\n- Be helpful - if the search seems too narrow, mention it\n- Keep a friendly, professional tone\n\nYour response:`;\n\n  return {\n    systemPrompt,\n    userPrompt\n  };\n};\n\n\n// Usage example\nconst sqlPrompt = generateResponsePrompt($input.all(), $('ChatInput').first().json.chatInput, $('AI Agent1').first().json.output);\n\nreturn {\n  \n  json: {\n    sqlPrompt\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3200,
+        64
+      ],
+      "id": "17cdf5ee-bbd5-4cfd-88cb-545c6cfd3efc",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "qwen3-coder-30b-32k",
+          "mode": "list",
+          "cachedResultName": "qwen3-coder-30b-32k"
+        },
+        "options": {
+          "temperature": 0.1
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        3440,
+        272
+      ],
+      "id": "acb5dee2-f472-46db-99a8-85a6b8862667",
+      "name": "VLLM2",
+      "credentials": {
+        "openAiApi": {
+          "id": "09tIxrZPXx1gwPgx",
+          "name": "vllm"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.sqlPrompt.userPrompt }}",
+        "messages": {
+          "messageValues": [
+            {
+              "message": "={{ $json.sqlPrompt.systemPrompt }}"
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        3440,
+        64
+      ],
+      "id": "a99ba264-c347-440f-b0e2-4a27824f8e41",
+      "name": "Generate Response1"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4.1-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -400,
+        720
+      ],
+      "id": "264d9d00-ba66-480b-bdc0-5e9053190b58",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "M8xqWvEC6mH6LNuk",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "qwen3-coder-30b-32k",
+          "mode": "list",
+          "cachedResultName": "qwen3-coder-30b-32k"
+        },
+        "options": {
+          "temperature": 0.1
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        2576,
+        336
+      ],
+      "id": "e437990b-8b84-49d5-9b05-1df8252839fb",
+      "name": "VLLM3",
+      "credentials": {
+        "openAiApi": {
+          "id": "09tIxrZPXx1gwPgx",
+          "name": "vllm"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.sqlPrompt.userPrompt }}",
+        "options": {
+          "systemMessage": "=You are a helpful assistant {{ $json.sqlPrompt.systemPrompt }}"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        2624,
+        64
+      ],
+      "id": "764d4b30-1426-4baf-9512-60dd7e9dc63b",
+      "name": "AI Agent1"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "claude-opus-4-1-20250805",
+          "mode": "list",
+          "cachedResultName": "Claude Opus 4.1"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [
+        -624,
+        832
+      ],
+      "id": "8b47e5f9-0b40-4aa5-9484-3e43edcd6afb",
+      "name": "Anthropic Chat Model1",
+      "credentials": {
+        "anthropicApi": {
+          "id": "BVejEoXr4J9auxgo",
+          "name": "Anthropic account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "endpointUrl": "http://127.0.0.1:5678/mcp/1713cd2c-a44b-483d-a87e-c133a855705e/sse",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
+      "typeVersion": 1.1,
+      "position": [
+        -2128,
+        960
+      ],
+      "id": "f79e310f-fe30-4f8a-ac04-bae28bafece6",
+      "name": "MCP Client"
+    },
+    {
+      "parameters": {
+        "jsCode": "const generateQueryPrompt = (extractedData, originalChat) => {\n  const systemPrompt = `You are a PostgreSQL query generator for employee database searches.\nGenerate ONLY a single valid SQL statement (end with a semicolon). No prose.\nDATABASE: ganttic_api_resources\nCOLUMNS:\n- id (text)\n- name (text)\n- role (text)\n- seniority (text)\n- employment_type (text)\n- industries (text[])           -- PostgreSQL array\n- skills_senior (text[])        -- PostgreSQL array\n- skills_medium (text[])        -- PostgreSQL array\n- skills_junior (text[])        -- PostgreSQL array\nSTRICT RULES:\n1) Use ONLY values present in EXTRACTED EXACT VALUES (do not invent or normalize).\n3) When checking array membership, use: 'value' = ANY(column_name).\n4) When mixing AND/OR, ALWAYS wrap OR groups in parentheses.\n5) Use only existing columns; do not reference non-existent columns.\n6) Output exactly one SQL query and nothing else, ending with a semicolon.\n- The natural language takes precedence over extracted keywords for interpretation\n- Extracted keywords confirm correct spelling/format of database values\n- But interpret plurality, ranges, and intent from the natural language`;\n  \n  const userPrompt = `NATURAL REQUEST: \"${originalChat}\"\nEXTRACTED EXACT VALUES (trusted canonical values):\n${JSON.stringify(extractedData, null, 2)}\nQUERY TYPE SELECTION:\n- If the natural request implies \"how many\" / \"count\" / \"number of\": use SELECT COUNT(*)\n- If it implies \"list\" / \"show\" / \"who\" / \"find\": use SELECT with fields: name, role, seniority, employment_type, industries\n- If it implies \"all\" / \"everyone\": SELECT * with LIMIT 100\n- If it implies \"best\" / \"top\": SELECT * and ORDER BY a reasonable proxy (e.g., CASE seniority …) DESC, LIMIT 10\n- If it implies \"breakdown\" (e.g., by role/seniority): GROUP BY that field with COUNT(*)\nWHERE CLAUSE CONSTRUCTION (include only if present in EXTRACTED EXACT VALUES):\n- role → role = '<value>'\n- seniority → seniority = '<value>'\n- employment_type → employment_type = '<value>'\n- If skills array is NOT empty → DO NOT use role in WHERE clause\n- If skills array IS empty AND role is provided → use: role = '<value>'\n\nSKILLS HANDLING (include only if skills array present):\n- If the natural request suggests \"expert\"/\"senior level\", check ONLY skills_senior.\n- Otherwise, check ALL three arrays.\n- For a single skill S: \n  - expert-only: 'S' = ANY(skills_senior)\n  - general: ('S' = ANY(skills_senior) OR 'S' = ANY(skills_medium) OR 'S' = ANY(skills_junior))\n- For multiple skills with AND intent: combine each skill condition with AND.\n- For multiple skills with OR intent: combine skill conditions with OR, wrapped in parentheses.\nINDUSTRIES HANDLING (include only if industries array present):\n- For each industry I: 'I' = ANY(industries)\n- Multiple industries with AND intent → AND between them; with OR intent → OR between them (wrap OR group in parentheses).\nOPERATOR PRECEDENCE:\n- AND has higher precedence than OR; wrap any OR groups when combined with AND.\nDEFAULTS:\n- For list/find: add LIMIT 100 unless user clearly asks for a different size.\n- Always terminate the SQL with a semicolon.\nTIE-BREAKERS FOR \"TOP/BEST\" (if requested and no explicit scoring is given):\n- Use seniority weight: CASE WHEN seniority LIKE 'Senior%' THEN 3 WHEN seniority LIKE 'Mid%' THEN 2 ELSE 1 END DESC\n- Then name ASC.\nEXAMPLES (illustrative shape—adapt to provided extracted values):\n-- Example A: \"How many senior contractors with AWS\"\nSELECT COUNT(*) FROM ganttic_api_resources\nWHERE employment_type = 'Contractor'\nAND seniority = 'Senior 1'\nAND ('DevOps - AWS' = ANY(skills_senior) OR 'DevOps - AWS' = ANY(skills_medium) OR 'DevOps - AWS' = ANY(skills_junior));\n-- Example B: \"List Mobile Engineers with Android and Flutter in Healthcare or Pharma\"\nSELECT name, role, seniority, employment_type, industries\nFROM ganttic_api_resources\nWHERE role = 'Mobile Engineer'\nAND ('Android' = ANY(skills_senior) OR 'Android' = ANY(skills_medium) OR 'Android' = ANY(skills_junior))\nAND ('Flutter' = ANY(skills_senior) OR 'Flutter' = ANY(skills_medium) OR 'Flutter' = ANY(skills_junior))\nAND ('Healthcare' = ANY(industries) OR 'Pharma' = ANY(industries))\nLIMIT 100;\nGENERATE THE SQL QUERY NOW (one statement, end with a semicolon):`;\n  return { systemPrompt, userPrompt };\n};\n\n// Usage example\nconst sqlPrompt = generateQueryPrompt(\n  {\n    role: $input.first().json.role,\n    seniority: $input.first().json.seniority,\n    employment_type: $input.first().json.employment_type,\n    industries: $input.first().json.industries,\n    skills: $input.first().json.skills\n  },\n  $('ChatInput').first().json.chatInput\n);\n\nreturn {\n  json: {\n    sqlPrompt\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2400,
+        64
+      ],
+      "id": "632a163b-38e2-4d17-9900-77ac3c2d1964",
+      "name": "Generate SQL Query"
+    },
+    {
+      "parameters": {
+        "jsCode": "const generateQueryPrompt = (extractedData, originalChat) => {\n  \n  const systemPrompt = `You are a PostgreSQL query generator for employee database searches.\nGenerate ONLY valid SQL queries based on natural language requests and provided structured data.\n\nDATABASE: ganttic_api_resources\nCOLUMNS:\n- id (text)\n- name (text)\n- role (text) \n- seniority (text)\n- employment_type (text)\n- industries (text[]) - PostgreSQL array\n- skills_senior (text[]) - PostgreSQL array\n- skills_medium (text[]) - PostgreSQL array  \n- skills_junior (text[]) - PostgreSQL array\n\nCRITICAL RULES:\n1. Use EXACT values from the extracted data - never modify them\n2. For arrays use: 'value' = ANY(column_name)\n3. Output ONLY the SQL query - no explanations\n4. Interpret the user's INTENT from the natural query\n5. Use extracted keywords for EXACT field values\n6. ALWAYS wrap OR conditions in parentheses when combined with AND conditions`;\n\n  const userPrompt = `NATURAL REQUEST: \"${originalChat}\"\n\nEXTRACTED EXACT VALUES:\n${JSON.stringify(extractedData, null, 2)}\n\nQUERY GENERATION RULES:\n\n1. DETERMINE QUERY TYPE from natural language:\n   - \"how many\", \"count\", \"number of\" → SELECT COUNT(*)\n   - \"list\", \"show\", \"who\", \"find\" → SELECT with specific fields\n   - \"all\", \"everyone\" → SELECT * with LIMIT 100\n   - \"best\", \"top\" → SELECT with ORDER BY scoring\n   - \"available\" → Filter by employment_type or other criteria\n   - \"breakdown\", \"by role/seniority\" → GROUP BY with COUNT\n\n2. BUILD WHERE CLAUSE using extracted data:\n   - If role provided: role = '${extractedData.role || ''}'\n   - If seniority: seniority = '${extractedData.seniority || ''}'  \n   - If employment_type: employment_type = '${extractedData.employment_type || ''}'\n   \n3. HANDLE SKILLS (if provided):\n   ${extractedData.skills?.length > 0 ? `\n   For skills: ${JSON.stringify(extractedData.skills)}\n   - If user asks for \"expert\" or \"senior level\": Check only skills_senior\n   - If user asks for specific skill: Check all three arrays (senior, medium, junior)\n   - CRITICAL: When checking multiple skill levels, ALWAYS use parentheses:\n     CORRECT: role = 'Mobile Engineer' AND ('Android' = ANY(skills_senior) OR 'Android' = ANY(skills_medium) OR 'Android' = ANY(skills_junior))\n     WRONG: role = 'Mobile Engineer' AND 'Android' = ANY(skills_senior) OR 'Android' = ANY(skills_medium) OR 'Android' = ANY(skills_junior)\n   - Multiple skills with \"and\": Use AND between different skills\n   - Multiple skills with \"or\": Use OR between different skills\n   - When combining skill conditions with other WHERE clauses, wrap all OR conditions in parentheses\n   ` : ''}\n\n4. HANDLE INDUSTRIES (if provided):\n   ${extractedData.industries?.length > 0 ? `\n   Industries: ${JSON.stringify(extractedData.industries)}\n   Use: 'industry_name' = ANY(industries)\n   ` : ''}\n\n5. OPERATOR PRECEDENCE RULES:\n   - AND has higher precedence than OR\n   - ALWAYS use parentheses when mixing AND/OR to ensure correct logic\n   - Examples:\n     WHERE role = 'X' AND (skill1 OR skill2 OR skill3)  ✓\n     WHERE (condition1 AND condition2) OR (condition3 AND condition4)  ✓\n     WHERE role = 'X' AND skill1 OR skill2  ✗ (will include all skill2 regardless of role)\n\n6. SPECIAL PATTERNS:\n   - \"senior contractors\" → Combine seniority AND employment_type\n   - \"React or Angular\" → OR between roles or skills\n   - \"full stack\" → Check for both frontend and backend skills\n   - \"team for project\" → Return multiple people with varied skills\n\nEXAMPLES BASED ON INTENT:\n\nIf natural query is \"count/how many\":\nSELECT COUNT(*) FROM ganttic_api_resources WHERE [conditions]\n\nIf natural query is \"list/show/find\":\nSELECT name, role, seniority, employment_type, skills, industries, notes, description FROM ganttic_api_resources WHERE [conditions] LIMIT 100\n\nIf natural query mentions \"best/top\":\nSELECT *, (scoring_logic) as score FROM ganttic_api_resources WHERE [conditions] ORDER BY score DESC LIMIT 10\n\nIf natural query asks for \"breakdown\":\nSELECT ${extractedData.role ? 'seniority' : 'role'}, COUNT(*) FROM ganttic_api_resources GROUP BY ${extractedData.role ? 'seniority' : 'role'}\n\nCORRECT QUERY EXAMPLES WITH PROPER PARENTHESES:\n\nExample 1: \"Mobile developers with Android skills\"\nSELECT COUNT(*) FROM ganttic_api_resources \nWHERE role = 'Mobile Engineer' \nAND ('Android' = ANY(skills_senior) OR 'Android' = ANY(skills_medium) OR 'Android' = ANY(skills_junior))\n\nExample 2: \"Senior React or Angular developers\"\nSELECT * FROM ganttic_api_resources \nWHERE (seniority = 'Senior 1' OR seniority = 'Senior 2') \nAND (role = 'React Engineer' OR role = 'Angular Engineer')\n\nExample 3: \"Contractors with Python and AWS\"\nSELECT * FROM ganttic_api_resources \nWHERE employment_type = 'Contractor'\nAND ('Python - Django' = ANY(skills_senior) OR 'Python - Flask' = ANY(skills_senior) OR 'Python - Django' = ANY(skills_medium) OR 'Python - Flask' = ANY(skills_medium))\nAND ('DevOps - AWS' = ANY(skills_senior) OR 'DevOps - AWS' = ANY(skills_medium) OR 'DevOps - AWS' = ANY(skills_junior))\n\nGENERATE THE SQL QUERY:`;\n\n  return {\n    systemPrompt,\n    userPrompt\n  };\n};\n\n// Usage example\nconst sqlPrompt = generateQueryPrompt(\n  {\n    role: $input.first().json.role,\n    seniority: $input.first().json.seniority,\n    employment_type: $input.first().json.employment_type,\n    industries: $input.first().json.industries,\n    skills: $input.first().json.skills\n  },\n  $('ChatInput').first().json.chatInput\n);\n\nreturn {\n  json: {\n    sqlPrompt\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        4160,
+        224
+      ],
+      "id": "bf082a10-8fd4-40f8-9de5-85f5f4c08053",
+      "name": "Generate SQL Query1"
+    },
+    {
+      "parameters": {
+        "jsCode": "const generateQueryPrompt = (extractedData, originalChat) => {\n  const systemPrompt = `You are a PostgreSQL query generator for employee database searches.\nGenerate ONLY a single valid SQL statement (end with a semicolon). No prose.\nDATABASE: ganttic_api_resources\nCOLUMNS:\n- id (text)\n- name (text)\n- role (text)\n- seniority (text)\n- employment_type (text)\n- industries (text[])           -- PostgreSQL array\n- skills_senior (text[])        -- PostgreSQL array\n- skills_medium (text[])        -- PostgreSQL array\n- skills_junior (text[])        -- PostgreSQL array\nSTRICT RULES:\n1) Use ONLY values present in EXTRACTED EXACT VALUES (do not invent or normalize).\n2) Omit any condition whose value is missing/empty/null.\n3) When checking array membership, use: 'value' = ANY(column_name).\n4) When mixing AND/OR, ALWAYS wrap OR groups in parentheses.\n5) Use only existing columns; do not reference non-existent columns.\n6) Output exactly one SQL query and nothing else, ending with a semicolon.`;\n  const userPrompt = `NATURAL REQUEST: \"${originalChat}\"\nEXTRACTED EXACT VALUES (trusted canonical values):\n${JSON.stringify(extractedData, null, 2)}\nQUERY TYPE SELECTION:\n- If the natural request implies \"how many\" / \"count\" / \"number of\": use SELECT COUNT(*)\n- If it implies \"list\" / \"show\" / \"who\" / \"find\": use SELECT with fields: name, role, seniority, employment_type, industries\n- If it implies \"all\" / \"everyone\": SELECT * with LIMIT 100\n- If it implies \"best\" / \"top\": SELECT * and ORDER BY a reasonable proxy (e.g., CASE seniority …) DESC, LIMIT 10\n- If it implies \"breakdown\" (e.g., by role/seniority): GROUP BY that field with COUNT(*)\nWHERE CLAUSE CONSTRUCTION (include only if present in EXTRACTED EXACT VALUES):\n- role → role = '<value>'\n- seniority → seniority = '<value>'\n- employment_type → employment_type = '<value>'\nSKILLS HANDLING (include only if skills array present):\n- If the natural request suggests \"expert\"/\"senior level\", check ONLY skills_senior.\n- Otherwise, check ALL three arrays.\n- For a single skill S: \n  - expert-only: 'S' = ANY(skills_senior)\n  - general: ('S' = ANY(skills_senior) OR 'S' = ANY(skills_medium) OR 'S' = ANY(skills_junior))\n- For multiple skills with AND intent: combine each skill condition with AND.\n- For multiple skills with OR intent: combine skill conditions with OR, wrapped in parentheses.\nINDUSTRIES HANDLING (include only if industries array present):\n- For each industry I: 'I' = ANY(industries)\n- Multiple industries with AND intent → AND between them; with OR intent → OR between them (wrap OR group in parentheses).\nOPERATOR PRECEDENCE:\n- AND has higher precedence than OR; wrap any OR groups when combined with AND.\nDEFAULTS:\n- For list/find: add LIMIT 100 unless user clearly asks for a different size.\n- Always terminate the SQL with a semicolon.\nTIE-BREAKERS FOR \"TOP/BEST\" (if requested and no explicit scoring is given):\n- Use seniority weight: CASE WHEN seniority LIKE 'Senior%' THEN 3 WHEN seniority LIKE 'Mid%' THEN 2 ELSE 1 END DESC\n- Then name ASC.\nEXAMPLES (illustrative shape—adapt to provided extracted values):\n-- Example A: \"How many senior contractors with AWS\"\nSELECT COUNT(*) FROM ganttic_api_resources\nWHERE employment_type = 'Contractor'\nAND seniority = 'Senior 1'\nAND ('DevOps - AWS' = ANY(skills_senior) OR 'DevOps - AWS' = ANY(skills_medium) OR 'DevOps - AWS' = ANY(skills_junior));\n-- Example B: \"List Mobile Engineers with Android and Flutter in Healthcare or Pharma\"\nSELECT name, role, seniority, employment_type, industries\nFROM ganttic_api_resources\nWHERE role = 'Mobile Engineer'\nAND ('Android' = ANY(skills_senior) OR 'Android' = ANY(skills_medium) OR 'Android' = ANY(skills_junior))\nAND ('Flutter' = ANY(skills_senior) OR 'Flutter' = ANY(skills_medium) OR 'Flutter' = ANY(skills_junior))\nAND ('Healthcare' = ANY(industries) OR 'Pharma' = ANY(industries))\nLIMIT 100;\nGENERATE THE SQL QUERY NOW (one statement, end with a semicolon):`;\n  return { systemPrompt, userPrompt };\n};\n\n// Usage example\nconst sqlPrompt = generateQueryPrompt(\n  {\n    role: $input.first().json.role,\n    seniority: $input.first().json.seniority,\n    employment_type: $input.first().json.employment_type,\n    industries: $input.first().json.industries,\n    skills: $input.first().json.skills\n  },\n  $('ChatInput').first().json.chatInput\n);\n\nreturn {\n  json: {\n    sqlPrompt\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        4416,
+        240
+      ],
+      "id": "902633a7-0bb2-4e6f-82cc-77d1baf63291",
+      "name": "Generate SQL Query2"
+    },
+    {
+      "parameters": {
+        "jsCode": "const chatInput = $input.first().json.chatInput;\n\nconst systemPrompt = \"Extract staffing constraints from the user's request. Be strict and literal.Return ONLY compact JSON, no prose.\";\n\n// 3. Define the user prompt\nconst userPrompt = `TEXT:\n${chatInput}\n\nUse Supabase Tool to retrieve best candidates.\nGiven the \"role, job title\" map it to the most appropriate role name from the following list:\n\nAVAILABLE ROLES (use EXACTLY as written):\n- Node.js Engineer\n- Solution Architect\n- .NET Engineer\n- UI/UX Designer\n- PHP Engineer\n- Data Expert\n- Program manager\n- Manager of Frontend Excellence\n- Python Engineer\n- React Engineer\n- Java Engineer\n- Product owner\n- Angular Engineer\n- Ruby Engineer\n- Vue.js Engineer\n- Data Engineer\n- Mobile Engineer\n- Manager of Design Excellence\n- WordPress Engineer\n- QA Engineer\n- Centre of Excellence Head of Technology\n- Project Manager\n- Engineering Lead\n- Manager of Project Management Excellence\n- Technical Support Engineer\n- DevOps Engineer\n- Manager of BA Excellence\n- AI Engineer\n- Business Analyst\n\nEnsure that skills or areas of expertise are not treated as roles. The role should be singular, and it must correspond directly to the job title being classified or searched for.\n\nMAPPING RULES:\n- \"backend developer\" → Check for language mentioned: Python Engineer, Java Engineer, PHP Engineer, Ruby Engineer, Node.js Engineer, .NET Engineer\n- \"frontend developer\" → Check for framework mentioned: React Engineer, Angular Engineer, Vue.js Engineer  \n- \"full stack\" → Pick based on primary skill mentioned, or return null\n- \"mobile\" → Mobile Engineer\n- \"flutter developer\" -> Mobile Engineer\n- \"data scientist\" → Data Expert\n- \"ML\" or \"machine learning\" → AI Engineer\n- \"BA\" → Business Analyst\n- \"PM\" → Project Manager\n- \"PO\" → Product owner\n- \"SA\" → Solution Architect\n- \"QA\" or \"tester\" → QA Engineer\n- \"DevOps\" or \"SRE\" → DevOps Engineer\n- \"support\" → Technical Support Engineer\n- \"designer\" or \"UX\" or \"UI\" → UI/UX Designer\n- \"WordPress\" or \"CMS\" → WordPress Engineer\n\nSENIORITY LEVELS (use EXACTLY as written):\n- Novice\n- Junior 1\n- Junior 2\n- Mid 1\n- Mid 2\n- Senior 1\n- Senior 2\n\nMAPPING RULES FOR SENIORITY:\n- \"junior\" or \"entry level\" or \"beginner\" → Junior 1\n- \"mid\" or \"intermediate\" → Mid 1\n- \"senior\" or \"experienced\" or \"expert\" → Senior 1\n- If user says specific level like \"Senior 2\", use exactly that\n- If no seniority mentioned, return empty\n\nEMPLOYMENT TYPE (use EXACTLY as written):\n- Employee\n- Contractor\n- Student\n\nMAPPING RULES FOR EMPLOYMENT TYPE:\n- \"contractor\" or \"freelance\" or \"consultant\" or \"contract\" → Contractor\n- \"employee\" or \"full-time\" or \"permanent\" → Employee\n- If not mentioned, return empty\n\nINDUSTRIES (use EXACTLY as written):\n- Agriculture\n- Automotive\n- B2B\n- Banking & Insurance\n- Big Data\n- Civil Engineering\n- Content Distribution\n- Corporate (HR, Legal, Finance,..)\n- Crypto\n- Dental\n- E-commerce\n- Education\n- Entertainment & Sports\n- Fintech\n- FMCG\n- Food\n- Furniture\n- Government\n- Healthcare\n- Hospitality or Travel\n- Human Resources\n- IoT\n- Logistics\n- Maritime industry\n- Marketing\n- Media\n- Military or Law Enforcement\n- Pharma\n- Public Transportation\n- Publishing\n- Real Estate\n- Regulatory\n- Retail\n- SaaS\n- Social Media\n- Streaming\n- Telecommunications\n- White labeling\n\nMAPPING RULES FOR INDUSTRIES:\n- \"finance\" or \"financial\" → Fintech or Banking & Insurance\n- \"health\" or \"medical\" → Healthcare\n- \"pharma\" or \"pharmaceutical\" → Pharma\n- \"retail\" or \"shop\" → Retail\n- \"government\" or \"public sector\" → Government\n- \"telecom\" → Telecommunications\n- \"real estate\" or \"property\" → Real Estate\n- \"education\" or \"academic\" → Education\n- Return array of all mentioned industries\n- If no industry mentioned, return empty array\n\nSKILLS (use EXACTLY as written):\n- Web Slice/CSS/HTML\n- SEO\n- C# - .NET Framework\n- C# - .NET Core\n- C# - Unity\n- GO - beego\n- GO - gin\n- Java - J2EE\n- Java - Spring (Boot)\n- Kotlin - Ktor\n- Kotlin - Spring Boot\n- Kotlin - Micronaut\n- Node.js - Express\n- Node.js - Koa.js\n- Node.js - Meteor\n- Node.js - Nest.js\n- PHP - Laravel\n- PHP - Symfony\n- Python - DS/DE\n- Python - Django\n- Python - Flask\n- Ruby - Rails\n- Ruby - Sintara\n- Business analysis\n- CMS - CraftCMS\n- CMS - Drupal\n- CMS - Strapi\n- CMS - Wordpress\n- Data Scientist\n- Data Engineer\n- Design - UI\n- Design - UX\n- DevOps - AWS\n- DevOps - Azure\n- DevOps - CI/CD\n- DevOps - GCP\n- DevOps - Linux/Unix\n- DevOps - Networking/Security\n- DevOps - Windows\n- Digital Marketing\n- Magento - e-comm\n- Shopify - e-comm\n- Sylius - e-comm\n- WooCommerce - e-comm\n- JS - Angular\n- JS - Next.js\n- JS - React\n- JS - Vue.js\n- Android\n- Flutter\n- iOS\n- ReactNative\n- Presales Engineer\n- Product Owner\n- Product Strategy\n- Project Management\n- QA - Automated testing\n- QA - Functional testing\n- QA - Manual testing\n- QA - Nonfunctional testing\n- Solution Architect\n- Support Engineer\n- AI - Computer Vision\n- AI - Data Management and Preparation\n- AI - Generative AI\n- AI - LLM\n- AI - Machine Learning\n- AI - MLOps & LLMOps\n- AI - N8N\n- AI - Neural Networks\n- AI - Agents\n- AI - NLP\n- AI - Prompt Engineering\n- AI - RAG\n\nMAPPING RULES FOR SKILLS:\n- Only map EXPLICITLY mentioned skills\n- \"wordpress\" → CMS - Wordpress\n- \"AWS\" -> DevOps - AWS\n- \"machine learning\" or \"ML\" → AI - Machine Learning\n- \"LLM\" or \"large language model\" → AI - LLM\n- \"RAG\" or \"retrieval augmented generation\" → AI - RAG\n- \"prompting\" or \"prompt engineering\" → AI - Prompt Engineering\n- DO NOT add skills just because a technology family is mentioned (e.g., \"nodejs\" doesn't mean all Node.js frameworks)\n- Return array of ONLY explicitly mentioned skills\n- If no specific skills mentioned, return empty array\n- Do not imply skills\n\n\nReturn JSON with this schema:\n{\n    \"role\": \"string\",              // e.g., \"Node.js Engineer\"\n    \"seniority\": \"string or null\" // e.g., \"Senior 1\",\n    \"employment_type\": \"string\" //e.g., Employee/Contractor\n    \"industries\": [\"array of industries or empty array\"],\n    \"skills\": [\"array of skills or empty array\"]\n}\n`;\n\nreturn {\n  json: {\n    userPrompt,\n    systemPrompt: systemPrompt\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1968,
+        128
+      ],
+      "id": "3a769a0c-a1ff-45cc-afe4-9488038ce725",
+      "name": "PreparePrompts - Knobs"
+    },
+    {
+      "parameters": {
+        "jsCode": "const chatInput = $input.first().json.chatInput;\n\nconst systemPrompt = \"Extract staffing constraints from the user's request. Be strict and literal.Return ONLY compact JSON, no prose.\";\n\n// 3. Define the user prompt\nconst userPrompt = `TEXT:\n${chatInput}\n\nGiven the \"role, job title\" map it to the most appropriate role name from the following list:\n\nAVAILABLE ROLES (use EXACTLY as written):\n- Node.js Engineer\n- Solution Architect\n- .NET Engineer\n- UI/UX Designer\n- PHP Engineer\n- Data Expert\n- Program manager\n- Manager of Frontend Excellence\n- Python Engineer\n- React Engineer\n- Java Engineer\n- Product owner\n- Angular Engineer\n- Ruby Engineer\n- Vue.js Engineer\n- Data Engineer\n- Mobile Engineer\n- Manager of Design Excellence\n- WordPress Engineer\n- QA Engineer\n- Centre of Excellence Head of Technology\n- Project Manager\n- Engineering Lead\n- Manager of Project Management Excellence\n- Technical Support Engineer\n- DevOps Engineer\n- Manager of BA Excellence\n- AI Engineer\n- Business Analyst\n\nEnsure that skills or areas of expertise are not treated as roles. The role should be singular, and it must correspond directly to the job title being classified or searched for.\n\nMAPPING RULES:\n- \"backend developer\" → Check for language mentioned: Python Engineer, Java Engineer, PHP Engineer, Ruby Engineer, Node.js Engineer, .NET Engineer\n- \"frontend developer\" → Check for framework mentioned: React Engineer, Angular Engineer, Vue.js Engineer  \n- \"full stack\" → Pick based on primary skill mentioned, or return null\n- \"mobile\" → Mobile Engineer\n- \"flutter developer\" -> Mobile Engineer\n- \"data scientist\" → Data Expert\n- \"ML\" or \"machine learning\" → AI Engineer\n- \"BA\" → Business Analyst\n- \"PM\" → Project Manager\n- \"PO\" → Product owner\n- \"SA\" → Solution Architect\n- \"QA\" or \"tester\" → QA Engineer\n- \"DevOps\" or \"SRE\" → DevOps Engineer\n- \"support\" → Technical Support Engineer\n- \"designer\" or \"UX\" or \"UI\" → UI/UX Designer\n- \"WordPress\" or \"CMS\" → WordPress Engineer\n\nSENIORITY LEVELS (use EXACTLY as written):\n- Novice\n- Junior 1\n- Junior 2\n- Mid 1\n- Mid 2\n- Senior 1\n- Senior 2\n\nMAPPING RULES FOR SENIORITY:\n- \"junior\" or \"entry level\" or \"beginner\" or \"juniors\" → [\"Junior 1\", \"Junior 2\"]\n- \"mid\" or \"intermediate\" or \"mids\"→ [\"Mid 1\", \"Mid 2\"]\n- \"senior\" or \"experienced\" or \"expert\" or \"seniors\"→ [\"Senior 1\", \"Senior 2\"]\n- If user says specific level like \"Senior 2\", use exactly that [\"Senior 2\"]\n- If no seniority mentioned, return empty\n- When encountering plural forms, return multiple values: \"seniors\" → [\"Senior 1\", \"Senior 2\"]\n\nEMPLOYMENT TYPE (use EXACTLY as written):\n- Employee\n- Contractor\n- Student\n\nMAPPING RULES FOR EMPLOYMENT TYPE:\n- \"contractor\" or \"freelance\" or \"consultant\" or \"contract\" → Contractor\n- \"employee\" or \"full-time\" or \"permanent\" → Employee\n- If not mentioned, return empty\n\nINDUSTRIES (use EXACTLY as written):\n- Agriculture\n- Automotive\n- B2B\n- Banking & Insurance\n- Big Data\n- Civil Engineering\n- Content Distribution\n- Corporate (HR, Legal, Finance,..)\n- Crypto\n- Dental\n- E-commerce\n- Education\n- Entertainment & Sports\n- Fintech\n- FMCG\n- Food\n- Furniture\n- Government\n- Healthcare\n- Hospitality or Travel\n- Human Resources\n- IoT\n- Logistics\n- Maritime industry\n- Marketing\n- Media\n- Military or Law Enforcement\n- Pharma\n- Public Transportation\n- Publishing\n- Real Estate\n- Regulatory\n- Retail\n- SaaS\n- Social Media\n- Streaming\n- Telecommunications\n- White labeling\n\nMAPPING RULES FOR INDUSTRIES:\n- \"finance\" or \"financial\" → Fintech or Banking & Insurance\n- \"health\" or \"medical\" → Healthcare\n- \"pharma\" or \"pharmaceutical\" → Pharma\n- \"retail\" or \"shop\" → Retail\n- \"government\" or \"public sector\" → Government\n- \"telecom\" → Telecommunications\n- \"real estate\" or \"property\" → Real Estate\n- \"education\" or \"academic\" → Education\n- Return array of all mentioned industries\n- If no industry mentioned, return empty array\n\nSKILLS (use EXACTLY as written):\n- Web Slice/CSS/HTML\n- SEO\n- C# - .NET Framework\n- C# - .NET Core\n- C# - Unity\n- GO - beego\n- GO - gin\n- Java - J2EE\n- Java - Spring (Boot)\n- Kotlin - Ktor\n- Kotlin - Spring Boot\n- Kotlin - Micronaut\n- Node.js - Express\n- Node.js - Koa.js\n- Node.js - Meteor\n- Node.js - Nest.js\n- PHP - Laravel\n- PHP - Symfony\n- Python - DS/DE\n- Python - Django\n- Python - Flask\n- Ruby - Rails\n- Ruby - Sintara\n- Business analysis\n- CMS - CraftCMS\n- CMS - Drupal\n- CMS - Strapi\n- CMS - Wordpress\n- Data Scientist\n- Data Engineer\n- Design - UI\n- Design - UX\n- DevOps - AWS\n- DevOps - Azure\n- DevOps - CI/CD\n- DevOps - GCP\n- DevOps - Linux/Unix\n- DevOps - Networking/Security\n- DevOps - Windows\n- Digital Marketing\n- Magento - e-comm\n- Shopify - e-comm\n- Sylius - e-comm\n- WooCommerce - e-comm\n- JS - Angular\n- JS - Next.js\n- JS - React\n- JS - Vue.js\n- Android\n- Flutter\n- iOS\n- ReactNative\n- Presales Engineer\n- Product Owner\n- Product Strategy\n- Project Management\n- QA - Automated testing\n- QA - Functional testing\n- QA - Manual testing\n- QA - Nonfunctional testing\n- Solution Architect\n- Support Engineer\n- AI - Computer Vision\n- AI - Data Management and Preparation\n- AI - Generative AI\n- AI - LLM\n- AI - Machine Learning\n- AI - MLOps & LLMOps\n- AI - N8N\n- AI - Neural Networks\n- AI - Agents\n- AI - NLP\n- AI - Prompt Engineering\n- AI - RAG\n\nMAPPING RULES FOR SKILLS:\n- Only map EXPLICITLY mentioned skills\n- \"wordpress\" → CMS - Wordpress\n- \"AWS\" -> DevOps - AWS\n- \"machine learning\" or \"ML\" → AI - Machine Learning\n- \"LLM\" or \"large language model\" → AI - LLM\n- \"RAG\" or \"retrieval augmented generation\" → AI - RAG\n- \"prompting\" or \"prompt engineering\" → AI - Prompt Engineering\n- DO NOT add skills just because a technology family is mentioned (e.g., \"nodejs\" doesn't mean all Node.js frameworks)\n- Return array of ONLY explicitly mentioned skills\n- If no specific skills mentioned, return empty array\n- Do not imply skills\n\nPLURAL INTERPRETATION:\n\n- \"developers\" with no specificity → don't assign role\n\n\nOR/AND DETECTION:\n- Words \"or\", \"/\" between terms → return array of both\n- Word \"and\" between different categories → separate fields\n- Word \"and\" within same category → return array\n\nReturn JSON with this schema:\n{\n    \"role\": \"string\",              // e.g., \"Node.js Engineer\"\n    \"seniority\": [\"array of seniorities or empty array\"] // e.g., [\"Senior 1, Senior 2\"],\n    \"employment_type\": \"string\" //e.g., Employee/Contractor\n    \"industries\": [\"array of industries or empty array\"],\n    \"skills\": [\"array of skills or empty array\"]\n}\n`;\n\nreturn {\n  json: {\n    userPrompt,\n    systemPrompt: systemPrompt\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1776,
+        112
+      ],
+      "id": "f41197f1-450f-4a5b-8a6f-71d550d63003",
+      "name": "PreparePrompts - Knobs2"
+    },
+    {
+      "parameters": {
+        "jsCode": "const chatInput = $input.first().json.chatInput;\n\nconst systemPrompt = \"Extract staffing constraints from the user's request. Be strict and literal.Return ONLY compact JSON, no prose.\";\n\n// 3. Define the user prompt\nconst userPrompt = `TEXT:\n${chatInput}\n\nGiven the \"role, job title\" map it to the most appropriate role name from the following list:\n\nAVAILABLE ROLES (use EXACTLY as written):\n- Node.js Engineer\n- Solution Architect\n- .NET Engineer\n- UI/UX Designer\n- PHP Engineer\n- Data Expert\n- Program manager\n- Manager of Frontend Excellence\n- Python Engineer\n- React Engineer\n- Java Engineer\n- Product owner\n- Angular Engineer\n- Ruby Engineer\n- Vue.js Engineer\n- Data Engineer\n- Mobile Engineer\n- Manager of Design Excellence\n- WordPress Engineer\n- QA Engineer\n- Centre of Excellence Head of Technology\n- Project Manager\n- Engineering Lead\n- Manager of Project Management Excellence\n- Technical Support Engineer\n- DevOps Engineer\n- Manager of BA Excellence\n- AI Engineer\n- Business Analyst\n\nEnsure that skills or areas of expertise are not treated as roles. The role should be singular, and it must correspond directly to the job title being classified or searched for.\n\nMAPPING RULES:\n- \"backend developer\" → Check for language mentioned: Python Engineer, Java Engineer, PHP Engineer, Ruby Engineer, Node.js Engineer, .NET Engineer\n- \"frontend developer\" → Check for framework mentioned: React Engineer, Angular Engineer, Vue.js Engineer  \n- \"full stack\" → Pick based on primary skill mentioned, or return null\n- \"mobile\" → Mobile Engineer\n- \"flutter developer\" -> Mobile Engineer\n- \"data scientist\" → Data Expert\n- \"ML\" or \"machine learning\" → AI Engineer\n- \"BA\" → Business Analyst\n- \"PM\" → Project Manager\n- \"PO\" → Product owner\n- \"SA\" → Solution Architect\n- \"QA\" or \"tester\" → QA Engineer\n- \"DevOps\" or \"SRE\" → DevOps Engineer\n- \"support\" → Technical Support Engineer\n- \"designer\" or \"UX\" or \"UI\" → UI/UX Designer\n- \"WordPress\" or \"CMS\" → WordPress Engineer\n\nSENIORITY LEVELS (use EXACTLY as written):\n- Novice\n- Junior 1\n- Junior 2\n- Mid 1\n- Mid 2\n- Senior 1\n- Senior 2\n\nMAPPING RULES FOR SENIORITY:\n- \"junior\" or \"entry level\" or \"beginner\" or \"juniors\" → [\"Junior 1\", \"Junior 2\"]\n- \"mid\" or \"intermediate\" or \"mids\"→ [\"Mid 1\", \"Mid 2\"]\n- \"senior\" or \"experienced\" or \"expert\" or \"seniors\"→ [\"Senior 1\", \"Senior 2\"]\n- If user says specific level like \"Senior 2\", use exactly that [\"Senior 2\"]\n- If no seniority mentioned, return empty\n- When encountering plural forms, return multiple values: \"seniors\" → [\"Senior 1\", \"Senior 2\"]\n\nEMPLOYMENT TYPE (use EXACTLY as written):\n- Employee\n- Contractor\n- Student\n\nMAPPING RULES FOR EMPLOYMENT TYPE:\n- \"contractor\" or \"freelance\" or \"consultant\" or \"contract\" → Contractor\n- \"employee\" or \"full-time\" or \"permanent\" → Employee\n- If not mentioned, return empty\n\nINDUSTRIES (use EXACTLY as written):\n- Agriculture\n- Automotive\n- B2B\n- Banking & Insurance\n- Big Data\n- Civil Engineering\n- Content Distribution\n- Corporate (HR, Legal, Finance,..)\n- Crypto\n- Dental\n- E-commerce\n- Education\n- Entertainment & Sports\n- Fintech\n- FMCG\n- Food\n- Furniture\n- Government\n- Healthcare\n- Hospitality or Travel\n- Human Resources\n- IoT\n- Logistics\n- Maritime industry\n- Marketing\n- Media\n- Military or Law Enforcement\n- Pharma\n- Public Transportation\n- Publishing\n- Real Estate\n- Regulatory\n- Retail\n- SaaS\n- Social Media\n- Streaming\n- Telecommunications\n- White labeling\n\nMAPPING RULES FOR INDUSTRIES:\n- \"finance\" or \"financial\" → Fintech or Banking & Insurance\n- \"health\" or \"medical\" → Healthcare\n- \"pharma\" or \"pharmaceutical\" → Pharma\n- \"retail\" or \"shop\" → Retail\n- \"government\" or \"public sector\" → Government\n- \"telecom\" → Telecommunications\n- \"real estate\" or \"property\" → Real Estate\n- \"education\" or \"academic\" → Education\n- Return array of all mentioned industries\n- If no industry mentioned, return empty array\n\nSKILLS (use EXACTLY as written):\n- Web Slice/CSS/HTML\n- SEO\n- C# - .NET Framework\n- C# - .NET Core\n- C# - Unity\n- GO - beego\n- GO - gin\n- Java - J2EE\n- Java - Spring (Boot)\n- Kotlin - Ktor\n- Kotlin - Spring Boot\n- Kotlin - Micronaut\n- Node.js - Express\n- Node.js - Koa.js\n- Node.js - Meteor\n- Node.js - Nest.js\n- PHP - Laravel\n- PHP - Symfony\n- Python - DS/DE\n- Python - Django\n- Python - Flask\n- Ruby - Rails\n- Ruby - Sintara\n- Business analysis\n- CMS - CraftCMS\n- CMS - Drupal\n- CMS - Strapi\n- CMS - Wordpress\n- Data Scientist\n- Data Engineer\n- Design - UI\n- Design - UX\n- DevOps - AWS\n- DevOps - Azure\n- DevOps - CI/CD\n- DevOps - GCP\n- DevOps - Linux/Unix\n- DevOps - Networking/Security\n- DevOps - Windows\n- Digital Marketing\n- Magento - e-comm\n- Shopify - e-comm\n- Sylius - e-comm\n- WooCommerce - e-comm\n- JS - Angular\n- JS - Next.js\n- JS - React\n- JS - Vue.js\n- Android\n- Flutter\n- iOS\n- ReactNative\n- Presales Engineer\n- Product Owner\n- Product Strategy\n- Project Management\n- QA - Automated testing\n- QA - Functional testing\n- QA - Manual testing\n- QA - Nonfunctional testing\n- Solution Architect\n- Support Engineer\n- AI - Computer Vision\n- AI - Data Management and Preparation\n- AI - Generative AI\n- AI - LLM\n- AI - Machine Learning\n- AI - MLOps & LLMOps\n- AI - N8N\n- AI - Neural Networks\n- AI - Agents\n- AI - NLP\n- AI - Prompt Engineering\n- AI - RAG\n\nMAPPING RULES FOR SKILLS:\n\n- \"wordpress\" → CMS - Wordpress\n- \"AWS\" -> DevOps - AWS\n- \"machine learning\" or \"ML\" → AI - Machine Learning\n- \"LLM\" or \"large language model\" → AI - LLM\n- \"RAG\" or \"retrieval augmented generation\" → AI - RAG\n- \"prompting\" or \"prompt engineering\" → AI - Prompt Engineering\n- DO NOT add skills just because a technology family is mentioned (e.g., \"nodejs\" doesn't mean all Node.js frameworks)\n- Return array of ONLY explicitly mentioned skills\n- If no specific skills mentioned, return empty array\n- Do not imply skills\n\nCRITICAL RULE - DO NOT INFER SKILLS FROM ROLES:\n\nWRONG EXTRACTIONS (DO NOT DO THIS):\nQuery: \"Find Python engineers\"\nWRONG: {\n  \"role\": \"Python Engineer\",\n  \"skills\": [\"Python - Django\", \"Python - Flask\"]  // BAD: INFERRED, NOT MENTIONED\n}\n\nQuery: \"Show React developers\"\nWRONG: {\n  \"role\": \"React Engineer\", \n  \"skills\": [\"JS - React\"]  // BAD: INFERRED, NOT MENTIONED\n}\n\nQuery: \"Mobile developers\"\nWRONG: {\n  \"role\": \"Mobile Engineer\",\n  \"skills\": [\"Android\", \"iOS\", \"Flutter\"]  // BAD :INFERRED, NOT MENTIONED\n}\n\nCORRECT EXTRACTIONS:\nQuery: \"Find Python engineers\"\nCORRECT: {\n  \"role\": \"Python Engineer\",\n  \"skills\": []  // GOOD: EMPTY - no skills explicitly mentioned\n}\n\nQuery: \"Show React developers\"\nCORRECT: {\n  \"role\": \"React Engineer\",\n  \"skills\": []  // GOOD: EMPTY - no skills explicitly mentioned\n}\n\nQuery: \"Python engineers with Django\"\nCORRECT: {\n  \"role\": \"Python Engineer\",\n  \"skills\": [\"Python - Django\"]  // GOOD: Django was explicitly mentioned\n}\n\nQuery: \"React developers who know Next.js\"\nCORRECT: {\n  \"role\": \"React Engineer\",\n  \"skills\": [\"JS - Next.js\"]  // GOOD: Next.js was explicitly mentioned\n}\n\nQuery: \"Someone with AWS experience\"\nCORRECT: {\n  \"role\": \"\",\n  \"skills\": [\"DevOps - AWS\"]  // GOOD: AWS was mentioned, no role specified\n}\n\nQuery: \"Backend developer with Python and Node\"\nCORRECT: {\n  \"role\": \"Python Engineer\",  // or could be Node.js Engineer\n  \"skills\": []  // GOOD: EMPTY - Python/Node are part of role selection, not separate skills\n}\n\nKEY PRINCIPLE:\n- Role defines the job title\n- Skills are ONLY added when explicitly mentioned as additional requirements\n- \"Python engineer\" means someone with the role, NOT someone with Python skills\n- Only extract skills when user says things like:\n  * \"with [skill]\"\n  * \"who knows [skill]\"\n  * \"experience in [skill]\"\n  * \"[skill] expertise\"\n\nPLURAL INTERPRETATION:\n\n- \"developers\" with no specificity → don't assign role\n\nROLE INFERENCE RULES - BE VERY STRICT:\n\nQuery: \"developers who know Django\"\nCORRECT: {\n  \"role\": \"\",  // EMPTY - \"developers\" is generic\n  \"skills\": [\"Python - Django\"]\n}\n\nQuery: \"find someone with React experience\"  \nCORRECT: {\n  \"role\": \"\",  // EMPTY - no role mentioned\n  \"skills\": [\"JS - React\"]\n}\n\nQuery: \"people with AWS\"\nCORRECT: {\n  \"role\": \"\",  // EMPTY - \"people\" is not a role\n  \"skills\": [\"DevOps - AWS\"]\n}\n\nQuery: \"engineers with Kubernetes\"\nCORRECT: {\n  \"role\": \"\",  // EMPTY - \"engineers\" too generic\n  \"skills\": [\"DevOps - CI/CD\"]  // or relevant K8s skill\n}\n\n\nKEY RULE: \nGeneric terms (developers, engineers, someone, people) = NO ROLE\nSpecific terms (Python engineers, React developers) = SET ROLE\n\n\nOR/AND DETECTION:\n- Words \"or\", \"/\" between terms → return array of both\n- Word \"and\" between different categories → separate fields\n- Word \"and\" within same category → return array\n\nReturn JSON with this schema:\n{\n    \"role\": \"string\",              // e.g., \"Node.js Engineer\"\n    \"seniority\": [\"array of seniorities or empty array\"] // e.g., [\"Senior 1, Senior 2\"],\n    \"employment_type\": \"string\" //e.g., Employee/Contractor\n    \"industries\": [\"array of industries or empty array\"],\n    \"skills\": [\"array of skills or empty array\"]\n}\n`;\n\nreturn {\n  json: {\n    userPrompt,\n    systemPrompt: systemPrompt\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1472,
+        128
+      ],
+      "id": "1929f39b-ea99-45e6-bad8-127a2ac4ebd5",
+      "name": "PreparePrompts - Knobs3"
+    },
+    {
+      "parameters": {
+        "jsCode": "const chatInput = $('ChatInput').first().json.chatInput;\nconst systemPrompt = \"Extract seniority levels from the user's request. Be strict and literal. Return ONLY compact JSON, no prose.\";\n\n// 3. Define the user prompt\nconst userPrompt = `TEXT:\n${chatInput}\n\nSENIORITY LEVELS (use EXACTLY as written):\n- Novice\n- Junior 1\n- Junior 2\n- Mid 1\n- Mid 2\n- Senior 1\n- Senior 2\n\nEXTRACTION PROCESS:\n\nSTEP 1: Identify ALL seniority mentions in the text\nCreate a list of every seniority-related word found (case-insensitive):\n- Look for specific levels: \"Senior 1\", \"Senior 2\", \"Junior 1\", \"Junior 2\", \"Mid 1\", \"Mid 2\"\n- Look for generic levels: \"novice\", \"junior\", \"mid\", \"senior\"\n- Look for synonyms: \"intern\", \"trainee\", \"entry level\", \"beginner\", \"intermediate\", \"experienced\", \"expert\"\n- Look for abbreviations: \"jr\", \"sr\"\n\nExample: \"mid 2 and senior developers\" → found: [\"mid 2\", \"senior\"]\n\nSTEP 2: Convert each found mention to seniority values\nFor SPECIFIC mentions (with number):\n- \"Senior 1\" or \"senior 1\" → [\"Senior 1\"]\n- \"Senior 2\" or \"senior 2\" → [\"Senior 2\"]\n- \"Junior 1\" or \"junior 1\" → [\"Junior 1\"]\n- \"Junior 2\" or \"junior 2\" → [\"Junior 2\"]\n- \"Mid 1\" or \"mid 1\" → [\"Mid 1\"]\n- \"Mid 2\" or \"mid 2\" → [\"Mid 2\"]\n\nFor GENERIC mentions (without number):\n- \"novice\", \"intern\", \"trainee\" → [\"Novice\"]\n- \"junior\", \"jr\", \"entry level\", \"beginner\" → [\"Junior 1\", \"Junior 2\"]\n- \"mid\", \"intermediate\" → [\"Mid 1\", \"Mid 2\"]\n- \"senior\", \"sr\", \"experienced\", \"expert\" → [\"Senior 1\", \"Senior 2\"]\n\nSTEP 3: Combine all arrays and format output\n- Merge all arrays from Step 2\n- Remove duplicates\n- Sort in order: Novice, Junior 1, Junior 2, Mid 1, Mid 2, Senior 1, Senior 2\n- Return as JSON\n\nEXAMPLES WITH WALKTHROUGH:\n\nInput: \"mid 2 students\"\nStep 1: Found [\"mid 2\"]\nStep 2: \"mid 2\" → [\"Mid 2\"]\nStep 3: Output {\"seniority\": [\"Mid 2\"]}\n\nInput: \"junior 1\"\nStep 1: Found [\"junior 1\"]\nStep 2: \"junior 1\" → [\"Junior 1\"]\nStep 3: Output {\"seniority\": [\"Junior 1\"]}\n\nInput: \"mid or junior\"\nStep 1: Found [\"mid\", \"junior\"]\nStep 2: \"mid\" → [\"Mid 1\", \"Mid 2\"], \"junior\" → [\"Junior 1\", \"Junior 2\"]\nStep 3: Output {\"seniority\": [\"Junior 1\", \"Junior 2\", \"Mid 1\", \"Mid 2\"]}\n\nInput: \"find me senior 2 php developer and a junior dev\"\nStep 1: Found [\"senior 2\", \"junior\"]\nStep 2: \"senior 2\" → [\"Senior 2\"], \"junior\" → [\"Junior 1\", \"Junior 2\"]\nStep 3: Output {\"seniority\": [\"Junior 1\", \"Junior 2\", \"Senior 2\"]}\n\nInput: \"developers\"\nStep 1: Found []\nStep 2: Nothing to convert\nStep 3: Output {\"seniority\": []}\n\nReturn JSON with this schema:\n{\n    \"seniority\": [\"array of seniorities or empty array\"]\n}\n`;\n\nreturn {\n  json: {\n    userPrompt,\n    systemPrompt: systemPrompt\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1056,
+        448
+      ],
+      "id": "8692863d-e4ab-450d-8c9a-58af0932aec8",
+      "name": "Prompt - Seniority"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1RwcE8huvVeBliE_DO4FO30ZYEHAIlhkFr6TlU7qqDtg",
+          "mode": "list",
+          "cachedResultName": "Resourcing Eval",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1RwcE8huvVeBliE_DO4FO30ZYEHAIlhkFr6TlU7qqDtg/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Seniority",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1RwcE8huvVeBliE_DO4FO30ZYEHAIlhkFr6TlU7qqDtg/edit#gid=0"
+        }
+      },
+      "type": "n8n-nodes-base.evaluationTrigger",
+      "typeVersion": 4.6,
+      "position": [
+        -2560,
+        768
+      ],
+      "id": "9d84e890-f1e7-4f80-841d-9be06382e6cf",
+      "name": "When fetching a dataset row",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "VqBZlK3vKXeQiMtM",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1RwcE8huvVeBliE_DO4FO30ZYEHAIlhkFr6TlU7qqDtg",
+          "mode": "list",
+          "cachedResultName": "Resourcing Eval",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1RwcE8huvVeBliE_DO4FO30ZYEHAIlhkFr6TlU7qqDtg/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Seniority",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1RwcE8huvVeBliE_DO4FO30ZYEHAIlhkFr6TlU7qqDtg/edit#gid=0"
+        },
+        "outputs": {
+          "values": [
+            {
+              "outputName": "actual_output",
+              "outputValue": "={{ $('JSON - Seniority').item.json.seniority }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.evaluation",
+      "typeVersion": 4.7,
+      "position": [
+        -192,
+        -144
+      ],
+      "id": "bfb960fc-6a25-4ff7-a23f-7b8733703649",
+      "name": "Evaluation",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "VqBZlK3vKXeQiMtM",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "setMetrics",
+        "expectedAnswer": "={{ $('When fetching a dataset row').item.json.expected_output }}",
+        "actualAnswer": "={{ $json.seniority }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.evaluation",
+      "typeVersion": 4.7,
+      "position": [
+        144,
+        -160
+      ],
+      "id": "a52bda66-a5fd-4944-a1ec-9855c4ccc4be",
+      "name": "Evaluation1"
+    },
+    {
+      "parameters": {
+        "jsCode": "const chatInput = $('ChatInput').first().json.chatInput;\nconst systemPrompt = \"Extract employment type from the user's request. Be strict and literal. Return ONLY compact JSON, no prose.\";\n\n// 3. Define the user prompt\nconst userPrompt = `TEXT:\n${chatInput}\n\nEMPLOYMENT TYPE (use EXACTLY as written):\n- Employee\n- Contractor\n- Student\n\nEXTRACTION PROCESS:\n\nSTEP 1: Scan for employment type keywords (case-insensitive):\n\nFOR \"Employee\" - look for these words ANYWHERE in the text:\n- \"employee\" (with or without 's')\n- \"employees\"\n- \"full-time\"\n- \"full time\"\n- \"permanent\"\n- \"FTE\"\n- \"staff\"\n\nFOR \"Contractor\" - look for these words ANYWHERE in the text:\n- \"contractor\" (with or without 's')\n- \"contractors\"\n- \"freelance\"\n- \"freelancer\" (with or without 's')\n- \"freelancers\"\n- \"consultant\" (with or without 's')\n- \"consultants\"\n- \"contract\" (when clearly about employment)\n\nFOR \"Student\" - look for these words ANYWHERE in the text:\n- \"student\" (with or without 's')\n- \"students\"\n- \"intern\" (with or without 's')\n- \"interns\"\n- \"apprentice\" (with or without 's')\n- \"apprentices\"\n- \"co-op\"\n\nSTEP 2: Build array of matching types\n- If the word \"employee\" or \"employees\" appears ANYWHERE → add \"Employee\"\n- If the word \"contractor\" or \"contractors\" appears ANYWHERE → add \"Contractor\"\n- If the word \"student\" or \"students\" appears ANYWHERE → add \"Student\"\n- Check for other keywords listed above\n- Return array with all found types, or empty array if none found\n\nCRITICAL RULES:\n- The words can appear anywhere in the sentence\n- \"employees\" MUST be recognized as Employee type\n- Job titles/levels are NOT employment types:\n  * \"principal\", \"lead\", \"senior\", \"junior\", \"architect\", \"manager\", \"director\"\n  * \"developer\", \"engineer\", \"designer\", \"analyst\"\n- Casual terms are NOT employment types:\n  * \"guys\", \"folks\", \"people\", \"team\", \"resources\", \"talent\", \"person\", \"individual\"\n- If a word is NOT in the lists above, it does NOT indicate employment type\n\nEXAMPLES:\nInput: \"how many employees we have that worked in finance\"\nOutput: {\"employment_type\": [\"Employee\"]}\n\nInput: \"how many employees\"\nOutput: {\"employment_type\": [\"Employee\"]}\n\nInput: \"principal\"\nOutput: {\"employment_type\": []}\n\nInput: \"junior guys\"\nOutput: {\"employment_type\": []}\n\nInput: \"find me senior employees\"\nOutput: {\"employment_type\": [\"Employee\"]}\n\nInput: \"contractors and employees\"\nOutput: {\"employment_type\": [\"Contractor\", \"Employee\"]}\n\nInput: \"staff engineer\"\nOutput: {\"employment_type\": [\"Employee\"]}\n\nInput: \"permanent staff\"\nOutput: {\"employment_type\": [\"Employee\"]}\n\nInput: \"full-time principal engineer\"\nOutput: {\"employment_type\": [\"Employee\"]}\n\nInput: \"freelance principal\"\nOutput: {\"employment_type\": [\"Contractor\"]}\n\nInput: \"developers\"\nOutput: {\"employment_type\": []}\n\nInput: \"list all contractors we have\"\nOutput: {\"employment_type\": [\"Contractor\"]}\n\nInput: \"students available for projects\"\nOutput: {\"employment_type\": [\"Student\"]}\n\nReturn JSON with this schema:\n{\n    \"employment_type\": [\"array of employment types or empty array\"]\n}\n`;\n\nreturn {\n  json: {\n    userPrompt,\n    systemPrompt: systemPrompt\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -304,
+        432
+      ],
+      "id": "a14270e9-9a67-4e32-9c60-946f6704d3bb",
+      "name": "Prompt - Employment"
+    },
+    {
+      "parameters": {
+        "jsCode": "// n8n Function node\n// Input:  items[i].json.text  -> string containing JSON (possibly with newlines/code fences)\n// Output: items[i].json       -> parsed JSON object (or an _error field if parsing fails)\n\nreturn items.map((item) => {\n  let raw = (item.json?.text ?? '').trim();\n\n  // Strip Markdown code fences if present\n  if (raw.startsWith('```')) {\n    raw = raw.replace(/^```[a-zA-Z]*\\n?/, '').replace(/```$/, '').trim();\n  }\n\n  // If the string has extra wrapping text, try to extract the first JSON object\n  const maybeObj = raw.match(/{[\\s\\S]*}/);\n  if (maybeObj) raw = maybeObj[0];\n\n  try {\n    const parsed = JSON.parse(raw);\n    return { json: parsed };\n  } catch (e) {\n    // Fail gracefully but keep the original input for debugging\n    return { json: { _error: 'JSON parse failed', _message: e.message, _raw: item.json?.text } };\n  }\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -512,
+        432
+      ],
+      "id": "3ff12190-5071-4bd6-b63a-9a1f15f41ec5",
+      "name": "JSON - Seniority"
+    },
+    {
+      "parameters": {
+        "jsCode": "// n8n Function node\n// Input:  items[i].json.text  -> string containing JSON (possibly with newlines/code fences)\n// Output: items[i].json       -> parsed JSON object (or an _error field if parsing fails)\n\nreturn items.map((item) => {\n  let raw = (item.json?.text ?? '').trim();\n\n  // Strip Markdown code fences if present\n  if (raw.startsWith('```')) {\n    raw = raw.replace(/^```[a-zA-Z]*\\n?/, '').replace(/```$/, '').trim();\n  }\n\n  // If the string has extra wrapping text, try to extract the first JSON object\n  const maybeObj = raw.match(/{[\\s\\S]*}/);\n  if (maybeObj) raw = maybeObj[0];\n\n  try {\n    const parsed = JSON.parse(raw);\n    return { json: parsed };\n  } catch (e) {\n    // Fail gracefully but keep the original input for debugging\n    return { json: { _error: 'JSON parse failed', _message: e.message, _raw: item.json?.text } };\n  }\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        192,
+        432
+      ],
+      "id": "30645384-ffd4-4ec9-a3fe-ba0da2024960",
+      "name": "JSON - Employment Type"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e5a7969a-49e3-47b5-a1ae-b7230bcff45c",
+              "name": "seniority",
+              "value": "={{ $json.seniority }}",
+              "type": "array"
+            },
+            {
+              "id": "50b67ca1-499b-43b8-b50d-914652a5ce84",
+              "name": "employment_type",
+              "value": "={{ $('Employees Regex').item.json.employment_type }}",
+              "type": "array"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1360,
+        464
+      ],
+      "id": "744dc456-4e9c-4e96-89dd-71452e8279c0",
+      "name": "Knobs"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "qwen3-coder-30b-32k",
+          "mode": "list",
+          "cachedResultName": "qwen3-coder-30b-32k"
+        },
+        "options": {
+          "temperature": 0.1
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -64,
+        688
+      ],
+      "id": "6e05f068-7043-440f-af66-e9a89199e2ac",
+      "name": "VLLM",
+      "credentials": {
+        "openAiApi": {
+          "id": "09tIxrZPXx1gwPgx",
+          "name": "vllm"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.userPrompt }}",
+        "messages": {
+          "messageValues": [
+            {
+              "message": "={{ $json.systemPrompt }}"
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        -816,
+        432
+      ],
+      "id": "d97edb26-13ea-4829-bd2c-72a7141d3839",
+      "name": "Seniority Knob"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.userPrompt }}",
+        "messages": {
+          "messageValues": [
+            {
+              "message": "={{ $json.systemPrompt }}"
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        -112,
+        432
+      ],
+      "id": "eeb03df1-54b9-439c-a0ad-1545814a7f71",
+      "name": "Employment Knob"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4.1-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        896,
+        944
+      ],
+      "id": "0a878570-601c-40de-872f-7419e41eec87",
+      "name": "OpenAI Chat Model1",
+      "credentials": {
+        "openAiApi": {
+          "id": "M8xqWvEC6mH6LNuk",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const chatInput = $input.first().json.chatInput;\nconst systemPrompt = \"Extract seniority levels from the user's request. Be strict and literal. Return ONLY compact JSON, no prose.\";\n\n// 3. Define the user prompt\nconst userPrompt = `TEXT:\n${chatInput}\n\nSENIORITY LEVELS (use EXACTLY as written):\n- Novice\n- Junior 1\n- Junior 2\n- Mid 1\n- Mid 2\n- Senior 1\n- Senior 2\n\nEXTRACTION PROCESS:\n\nSTEP 1: Identify ALL seniority mentions in the text\nLook for these keywords (case-insensitive) ANYWHERE in the text:\n- \"novice\", \"intern\", \"trainee\"\n- \"junior\", \"jr\", \"entry level\", \"beginner\", \"juniors\"\n- \"mid\", \"middle\", \"intermediate\", \"mids\"\n- \"senior\", \"sr\", \"experienced\", \"expert\", \"seniors\"\n- \"Senior 1\", \"Senior 2\", \"Junior 1\", \"Junior 2\", \"Mid 1\", \"Mid 2\" (specific levels)\n\nSTEP 2: Create a list of ALL seniority mentions found\nExamples:\n- \"mid or junior\" → found: [\"mid\", \"junior\"]\n- \"mid, junior or senior\" → found: [\"mid\", \"junior\", \"senior\"]\n- \"Senior 2 and junior\" → found: [\"Senior 2\", \"junior\"]\n\nSTEP 3: Convert each mention to array values\nFor each item in your found list:\n- \"novice\" → [\"Novice\"]\n- \"junior\" (generic) → [\"Junior 1\", \"Junior 2\"]\n- \"mid\" (generic) → [\"Mid 1\", \"Mid 2\"]\n- \"senior\" (generic) → [\"Senior 1\", \"Senior 2\"]\n- \"Junior 1\" (specific) → [\"Junior 1\"]\n- \"Junior 2\" (specific) → [\"Junior 2\"]\n- \"Mid 1\" (specific) → [\"Mid 1\"]\n- \"Mid 2\" (specific) → [\"Mid 2\"]\n- \"Senior 1\" (specific) → [\"Senior 1\"]\n- \"Senior 2\" (specific) → [\"Senior 2\"]\n\nSTEP 2: Check for SPECIFIC levels FIRST (MUST check these before generic):\n- If text contains \"Senior 1\" or \"senior 1\" → add [\"Senior 1\"] ONLY\n- If text contains \"Senior 2\" or \"senior 2\" → add [\"Senior 2\"] ONLY  \n- If text contains \"Junior 1\" or \"junior 1\" → add [\"Junior 1\"] ONLY\n- If text contains \"Junior 2\" or \"junior 2\" → add [\"Junior 2\"] ONLY\n- If text contains \"Mid 1\" or \"mid 1\" → add [\"Mid 1\"] ONLY\n- If text contains \"Mid 2\" or \"mid 2\" → add [\"Mid 2\"] ONLY\n\nSTEP 3: For GENERIC mentions (WITHOUT a number):\n- If \"senior\" found WITHOUT \"1\" or \"2\" → add [\"Senior 1\", \"Senior 2\"]\n- If \"junior\" found WITHOUT \"1\" or \"2\" → add [\"Junior 1\", \"Junior 2\"]  \n- If \"mid\" found WITHOUT \"1\" or \"2\" → add [\"Mid 1\", \"Mid 2\"]\n\nSTEP 4: Combine ALL arrays and remove duplicates\nOrder the final result: Novice, Junior 1, Junior 2, Mid 1, Mid 2, Senior 1, Senior 2\n\nVALIDATION CHECK:\nCount how many different seniority words appear in the input:\n- If input has 1 seniority word → result should have values from 1 level\n- If input has 2 seniority words → result should have values from 2 levels\n- If input has 3 seniority words → result should have values from 3 levels\n\nEXAMPLES WITH STEP-BY-STEP:\nInput: \"mid or junior\"\nFound: [\"mid\", \"junior\"]\nConvert: mid → [\"Mid 1\", \"Mid 2\"], junior → [\"Junior 1\", \"Junior 2\"]\nOutput: {\"seniority\": [\"Junior 1\", \"Junior 2\", \"Mid 1\", \"Mid 2\"]}\n\nInput: \"mid, junior or senior\"\nFound: [\"mid\", \"junior\", \"senior\"]\nConvert: mid → [\"Mid 1\", \"Mid 2\"], junior → [\"Junior 1\", \"Junior 2\"], senior → [\"Senior 1\", \"Senior 2\"]\nOutput: {\"seniority\": [\"Junior 1\", \"Junior 2\", \"Mid 1\", \"Mid 2\", \"Senior 1\", \"Senior 2\"]}\n\nInput: \"find me senior 2 php developer and a junior dev\"\nFound: [\"Senior 2\", \"junior\"]\nConvert: Senior 2 → [\"Senior 2\"], junior → [\"Junior 1\", \"Junior 2\"]\nOutput: {\"seniority\": [\"Junior 1\", \"Junior 2\", \"Senior 2\"]}\n\nInput: \"Senior 1 and mid\"\nFound: [\"Senior 1\", \"mid\"]\nConvert: Senior 1 → [\"Senior 1\"], mid → [\"Mid 1\", \"Mid 2\"]\nOutput: {\"seniority\": [\"Mid 1\", \"Mid 2\", \"Senior 1\"]}\n\nInput: \"developers\"\nFound: []\nOutput: {\"seniority\": []}\n\nCRITICAL REMINDERS:\n- MUST find ALL seniority keywords, not just some\n- Connectors like \"and\", \"or\", \"&\", \",\" don't matter - just find ALL seniority words\n- Each seniority mention contributes to the final result\n\nReturn JSON with this schema:\n{\n    \"seniority\": [\"array of seniorities or empty array\"] // e.g., [\"Senior 1, Senior 2\"]\n}\n`;\n\nreturn {\n  json: {\n    userPrompt,\n    systemPrompt: systemPrompt\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1056,
+        256
+      ],
+      "id": "90e613a3-bb7b-4879-a44d-53f6ef946ecb",
+      "name": "Prompt - Seniority1"
+    },
+    {
+      "parameters": {
+        "jsCode": "const chatInput = $('ChatInput').first().json.chatInput;\nconst systemPrompt = \"Extract employment type from the user's request. Be strict and literal. Return ONLY compact JSON, no prose.\";\n\n// 3. Define the user prompt\nconst userPrompt = `TEXT:\n${chatInput}\n\nEMPLOYMENT TYPE (use EXACTLY as written):\n- Employee\n- Contractor\n- Student\n\nEXTRACTION PROCESS:\n\nSTEP 1: Scan the ENTIRE text for employment type keywords (case-insensitive):\n\nFOR \"Employee\" - look for ANY of these:\n- \"employee\" (singular)\n- \"employees\" (plural)\n- \"full-time\"\n- \"full time\"\n- \"permanent\"\n- \"FTE\"\n- \"staff\"\n\nFOR \"Contractor\" - look for ANY of these:\n- \"contractor\" (singular)\n- \"contractors\" (plural)\n- \"freelance\"\n- \"freelancer\" (singular)\n- \"freelancers\" (plural)\n- \"consultant\" (singular)\n- \"consultants\" (plural)\n- \"contract\"\n\nFOR \"Student\" - look for ANY of these:\n- \"student\" (singular)\n- \"students\" (plural)\n- \"intern\" (singular)\n- \"interns\" (plural)\n- \"apprentice\" (singular)\n- \"apprentices\" (plural)\n- \"co-op\"\n\nSTEP 2: Return the matching type\n- If ANY keyword from Employee list found → return \"Employee\"\n- If ANY keyword from Contractor list found → return \"Contractor\"\n- If ANY keyword from Student list found → return \"Student\"\n- If NO keywords found → return \"\"\n\nCRITICAL RULES:\n- The word \"employees\" MUST map to \"Employee\"\n- The word \"contractors\" MUST map to \"Contractor\"\n- The word \"students\" MUST map to \"Student\"\n- Generic job titles (developer, engineer, designer, people, resources) do NOT map to any employment type\n\nEXAMPLES:\n\nInput: \"junior 1\"\nOutput: {\"employment_type\": []}\n\nInput: \"find me senior employees\"\nOutput: {\"employment_type\": [\"Employee\"]}\n\nInput: \"find me employee\"\nOutput: {\"employment_type\": [\"Employee\"]}\n\nInput: \"find me employees\"\nOutput: {\"employment_type\": [\"Employee\"]}\n\nInput: \"contractors needed\"\nOutput: {\"employment_type\": [\"Contractor\"]}\n\nInput: \"full-time developers\"\nOutput: {\"employment_type\": [\"Employee\"]}\n\nInput: \"freelance designer\"\nOutput: {\"employment_type\": [\"Contractor\"]}\n\nInput: \"students for internship\"\nOutput: {\"employment_type\": [\"Student\"]}\n\nInput: \"developers\"\nOutput: {\"employment_type\": []}\n\nInput: \"senior engineers\"\nOutput: {\"employment_type\": []}\n\nInput: \"junior employees\"\nOutput: {\"employment_type\": [\"Employee\"]}\n\nReturn JSON with this schema:\n{\n    \"employment_type\": [\"string\"] // [\"Employee\", \"Contractor\", \"Student\"], or []\n}\n`;\n\nreturn {\n  json: {\n    userPrompt,\n    systemPrompt: systemPrompt\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -480,
+        240
+      ],
+      "id": "17e36d08-2f01-41ac-962b-c4b1708969ec",
+      "name": "Prompt - Employment1"
+    },
+    {
+      "parameters": {
+        "jsCode": "const chatInput = $('ChatInput').first().json.chatInput;\nconst systemPrompt = \"Extract industries from the user's request. Be strict and literal. Return ONLY compact JSON, no prose.\";\n\n// 3. Define the user prompt\nconst userPrompt = `TEXT:\n${chatInput}\n\nINDUSTRIES (use EXACTLY as written):\n- Agriculture\n- Automotive\n- B2B\n- Banking & Insurance\n- Big Data\n- Civil Engineering\n- Content Distribution\n- Corporate (HR, Legal, Finance,..)\n- Crypto\n- Dental\n- E-commerce\n- Education\n- Entertainment & Sports\n- Fintech\n- FMCG\n- Food\n- Furniture\n- Government\n- Healthcare\n- Hospitality or Travel\n- Human Resources\n- IoT\n- Logistics\n- Maritime industry\n- Marketing\n- Media\n- Military or Law Enforcement\n- Pharma\n- Public Transportation\n- Publishing\n- Real Estate\n- Regulatory\n- Retail\n- SaaS\n- Social Media\n- Streaming\n- Telecommunications\n- White labeling\n\nEXTRACTION PROCESS:\n\nSTEP 1: Identify EXPLICIT industry mentions in the text\nONLY look for:\n- Direct industry names from the list above\n- Industry-specific terms when used to describe WHERE someone works/worked\n- Phrases like \"in [industry]\", \"for [industry]\", \"[industry] experience\", \"[industry] sector\"\n\nDO NOT extract industries from:\n- Job titles (data engineer, software developer, QA engineer)\n- Skills (Python, React, machine learning)\n- Technologies (AI, blockchain, IoT as a skill)\n- Role descriptions\n\nSTEP 2: Map ONLY explicit industry mentions\nONLY when industries are explicitly mentioned as work context:\n\nContext indicators that REQUIRE industry extraction:\n- \"in healthcare\" → [\"Healthcare\", \"Pharma\", \"Dental\"]\n- \"for fintech companies\" → [\"Fintech\", \"Banking & Insurance\"]\n- \"retail experience\" → [\"Retail\", \"E-commerce\"]\n- \"government sector\" → [\"Government\", \"Regulatory\"]\n- \"worked in pharma\" → [\"Pharma\", \"Healthcare\"]\n\nTerms that DO NOT trigger industry extraction (unless with context):\n- \"data\" in \"data engineer\" → [] (job title, not industry)\n- \"blockchain developer\" → [] (skill/role, not industry)\n- \"IoT engineer\" → [] (role, not industry)\n- \"SaaS architect\" → [] (role, not industry)\n- \"AI specialist\" → [] (role, not industry)\n\nValid industry mappings ONLY when explicitly mentioned as industries:\n- \"health\", \"medical\", \"healthcare\" (as industry) → [\"Healthcare\", \"Pharma\", \"Dental\"]\n- \"finance\", \"financial\" (as industry) → [\"Fintech\", \"Banking & Insurance\", \"Corporate (HR, Legal, Finance,..)\"]\n- \"banking\" → [\"Banking & Insurance\", \"Fintech\"]\n- \"retail\", \"shop\" → [\"Retail\", \"E-commerce\"]\n- \"ecommerce\", \"e-commerce\" → [\"E-commerce\", \"Retail\"]\n- \"government\", \"public sector\" → [\"Government\", \"Regulatory\"]\n- \"tech industry\", \"technology sector\" → [\"SaaS\", \"Big Data\", \"IoT\"]\n- \"pharma\", \"pharmaceutical\" → [\"Pharma\", \"Healthcare\"]\n- \"education\", \"academic\" → [\"Education\"]\n- \"telecom\", \"telecommunications\" → [\"Telecommunications\"]\n- \"real estate\", \"property\" → [\"Real Estate\"]\n- \"automotive\", \"auto\" → [\"Automotive\", \"IoT\"]\n- \"logistics\", \"supply chain\" → [\"Logistics\"]\n- \"media\", \"entertainment\" → [\"Media\", \"Entertainment & Sports\"]\n\nSTEP 3: Format output\n- Return found industries or empty array if none explicitly mentioned\n- Remove duplicates\n- Use exact formatting from the list\n\nCRITICAL RULES:\n- NEVER infer industries from job titles or skills\n- \"data engineer\" does NOT imply Big Data industry\n- \"blockchain developer\" does NOT imply Crypto industry\n- \"AI engineer\" does NOT imply any industry\n- ONLY extract when industry context is explicit\n- Look for prepositions: \"in\", \"for\", \"at\", \"with\" + industry name\n- Look for industry as qualifier: \"[industry] experience\", \"[industry] company\"\n\nEXAMPLES:\n\nInput: \"find me senior data engineer\"\nOutput: {\"industries\": []}\n\nInput: \"data engineer with healthcare experience\"\nOutput: {\"industries\": [\"Healthcare\", \"Pharma\", \"Dental\"]}\n\nInput: \"blockchain developer\"\nOutput: {\"industries\": []}\n\nInput: \"blockchain developer in crypto\"\nOutput: {\"industries\": [\"Crypto\", \"Fintech\"]}\n\nInput: \"SaaS engineer\"\nOutput: {\"industries\": []}\n\nInput: \"engineer for SaaS companies\"\nOutput: {\"industries\": [\"SaaS\", \"B2B\"]}\n\nInput: \"someone in health\"\nOutput: {\"industries\": [\"Healthcare\", \"Pharma\", \"Dental\"]}\n\nInput: \"developers for fintech\"\nOutput: {\"industries\": [\"Fintech\", \"Banking & Insurance\"]}\n\nInput: \"Python developer\"\nOutput: {\"industries\": []}\n\nInput: \"Python developer in retail\"\nOutput: {\"industries\": [\"Retail\", \"E-commerce\"]}\n\nInput: \"AI specialist\"\nOutput: {\"industries\": []}\n\nInput: \"IoT engineer\"\nOutput: {\"industries\": []}\n\nInput: \"engineer with government experience\"\nOutput: {\"industries\": [\"Government\", \"Regulatory\"]}\n\nInput: \"find me senior engineers\"\nOutput: {\"industries\": []}\n\nReturn JSON with this schema:\n{\n    \"industries\": [\"array of industries or empty array\"]\n}\n`;\n\nreturn {\n  json: {\n    userPrompt,\n    systemPrompt: systemPrompt\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        448,
+        432
+      ],
+      "id": "a4935a31-5b5b-442c-924c-1af226cd97d3",
+      "name": "Prompt - Industries"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.userPrompt }}",
+        "messages": {
+          "messageValues": [
+            {
+              "message": "={{ $json.systemPrompt }}"
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        640,
+        432
+      ],
+      "id": "5276f34e-304e-40cf-be24-b079d9707b98",
+      "name": "Industries Knob"
+    },
+    {
+      "parameters": {
+        "jsCode": "// n8n Function node\n// Input:  items[i].json.text  -> string containing JSON (possibly with newlines/code fences)\n// Output: items[i].json       -> parsed JSON object (or an _error field if parsing fails)\n\nreturn items.map((item) => {\n  let raw = (item.json?.text ?? '').trim();\n\n  // Strip Markdown code fences if present\n  if (raw.startsWith('```')) {\n    raw = raw.replace(/^```[a-zA-Z]*\\n?/, '').replace(/```$/, '').trim();\n  }\n\n  // If the string has extra wrapping text, try to extract the first JSON object\n  const maybeObj = raw.match(/{[\\s\\S]*}/);\n  if (maybeObj) raw = maybeObj[0];\n\n  try {\n    const parsed = JSON.parse(raw);\n    return { json: parsed };\n  } catch (e) {\n    // Fail gracefully but keep the original input for debugging\n    return { json: { _error: 'JSON parse failed', _message: e.message, _raw: item.json?.text } };\n  }\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        944,
+        432
+      ],
+      "id": "2a1865e9-d545-4146-919f-38c227c4fbe8",
+      "name": "JSON - Industries"
+    },
+    {
+      "parameters": {
+        "jsCode": "const chatInput = $('ChatInput').first().json.chatInput;\nconst systemPrompt = \"Extract industries from the user's request. Be strict and literal. Return ONLY compact JSON, no prose.\";\n\n// 3. Define the user prompt\nconst userPrompt = `TEXT:\n${chatInput}\n\nINDUSTRIES (use EXACTLY as written):\n- Agriculture\n- Automotive\n- B2B\n- Banking & Insurance\n- Big Data\n- Civil Engineering\n- Content Distribution\n- Corporate (HR, Legal, Finance,..)\n- Crypto\n- Dental\n- E-commerce\n- Education\n- Entertainment & Sports\n- Fintech\n- FMCG\n- Food\n- Furniture\n- Government\n- Healthcare\n- Hospitality or Travel\n- Human Resources\n- IoT\n- Logistics\n- Maritime industry\n- Marketing\n- Media\n- Military or Law Enforcement\n- Pharma\n- Public Transportation\n- Publishing\n- Real Estate\n- Regulatory\n- Retail\n- SaaS\n- Social Media\n- Streaming\n- Telecommunications\n- White labeling\n\nEXTRACTION PROCESS:\n\nSTEP 1: Identify ALL industry mentions in the text\nCreate a list of every industry-related word/phrase found (case-insensitive):\n- Look for exact industry names from the list above\n- Look for common variations and synonyms (see mappings below)\n- Look for related terms that map to industries\n\nSTEP 2: Map each found mention to ALL RELATED industries\nIMPORTANT: Include ALL industries that could be relevant, not just the most obvious one.\n\nCOMPREHENSIVE MAPPINGS:\n\nHealth-related terms → Include ALL health industries:\n- \"health\", \"medical\", \"healthcare\", \"hospital\", \"clinic\" → [\"Healthcare\", \"Pharma\", \"Dental\"]\n- \"pharma\", \"pharmaceutical\", \"drug\", \"medicine\" → [\"Pharma\", \"Healthcare\"]\n- \"dental\", \"dentist\", \"orthodontic\" → [\"Dental\", \"Healthcare\"]\n\nFinance-related terms → Include ALL finance industries:\n- \"finance\", \"financial\" → [\"Fintech\", \"Banking & Insurance\", \"Corporate (HR, Legal, Finance,..)\"]\n- \"banking\", \"bank\" → [\"Banking & Insurance\", \"Fintech\"]\n- \"insurance\" → [\"Banking & Insurance\", \"Fintech\"]\n- \"fintech\" → [\"Fintech\", \"Banking & Insurance\"]\n- \"investment\", \"trading\" → [\"Fintech\", \"Banking & Insurance\"]\n\nRetail & Commerce → Include ALL commerce industries:\n- \"retail\", \"shop\", \"store\" → [\"Retail\", \"E-commerce\"]\n- \"ecommerce\", \"e-commerce\", \"online retail\", \"online store\" → [\"E-commerce\", \"Retail\"]\n- \"marketplace\" → [\"E-commerce\", \"Retail\", \"B2B\"]\n\nTechnology-related → Include ALL tech industries:\n- \"tech\", \"technology\", \"software\" → [\"SaaS\", \"Big Data\", \"IoT\"]\n- \"saas\", \"software as a service\" → [\"SaaS\", \"B2B\"]\n- \"data\", \"analytics\", \"big data\" → [\"Big Data\", \"SaaS\"]\n- \"iot\", \"internet of things\", \"smart devices\" → [\"IoT\", \"Big Data\"]\n- \"AI\", \"ML\", \"artificial intelligence\" → [\"Big Data\", \"SaaS\"]\n- \"crypto\", \"blockchain\", \"cryptocurrency\", \"web3\" → [\"Crypto\", \"Fintech\"]\n\nMedia & Content → Include ALL content industries:\n- \"media\", \"news\", \"journalism\" → [\"Media\", \"Publishing\", \"Content Distribution\"]\n- \"streaming\", \"video\", \"netflix-like\" → [\"Streaming\", \"Content Distribution\", \"Media\"]\n- \"content\", \"content creation\" → [\"Content Distribution\", \"Media\", \"Streaming\", \"Social Media\"]\n- \"publishing\", \"books\", \"magazines\" → [\"Publishing\", \"Media\"]\n- \"entertainment\", \"movies\", \"film\" → [\"Entertainment & Sports\", \"Media\", \"Streaming\"]\n- \"sports\", \"athletics\" → [\"Entertainment & Sports\", \"Media\"]\n- \"gaming\", \"esports\" → [\"Entertainment & Sports\", \"Media\"]\n- \"social media\", \"social network\" → [\"Social Media\", \"Marketing\", \"Media\"]\n\nBusiness Services → Include ALL service industries:\n- \"corporate\", \"enterprise\" → [\"Corporate (HR, Legal, Finance,..)\"]\n- \"hr\", \"human resources\", \"recruitment\" → [\"Human Resources\", \"Corporate (HR, Legal, Finance,..)\"]\n- \"legal\", \"law\" → [\"Corporate (HR, Legal, Finance,..)\"]\n- \"consulting\" → [\"Corporate (HR, Legal, Finance,..)\"]\n- \"b2b\", \"business to business\" → [\"B2B\", \"SaaS\"]\n- \"marketing\", \"advertising\", \"ads\" → [\"Marketing\", \"Media\"]\n\nTravel & Hospitality → Include ALL related:\n- \"travel\", \"tourism\" → [\"Hospitality or Travel\"]\n- \"hospitality\", \"hotel\", \"accommodation\" → [\"Hospitality or Travel\"]\n- \"restaurant\", \"dining\" → [\"Food\", \"Hospitality or Travel\"]\n- \"food\", \"culinary\", \"catering\" → [\"Food\", \"Hospitality or Travel\"]\n\nLogistics & Transportation → Include ALL related:\n- \"logistics\", \"supply chain\", \"warehousing\" → [\"Logistics\", \"E-commerce\"]\n- \"shipping\", \"freight\" → [\"Logistics\", \"Maritime industry\"]\n- \"maritime\", \"naval\", \"port\" → [\"Maritime industry\", \"Logistics\"]\n- \"transportation\", \"transport\" → [\"Public Transportation\", \"Logistics\"]\n- \"public transportation\", \"transit\", \"metro\" → [\"Public Transportation\"]\n- \"automotive\", \"auto\", \"car\", \"vehicle\" → [\"Automotive\", \"IoT\"]\n\nGovernment & Public → Include ALL public sector:\n- \"government\", \"public sector\", \"federal\", \"state\" → [\"Government\", \"Regulatory\"]\n- \"military\", \"defense\", \"armed forces\" → [\"Military or Law Enforcement\", \"Government\"]\n- \"law enforcement\", \"police\", \"security\" → [\"Military or Law Enforcement\", \"Government\"]\n- \"regulatory\", \"compliance\", \"regulation\" → [\"Regulatory\", \"Government\"]\n\nOther specific mappings:\n- \"education\", \"academic\", \"university\", \"school\", \"edtech\" → [\"Education\"]\n- \"telecom\", \"telecommunications\", \"telco\" → [\"Telecommunications\"]\n- \"real estate\", \"property\", \"realty\" → [\"Real Estate\"]\n- \"agriculture\", \"farming\", \"agtech\" → [\"Agriculture\"]\n- \"civil engineering\", \"construction\", \"infrastructure\" → [\"Civil Engineering\"]\n- \"fmcg\", \"consumer goods\" → [\"FMCG\", \"Retail\"]\n- \"furniture\", \"furnishing\" → [\"Furniture\", \"Retail\"]\n- \"white labeling\", \"white label\", \"private label\" → [\"White labeling\", \"B2B\"]\n\nSTEP 3: Combine all arrays and format output\n- Merge all mapped industries from Step 2\n- Remove duplicates\n- Keep the exact formatting with proper capitalization\n- Return as JSON array\n\nCRITICAL RULES:\n- ALWAYS include ALL related industries, not just the primary one\n- When user says \"health\", include Healthcare, Pharma, AND Dental\n- When user says \"finance\", include Fintech, Banking & Insurance, AND Corporate\n- Use EXACT industry names from the list (including \"&\", spaces, parentheses)\n- Multiple industries are expected and normal\n\nEXAMPLES:\n\nInput: \"someone in health\"\nOutput: {\"industries\": [\"Healthcare\", \"Pharma\", \"Dental\"]}\n\nInput: \"developers for fintech\"\nOutput: {\"industries\": [\"Fintech\", \"Banking & Insurance\"]}\n\nInput: \"e-commerce company\"\nOutput: {\"industries\": [\"E-commerce\", \"Retail\"]}\n\nInput: \"financial services\"\nOutput: {\"industries\": [\"Fintech\", \"Banking & Insurance\", \"Corporate (HR, Legal, Finance,..)\"]}\n\nInput: \"tech company\"\nOutput: {\"industries\": [\"SaaS\", \"Big Data\", \"IoT\"]}\n\nInput: \"media and entertainment\"\nOutput: {\"industries\": [\"Media\", \"Entertainment & Sports\", \"Publishing\", \"Content Distribution\", \"Streaming\"]}\n\nInput: \"government and education sectors\"\nOutput: {\"industries\": [\"Government\", \"Regulatory\", \"Education\"]}\n\nInput: \"b2b saas\"\nOutput: {\"industries\": [\"B2B\", \"SaaS\"]}\n\nInput: \"developers\"\nOutput: {\"industries\": []}\n\nInput: \"automotive\"\nOutput: {\"industries\": [\"Automotive\", \"IoT\"]}\n\nInput: \"shipping company\"\nOutput: {\"industries\": [\"Logistics\", \"Maritime industry\"]}\n\nInput: \"find me senior engineers\"\nOutput: {\"industries\": []}\n\nReturn JSON with this schema:\n{\n    \"industries\": [\"array of industries or empty array\"]\n}\n`;\n\nreturn {\n  json: {\n    userPrompt,\n    systemPrompt: systemPrompt\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        272,
+        272
+      ],
+      "id": "662a49e2-1df6-4cb6-ba2b-184f0cad338a",
+      "name": "Prompt - Industries1"
+    },
+    {
+      "parameters": {
+        "jsCode": "const chatInput = $('ChatInput').first().json.chatInput;\nconst systemPrompt = \"Extract industries from the user's request. Be strict and literal. Return ONLY compact JSON, no prose.\";\n\n// 3. Define the user prompt\nconst userPrompt = `TEXT:\n${chatInput}\n\nINDUSTRIES (use EXACTLY as written):\n- Agriculture\n- Automotive\n- B2B\n- Banking & Insurance\n- Big Data\n- Civil Engineering\n- Content Distribution\n- Corporate (HR, Legal, Finance,..)\n- Crypto\n- Dental\n- E-commerce\n- Education\n- Entertainment & Sports\n- Fintech\n- FMCG\n- Food\n- Furniture\n- Government\n- Healthcare\n- Hospitality or Travel\n- Human Resources\n- IoT\n- Logistics\n- Maritime industry\n- Marketing\n- Media\n- Military or Law Enforcement\n- Pharma\n- Public Transportation\n- Publishing\n- Real Estate\n- Regulatory\n- Retail\n- SaaS\n- Social Media\n- Streaming\n- Telecommunications\n- White labeling\n\nEXTRACTION PROCESS:\n\nSTEP 1: Identify EXPLICIT industry mentions in the text\nONLY look for:\n- Direct industry names from the list above\n- Industry-specific terms when used to describe WHERE someone works/worked\n- Phrases like \"in [industry]\", \"for [industry]\", \"[industry] experience\", \"[industry] sector\"\n\nDO NOT extract industries from:\n- Job titles (data engineer, software developer, QA engineer)\n- Skills (Python, React, machine learning)\n- Technologies (AI, blockchain, IoT as a skill)\n- Role descriptions\n\nSTEP 2: Map ONLY explicit industry mentions\nONLY when industries are explicitly mentioned as work context:\n\nContext indicators that REQUIRE industry extraction:\n- \"in healthcare\" → [\"Healthcare\", \"Pharma\", \"Dental\"]\n- \"for fintech companies\" → [\"Fintech\", \"Banking & Insurance\"]\n- \"retail experience\" → [\"Retail\", \"E-commerce\"]\n- \"government sector\" → [\"Government\", \"Regulatory\"]\n- \"worked in pharma\" → [\"Pharma\", \"Healthcare\"]\n\nTerms that DO NOT trigger industry extraction (unless with context):\n- \"data\" in \"data engineer\" → [] (job title, not industry)\n- \"blockchain developer\" → [] (skill/role, not industry)\n- \"IoT engineer\" → [] (role, not industry)\n- \"SaaS architect\" → [] (role, not industry)\n- \"AI specialist\" → [] (role, not industry)\n\nValid industry mappings ONLY when explicitly mentioned as industries:\n- \"health\", \"medical\", \"healthcare\" (as industry) → [\"Healthcare\", \"Pharma\", \"Dental\"]\n- \"finance\", \"financial\" (as industry) → [\"Fintech\", \"Banking & Insurance\", \"Corporate (HR, Legal, Finance,..)\"]\n- \"banking\" → [\"Banking & Insurance\", \"Fintech\"]\n- \"retail\", \"shop\" → [\"Retail\", \"E-commerce\"]\n- \"ecommerce\", \"e-commerce\" → [\"E-commerce\", \"Retail\"]\n- \"government\", \"public sector\" → [\"Government\", \"Regulatory\"]\n- \"tech industry\", \"technology sector\" → [\"SaaS\", \"Big Data\", \"IoT\"]\n- \"pharma\", \"pharmaceutical\" → [\"Pharma\", \"Healthcare\"]\n- \"education\", \"academic\" → [\"Education\"]\n- \"telecom\", \"telecommunications\" → [\"Telecommunications\"]\n- \"real estate\", \"property\" → [\"Real Estate\"]\n- \"automotive\", \"auto\" → [\"Automotive\", \"IoT\"]\n- \"logistics\", \"supply chain\" → [\"Logistics\"]\n- \"media\", \"entertainment\" → [\"Media\", \"Entertainment & Sports\"]\n\nSTEP 3: Format output\n- Return found industries or empty array if none explicitly mentioned\n- Remove duplicates\n- Use exact formatting from the list\n\nCRITICAL RULES:\n- NEVER infer industries from job titles or skills\n- \"data engineer\" does NOT imply Big Data industry\n- \"blockchain developer\" does NOT imply Crypto industry\n- \"AI engineer\" does NOT imply any industry\n- ONLY extract when industry context is explicit\n- Look for prepositions: \"in\", \"for\", \"at\", \"with\" + industry name\n- Look for industry as qualifier: \"[industry] experience\", \"[industry] company\"\n\nEXAMPLES:\n\nInput: \"find me senior data engineer\"\nOutput: {\"industries\": []}\n\nInput: \"data engineer with healthcare experience\"\nOutput: {\"industries\": [\"Healthcare\", \"Pharma\", \"Dental\"]}\n\nInput: \"blockchain developer\"\nOutput: {\"industries\": []}\n\nInput: \"blockchain developer in crypto\"\nOutput: {\"industries\": [\"Crypto\", \"Fintech\"]}\n\nInput: \"SaaS engineer\"\nOutput: {\"industries\": []}\n\nInput: \"engineer for SaaS companies\"\nOutput: {\"industries\": [\"SaaS\", \"B2B\"]}\n\nInput: \"someone in health\"\nOutput: {\"industries\": [\"Healthcare\", \"Pharma\", \"Dental\"]}\n\nInput: \"developers for fintech\"\nOutput: {\"industries\": [\"Fintech\", \"Banking & Insurance\"]}\n\nInput: \"Python developer\"\nOutput: {\"industries\": []}\n\nInput: \"Python developer in retail\"\nOutput: {\"industries\": [\"Retail\", \"E-commerce\"]}\n\nInput: \"AI specialist\"\nOutput: {\"industries\": []}\n\nInput: \"IoT engineer\"\nOutput: {\"industries\": []}\n\nInput: \"engineer with government experience\"\nOutput: {\"industries\": [\"Government\", \"Regulatory\"]}\n\nInput: \"find me senior engineers\"\nOutput: {\"industries\": []}\n\nReturn JSON with this schema:\n{\n    \"industries\": [\"array of industries or empty array\"]\n}\n`;\n\nreturn {\n  json: {\n    userPrompt,\n    systemPrompt: systemPrompt\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        512,
+        272
+      ],
+      "id": "3cc6db63-26a1-43f9-85da-80f9d5b70e22",
+      "name": "Prompt - Industries2"
+    },
+    {
+      "parameters": {
+        "jsCode": "const chatInput = $('ChatInput').first().json.chatInput;\nconst systemPrompt = \"Extract employment type from the user's request. Be strict and literal. Return ONLY compact JSON, no prose.\";\n\n// 3. Define the user prompt\nconst userPrompt = `TEXT:\n${chatInput}\n\nEMPLOYMENT TYPE (use EXACTLY as written):\n- Employee\n- Contractor\n- Student\n\nEXTRACTION PROCESS:\n\nSTEP 1: Look for EXACT MATCHES ONLY (case-insensitive):\n\nFOR \"Employee\" - ONLY these exact words:\n- \"employee\" (exact word)\n- \"employees\" (exact word)\n- \"full-time\" (exact phrase)\n- \"full time\" (exact phrase)\n- \"permanent\" (exact word)\n- \"FTE\" (exact match)\n- \"staff\" (exact word)\n\nFOR \"Contractor\" - ONLY these exact words:\n- \"contractor\" (exact word)\n- \"contractors\" (exact word)\n- \"freelance\" (exact word)\n- \"freelancer\" (exact word)\n- \"freelancers\" (exact word)\n- \"consultant\" (exact word)\n- \"consultants\" (exact word)\n- \"contract\" (exact word, when referring to employment)\n\nFOR \"Student\" - ONLY these exact words:\n- \"student\" (exact word)\n- \"students\" (exact word)\n- \"intern\" (exact word)\n- \"interns\" (exact word)\n- \"apprentice\" (exact word)\n- \"apprentices\" (exact word)\n- \"co-op\" (exact match)\n\nSTEP 2: Build array of matching types\n- Check if ANY of the exact words/phrases above appear as complete words in the text\n- DO NOT do partial matches or interpretations\n- DO NOT infer employment type from context or job titles\n- Return array with found types, or empty array if none found\n\nCRITICAL RULES:\n- EXACT WORD MATCHING ONLY - no interpretation or inference\n- \"principal\" is NOT in any list above, so it returns []\n- Job titles/levels are NOT employment types:\n  * \"principal\", \"lead\", \"senior\", \"junior\", \"architect\", \"manager\", \"director\"\n  * \"developer\", \"engineer\", \"designer\", \"analyst\"\n- Casual terms are NOT employment types:\n  * \"guys\", \"folks\", \"people\", \"team\", \"resources\", \"talent\", \"person\", \"individual\"\n- If a word is NOT explicitly listed above, it does NOT indicate employment type\n\nEXAMPLES:\nInput: \"principal\"\nOutput: {\"employment_type\": []}\n\nInput: \"principal engineer\"\nOutput: {\"employment_type\": []}\n\nInput: \"junior guys\"\nOutput: {\"employment_type\": []}\n\nInput: \"find me senior employees\"\nOutput: {\"employment_type\": [\"Employee\"]}\n\nInput: \"contractors and employees\"\nOutput: {\"employment_type\": [\"Contractor\", \"Employee\"]}\n\nInput: \"lead developer\"\nOutput: {\"employment_type\": []}\n\nInput: \"staff engineer\"\nOutput: {\"employment_type\": [\"Employee\"]}\n\nInput: \"permanent staff\"\nOutput: {\"employment_type\": [\"Employee\"]}\n\nInput: \"full-time principal engineer\"\nOutput: {\"employment_type\": [\"Employee\"]}\n\nInput: \"freelance principal\"\nOutput: {\"employment_type\": [\"Contractor\"]}\n\nInput: \"developers\"\nOutput: {\"employment_type\": []}\n\nReturn JSON with this schema:\n{\n    \"employment_type\": [\"array of employment types or empty array\"]\n}\n`;\n\nreturn {\n  json: {\n    userPrompt,\n    systemPrompt: systemPrompt\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -256,
+        240
+      ],
+      "id": "662bb5a1-35cc-4629-8da2-245c1b1e8f59",
+      "name": "Prompt - Employment2"
+    },
+    {
+      "parameters": {
+        "jsCode": "const chatInput = $input.first().json.output.cleanInput; // This is now clean text\n\nfunction extractEmploymentType(input) {\n  const text = input.toLowerCase();\n  const types = [];\n  \n  // Check for both singular and plural\n  if (/\\b(employee|employees)\\b/.test(text)) {\n    types.push(\"Employee\");\n  }\n  \n  if (/\\b(contractor|contractors)\\b/.test(text)) {\n    types.push(\"Contractor\");\n  }\n  \n  if (/\\b(student|students)\\b/.test(text)) {\n    types.push(\"Student\");\n  }\n  \n  return types;\n}\n\nconst employment_type = extractEmploymentType(chatInput);\n\nreturn {\n  json: {\n    employment_type: employment_type\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1712,
+        464
+      ],
+      "id": "e44b1d29-03ed-43f4-a382-476223a80803",
+      "name": "Employees Regex"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.userPrompt }}",
+        "hasOutputParser": true,
+        "messages": {
+          "messageValues": [
+            {
+              "message": "={{ $json.systemPrompt }}"
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        -2016,
+        464
+      ],
+      "id": "3cbce435-b249-4bbe-8e8d-c7daaefbbe59",
+      "name": "Fix Typos"
+    },
+    {
+      "parameters": {
+        "jsCode": "const chatInput = $('ChatInput').first().json.chatInput;\nconst systemPrompt = \"Fix typos in this HR/staffing query. Return only corrected text.\";\n\nconst userPrompt = `Correct spelling errors in this staffing query: \"${chatInput}\"\n\nThis is about finding people for employment, so common terms are:\n\nEmployment types:\n- \"emplyee/employe/employeee\" → \"employee/employees\"\n- \"contrsctor/contrctor/contracter\" → \"contractor/contractors\" (freelancer, NOT constructor)\n- \"studnet/stuent/studant\" → \"student/students\"\n\nSeniority levels (keep numbers!):\n- Senior, Senior 1, Senior 2\n- Mid, Mid 1, Mid 2  \n- Junior, Junior 1, Junior 2\n- Novice\n\nCommon typos to fix:\n- \"fiance/finace\" → \"finance\"\n- \"bancking/bankning\" → \"banking\"\n- Words with accidental punctuation: \"hand,ing\" → \"handling\", \"work,ed\" → \"worked\"\n- \"expeirnece/experince\" → \"experience\"\n- \"knowl,edge\" → \"knowledge\"\n\nRules:\n1. Keep ALL numbers exactly where they are\n2. Add spaces if missing: \"1students\" → \"1 students\"\n3. Remove accidental commas/punctuation within words\n4. \"contractor\" is about employment (NOT \"constructor\")\n5. Fix only obvious typos, don't change meaning\n\nOutput only the corrected text:`;\n\nreturn {\n  json: {\n    userPrompt,\n    systemPrompt: systemPrompt\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -2192,
+        464
+      ],
+      "id": "12924f2d-93fc-4f1c-87fc-277800216c7a",
+      "name": "Prompt - Fix Typos"
+    },
+    {
+      "parameters": {
+        "jsCode": "// n8n Function node\n// Input:  items[i].json.text  -> string containing JSON (possibly with newlines/code fences)\n// Output: items[i].json       -> parsed JSON object (or an _error field if parsing fails)\n\nreturn items.map((item) => {\n  let raw = (item.json?.text ?? '').trim();\n\n  // Strip Markdown code fences if present\n  if (raw.startsWith('```')) {\n    raw = raw.replace(/^```[a-zA-Z]*\\n?/, '').replace(/```$/, '').trim();\n  }\n\n  // If the string has extra wrapping text, try to extract the first JSON object\n  const maybeObj = raw.match(/{[\\s\\S]*}/);\n  if (maybeObj) raw = maybeObj[0];\n\n  try {\n    const parsed = JSON.parse(raw);\n    return { json: parsed };\n  } catch (e) {\n    // Fail gracefully but keep the original input for debugging\n    return { json: { _error: 'JSON parse failed', _message: e.message, _raw: item.json?.text } };\n  }\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1712,
+        320
+      ],
+      "id": "14f6c596-b6d6-43b5-a8ac-7b445e876af4",
+      "name": "JSON - Clean Text"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "qwen3-coder-30b-32k",
+          "mode": "list",
+          "cachedResultName": "qwen3-coder-30b-32k"
+        },
+        "options": {
+          "responseFormat": "json_object",
+          "temperature": 0
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -2016,
+        656
+      ],
+      "id": "c167168d-9a10-4a41-9cc6-9b5fd553f50d",
+      "name": "Qwen3 30b",
+      "credentials": {
+        "openAiApi": {
+          "id": "09tIxrZPXx1gwPgx",
+          "name": "vllm"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const chatInput = $('Fix Typos').first().json.output.cleanInput; // This is now clean text\n\nfunction extractSeniority(input) {\n  const text = input.toLowerCase();\n  const found = new Set();\n  \n  // Define patterns and their corresponding values\n  const patterns = [\n    // Specific levels (check these first)\n    { pattern: /\\bsenior\\s+2\\b/, values: [\"Senior 2\"] },\n    { pattern: /\\bsenior\\s+1\\b/, values: [\"Senior 1\"] },\n    { pattern: /\\bmid\\s+2\\b/, values: [\"Mid 2\"] },\n    { pattern: /\\bmid\\s+1\\b/, values: [\"Mid 1\"] },\n    { pattern: /\\bmid2\\b/, values: [\"Mid 2\"] },\n    { pattern: /\\bmid1\\b/, values: [\"Mid 1\"] },\n    { pattern: /\\bjunior\\s+2\\b/, values: [\"Junior 2\"] },\n    { pattern: /\\bjunior\\s+1\\b/, values: [\"Junior 1\"] },\n    { pattern: /\\bnovices?\\b/, values: [\"Novice\"] }  // Added s? for plural\n  ];\n  \n  // Check specific patterns first\n  let hasSpecificSenior = false;\n  let hasSpecificMid = false;\n  let hasSpecificJunior = false;\n  \n  for (const { pattern, values } of patterns) {\n    if (pattern.test(text)) {\n      values.forEach(v => found.add(v));\n      if (values[0].startsWith(\"Senior\")) hasSpecificSenior = true;\n      if (values[0].startsWith(\"Mid\")) hasSpecificMid = true;\n      if (values[0].startsWith(\"Junior\")) hasSpecificJunior = true;\n    }\n  }\n  \n  // Check generic terms only if no specific level was found\n  // Now checking for both singular and plural forms\n  if (!hasSpecificSenior && /\\b(senior|seniors)\\b/.test(text)) {\n    found.add(\"Senior 1\");\n    found.add(\"Senior 2\");\n  }\n  \n  if (!hasSpecificMid && /\\b(mid|mids)\\b/.test(text)) {\n    found.add(\"Mid 1\");\n    found.add(\"Mid 2\");\n  }\n  \n  if (!hasSpecificJunior && /\\b(junior|juniors)\\b/.test(text)) {\n    found.add(\"Junior 1\");\n    found.add(\"Junior 2\");\n  }\n  \n  // Also check for common synonyms (if they appear in clean text)\n  if (/\\b(experienced|expert|experts)\\b/.test(text) && !hasSpecificSenior) {\n    found.add(\"Senior 1\");\n    found.add(\"Senior 2\");\n  }\n  \n  if (/\\b(intermediate|intermediates)\\b/.test(text) && !hasSpecificMid) {\n    found.add(\"Mid 1\");\n    found.add(\"Mid 2\");\n  }\n  \n  if (/\\b(entry\\s+level|beginner|beginners)\\b/.test(text) && !hasSpecificJunior) {\n    found.add(\"Junior 1\");\n    found.add(\"Junior 2\");\n  }\n  \n  if (/\\b(intern|interns|trainee|trainees)\\b/.test(text)) {\n    found.add(\"Novice\");\n  }\n  \n  // Convert to array and sort\n  const order = [\"Novice\", \"Junior 1\", \"Junior 2\", \"Mid 1\", \"Mid 2\", \"Senior 1\", \"Senior 2\"];\n  return Array.from(found).sort((a, b) => order.indexOf(a) - order.indexOf(b));\n}\n\nconst seniority = extractSeniority(chatInput);\n\nreturn {\n  json: {\n    seniority: seniority\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1536,
+        464
+      ],
+      "id": "c57dd693-233b-49c9-9be7-e4981dfcffe7",
+      "name": "Senority Regex"
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n    \"cleanInput\": \"fixed query\"\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        -1872,
+        656
+      ],
+      "id": "d9db765d-b453-4001-9c99-aa1204048728",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "jsCode": "const chatInput = $('ChatInput').first().json.chatInput;\nconst systemPrompt = \"Fix ONLY spelling errors. Preserve all numbers, spacing, and structure. Return ONLY the corrected text.\";\n\nconst userPrompt = `Fix ONLY typos/misspellings in this text. \n\nCRITICAL RULES:\n- Keep ALL numbers exactly where they are (e.g., \"mid 1\" stays \"mid 1\", \"junior 2\" stays \"junior 2\")\n- Do NOT change \"mid 1\" to \"mid level\" or \"mid-level\"\n- Do NOT remove numbers after seniority levels\n- Only fix spelling, nothing else\n- If there's a missing space (like \"1students\"), add the space but keep the number\n\nText: ${chatInput}\n\nReturn the corrected text:`;\n\nreturn {\n  json: {\n    userPrompt,\n    systemPrompt: systemPrompt\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -2160,
+        304
+      ],
+      "id": "64a005c3-e066-4788-939d-308dfc0dae6b",
+      "name": "Prompt - Fix Typos1"
+    }
+  ],
+  "pinData": {},
+  "repo_name": "n8n-backup-zm",
+  "repo_owner": "zlatkomq",
+  "repo_path": "",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-09-22T07:19:42.274Z",
+      "updatedAt": "2025-09-22T07:19:42.274Z",
+      "role": "workflow:owner",
+      "workflowId": "b7KXg2idKHt4DLJt",
+      "projectId": "NM7VZoSXkcKo262s"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-09-30T10:43:58.251Z",
+  "versionId": "43cb4121-271f-4ed3-89e8-b1d422e5f821"
+}
