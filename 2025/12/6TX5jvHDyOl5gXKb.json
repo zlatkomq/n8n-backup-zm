@@ -1,0 +1,283 @@
+{
+  "active": false,
+  "connections": {
+    "Download file": {
+      "main": [
+        [
+          {
+            "node": "Extract from File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Copy json for sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Copy json for sheet": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Create spreadsheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create spreadsheet": {
+      "main": [
+        [
+          {
+            "node": "Download file",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-12-10T11:30:46.967Z",
+  "id": "6TX5jvHDyOl5gXKb",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "xlsx to google sheets",
+  "nodes": [
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "17PmH7PsmZkd6eoGEABVee8AJJHH1D5mX",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        160,
+        -16
+      ],
+      "id": "45ab4980-8d02-4826-bd99-6d15e417a3e3",
+      "name": "Download file",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "sBYzfg7E5c5N3zde",
+          "name": "Google Drive account 4"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Initialize merged object\nlet merged = {};\n\n// Loop over all items\nfor (const item of items) {\n    const obj = item.json;\n\n    for (const key of Object.keys(obj)) {\n        // If key doesn't exist in merged, initialize as array\n        if (!merged[key]) {\n            merged[key] = [];\n        }\n\n        // If the value is already an array, concat it; otherwise, push it\n        if (Array.isArray(obj[key])) {\n            merged[key] = merged[key].concat(obj[key]);\n        } else {\n            merged[key].push(obj[key]);\n        }\n    }\n}\n\n// Return a single item with merged JSON\nreturn [{ json: merged }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        496,
+        -16
+      ],
+      "id": "ed3f7dbd-e018-4d3b-a435-608798dca6e8",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "operation": "xlsx",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1.1,
+      "position": [
+        320,
+        -16
+      ],
+      "id": "537d702f-4be9-47f8-ba13-6fe44f773958",
+      "name": "Extract from File"
+    },
+    {
+      "parameters": {
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        672,
+        -16
+      ],
+      "id": "1faefb31-ee11-4b9e-9d5b-4ae452fa162f",
+      "name": "Copy json for sheet"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -176,
+        -16
+      ],
+      "id": "042c2f20-4bd2-4f83-bfe1-2d03b8958250",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "resource": "spreadsheet",
+        "title": "Google_sheet_merged",
+        "sheetsUi": {
+          "sheetValues": [
+            {
+              "title": "Sheet1"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        0,
+        -16
+      ],
+      "id": "8241bcf5-fc02-4eea-9dfc-e8610f19fe67",
+      "name": "Create spreadsheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "lD2TgRvZEn2hV2Ml",
+          "name": "Google Sheets account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $json.spreadsheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Sheet1",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        880,
+        -16
+      ],
+      "id": "17347b0f-1870-4d4d-bb7f-28c5cdc6b46e",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "lD2TgRvZEn2hV2Ml",
+          "name": "Google Sheets account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "b65b7928-b125-4646-8c2a-88e1570a8ea8",
+              "name": "spreadsheetId",
+              "value": "={{ $json.spreadsheetId }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        304,
+        240
+      ],
+      "id": "8540151f-81c8-4b70-95ae-811cb3ce249e",
+      "name": "Edit Fields"
+    }
+  ],
+  "pinData": {},
+  "repo_name": "n8n-backup-zm",
+  "repo_owner": "zlatkomq",
+  "repo_path": "",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "updatedAt": "2025-12-10T11:30:46.967Z",
+      "createdAt": "2025-12-10T11:30:46.967Z",
+      "role": "workflow:owner",
+      "workflowId": "6TX5jvHDyOl5gXKb",
+      "projectId": "p3ICmuTDnWBbcf7S"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-12-11T10:23:40.491Z",
+  "versionId": "836848ad-0a3d-4155-8189-9d383ca2cfaa"
+}
