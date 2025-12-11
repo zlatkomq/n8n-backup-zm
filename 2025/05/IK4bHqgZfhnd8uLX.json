@@ -22,6 +22,11 @@
           }
         ]
       ]
+    },
+    "Get many events": {
+      "main": [
+        []
+      ]
     }
   },
   "createdAt": "2025-05-24T21:47:44.800Z",
@@ -88,7 +93,7 @@
         "jsonParameters": true,
         "options": {},
         "sendBinaryData": "={{ false }}",
-        "bodyParametersJson": "={\n  \"timelog\": {\n    \"description\": \"{{ $json.summary }}\",\n    \"date\": \"{{ $json.date }}\",\n    \"time\": \"{{ $json.time }}\",         \n    \"hours\": {{ Math.floor($json.duration / 60) }},\n    \"minutes\": {{ $json.duration % 60 }},\n    \"isBillable\": {{ $json.hasTask ? ',\\n       \"taskId\": ' + $json.taskId : '' }}\n  }\n}"
+        "bodyParametersJson": "={\n  \"timelog\": {\n    \"description\": \"{{ $json.summary }}\",\n    \"date\": \"{{ $json.date }}\",\n    \"time\": \"{{ $json.time }}\",         \n    \"hours\": {{ Math.floor($json.duration / 60) }},\n    \"minutes\": {{ $json.duration % 60 }},\n    \"isBillable\": false\n    {{ $json.hasTask ? ',\\n       \"taskId\": ' + $json.taskId : '' }}\n  }\n}"
       },
       "name": "Teamwork API",
       "type": "n8n-nodes-base.httpRequest",
@@ -104,6 +109,35 @@
           "name": "Teamwork credential"
         }
       }
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "calendar": {
+          "__rl": true,
+          "value": "anka.bajurinstiskalov@q.agency",
+          "mode": "list",
+          "cachedResultName": "anka.bajurinstiskalov@q.agency"
+        },
+        "returnAll": true,
+        "timeMin": "2025-10-20T00:00:00",
+        "timeMax": "={{ $now }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.3,
+      "position": [
+        192,
+        208
+      ],
+      "id": "a62bcf7b-1d7a-444e-9643-e298c2dc8aec",
+      "name": "Get many events",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "G3pdNAEdNtZPwgYF",
+          "name": "Google Calendar account"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -115,8 +149,8 @@
   },
   "shared": [
     {
-      "createdAt": "2025-05-24T21:47:44.800Z",
       "updatedAt": "2025-05-24T21:47:44.800Z",
+      "createdAt": "2025-05-24T21:47:44.800Z",
       "role": "workflow:owner",
       "workflowId": "IK4bHqgZfhnd8uLX",
       "projectId": "YbrvtVx5Nzf4nvjB"
@@ -124,11 +158,11 @@
   ],
   "staticData": {
     "node:Google Calendar Trigger": {
-      "lastTimeChecked": "2025-10-23T14:00:10Z"
+      "lastTimeChecked": "2025-12-11T09:45:50Z"
     }
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-10-20T14:08:45.855Z",
-  "versionId": "bf617b61-e135-4f01-bd68-db11b8e03a5d"
+  "updatedAt": "2025-10-24T17:13:51.472Z",
+  "versionId": "c1b319d0-0c93-45f8-8a06-73e18cbd128f"
 }
