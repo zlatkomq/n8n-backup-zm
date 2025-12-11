@@ -1,5 +1,5 @@
 {
-  "active": true,
+  "active": false,
   "connections": {
     "Set Local Variables": {
       "main": [
@@ -1805,8 +1805,8 @@
   },
   "shared": [
     {
-      "createdAt": "2025-07-09T13:43:16.823Z",
       "updatedAt": "2025-07-09T13:43:16.823Z",
+      "createdAt": "2025-07-09T13:43:16.823Z",
       "role": "workflow:owner",
       "workflowId": "jufuEfrQAbhVvgQp",
       "projectId": "hlNkEWAlDmmc5iQw"
@@ -1815,6 +1815,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-09-04T13:19:48.487Z",
+  "updatedAt": "2025-11-07T14:55:22.178Z",
   "versionId": "b446291b-0a90-4350-b863-479a99f7dd39"
 }
