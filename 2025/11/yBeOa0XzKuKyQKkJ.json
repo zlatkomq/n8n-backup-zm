@@ -1,0 +1,615 @@
+{
+  "active": false,
+  "connections": {
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Base Query",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Base Query": {
+      "main": [
+        [
+          {
+            "node": "Embed Query",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embed Query": {
+      "main": [
+        [
+          {
+            "node": "Query by Topic",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Query by Topic": {
+      "main": [
+        [
+          {
+            "node": "Has Hits?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Has Hits?": {
+      "main": [
+        [
+          {
+            "node": "Queries For Semantic",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Stop and Error",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Stop and Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Queries For Semantic": {
+      "main": [
+        [
+          {
+            "node": "Embed Each Query",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embed Each Query": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Full Semantic Search",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Full Semantic Search": {
+      "main": [
+        [
+          {
+            "node": "Dedup Semantic Results",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Dedup Semantic Results": {
+      "main": [
+        [
+          {
+            "node": "Dedup Combined",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Dedup Combined": {
+      "main": [
+        [
+          {
+            "node": "Prepare for Reranker",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare for Reranker": {
+      "main": [
+        [
+          {
+            "node": "Reranker",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reranker": {
+      "main": [
+        [
+          {
+            "node": "Combine With Original Chunks",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Combine With Original Chunks": {
+      "main": [
+        [
+          {
+            "node": "Prepare query for ChunkId extraction",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare query for ChunkId extraction": {
+      "main": [
+        [
+          {
+            "node": "ChunkId extraction",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ChunkId extraction": {
+      "main": [
+        [
+          {
+            "node": "Merge results - Full Metadata",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge results - Full Metadata": {
+      "main": [
+        [
+          {
+            "node": "Prepare Context",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-11-20T08:41:08.446Z",
+  "id": "yBeOa0XzKuKyQKkJ",
+  "isArchived": false,
+  "meta": null,
+  "name": "Estimation Tool - Chunk Retriever",
+  "nodes": [
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "query_embed_for_sorting"
+            },
+            {
+              "name": "index_name"
+            },
+            {
+              "name": "error_title"
+            },
+            {
+              "name": "error_desc"
+            },
+            {
+              "name": "queries_embed_full_array",
+              "type": "array"
+            },
+            {
+              "name": "topic_keyword"
+            },
+            {
+              "name": "num_of_chunks",
+              "type": "number"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -1808,
+        0
+      ],
+      "id": "5dc62c32-d35b-4c27-ac83-998162ef35f6",
+      "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f0318a33-e656-4c63-9f7d-cb56a6c0a489",
+              "name": "platforms_query",
+              "value": "={{ $json.query_embed_for_sorting }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1392,
+        0
+      ],
+      "id": "a0f3cacd-229e-4696-b486-05aca6b0c289",
+      "name": "Base Query"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://192.168.20.70:11434/api/embed",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"nomic-embed-text:latest\",\n  \"input\": [\"{{ $json.platforms_query }}\"]\n}",
+        "options": {}
+      },
+      "id": "4758b997-1b73-4a80-89e2-825beb0dedad",
+      "name": "Embed Query",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1200,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT \n    chunk_id,\n    text,\n    topics,\n    1 - (embedding <=> '[{{ $json.embeddings }}]') as similarity\nFROM {{ $('When Executed by Another Workflow').item.json.index_name }}\nWHERE '{{ $('When Executed by Another Workflow').item.json.topic_keyword }}' = ANY(topics)\nORDER BY embedding <=> '[{{ $json.embeddings }}]'\nLIMIT 30;",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -992,
+        0
+      ],
+      "id": "476d9536-3070-4cd0-b48f-d0f5e2ab7ce1",
+      "name": "Query by Topic",
+      "alwaysOutputData": true,
+      "credentials": {
+        "postgres": {
+          "id": "wK2pSCG9jTniRU28",
+          "name": "Postgres account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "9a436325-f8ac-491f-99aa-c66f916b471d",
+              "leftValue": "={{$input.all().length}}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -768,
+        -16
+      ],
+      "id": "73c129a1-6125-4601-b6b6-69bd342e9730",
+      "name": "Has Hits?",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "errorType": "errorObject",
+        "errorObject": "={\n  \"title\": \"{{ $('When Executed by Another Workflow').item.json.error_title }}\",\n  \"message\": \"{{ $('When Executed by Another Workflow').item.json.error_desc }}\"\n}"
+      },
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        -432,
+        -240
+      ],
+      "id": "8eb61e4f-3439-4251-be25-666fbd56f961",
+      "name": "Stop and Error"
+    },
+    {
+      "parameters": {
+        "jsCode": "return $('When Executed by Another Workflow').first().json.queries_embed_full_array;\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -544,
+        -16
+      ],
+      "id": "a0f11eba-ed32-420c-832b-94217ce290fc",
+      "name": "Queries For Semantic"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://192.168.20.70:11434/api/embed",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"nomic-embed-text:latest\",\n  \"input\": [\"{{ $json.query }}\"]\n}",
+        "options": {}
+      },
+      "id": "4e904cbb-30ce-4f08-a837-7ee27512dc41",
+      "name": "Embed Each Query",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -288,
+        -16
+      ]
+    },
+    {
+      "parameters": {
+        "amount": 0.7
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -112,
+        -16
+      ],
+      "id": "d0c90103-79ab-4c4d-a3d5-e042b07bb8f1",
+      "name": "Wait",
+      "webhookId": "52ed9daa-b400-4143-8770-27b0dd8343e6"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT \n    chunk_id,\n    text,\n    topics,\n    1 - (embedding <=> '[{{ $json.embeddings }}]') as similarity\nFROM {{ $('When Executed by Another Workflow').first().json.index_name }}\nORDER BY embedding <=> '[{{ $json.embeddings }}]'\nLIMIT 30;",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        80,
+        -16
+      ],
+      "id": "c7aafe1c-2eb5-47e0-9a19-ba2e09936b89",
+      "name": "Full Semantic Search",
+      "credentials": {
+        "postgres": {
+          "id": "wK2pSCG9jTniRU28",
+          "name": "Postgres account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// n8n Function Node: Deduplicate keeping highest similarity\nconst seen = {};\n\nfor (const item of $input.all()) {\n  const { chunk_id, similarity } = item.json;\n  \n  if (!seen[chunk_id] || similarity > seen[chunk_id].json.similarity) {\n    seen[chunk_id] = item;\n  }\n}\n\nreturn Object.values(seen);"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        304,
+        -16
+      ],
+      "id": "98367d98-37e5-4b7c-b2f6-a8cd19283207",
+      "name": "Dedup Semantic Results"
+    },
+    {
+      "parameters": {
+        "jsCode": "// n8n Function Node: Combine and prioritize topic chunks\n\n// Assuming input1 = topic chunks, input2 = semantic chunks\nconst topicChunks = $('Query by Topic').all();\nconst semanticChunks = $('Dedup Semantic Results').all();\n\n// Add source and apply boost\nconst combined = [\n  ...topicChunks.map(item => ({\n    json: {\n      ...item.json,\n      source: 'topic_filtered',\n      original_similarity: item.json.similarity,\n      similarity: item.json.similarity * 1.2  // 20% boost for topic chunks\n    }\n  })),\n  ...semanticChunks.map(item => ({\n    json: {\n      ...item.json,\n      source: 'pure_semantic',\n      original_similarity: item.json.similarity,\n      similarity: item.json.similarity  // No boost\n    }\n  }))\n];\n\n// Now deduplicate with priority\nconst seen = {};\nfor (const item of combined) {\n  const { chunk_id, similarity, source, ...rest } = item.json;\n  \n  if (!seen[chunk_id]) {\n    seen[chunk_id] = item;\n  } else {\n    // Keep topic version if both exist, or higher similarity\n    const existing = seen[chunk_id].json;\n    if (source === 'topic_filtered' && existing.source === 'pure_semantic') {\n      seen[chunk_id] = item;  // Topic always wins\n    } else if (similarity > existing.similarity) {\n      seen[chunk_id] = item;  // Higher similarity wins\n    }\n  }\n}\n\n// Convert to array and sort\nconst deduped = Object.values(seen);\nconst sorted = deduped.sort((a, b) => b.json.similarity - a.json.similarity);\n\n// Return top N\nconst DESIRED_COUNT = 15;\nreturn sorted.slice(0, DESIRED_COUNT);"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        512,
+        -16
+      ],
+      "id": "c119c66e-43f0-47a1-b960-3b11c54736ca",
+      "name": "Dedup Combined"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get all chunks from previous node\nconst chunks = $input.all().map(item => item.json);\n\n// Extract only the text field from each chunk, filtering out null/undefined/empty\nconst documents = chunks\n  .map(chunk => chunk.text)\n  .filter(text => text != null && text !== ''); // Filters out null, undefined, and empty strings\n\nconst query = $('Base Query').first().json.platforms_query.replace(/^search_query?:\\s*/i, '');\n\n// Also filter original chunks to only include those with valid text\nconst validChunks = chunks.filter(chunk => chunk.text != null && chunk.text !== '');\n\n// Log warning if any chunks were filtered out\nconst filteredCount = chunks.length - validChunks.length;\nif (filteredCount > 0) {\n  console.warn(`Filtered out ${filteredCount} chunks with null/undefined/empty text`);\n}\n\nreturn [\n  {\n    json: {\n      query: query,\n      documents: JSON.stringify(documents),\n      original_chunks: validChunks\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1392,
+        224
+      ],
+      "id": "416b61ba-2011-4adb-8cd2-032ea6ab5039",
+      "name": "Prepare for Reranker"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://192.168.20.74:8089/rerank",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer dummy"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n    \"model\": \"reranker\",\n    \"query\": \"{{ $json.query }}\",\n    \"documents\": {{ $json.documents }},\n    \"top_n\": {{ $('When Executed by Another Workflow').first().json.num_of_chunks }}\n  } ",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        -1184,
+        224
+      ],
+      "id": "113c9cdc-e8b6-4248-97aa-6ad5900ac607",
+      "name": "Reranker"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get the reranker results from HTTP node\nconst rerankerResults = $input.first().json.results;\n\n// Get the original chunks (from the node before creating documents array)\nconst originalChunks = $('Dedup Combined').all().map(item => item.json);\n\n// Map reranker scores back to original chunks\nconst rerankedChunks = rerankerResults.map(result => {\n  // Get the original chunk using the index\n  const originalChunk = originalChunks[result.index];\n  \n  return {\n    json: {\n      ...originalChunk,  // Keep all original fields (chunk_id, topics, similarity, etc.)\n      rerank_score: result.relevance_score,\n      rerank_position: rerankerResults.indexOf(result) + 1\n    }\n  };\n});\n\n// Return only the reranked chunks (already sorted by reranker)\nreturn rerankedChunks;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -976,
+        224
+      ],
+      "id": "a138eb6b-1059-4840-9d04-0e2a68ad11df",
+      "name": "Combine With Original Chunks"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Function Node 1: Prepare query\nconst chunks = $input.all().map(item => item.json);\nconst chunkIds = chunks.map(c => `'${c.chunk_id}'`).join(',');\nconst tableName = $('When Executed by Another Workflow').first().json.index_name;\n\nreturn [{\n  json: {\n    query: `\n      SELECT chunk_id, section_title, metadata, full_metadata\n      FROM ${tableName}\n      WHERE chunk_id IN (${chunkIds})\n    `,\n    original_chunks: chunks\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -768,
+        224
+      ],
+      "id": "f24b7379-29a8-422e-b279-5822ac1e861d",
+      "name": "Prepare query for ChunkId extraction"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "{{ $json.query }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -512,
+        224
+      ],
+      "id": "93bf7539-d6d7-4a14-b1b8-f96ba0e28120",
+      "name": "ChunkId extraction",
+      "credentials": {
+        "postgres": {
+          "id": "wK2pSCG9jTniRU28",
+          "name": "Postgres account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Function Node 2: Merge results\nconst dbResults = $input.all().map(item => item.json);\nconst originalChunks = $('Prepare query for ChunkId extraction').first().json.original_chunks;\n\n// Create metadata lookup\nconst metadataMap = {};\ndbResults.forEach(row => {\n  metadataMap[row.chunk_id] = row;\n});\n\n// Enrich and return\nconst enrichedChunks = originalChunks.map(chunk => ({\n  json: {\n    ...chunk,\n    section_title: metadataMap[chunk.chunk_id]?.section_title,\n    metadata: metadataMap[chunk.chunk_id]?.metadata,\n    full_metadata: metadataMap[chunk.chunk_id]?.full_metadata\n  }\n}));\n\nreturn enrichedChunks;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -304,
+        224
+      ],
+      "id": "4c5309b7-9032-4d92-97dd-17e3e7939a2e",
+      "name": "Merge results - Full Metadata"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Enhanced preparation with correct metadata extraction and safety checks\nfunction prepareChunksForLLM(chunks) {\n  const context = chunks.map((chunk, index) => {\n    // Safely extract properties with defaults\n    const text = chunk?.text || '[No text content]';\n    const chunk_id = chunk?.chunk_id || `chunk_${index + 1}`;\n    const topics = Array.isArray(chunk?.topics) ? chunk.topics : [];\n    \n    // Format topics safely\n    const topicsStr = topics.length > 0 ? topics.join(', ') : 'No topics';\n    \n    return `[${index + 1}] ${chunk_id}\nTopics: ${topicsStr}\n${text}`;\n  }).join('\\n\\n---\\n\\n');\n  \n  // Fix: Correct path to metadata with safety checks\n  const referenceMap = chunks.map((chunk, index) => {\n    // Safely navigate nested structure\n    const docItems = chunk?.full_metadata?.meta?.doc_items;\n    const provData = Array.isArray(docItems) && docItems.length > 0 \n      ? (docItems[0]?.prov || []) \n      : [];\n    \n    // Ensure provData is an array\n    const safeProv = Array.isArray(provData) ? provData : [];\n    \n    return {\n      ref_number: index + 1,\n      chunk_id: chunk?.chunk_id || `chunk_${index + 1}`,\n      pages: safeProv.map(p => p?.page_no).filter(p => p != null),\n      bboxes: safeProv.map(p => ({\n        page_no: p?.page_no || 0,\n        bbox: p?.bbox || {},\n        charspan: p?.charspan || [0, 0]\n      })).filter(b => b.page_no > 0) // Remove invalid bboxes\n    };\n  });\n  \n  return { context, referenceMap };\n}\n\n// Usage with validation\nconst allChunks = $input.all().map(i => i.json);\n\n// Filter out invalid chunks\nconst validChunks = allChunks.filter(chunk => {\n  if (!chunk) {\n    console.warn('Found null/undefined chunk');\n    return false;\n  }\n  if (!chunk.text || chunk.text.trim().length === 0) {\n    console.warn(`Chunk ${chunk.chunk_id || 'unknown'} has no text`);\n    return false;\n  }\n  return true;\n});\n\n// Take top 10 valid chunks\nconst topChunks = validChunks.slice(0, 10);\n\nif (topChunks.length === 0) {\n  throw new Error('No valid chunks found to process');\n}\n\nconst { context, referenceMap } = prepareChunksForLLM(topChunks);\n\n// Debug: Check what we're getting\nconsole.log(\"Sample reference:\", JSON.stringify(referenceMap[0], null, 2));\nconsole.log(`Processed ${topChunks.length} chunks out of ${allChunks.length} total`);\n\nreturn [{ \n  json: { \n    context: context,\n    chunk_count: topChunks.length,\n    reference_map: referenceMap,\n    original_chunks: topChunks\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -80,
+        224
+      ],
+      "id": "9c1e2158-2c69-4621-a84e-c0a0e674d32c",
+      "name": "Prepare Context"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get all chunks from previous node\nconst chunks = $input.all().map(item => item.json);\n\n// Extract only the text field from each chunk\nconst documents = chunks.map(chunk => chunk.text);\nconst query = $('Base Query').first().json.platforms_query.replace(/^search_query?:\\s*/i, '');\n\n// Also preserve the original chunks for later mapping\nreturn [\n  {\n    json: {\n      query: query,\n      documents: JSON.stringify(documents),\n      original_chunks: chunks\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1344,
+        432
+      ],
+      "id": "ff3fdbe8-18c7-44cf-824e-96b3d9656f22",
+      "name": "Prepare for Reranker1"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Enhanced preparation with correct metadata extraction\nfunction prepareChunksForLLM(chunks) {\n  const context = chunks.map((chunk, index) => {\n    const { text, chunk_id, topics } = chunk;\n    \n    return `[${index + 1}] ${chunk_id}\nTopics: ${topics.join(', ')}\n${text}`;\n  }).join('\\n\\n---\\n\\n');\n  \n  // Fix: Correct path to metadata\n  const referenceMap = chunks.map((chunk, index) => {\n    // Check if full_metadata exists and has the expected structure\n    const docItems = chunk.full_metadata?.meta?.doc_items || [];\n    const provData = docItems[0]?.prov || [];\n    \n    return {\n      ref_number: index + 1,\n      chunk_id: chunk.chunk_id,\n      pages: provData.map(p => p.page_no),\n      bboxes: provData.map(p => ({\n        page_no: p.page_no,\n        bbox: p.bbox,\n        charspan: p.charspan\n      }))\n    };\n  });\n  \n  return { context, referenceMap };\n}\n\n// Usage\nconst topChunks = $input.all().map(i => i.json);\nconst { context, referenceMap } = prepareChunksForLLM(topChunks.slice(0, 10));\n\n// Debug: Check what we're getting\nconsole.log(\"Sample reference:\", JSON.stringify(referenceMap[0], null, 2));\n\nreturn [{ \n  json: { \n    context: context,\n    chunk_count: topChunks.length,\n    reference_map: referenceMap,\n    original_chunks: topChunks.slice(0, 10)\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -48,
+        464
+      ],
+      "id": "2c083395-e1ee-4a67-964d-9b7cdc760360",
+      "name": "Prepare Context1"
+    }
+  ],
+  "pinData": {},
+  "repo_name": "n8n-backup-zm",
+  "repo_owner": "zlatkomq",
+  "repo_path": "",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "updatedAt": "2025-11-20T08:41:08.446Z",
+      "createdAt": "2025-11-20T08:41:08.446Z",
+      "role": "workflow:owner",
+      "workflowId": "yBeOa0XzKuKyQKkJ",
+      "projectId": "NM7VZoSXkcKo262s"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-11-23T22:45:20.769Z",
+  "versionId": "708ac96a-71ab-46eb-bc9f-6605b945d21c"
+}
