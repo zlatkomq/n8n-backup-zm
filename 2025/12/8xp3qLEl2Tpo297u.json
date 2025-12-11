@@ -1,0 +1,193 @@
+{
+  "active": false,
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wikipedia": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Sentiment Analysis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Sentiment Analysis",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-12-08T13:52:11.390Z",
+  "id": "8xp3qLEl2Tpo297u",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "My workflow 6",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        -288,
+        -32
+      ],
+      "id": "10235d9a-3d6b-494b-9460-e9c1b19d2141",
+      "name": "When chat message received",
+      "webhookId": "88b5f525-da84-4fca-857e-130bea124bcd"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        -80,
+        160
+      ],
+      "id": "a8f896a8-8cfb-499b-bf4f-e9dd8db17af1",
+      "name": "OpenRouter Chat Model1",
+      "credentials": {
+        "openRouterApi": {
+          "id": "gxBQuwDxN7pr53AW",
+          "name": "OpenRouter account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolWikipedia",
+      "typeVersion": 1,
+      "position": [
+        64,
+        176
+      ],
+      "id": "67559f3c-db38-4a99-aeb2-d6c40e5dbed8",
+      "name": "Wikipedia"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3,
+      "position": [
+        -80,
+        -32
+      ],
+      "id": "01bd6d22-0f75-4134-8d34-1a97fa19ebf5",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "inputText": "={{ $json.output }}",
+        "options": {
+          "categories": "Positive, Neutral, Negative",
+          "includeDetailedResults": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.sentimentAnalysis",
+      "typeVersion": 1.1,
+      "position": [
+        272,
+        -48
+      ],
+      "id": "06594730-86cf-4b90-80bb-b268863aa580",
+      "name": "Sentiment Analysis"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        272,
+        176
+      ],
+      "id": "f7f9fae8-9ad8-4a78-9661-de88b49c405e",
+      "name": "OpenRouter Chat Model",
+      "credentials": {
+        "openRouterApi": {
+          "id": "gxBQuwDxN7pr53AW",
+          "name": "OpenRouter account"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "When chat message received": [
+      {
+        "json": {
+          "sessionId": "dc0c735945ae4dd3b436a888fd499c13",
+          "action": "sendMessage",
+          "chatInput": "give me some story, use all tools you can"
+        }
+      }
+    ]
+  },
+  "repo_name": "n8n-backup-zm",
+  "repo_owner": "zlatkomq",
+  "repo_path": "",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "updatedAt": "2025-12-08T13:52:11.390Z",
+      "createdAt": "2025-12-08T13:52:11.390Z",
+      "role": "workflow:owner",
+      "workflowId": "8xp3qLEl2Tpo297u",
+      "projectId": "p3ICmuTDnWBbcf7S"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-12-09T08:06:04.447Z",
+  "versionId": "152c72f0-954b-4035-85d5-ed5ce69e06b5"
+}
