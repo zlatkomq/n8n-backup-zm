@@ -1,5 +1,5 @@
 {
-  "active": true,
+  "active": false,
   "connections": {
     "Fetch Ganttic Projects": {
       "main": [
@@ -186,7 +186,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        580,
+        592,
         240
       ]
     },
@@ -241,8 +241,8 @@
       "type": "n8n-nodes-base.supabase",
       "typeVersion": 1,
       "position": [
-        1100,
-        280
+        1104,
+        288
       ],
       "id": "5e3269dd-6f2e-4205-9573-3df4b1f370fd",
       "name": "Projects - INSERT",
@@ -262,7 +262,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        840,
+        848,
         80
       ]
     },
@@ -298,8 +298,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.1,
       "position": [
-        100,
-        1100
+        112,
+        1104
       ],
       "credentials": {
         "postgres": {
@@ -319,7 +319,7 @@
       "type": "n8n-nodes-base.stickyNote",
       "position": [
         0,
-        1020
+        1024
       ],
       "typeVersion": 1,
       "id": "42572b09-d07a-4e76-9399-d426a32def58"
@@ -362,8 +362,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        780,
-        780
+        784,
+        784
       ],
       "id": "71164b47-2bc7-43d4-880a-cd8a84bde861",
       "name": "Output1"
@@ -389,8 +389,8 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.2,
       "position": [
-        460,
-        600
+        464,
+        608
       ],
       "id": "472ad2f0-d6aa-4636-9d5a-ab9aa5fae626",
       "name": "Paginate Resources",
@@ -407,8 +407,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.1,
       "position": [
-        140,
-        740
+        144,
+        752
       ],
       "credentials": {
         "postgres": {
@@ -438,8 +438,8 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.2,
       "position": [
-        600,
-        1080
+        608,
+        1088
       ],
       "id": "f6384be4-0037-47e9-b680-7bf64a4c1f05",
       "name": "Paginate Tasks new - subflow",
@@ -466,8 +466,8 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.2,
       "position": [
-        360,
-        1240
+        368,
+        1248
       ],
       "id": "8f566a68-8a4e-4f2c-92e2-88f62ee177a9",
       "name": "Paginate Tasks old - subflow",
@@ -494,8 +494,8 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.2,
       "position": [
-        840,
-        1240
+        848,
+        1248
       ],
       "id": "889967a6-11ac-466c-9783-b12092ef4520",
       "name": "Gen Res Facts"
@@ -513,19 +513,20 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        -340,
+        -336,
         160
       ],
       "id": "d5ac6a81-3677-4481-955d-07e2c11b20f2",
-      "name": "Schedule Trigger"
+      "name": "Schedule Trigger",
+      "disabled": true
     },
     {
       "parameters": {},
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        60,
-        220
+        64,
+        224
       ],
       "id": "6eaf21eb-89ff-4e12-8f52-dfc2f70b8928",
       "name": "When clicking ‘Test workflow’"
@@ -552,7 +553,7 @@
       "typeVersion": 1.2,
       "position": [
         1120,
-        1240
+        1248
       ],
       "id": "08f9756a-dc0f-4fbc-9150-514f384d2641",
       "name": "Gen Res Facts2"
@@ -567,8 +568,8 @@
   },
   "shared": [
     {
-      "createdAt": "2025-03-28T10:58:34.802Z",
       "updatedAt": "2025-03-28T10:58:34.802Z",
+      "createdAt": "2025-03-28T10:58:34.802Z",
       "role": "workflow:owner",
       "workflowId": "IRSoSmxQFhjfIcVC",
       "projectId": "hlNkEWAlDmmc5iQw"
@@ -581,13 +582,13 @@
   },
   "tags": [
     {
-      "createdAt": "2025-03-31T12:45:21.811Z",
       "updatedAt": "2025-03-31T12:45:21.811Z",
+      "createdAt": "2025-03-31T12:45:21.811Z",
       "id": "mUYuMooITov17Xfj",
       "name": "Ganttic"
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-04-25T13:22:54.408Z",
-  "versionId": "94f461b5-a4de-4f20-9565-0d07600eb63d"
+  "updatedAt": "2025-12-10T08:55:11.818Z",
+  "versionId": "643a7500-50ec-4c1b-85f9-988042c9562c"
 }
