@@ -136,11 +136,6 @@
         ]
       ]
     },
-    "When fetching a dataset row": {
-      "main": [
-        []
-      ]
-    },
     "Evaluation": {
       "main": [
         []
@@ -224,7 +219,13 @@
     },
     "Knobs": {
       "main": [
-        []
+        [
+          {
+            "node": "Prompt - Seniority",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     },
     "OpenAI Chat Model1": {
@@ -712,38 +713,6 @@
           "mode": "list",
           "cachedResultName": "Seniority",
           "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1RwcE8huvVeBliE_DO4FO30ZYEHAIlhkFr6TlU7qqDtg/edit#gid=0"
-        }
-      },
-      "type": "n8n-nodes-base.evaluationTrigger",
-      "typeVersion": 4.6,
-      "position": [
-        -2560,
-        768
-      ],
-      "id": "9d84e890-f1e7-4f80-841d-9be06382e6cf",
-      "name": "When fetching a dataset row",
-      "credentials": {
-        "googleSheetsOAuth2Api": {
-          "id": "VqBZlK3vKXeQiMtM",
-          "name": "Google Sheets account 2"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "documentId": {
-          "__rl": true,
-          "value": "1RwcE8huvVeBliE_DO4FO30ZYEHAIlhkFr6TlU7qqDtg",
-          "mode": "list",
-          "cachedResultName": "Resourcing Eval",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1RwcE8huvVeBliE_DO4FO30ZYEHAIlhkFr6TlU7qqDtg/edit?usp=drivesdk"
-        },
-        "sheetName": {
-          "__rl": true,
-          "value": "gid=0",
-          "mode": "list",
-          "cachedResultName": "Seniority",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1RwcE8huvVeBliE_DO4FO30ZYEHAIlhkFr6TlU7qqDtg/edit#gid=0"
         },
         "outputs": {
           "values": [
@@ -1200,8 +1169,8 @@
   },
   "shared": [
     {
-      "createdAt": "2025-09-22T07:19:42.274Z",
       "updatedAt": "2025-09-22T07:19:42.274Z",
+      "createdAt": "2025-09-22T07:19:42.274Z",
       "role": "workflow:owner",
       "workflowId": "b7KXg2idKHt4DLJt",
       "projectId": "NM7VZoSXkcKo262s"
@@ -1210,6 +1179,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-09-30T10:43:58.251Z",
-  "versionId": "43cb4121-271f-4ed3-89e8-b1d422e5f821"
+  "updatedAt": "2025-11-28T19:39:56.028Z",
+  "versionId": "8312b95f-e4a7-41a5-bfd8-6ade60187079"
 }
