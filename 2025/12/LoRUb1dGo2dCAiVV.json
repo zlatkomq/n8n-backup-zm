@@ -1,0 +1,245 @@
+{
+  "active": false,
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Convert to File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert to File": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "createdAt": "2025-12-09T13:41:56.016Z",
+  "id": "LoRUb1dGo2dCAiVV",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "test example",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Main form",
+        "formDescription": "n8n form example",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Name",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Notification",
+              "fieldType": "radio",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "Email"
+                  },
+                  {
+                    "option": "Nothing"
+                  }
+                ]
+              },
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.3,
+      "position": [
+        -560,
+        -48
+      ],
+      "id": "cde04893-653c-4b89-a239-912884e52fdb",
+      "name": "On form submission",
+      "webhookId": "041f927f-e045-43fe-b228-a9794ac90d25"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "da8a9ee9-7f08-4843-b21d-53390ad57027",
+              "name": "Name",
+              "value": "={{ $json.Name.toUpperCase() }}",
+              "type": "string"
+            },
+            {
+              "id": "30021a2d-00fe-44e2-a8d4-46d0305739be",
+              "name": "Year",
+              "value": "={{ $json.submittedAt.toDateTime().year }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -352,
+        -48
+      ],
+      "id": "6245cba8-c4c1-4611-99c2-9ac86c35d4f3",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "// Add a new field called 'myNewField' to the JSON of the item\n$input.item.json.LastName = \"LastName\"\n\nreturn $input.item.json;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -144,
+        -48
+      ],
+      "id": "6d8fa8ea-4f77-4d8a-ad93-9daf72431c12",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "e8f619fa-7e3f-458b-9a3b-d46a1e6ef055",
+              "leftValue": "={{ $json.Notification }}",
+              "rightValue": "Email",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        64,
+        -48
+      ],
+      "id": "6770e039-3b35-4781-9590-290c53e74df0",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "sendTo": "mate.coric@q.agency",
+        "subject": "Test message n8n workflow",
+        "message": "=Hi {{ $json.Name }} this is test message in year {{ $json.Year }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        272,
+        -208
+      ],
+      "id": "d4db6aea-c644-4f5f-8185-f58d4934480d",
+      "name": "Send a message",
+      "webhookId": "c8004a1d-08bf-496e-a3da-47b6effca8f6",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "NpDfAkg97vp164vR",
+          "name": "Gmail account 4"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {
+          "fileName": "={{ $json.Name }}_{{ $json.Year }}"
+        }
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        272,
+        48
+      ],
+      "id": "d53ff6ce-9623-4b0f-9d3c-ad916d3dba70",
+      "name": "Convert to File"
+    }
+  ],
+  "pinData": {},
+  "repo_name": "n8n-backup-zm",
+  "repo_owner": "zlatkomq",
+  "repo_path": "",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "updatedAt": "2025-12-09T13:41:56.016Z",
+      "createdAt": "2025-12-09T13:41:56.016Z",
+      "role": "workflow:owner",
+      "workflowId": "LoRUb1dGo2dCAiVV",
+      "projectId": "p3ICmuTDnWBbcf7S"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-12-09T14:59:28.109Z",
+  "versionId": "adcddb9f-1cf5-475f-bd9b-93942ac98311"
+}
