@@ -1,0 +1,223 @@
+{
+  "active": false,
+  "connections": {
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search files and folders in Google Drive": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create file from text in Google Drive": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-11-10T12:28:42.044Z",
+  "id": "R2JXXtck6djWiB25",
+  "isArchived": false,
+  "meta": null,
+  "name": "Chat_idea_dillion",
+  "nodes": [
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=you are helping chat agent - and you will chat with user that needs to make work done inside Google Drive directory.\n\nYou need to ask and try to find out from a user what perticual Google drive sub-directory he/she needs to start work on. \n\nYou have a Google drive tool for searching - please use it to first find all subdirectories inside \"DILLION\" top level directory - because some of that subdirs is target that user will work next on.\n\nThis is a user prompt:\n\n{{ $json.chatInput }}\n",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        1376,
+        352
+      ],
+      "id": "70606833-f0fd-4c8a-85fc-15bf68534353",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        1328,
+        576
+      ],
+      "id": "32e84d62-5700-49c5-8f21-6569c6a3442f",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "PP3hcBNXmc9tm7oW",
+          "name": "Gemini - ZALUK"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "fileFolder",
+        "searchMethod": "query",
+        "queryString": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Query_String', ``, 'string') }}",
+        "returnAll": true,
+        "filter": {},
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDriveTool",
+      "typeVersion": 3,
+      "position": [
+        1648,
+        640
+      ],
+      "id": "1740757e-0a0b-4745-9289-ea63d11f7441",
+      "name": "Search files and folders in Google Drive",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "jJdSKqo8p6B7l91A",
+          "name": "Google Drive Q"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "public": true,
+        "initialMessages": "Hi there! 👋\nThis is internall Dillion tool for processing VMDs (Google Drive is mapped)",
+        "options": {
+          "inputPlaceholder": "Type your question.."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        1024,
+        464
+      ],
+      "id": "440cbce9-6205-4a21-99d8-c87bd1bb2a7b",
+      "name": "When chat message received",
+      "webhookId": "84d87a8e-6dbc-4f4c-97f0-9de4640ac140"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        1472,
+        656
+      ],
+      "id": "e77fb27d-0314-47e5-909c-f354fc9fe0ec",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "operation": "createFromText",
+        "content": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('File_Content', ``, 'string') }}",
+        "driveId": {
+          "__rl": true,
+          "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Parent_Drive', ``, 'string') }}",
+          "mode": "id"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Parent_Folder', ``, 'string') }}",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDriveTool",
+      "typeVersion": 3,
+      "position": [
+        1888,
+        592
+      ],
+      "id": "b23d6fc7-7a26-4ed9-a4b9-fe6acafdf97b",
+      "name": "Create file from text in Google Drive",
+      "credentials": {
+        "googleApi": {
+          "id": "ENHwRft8kYjJGkH6",
+          "name": "Google Q account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "### Chat interface for high level management only\n\nPrompt examples:\n\n- > list all VMD clients dirs\n- > lets process DD for client XYZ (`gives n8n flow command to start the process)\n- > use `verbose` or detailed outputs for each section and send me for manual review\n- > ---\n\n",
+        "height": 288,
+        "width": 496,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        800,
+        144
+      ],
+      "id": "8bcdd87e-6e0b-461e-a670-3097317fad1f",
+      "name": "Sticky Note8"
+    }
+  ],
+  "pinData": {},
+  "repo_name": "n8n-backup-zm",
+  "repo_owner": "zlatkomq",
+  "repo_path": "",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "updatedAt": "2025-11-10T12:28:42.044Z",
+      "createdAt": "2025-11-10T12:28:42.044Z",
+      "role": "workflow:owner",
+      "workflowId": "R2JXXtck6djWiB25",
+      "projectId": "hlNkEWAlDmmc5iQw"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-11-10T12:28:42.044Z",
+  "versionId": "86371547-5cfa-4699-ba09-3bf37fbfbea2"
+}
