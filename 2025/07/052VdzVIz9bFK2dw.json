@@ -5,7 +5,7 @@
       "main": [
         [
           {
-            "node": "Read SessionId From File System",
+            "node": "Get row(s)",
             "type": "main",
             "index": 0
           }
@@ -14,24 +14,12 @@
     },
     "Read SessionId From File System": {
       "main": [
-        [
-          {
-            "node": "Get SessionId",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "Get SessionId": {
       "main": [
-        [
-          {
-            "node": "If General",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "General Error": {
@@ -78,7 +66,7 @@
       "main": [
         [
           {
-            "node": "Delete tmp file",
+            "node": "Delete row(s)",
             "type": "main",
             "index": 0
           }
@@ -89,7 +77,18 @@
       "main": [
         [
           {
-            "node": "Delete tmp file",
+            "node": "Delete row(s)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s)": {
+      "main": [
+        [
+          {
+            "node": "If General",
             "type": "main",
             "index": 0
           }
@@ -108,8 +107,8 @@
       "type": "n8n-nodes-base.errorTrigger",
       "typeVersion": 1,
       "position": [
-        -460,
-        -40
+        -464,
+        -48
       ],
       "id": "3bd4d2d0-ca12-473e-9bcb-cbc765d67e42",
       "name": "Error Trigger"
@@ -121,8 +120,8 @@
       "type": "n8n-nodes-base.executeCommand",
       "typeVersion": 1,
       "position": [
-        -140,
-        -40
+        -160,
+        -224
       ],
       "id": "52629393-131c-4296-8da9-67ee6a75b9c2",
       "name": "Read SessionId From File System"
@@ -134,21 +133,21 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        100,
-        -40
+        128,
+        -224
       ],
       "id": "6393fbab-e79d-45ad-8b9e-68ccae8c2e9a",
       "name": "Get SessionId"
     },
     {
       "parameters": {
-        "jsCode": "// Get sessionId from the RFP Upload node\nconst sessionId = $input.first().json.sessionId;\n\nconst payload = {\n    step: \"general_error\",\n    title: \"Failed to complete\", \n    sessionId: sessionId,\n    output: \"Oops! Something went wrong. Please try uploading your file again.\"\n};\n\nreturn [\n  {\n    json: {\n      body: JSON.stringify(payload)\n    }\n  }\n];"
+        "jsCode": "// Get sessionId from the RFP Upload node\nconst sessionId = $input.first().json.session_id;\n\nconst payload = {\n    step: \"general_error\",\n    title: \"Failed to complete\", \n    sessionId: sessionId,\n    output: \"Oops! Something went wrong. Please try uploading your file again.\"\n};\n\nreturn [\n  {\n    json: {\n      body: JSON.stringify(payload)\n    }\n  }\n];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
         720,
-        -180
+        -176
       ],
       "id": "72bcbb1a-a5bd-4631-aee7-b3a4fdd82e8e",
       "name": "General Error"
@@ -165,17 +164,7 @@
           "conditions": [
             {
               "id": "d882739f-cbae-4701-ab74-0c129d78f9da",
-              "leftValue": "={{ $('Error Trigger').item.json.execution.error.errorResponse.message }}",
-              "rightValue": "",
-              "operator": {
-                "type": "string",
-                "operation": "notExists",
-                "singleValue": true
-              }
-            },
-            {
-              "id": "b74018ac-5b36-4521-81db-b7ff8d0f2e8f",
-              "leftValue": "={{ $('Error Trigger').item.json.execution.error.errorResponse.title }}",
+              "leftValue": "={{ $('Error Trigger').item.json.execution.error.context.metadata.title }}",
               "rightValue": "",
               "operator": {
                 "type": "string",
@@ -184,7 +173,7 @@
               }
             }
           ],
-          "combinator": "or"
+          "combinator": "and"
         },
         "options": {}
       },
@@ -192,14 +181,14 @@
       "typeVersion": 2.2,
       "position": [
         400,
-        -40
+        -48
       ],
       "id": "3f2119c5-de9d-48ba-9110-36a6f8cba820",
       "name": "If General"
     },
     {
       "parameters": {
-        "jsCode": "// Get sessionId from the RFP Upload node\nconst sessionId = $input.first().json.sessionId;\n//const message = $('Error Trigger').first().json.execution.error.message;\nconst title = $('Error Trigger').first().json.execution.error.errorResponse.title;\nconst message = $('Error Trigger').first().json.execution.error.errorResponse.message;\n\n\nconst payload = {\n    step: \"general_error\",\n    title: title, \n    sessionId: sessionId,\n    output: message\n};\n\nreturn [\n  {\n    json: {\n      body: JSON.stringify(payload)\n    }\n  }\n];"
+        "jsCode": "// Get sessionId from the RFP Upload node\nconst sessionId = $input.first().json.sessionId;\n//const message = $('Error Trigger').first().json.execution.error.message;\nconst title = $('Error Trigger').first().json.execution.error.context.metadata.title;\nconst message = $('Error Trigger').first().json.execution.error.context.metadata.message;\n\n\nconst payload = {\n    step: \"general_error\",\n    title: title, \n    sessionId: sessionId,\n    output: message\n};\n\nreturn [\n  {\n    json: {\n      body: JSON.stringify(payload)\n    }\n  }\n];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -223,8 +212,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        1080,
-        -180
+        1088,
+        -176
       ],
       "id": "3d5630e8-ecb3-4df8-b10c-f0497a21122d",
       "name": "SSE - General Error"
@@ -242,7 +231,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        1080,
+        1088,
         80
       ],
       "id": "d171883e-5c37-4177-a2c0-8ebd0a07edbe",
@@ -255,11 +244,68 @@
       "type": "n8n-nodes-base.executeCommand",
       "typeVersion": 1,
       "position": [
-        1400,
-        -40
+        1808,
+        128
       ],
       "id": "71a83a90-1532-4b50-a3f0-d30294aade41",
       "name": "Delete tmp file"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "qS4XuYo2wZl1DdYR",
+          "mode": "list",
+          "cachedResultName": "Estimation Tool",
+          "cachedResultUrl": "/projects/NM7VZoSXkcKo262s/datatables/qS4XuYo2wZl1DdYR"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "execution_id",
+              "keyValue": "={{ $json.execution.id }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        -16,
+        -48
+      ],
+      "id": "bcb89e32-87d7-4c94-a7f7-043a554cbebb",
+      "name": "Get row(s)"
+    },
+    {
+      "parameters": {
+        "operation": "deleteRows",
+        "dataTableId": {
+          "__rl": true,
+          "value": "qS4XuYo2wZl1DdYR",
+          "mode": "list",
+          "cachedResultName": "Estimation Tool",
+          "cachedResultUrl": "/projects/NM7VZoSXkcKo262s/datatables/qS4XuYo2wZl1DdYR"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "execution_id",
+              "keyValue": "={{ $('Error Trigger').item.json.execution.id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        1472,
+        -48
+      ],
+      "id": "d58a4db1-64c3-4807-9206-e9409e724e13",
+      "name": "Delete row(s)"
     }
   ],
   "pinData": {},
@@ -271,8 +317,8 @@
   },
   "shared": [
     {
-      "createdAt": "2025-07-02T13:24:54.949Z",
       "updatedAt": "2025-07-02T13:24:54.949Z",
+      "createdAt": "2025-07-02T13:24:54.949Z",
       "role": "workflow:owner",
       "workflowId": "052VdzVIz9bFK2dw",
       "projectId": "NM7VZoSXkcKo262s"
@@ -281,13 +327,13 @@
   "staticData": null,
   "tags": [
     {
-      "createdAt": "2025-04-24T10:59:44.979Z",
       "updatedAt": "2025-04-24T10:59:44.979Z",
+      "createdAt": "2025-04-24T10:59:44.979Z",
       "id": "qEREEA2JvunvA9Nv",
       "name": "Estimation Tool"
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2025-07-10T10:04:00.411Z",
-  "versionId": "5ef490f6-3a2d-44d2-86a3-86abcad38bd9"
+  "updatedAt": "2025-12-01T11:26:20.433Z",
+  "versionId": "b5b942f3-b1f9-4c53-a560-d106fc99a1f3"
 }
