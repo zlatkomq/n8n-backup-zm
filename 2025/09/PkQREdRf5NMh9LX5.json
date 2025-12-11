@@ -78,17 +78,6 @@
         ]
       ]
     },
-    "Get many engagements in HubSpot": {
-      "ai_tool": [
-        [
-          {
-            "node": "MCP Hubspot",
-            "type": "ai_tool",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Get many tickets in HubSpot": {
       "ai_tool": [
         [
@@ -220,6 +209,17 @@
           }
         ]
       ]
+    },
+    "Get an engagement in HubSpot": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Hubspot",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2025-09-24T07:41:59.629Z",
@@ -232,7 +232,7 @@
   "nodes": [
     {
       "parameters": {
-        "authentication": "oAuth2",
+        "authentication": "appToken",
         "resource": "deal",
         "operation": "getAll",
         "returnAll": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Return_All', ``, 'boolean') }}",
@@ -244,7 +244,23 @@
             "dealtype",
             "hubspot_owner_id",
             "description",
-            "notes_last_updated"
+            "notes_last_updated",
+            "dealstage",
+            "hs_deal_amount_calculation_preference",
+            "hs_deal_stage_probability",
+            "engagements_last_meeting_booked",
+            "hs_deal_stage_probability_shadow",
+            "hs_is_closed_won",
+            "hs_is_closed_count",
+            "hs_is_closed",
+            "hs_is_in_first_deal_stage",
+            "hs_is_open_count",
+            "hs_is_closed_lost",
+            "hs_notes_last_activity",
+            "notes_last_contacted",
+            "hs_lastmodifieddate",
+            "hs_latest_approval_status",
+            "hs_latest_approval_status_approval_id"
           ]
         }
       },
@@ -257,9 +273,9 @@
       "id": "fff6e7a7-0cae-4f1d-beb3-ed46b9e2aba0",
       "name": "Get many deals in HubSpot",
       "credentials": {
-        "hubspotOAuth2Api": {
-          "id": "bjy4PGxwwdDJQ5Ud",
-          "name": "HubSpot account"
+        "hubspotAppToken": {
+          "id": "U2FnZ1i0HeSKDXSj",
+          "name": "Sandbox Hubspot"
         }
       }
     },
@@ -296,7 +312,7 @@
     },
     {
       "parameters": {
-        "authentication": "oAuth2",
+        "authentication": "appToken",
         "operation": "search",
         "returnAll": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Return_All', ``, 'boolean') }}",
         "additionalFields": {}
@@ -310,9 +326,9 @@
       "id": "307e6d32-9eba-4601-82bd-1df72321f931",
       "name": "Search contacts in HubSpot",
       "credentials": {
-        "hubspotOAuth2Api": {
-          "id": "bjy4PGxwwdDJQ5Ud",
-          "name": "HubSpot account"
+        "hubspotAppToken": {
+          "id": "U2FnZ1i0HeSKDXSj",
+          "name": "Sandbox Hubspot"
         }
       }
     },
@@ -354,7 +370,7 @@
     },
     {
       "parameters": {
-        "authentication": "oAuth2",
+        "authentication": "appToken",
         "resource": "company",
         "operation": "getAll",
         "returnAll": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Return_All', ``, 'boolean') }}",
@@ -379,9 +395,9 @@
       "id": "ced1e546-8be5-4bdc-b748-d98775e51481",
       "name": "Get Many Companies",
       "credentials": {
-        "hubspotOAuth2Api": {
-          "id": "bjy4PGxwwdDJQ5Ud",
-          "name": "HubSpot account"
+        "hubspotAppToken": {
+          "id": "U2FnZ1i0HeSKDXSj",
+          "name": "Sandbox Hubspot"
         }
       }
     },
@@ -525,28 +541,6 @@
     {
       "parameters": {
         "authentication": "oAuth2",
-        "resource": "engagement",
-        "operation": "getAll",
-        "returnAll": ""
-      },
-      "type": "n8n-nodes-base.hubspotTool",
-      "typeVersion": 2.2,
-      "position": [
-        64,
-        768
-      ],
-      "id": "fc59bfe0-8bce-420d-8ea2-10061cfcbc72",
-      "name": "Get many engagements in HubSpot",
-      "credentials": {
-        "hubspotOAuth2Api": {
-          "id": "bjy4PGxwwdDJQ5Ud",
-          "name": "HubSpot account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "authentication": "oAuth2",
         "resource": "ticket",
         "operation": "getAll",
         "returnAll": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Return_All', ``, 'boolean') }}",
@@ -674,7 +668,7 @@
     },
     {
       "parameters": {
-        "authentication": "oAuth2",
+        "authentication": "appToken",
         "resource": "deal",
         "operation": "delete",
         "dealId": {
@@ -692,9 +686,9 @@
       "id": "2bd5f30c-2d00-4877-802c-33219df5e368",
       "name": "Delete a deal in HubSpot",
       "credentials": {
-        "hubspotOAuth2Api": {
-          "id": "bjy4PGxwwdDJQ5Ud",
-          "name": "HubSpot account"
+        "hubspotAppToken": {
+          "id": "U2FnZ1i0HeSKDXSj",
+          "name": "Sandbox Hubspot"
         }
       }
     },
@@ -864,6 +858,33 @@
           "name": "HubSpot account"
         }
       }
+    },
+    {
+      "parameters": {
+        "authentication": "appToken",
+        "resource": "engagement",
+        "operation": "get",
+        "engagementId": {
+          "__rl": true,
+          "value": 372558945474,
+          "mode": "list",
+          "cachedResultName": "NOTE: 372558945474"
+        }
+      },
+      "type": "n8n-nodes-base.hubspotTool",
+      "typeVersion": 2.2,
+      "position": [
+        64,
+        768
+      ],
+      "id": "fc59bfe0-8bce-420d-8ea2-10061cfcbc72",
+      "name": "Get an engagement in HubSpot",
+      "credentials": {
+        "hubspotAppToken": {
+          "id": "U2FnZ1i0HeSKDXSj",
+          "name": "Sandbox Hubspot"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -876,8 +897,8 @@
   },
   "shared": [
     {
-      "createdAt": "2025-09-24T07:41:59.629Z",
       "updatedAt": "2025-09-24T07:41:59.629Z",
+      "createdAt": "2025-09-24T07:41:59.629Z",
       "role": "workflow:owner",
       "workflowId": "PkQREdRf5NMh9LX5",
       "projectId": "hlNkEWAlDmmc5iQw"
@@ -886,6 +907,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-10-03T10:18:37.170Z",
-  "versionId": "c0b358ae-d15c-4358-8eb2-21fff1bfc448"
+  "updatedAt": "2025-12-02T09:12:16.851Z",
+  "versionId": "ba124e17-607e-40b8-971f-0b5ddd4ba441"
 }
