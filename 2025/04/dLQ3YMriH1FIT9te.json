@@ -1,5 +1,5 @@
 {
-  "active": true,
+  "active": false,
   "connections": {
     "When clicking ‘Test workflow’": {
       "main": [
@@ -995,18 +995,6 @@
         ]
       ]
     },
-    "Extract FileId": {
-      "main": [
-        [
-          {
-            "node": "Delete Index",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        []
-      ]
-    },
     "Prepare for frontend": {
       "main": [
         [
@@ -1399,18 +1387,7 @@
       "main": [
         [
           {
-            "node": "Extract FileId",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Download File": {
-      "main": [
-        [
-          {
-            "node": "Chunker Full1",
+            "node": "Delete Index",
             "type": "main",
             "index": 0
           }
@@ -1545,6 +1522,22 @@
     "RFP Upload": {
       "main": [
         []
+      ]
+    },
+    "Download File Google": {
+      "main": [
+        []
+      ]
+    },
+    "Download File": {
+      "main": [
+        [
+          {
+            "node": "Chunker Full1",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     }
   },
@@ -3324,8 +3317,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -2416,
-        2272
+        -2544,
+        2192
       ],
       "id": "f692d4e9-b6c1-41da-b216-c0bbbbb87490",
       "name": "Create index - Elastic Search",
@@ -3345,8 +3338,8 @@
       "type": "n8n-nodes-base.elasticsearch",
       "typeVersion": 1,
       "position": [
-        -2416,
-        2064
+        -2432,
+        1984
       ],
       "id": "a3cbef9a-0228-4346-ad56-9d5c98a02e8b",
       "name": "Delete Index",
@@ -3585,8 +3578,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -2480,
-        1984
+        -2608,
+        1904
       ],
       "id": "0a30fc21-7323-45b7-81a0-aa3d31ea6bd3",
       "name": "Sticky Note18"
@@ -3614,24 +3607,11 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -2064,
-        2064
+        -2192,
+        1984
       ],
       "id": "f3594aad-01cf-42e1-85ff-68beee4e2f85",
       "name": "Create ES Url"
-    },
-    {
-      "parameters": {
-        "jsCode": "// Extract file ID from the link\nconst link = $('Start RFP Analysis').first().json.body.link;\n\n// This regex handles multiple Google Drive URL formats:\n// - https://drive.google.com/uc?id=FILE_ID&export=download\n// - https://drive.google.com/file/d/FILE_ID/view\n// - https://drive.google.com/open?id=FILE_ID\nconst match = link.match(/[?&]id=([a-zA-Z0-9_-]+)|\\/d\\/([a-zA-Z0-9_-]+)/);\nconst fileId = match ? (match[1] || match[2]) : null;\n\nif (!fileId) {\n  throw new Error('Could not extract file ID from link');\n}\n\nreturn [{\n  json: {\n    ...items[0].json.body,\n    googleFileId: fileId  // Will be: 1zkYxLnRpA-NeMAWeT-vzTO6rkl6G4ae7\n  }\n}];"
-      },
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        -2720,
-        2064
-      ],
-      "id": "314ebd94-e555-4e7d-a398-e2dd421b08f4",
-      "name": "Extract FileId"
     },
     {
       "parameters": {
@@ -4236,31 +4216,6 @@
     },
     {
       "parameters": {
-        "operation": "download",
-        "fileId": {
-          "__rl": true,
-          "value": "={{ $('Extract FileId').item.json.googleFileId }}",
-          "mode": "id"
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.googleDrive",
-      "typeVersion": 3,
-      "position": [
-        -2064,
-        2272
-      ],
-      "id": "45a8cc9b-7434-41e3-8a32-199c6ac68050",
-      "name": "Download File",
-      "credentials": {
-        "googleDriveOAuth2Api": {
-          "id": "OYJ2pu0fWBya0IA6",
-          "name": "Google Drive account 3"
-        }
-      }
-    },
-    {
-      "parameters": {
         "jsCode": "const sessionId = $input.first().json.body.sessionId;\n\nconst executionId = $execution.id;\nconst workflowId = $workflow.id;\nconst startTime = new Date().toISOString();\n\n// Create session data object\nconst sessionData = {\n  sessionId: sessionId,\n  executionId: executionId,\n  workflowId: workflowId,\n  workflowName: $workflow.name,\n  startTime: startTime,\n  status: 'active',\n  nodeCount: 1\n};\n\n// Prepare file content\nconst fileName = `session_${executionId}.json`;\nconst fileContent = JSON.stringify(sessionData, null, 2);\nconst filePath = `/tmp/${fileName}`;\n\nconsole.log(`📁 Creating session file: ${filePath}`);\nconsole.log(`🆔 Session ID: ${sessionId}`);\n\nreturn {\n  json: {\n    sessionId: sessionId,\n    executionId: executionId,\n    fileName: fileName,\n    filePath: filePath,\n    fileContent: fileContent,\n    sessionData: sessionData,\n    \n    // Include original input data\n    ...$input.first()?.json\n  }\n};"
       },
       "type": "n8n-nodes-base.code",
@@ -4740,32 +4695,6 @@
     },
     {
       "parameters": {
-        "method": "PUT",
-        "url": "={{ $json.elasticsearchUrl }}",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "elasticsearchApi",
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "{\n  \"mappings\": {\n    \"dynamic\": \"strict\",\n    \"properties\": {\n      \"chunk_id\": {\n        \"type\": \"keyword\"\n      },\n      \"section_title\": {\n        \"type\": \"text\",\n        \"fields\": {\n          \"keyword\": { \"type\": \"keyword\" }\n        }\n      },\n      \"text\": {\n        \"type\": \"text\",\n        \"analyzer\": \"standard\"\n      },\n      \"metadata\": {\n        \"type\": \"object\",\n        \"dynamic\": \"strict\",\n        \"properties\": {\n          \"content_type\": { \"type\": \"keyword\" },\n          \"pages\":        { \"type\": \"integer\" },\n          \"chunk_index\":  { \"type\": \"integer\" }\n        }\n      },\n      \"embeddings\": {\n        \"type\":       \"dense_vector\",\n        \"dims\":       768,\n        \"index\":      true,\n        \"similarity\": \"cosine\"\n      }\n    }\n  }\n}\n",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        -2800,
-        2384
-      ],
-      "id": "ac9159d8-0d36-4823-9667-ccafaf1e0f58",
-      "name": "Create index - Elastic Search1",
-      "credentials": {
-        "elasticsearchApi": {
-          "id": "wwaILZtoajWrVXwt",
-          "name": "Elasticsearch account"
-        }
-      }
-    },
-    {
-      "parameters": {
         "jsCode": "/**\n * Sanitizes chunk text to ensure compatibility with Nomic embedding API\n * This function deals with \"smart\" characters, quotes, and other problematic elements\n * Preserves existing chunk_index values\n * \n * @returns {Array} - The processed items\n */\nfunction sanitizeChunksForEmbedding() {\n  // Get input data\n  const items = $input.all();\n  const outputItems = [];\n  \n  // Process each item\n  for (const item of items) {\n    // Handle different possible input formats\n    let chunks;\n    \n    if (Array.isArray(item.json)) {\n      // If item.json is already an array of chunks\n      chunks = item.json;\n    } else if (item.json.chunks && Array.isArray(item.json.chunks)) {\n      // If chunks are in a property called 'chunks'\n      chunks = item.json.chunks;\n    } else {\n      // If the item itself is a single chunk\n      chunks = [item.json];\n    }\n    \n    // Track chunk indices per section for chunks without existing chunk_index\n    const sectionIndices = {};\n    \n    // Sanitize each chunk\n    const sanitizedChunks = chunks.map(chunk => {\n      // Create a new object to avoid modifying the original\n      const sanitizedChunk = { ...chunk };\n      \n      // Sanitize the main text field if it exists\n      if (sanitizedChunk.text) {\n        sanitizedChunk.text = sanitizeText(sanitizedChunk.text);\n      }\n      \n      // Sanitize the embedding text field if it exists\n      if (sanitizedChunk.text_to_embed) {\n        sanitizedChunk.text_to_embed = sanitizeText(sanitizedChunk.text_to_embed);\n      }\n      \n      // Sanitize section title if it exists\n      if (sanitizedChunk.section_title) {\n        sanitizedChunk.section_title = sanitizeText(sanitizedChunk.section_title);\n      }\n      \n      // Ensure vector_metadata exists\n      if (!sanitizedChunk.vector_metadata) {\n        sanitizedChunk.vector_metadata = {};\n      }\n      \n      // IMPORTANT CHANGE: Only set chunk_index if it doesn't already exist\n      if (sanitizedChunk.vector_metadata.chunk_index === undefined) {\n        // Initialize or get the current section's index tracker\n        const sectionKey = sanitizedChunk.section_title || 'default';\n        if (sectionIndices[sectionKey] === undefined) {\n          sectionIndices[sectionKey] = 0;\n        }\n        \n        // Populate chunk_index in vector_metadata\n        sanitizedChunk.vector_metadata.chunk_index = sectionIndices[sectionKey];\n        \n        // If this is a split chunk and already has part_index, don't increment the section index\n        // Otherwise, increment for the next chunk with the same section\n        if (!sanitizedChunk.vector_metadata.is_split || \n            (sanitizedChunk.vector_metadata.is_split && sanitizedChunk.vector_metadata.part_index === 0)) {\n          sectionIndices[sectionKey]++;\n        }\n      }\n      \n      return sanitizedChunk;\n    });\n    \n    // Return in the same format as received\n    if (Array.isArray(item.json)) {\n      outputItems.push({ json: sanitizedChunks });\n    } else if (item.json.chunks && Array.isArray(item.json.chunks)) {\n      outputItems.push({\n        json: {\n          ...item.json,\n          chunks: sanitizedChunks\n        }\n      });\n    } else {\n      // Return processed single chunk\n      outputItems.push({ json: sanitizedChunks[0] });\n    }\n  }\n  \n  return outputItems;\n}\n\n/**\n * Sanitizes text by replacing special characters and ensuring JSON compatibility\n * @param {string} text - Text to sanitize\n * @returns {string} - Sanitized text\n */\nfunction sanitizeText(text) {\n  if (!text) return '';\n  \n  // Remove wrapping quotes if present\n  let sanitized = text;\n  if ((text.startsWith('\"') && text.endsWith('\"')) || \n      (text.startsWith('\"') && text.endsWith('\"'))) {\n    sanitized = text.substring(1, text.length - 1);\n  }\n  \n // Replace smart/curly quotes with straight quotes\n  sanitized = sanitized\n    .replace(/[\\u2018\\u2019]/g, \"'\") // Replace single smart quotes\n    .replace(/[\\u201C\\u201D]/g, '\"') // Replace double smart quotes\n    \n    // Remove invisible control characters\n    .replace(/[\\u0000-\\u001F\\u007F-\\u009F\\u2000-\\u200F\\u2028-\\u202F]/g, ' ')\n    \n    // Replace other problematic characters\n    .replace(/[\\u2013\\u2014]/g, '-') // Replace em dash and en dash\n    .replace(/\\u2026/g, '...') // Replace ellipsis\n    .replace(/\\u00A0/g, ' ') // Replace non-breaking space\n    \n    // Special handling for bullet points and other list markers\n    .replace(/[\\u2022\\u2023\\u25E6\\u2043\\u2219]/g, '*') // Convert bullets to asterisks\n    \n    // Normalize whitespace (remove multiple spaces, tabs, etc.)\n    .replace(/\\s+/g, ' ')\n    // Trim leading and trailing whitespace\n    .replace(/\"/g, '\\\\\"')\n    // Handle other special characters that might cause issues in JSON\n    //.replace(/\\\\/g, '\\\\\\\\')\n    .replace(/\\f/g, '\\\\f')\n    .replace(/\\n/g, '\\\\n')\n    .replace(/\\r/g, '\\\\r')\n    .replace(/\\t/g, '\\\\t')\n    .trim();\n  \n  return sanitized;\n}\n\n// Execute the function and return the result\nreturn sanitizeChunksForEmbedding();"
       },
       "type": "n8n-nodes-base.code",
@@ -4829,49 +4758,48 @@
           "name": "Granite VLM"
         }
       }
-    }
-  ],
-  "pinData": {
-    "Start RFP Analysis": [
-      {
-        "json": {
-          "headers": {
-            "host": "infinite-wasp-terminally.ngrok-free.app",
-            "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-            "content-length": "246",
-            "accept": "*/*",
-            "accept-encoding": "gzip, deflate, br, zstd",
-            "accept-language": "en-GB,en-US;q=0.9,en;q=0.8,hr;q=0.7",
-            "content-type": "application/json",
-            "origin": "https://et.q.agency",
-            "priority": "u=1, i",
-            "referer": "https://et.q.agency/",
-            "sec-ch-ua": "\"Google Chrome\";v=\"141\", \"Not?A_Brand\";v=\"8\", \"Chromium\";v=\"141\"",
-            "sec-ch-ua-mobile": "?0",
-            "sec-ch-ua-platform": "\"macOS\"",
-            "sec-fetch-dest": "empty",
-            "sec-fetch-mode": "cors",
-            "sec-fetch-site": "cross-site",
-            "x-forwarded-for": "213.186.16.164",
-            "x-forwarded-host": "infinite-wasp-terminally.ngrok-free.app",
-            "x-forwarded-proto": "https"
-          },
-          "params": {},
-          "query": {},
-          "body": {
-            "sessionId": "idr98qgem4",
-            "md5": "b7e09636c884c12a9e70981ed22e6579",
-            "fileName": "Watanya.pdf",
-            "date": "2025-10-14 07:50:17",
-            "link": "https://drive.google.com/uc?id=1RV1lACaKeIn7Q3bN8ePxUL4SQKzool0n&export=download",
-            "indexName": "rfp-watanya-b7e09636"
-          },
-          "webhookUrl": "https://infinite-wasp-terminally.ngrok-free.app/webhook/rfp-analyse",
-          "executionMode": "production"
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "={{ $('Extract FileId').item.json.googleFileId }}",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        -1520,
+        1648
+      ],
+      "id": "45a8cc9b-7434-41e3-8a32-199c6ac68050",
+      "name": "Download File Google",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "OYJ2pu0fWBya0IA6",
+          "name": "Google Drive account 3"
         }
       }
-    ]
-  },
+    },
+    {
+      "parameters": {
+        "url": "={{ $('Get Session ID and prepare file data').item.json.body.link }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        -2176,
+        2208
+      ],
+      "id": "68afb085-6e38-4462-a14c-0c3eb9d1787e",
+      "name": "Download File"
+    }
+  ],
+  "pinData": {},
   "repo_name": "n8n-backup-zm",
   "repo_owner": "zlatkomq",
   "repo_path": "",
@@ -4882,8 +4810,8 @@
   },
   "shared": [
     {
-      "createdAt": "2025-04-19T16:17:47.392Z",
       "updatedAt": "2025-04-19T16:17:47.392Z",
+      "createdAt": "2025-04-19T16:17:47.392Z",
       "role": "workflow:owner",
       "workflowId": "dLQ3YMriH1FIT9te",
       "projectId": "NM7VZoSXkcKo262s"
@@ -4892,13 +4820,13 @@
   "staticData": null,
   "tags": [
     {
-      "createdAt": "2025-04-24T10:59:44.979Z",
       "updatedAt": "2025-04-24T10:59:44.979Z",
+      "createdAt": "2025-04-24T10:59:44.979Z",
       "id": "qEREEA2JvunvA9Nv",
       "name": "Estimation Tool"
     }
   ],
   "triggerCount": 2,
-  "updatedAt": "2025-10-21T15:02:47.360Z",
-  "versionId": "65f1cd44-048c-473c-abb5-e2da1deecc7d"
+  "updatedAt": "2025-11-15T22:07:50.788Z",
+  "versionId": "89ef3b6d-dd29-4d85-b198-6cdea929b314"
 }
