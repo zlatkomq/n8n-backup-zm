@@ -1,0 +1,108 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-12-11T12:23:14.235Z",
+  "id": "27DczHFv64uCwtVW",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "My workflow 7",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -384,
+        -32
+      ],
+      "id": "83f9dc28-36f9-47a5-be57-17bb56b4a4a3",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "jsCode": "let realMarkdown = $input.first().json.content.replace(/\\\\n/g, \"\\n\");\n\nreturn {\"markdown\": realMarkdown}"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -176,
+        -32
+      ],
+      "id": "cb6e06c1-c58a-4947-97eb-b1b2cae5f762",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://192.168.5.12:8000/convert",
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "text",
+        "body": "={{ $json.markdown }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        32,
+        -32
+      ],
+      "id": "66ab8780-7eec-47af-9d9a-b858b753f584",
+      "name": "HTTP Request"
+    }
+  ],
+  "pinData": {
+    "When clicking ‘Execute workflow’": [
+      {
+        "json": {
+          "content": "Based on the review of the provided files and CSV data, here are the material obligations extracted for each agreement.\n\n### **Category 1: Data Processing & Privacy Agreements**\n\n**1. Securiti Data Processing Agreement (DPA) Template**\n*   **Parties:** Securiti Inc. (Processor) and Client (Controller) [^309]\n*   **Execution Date:** Undated Template (Pre-signed by Securiti) [^411]\n*   **Expiration/Termination:** Automatically terminates upon termination or expiration of the underlying Agreement [^404]\n\n**Material Obligations:**\n*   **Processing Instructions (Securiti):** Must process Client Personal Data only in accordance with Client's documented instructions and as reasonably necessary for the provision of Services [^338].\n*   **Compliance (Client):** Must process Personal Data in accordance with Data Protection Laws, maintain required legal bases/consents, and provide documented instructions to Securiti [^333] [^334] [^336].\n*   **CCPA Restrictions (Securiti):** Prohibited from Selling or Sharing Client Personal Data; must not retain, use, or disclose data outside of the direct business relationship or for any purpose other than the specific Business Purpose defined [^340] [^341].\n*   **Sub-processors (Securiti):** Must notify Client of new Sub-processors via `http://status.securiti.ai` before authorization [^345].\n*   **Objection Rights (Client):** Client has **3 business days** to object to a new Sub-processor for data protection compliance reasons; failure to object constitutes deemed acceptance [^346] [^347].\n*   **Security Measures (Securiti):** Must maintain technical and organizational measures (Schedule 3), including AES 128-bit minimum encryption, access controls, and regular SOC2 audits [^349] [^357] [^359].\n*   **Incident Notification (Securiti):** Must notify Client without undue delay upon becoming aware of a Personal Data Incident [^367].\n*   **Data Subject Rights (Securiti):** Must assist Client with Data Subject Requests using commercially reasonable efforts; Client is responsible for associated costs [^365] [^366].\n*   **International Transfers (Both Parties):** Transfers from EEA/Switzerland/UK to the US must use the Data Privacy Framework (DPF); if DPF does not apply, EU Standard Contractual Clauses (Module 2 or 3) apply [^372] [^373].\n*   **Audit Rights (Client):** Client may conduct audits at their own cost; Securiti must provide copies of third-party audit reports/certifications once per year upon written request [^392] [^394].\n*   **Liability Cap (Securiti):** Aggregate liability is limited to amounts paid under the Agreement within the **12 months** preceding the claim [^397].\n*   **Data Return/Deletion (Securiti):** Must delete or return data upon termination; online system data is deleted within **one business week** of a confirmed deletion request [^385] [^389].\n\n**2. HIPAA Business Associate Agreement (BAA)**\n*   **Parties:** Securiti, Inc. (Business Associate) and Covered Entity (Customer) [^645]\n*   **Execution Date:** September 9, 2025 (Securiti Signature Date) [^646]\n*   **Expiration/Termination:** Indefinite duration; terminates for cause or when all PHI is returned/destroyed [^665] [^669]\n\n**Material Obligations:**\n*   **Safeguards (Securiti):** Must implement appropriate safeguards to protect the confidentiality, integrity, and availability of e-PHI in compliance with 45 C.F.R. Part 164, Subpart C [^652].\n*   **Incident Reporting (Securiti):** Must report security incidents or non-permitted uses/disclosures within **5 business days** [^653].\n*   **Breach Reporting (Securiti):** Must report Breaches of Unsecured PHI within **30 calendar days** of discovery [^654].\n*   **Access Rights (Securiti):** Must make PHI in Designated Record Sets available within **15 days** of a request [^655].\n*   **Accounting of Disclosures (Securiti):** Must provide information for an accounting of disclosures within **30 days** of a request [^656].\n*   **Prohibitions (Securiti):** Prohibited from selling PHI without prior written consent or using PHI for marketing/fundraising unless permitted by law [^651].\n*   **Subcontractors (Securiti):** Must ensure all subcontractors create, receive, maintain, or transmit PHI execute Business Associate Agreements with restrictions identical to this BAA [^657].\n*   **Termination for Cause (Covered Entity):** May terminate the agreement if Securiti fails to cure a material breach within **10 business days** of written notice [^659].\n*   **Post-Termination (Securiti):** Must return or destroy all PHI; if return is not feasible, protections must be extended to the retained PHI indefinitely [^660].\n\n**3. CCPA Addendum**\n*   **Parties:** Securiti Inc. (Supplier/Service Provider) and Customer (Business) [^610]\n*   **Execution Date:** September 9, 2025 (Securiti Signature Date) [^641]\n*   **Expiration/Termination:** Automatically terminates upon termination or expiration of the underlying Agreement [^583]\n\n**Material Obligations:**\n*   **Service Provider Status (Securiti):** Must act as a Service Provider and process Personal Information solely for the specific Business Purpose of performing Services [^630] [^633].\n*   **Sales Prohibition (Securiti):** Explicitly prohibited from Selling or Sharing Customer Personal Information [^621].\n*   **Compliance (Customer):** Must comply with all obligations applicable to Businesses under the CCPA and indemnify Securiti for breaches related to Customer's use of services [^610] [^620].\n*   **Consumer Requests (Securiti):** Must provide reasonable assistance to Customer for valid Consumer requests and promptly forward any Requests to Know or Delete received directly [^625] [^626].\n*   **Deletion (Securiti):** Must promptly delete Customer Personal Information upon written request, subject to legal retention exceptions [^634].\n*   **Liability (Securiti):** Liability for data protection breaches is subject to the limitation of liability caps defined in the underlying Agreement [^614].\n\n---\n\n### **Category 2: Compliance Certifications & Assessments**\n\n**1. CSA STAR Registry Listing**\n*   **Parties:** Securiti and Cloud Security Alliance (CSA) [^837]\n*   **Execution Date:** June 21, 2021 (Listed Since); Updated February 22, 2024 [^839] [^840]\n*   **Expiration/Termination:** N/A (Continuous listing)\n\n**Material Obligations:**\n*   **Self-Assessment (Securiti):** Must maintain STAR Level One Self-Assessment status [^835].\n*   **Documentation (Securiti):** Must submit and update the Consensus Assessments Initiative Questionnaire (CAIQ v4.0.2) covering security controls [^841].\n\n**2. Data Privacy Framework Certification (EU-U.S., UK, Swiss)**\n*   **Parties:** Securiti, Inc. (Active Participant) [^768]\n*   **Execution Date:** November 7, 2023 (Original Certification) [^774]\n*   **Expiration/Termination:** Next certification due October 29, 2025 [^777]\n\n**Material Obligations:**\n*   **Principle Adherence (Securiti):** Must adhere to DPF Principles regarding the collection and processing of Non-HR Data [^779].\n*   **Complaint Response (Securiti):** Must respond to complaints regarding data handling within **45 days** [^793].\n*   **Dispute Resolution (Securiti):** Must utilize BBB National Programs DPF Services as the independent recourse mechanism [^794].\n*   **Lawful Disclosure (Securiti):** Required to disclose personal data in response to lawful requests by public authorities, including for national security or law enforcement requirements [^788].\n*   **Liability (Securiti):** Remains liable if third-party agents process data in a manner inconsistent with DPF principles, unless Securiti proves it was not responsible for the event [^787].\n\n**3. NIST Privacy Framework Mapping (Self-Assessment)**\n*   **Parties:** Securiti Inc. [^159]\n*   **Execution Date:** January 2025 (Assessment Period) [^161]\n*   **Expiration/Termination:** N/A (Point-in-time assessment)\n\n**Material Obligations:**\n*   **Control Mapping (Securiti):** Must map internal controls to NIST Privacy Framework Core Functions (Identify-P, Govern-P, Control-P, Communicate-P, Protect-P) and ISO 27701:2019 standards [^164] [^185].\n*   **Governance (Securiti):** Must maintain policies and procedures for risk management, workforce training, and monitoring of privacy posture [^194] [^196].\n\n**4. NIST Cybersecurity Framework (CSF) Self Assessment V2**\n*   **Parties:** Securiti Inc. [^237]\n*   **Execution Date:** September 9, 2025 (Document Date) [^304]\n*   **Expiration/Termination:** N/A (Subject to annual review) [^271]\n\n**Material Obligations:**\n*   **Security Testing (Securiti):** Must perform daily vulnerability scans and **annual** external penetration testing [^257] [^274].\n*   **Risk Assessment (Securiti):** Must conduct formal risk assessments **annually** [^258].\n*   **Access Control (Securiti):** Must enforce Multi-Factor Authentication (MFA) for cloud services and remote access [^255].\n*   **Certifications (Securiti):** Must maintain SOC 2 Type 2 and ISO 27001 certifications [^264] [^266].\n*   **Business Continuity (Securiti):** Must test and approve Business Continuity and Disaster Recovery plans **annually** [^256].\n\n---\n\n### **Category 3: Policies & Public Disclosures**\n\n**1. Privacy Policy**\n*   **Parties:** Securiti, Inc. and Users/Site Visitors [^60]\n*   **Execution Date:** May 2024 (Last Updated) [^80]\n*   **Expiration/Termination:** N/A\n\n**Material Obligations:**\n*   **CCPA Response Timing (Securiti):** Must respond to verifiable consumer requests within **45 days**, extendable by an additional 45 days with notice [^58].\n*   **Record Retention (Securiti):** Must maintain records of CCPA consumer requests and responses for at least **24 months** [^67].\n*   **Children's Data (Securiti):** Must promptly delete personal information if it is discovered to have been collected from a child under age 13 without parental consent [^118].\n*   **Data Subject Rights (Securiti):** Must honor requests for access, correction, deletion, and opt-outs (Do Not Sell/Share) subject to verification [^38] [^41].\n\n---\n\n### **Category 4: Technical Documentation**\n\n**1. Customer Data Flow Diagram (L10) & Supported File Formats**\n*   **Parties:** Securiti (Internal Technical Document) [^848]\n*   **Execution Date:** N/A (Technical Specification)\n*   **Expiration/Termination:** N/A\n\n**Material Obligations (Operational Specifications):**\n*   **Infrastructure (Securiti):** Must maintain specific infrastructure layers including Public Load Balancers, Private App/DB Subnets, and AWS Managed Services (RDS, Redshift) [^849] [^853] [^894].\n*   **File Parsing (Securiti):** Must support parsing for specific file formats including Archive (zip, rar), CAD, Database (mdb), Desktop Publishing (pdf), and Office formats (docx, xlsx) [^911]."
+        }
+      }
+    ]
+  },
+  "repo_name": "n8n-backup-zm",
+  "repo_owner": "zlatkomq",
+  "repo_path": "",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "updatedAt": "2025-12-11T12:23:14.235Z",
+      "createdAt": "2025-12-11T12:23:14.235Z",
+      "role": "workflow:owner",
+      "workflowId": "27DczHFv64uCwtVW",
+      "projectId": "p3ICmuTDnWBbcf7S"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-12-11T14:44:46.733Z",
+  "versionId": "f07343ed-7514-40f3-bf45-e4e167645ace"
+}
