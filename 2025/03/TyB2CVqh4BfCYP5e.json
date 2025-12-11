@@ -1,5 +1,5 @@
 {
-  "active": true,
+  "active": false,
   "connections": {
     "When chat message received": {
       "main": [
@@ -358,7 +358,8 @@
         720
       ],
       "id": "630919b7-920b-4edb-861a-40adfde84c41",
-      "webhookId": "9c2c018b-0c4e-47aa-a3b3-d969f38c78a4"
+      "webhookId": "9c2c018b-0c4e-47aa-a3b3-d969f38c78a4",
+      "disabled": true
     },
     {
       "parameters": {
@@ -782,80 +783,7 @@
       }
     }
   ],
-  "pinData": {
-    "Webhook": [
-      {
-        "json": {
-          "headers": {
-            "host": "infinite-wasp-terminally.ngrok-free.app",
-            "user-agent": "Slackbot 1.0 (+https://api.slack.com/robots)",
-            "content-length": "866",
-            "accept": "*/*",
-            "accept-encoding": "gzip,deflate",
-            "content-type": "application/json",
-            "x-forwarded-for": "44.200.137.224",
-            "x-forwarded-host": "infinite-wasp-terminally.ngrok-free.app",
-            "x-forwarded-proto": "https",
-            "x-slack-request-timestamp": "1752177936",
-            "x-slack-signature": "v0=f6912039a5070a240581035a49453859af3b16149e7afa313aac93432bbcd969"
-          },
-          "params": {},
-          "query": {},
-          "body": {
-            "token": "IlfX9mvC2nzNKpe8lFzBgFqQ",
-            "team_id": "T02RA2KBP",
-            "context_team_id": "T02RA2KBP",
-            "context_enterprise_id": null,
-            "api_app_id": "A08K4AP899A",
-            "event": {
-              "user": "U9S2GLSPL",
-              "type": "message",
-              "ts": "1752177935.453429",
-              "client_msg_id": "fbe980ff-28f3-4b9e-88ce-4585899ce24a",
-              "text": "hi",
-              "team": "T02RA2KBP",
-              "blocks": [
-                {
-                  "type": "rich_text",
-                  "block_id": "a8bcU",
-                  "elements": [
-                    {
-                      "type": "rich_text_section",
-                      "elements": [
-                        {
-                          "type": "text",
-                          "text": "hi"
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ],
-              "channel": "D08KMTGN96U",
-              "event_ts": "1752177935.453429",
-              "channel_type": "im"
-            },
-            "type": "event_callback",
-            "event_id": "Ev0956AXR0EA",
-            "event_time": 1752177935,
-            "authorizations": [
-              {
-                "enterprise_id": null,
-                "team_id": "T02RA2KBP",
-                "user_id": "U08JTRGVD6J",
-                "is_bot": true,
-                "is_enterprise_install": false
-              }
-            ],
-            "is_ext_shared_channel": false,
-            "event_context": "4-eyJldCI6Im1lc3NhZ2UiLCJ0aWQiOiJUMDJSQTJLQlAiLCJhaWQiOiJBMDhLNEFQODk5QSIsImNpZCI6IkQwOEtNVEdOOTZVIn0"
-          },
-          "webhookUrl": "http://localhost:5678/webhook/knowledge",
-          "executionMode": "production"
-        }
-      }
-    ]
-  },
+  "pinData": {},
   "repo_name": "n8n-backup-zm",
   "repo_owner": "zlatkomq",
   "repo_path": "",
@@ -864,8 +792,8 @@
   },
   "shared": [
     {
-      "createdAt": "2025-03-27T10:10:38.137Z",
       "updatedAt": "2025-03-27T10:10:38.137Z",
+      "createdAt": "2025-03-27T10:10:38.137Z",
       "role": "workflow:owner",
       "workflowId": "TyB2CVqh4BfCYP5e",
       "projectId": "NM7VZoSXkcKo262s"
@@ -874,13 +802,13 @@
   "staticData": null,
   "tags": [
     {
-      "createdAt": "2025-03-28T12:51:57.041Z",
       "updatedAt": "2025-03-28T12:51:57.041Z",
+      "createdAt": "2025-03-28T12:51:57.041Z",
       "id": "zAqBHJiX4svNrPVZ",
       "name": "Knowledge Base"
     }
   ],
   "triggerCount": 2,
-  "updatedAt": "2025-09-02T11:02:42.071Z",
-  "versionId": "120b0994-09c2-4f3b-8c49-e9da6b0b5b64"
+  "updatedAt": "2025-11-30T22:03:41.006Z",
+  "versionId": "ad4bd9e7-ab79-4ca8-b477-409673f7a62b"
 }
